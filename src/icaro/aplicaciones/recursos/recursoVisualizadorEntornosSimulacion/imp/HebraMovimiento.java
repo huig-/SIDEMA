@@ -84,8 +84,8 @@ public class HebraMovimiento extends Thread {
  //     this.evento = notificacionAProducir;
       this.finalizar= false;
 //       distanciaDestino = this.distanciaEuclidC1toC2(coordActuales, coordDestino);
-       double incrX=(coordDestino.x-coordActuales.x);
-       double incrY=(coordDestino.y-coordActuales.y);
+       double incrX=(coordDestino.getX()-coordActuales.getX());
+       double incrY=(coordDestino.getY()-coordActuales.getY());
        if (incrX>0)dirX=1 ;
                else dirX=-1;
        if (incrY>0)dirY=1 ;
@@ -175,14 +175,14 @@ private void calcularNuevasCoordenadas (long incrementoDistancia){
         if (pendienteInfinita){
             constIncrX = 0;
 //            constIncrY= incrementoDistancia;
-             this.coordActuales.y = coordActuales.y + incrementoDistancia*dirY;
+             this.coordActuales.setY(coordActuales.y + incrementoDistancia*dirY);
         }
 //            this.coordActuales.y = coordActuales.y+this.dirY*incrementoDistancia;
         else {
             // incremmento de x respecto a distancia recorrida 
             constIncrX =(incrementoDistancia/ Math.sqrt(1+pendienteRecta*pendienteRecta));
-            this.coordActuales.x = coordActuales.x + constIncrX*dirX;
-            this.coordActuales.y = coordActuales.y + pendienteRecta*constIncrX*dirY;
+            this.coordActuales.setX( coordActuales.x + constIncrX*dirX);
+            this.coordActuales.setY (coordActuales.y + pendienteRecta*constIncrX*dirY);
 //            constIncrY = (this.coordActuales.x +constIncrX)*this.pendienteRecta*dirY;
         }
 //        distanciaArecorrer = distanciaArecorrer-incrementoDistancia;

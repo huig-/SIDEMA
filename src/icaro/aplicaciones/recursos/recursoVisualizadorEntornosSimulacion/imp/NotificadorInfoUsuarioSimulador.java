@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author FGarijo
  */
-public class NotificacionEventosVisualizadorEntornosSimulacion extends ComunicacionAgentes{
+public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
   
     protected ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces;
     protected ClaseGeneradoraRecursoVisualizadorEntornosSimulacion generadoraVisualizador;
@@ -42,7 +42,7 @@ public class NotificacionEventosVisualizadorEntornosSimulacion extends Comunicac
 //    private ItfUsoRecursoEstadistica itfUsoRecursoEstadistica;    //Para recoger estadisticas del instante de envio de victimas desde el centro de control
 
     
-    public NotificacionEventosVisualizadorEntornosSimulacion(String  idRecurso, String identAgteControlador) {
+    public NotificadorInfoUsuarioSimulador(String  idRecurso, String identAgteControlador) {
             // la clase generadora pasa la informacion sobre el agente controlador a quien se le pasan los eventos
             // Obtenemos las informaciones que necesitamos de la clase generadora del recurso
             super (idRecurso)  ;      
@@ -92,14 +92,14 @@ public class NotificacionEventosVisualizadorEntornosSimulacion extends Comunicac
         try {
             this.informaraOtroAgenteReactivo(peticionMostrarEscenario, identificadorAgenteaReportar);
         } catch (Exception ex) {
-            Logger.getLogger(NotificacionEventosVisualizadorEntornosSimulacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void sendPeticionAgteControlador(VocabularioRosace.PeticionAgteControlSimul identPeticion) {
         try {  
             this.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo (identPeticion.name()) , identificadorAgenteaReportar);
         } catch (Exception ex) {
-            Logger.getLogger(NotificacionEventosVisualizadorEntornosSimulacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -108,7 +108,7 @@ public class NotificacionEventosVisualizadorEntornosSimulacion extends Comunicac
             Informe informeLlegada = new Informe (robotId,identDestino, VocabularioRosace.MsgeLlegadaDestino);
             this.enviarInfoAotroAgente(informeLlegada, robotId);
         } catch (Exception ex) {
-            Logger.getLogger(NotificacionEventosVisualizadorEntornosSimulacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

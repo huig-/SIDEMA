@@ -347,7 +347,8 @@ public class VisorEscenariosRosace extends JFrame {
         if (jlabelRobot != null) {
 //            JOptionPane.showMessageDialog(panelVisor, "Se llama idRobot:"+valor_idRobot+" X:"+nueva_coordx+ "Y:"+nueva_coordy);
 //            jlabelRobot.setBounds(jlabelRobot.getX()+10, jlabelRobot.getY()+10, jlabelRobot.getWidth(), jlabelRobot.getHeight());
-            jlabelRobot.setBounds(nueva_coordx, nueva_coordy, jlabelRobot.getWidth(), jlabelRobot.getHeight());
+//            jlabelRobot.setBounds(nueva_coordx, nueva_coordy, jlabelRobot.getWidth(), jlabelRobot.getHeight());
+            jlabelRobot.setLocation(nueva_coordx, nueva_coordy);
             this.notifyAll();
 
             //Eliminar de la visualizacion
@@ -380,7 +381,8 @@ public class VisorEscenariosRosace extends JFrame {
         }
 
 
-        System.out.println("Localizacion del robot " + jlabelRobot.getText() + "-> " + jlabelRobot.getBounds());
+//        System.out.println("Localizacion del robot " + jlabelRobot.getText() + "-> " + jlabelRobot.getBounds());
+        System.out.println("Localizacion del robot " + jlabelRobot.getText() + "-> " + jlabelRobot.getLocationOnScreen());
     }
 
     public void cambiarIconoVictimaARescatada(String valor_idVictima) {

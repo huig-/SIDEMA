@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class ControlCenterGUI3 extends javax.swing.JFrame {
 
     /** Creates new form ControlCenterGui2 */
-    private NotificacionEventosVisualizadorEntornosSimulacion notifEvts;
+    private NotificadorInfoUsuarioSimulador notifEvts;
     private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
     private int numMensajesEnviar = 3;
     private boolean primeraVictima = true;
@@ -28,7 +28,7 @@ public class ControlCenterGUI3 extends javax.swing.JFrame {
         initComponents();
        
     }
-    public ControlCenterGUI3( NotificacionEventosVisualizadorEntornosSimulacion notifEvt) {
+    public ControlCenterGUI3( NotificadorInfoUsuarioSimulador notifEvt) {
         this.notifEvts = notifEvt;
  //       this.cgen = cgenRec;
  //       this.visorSc = visorScn;

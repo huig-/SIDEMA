@@ -9,6 +9,7 @@ import icaro.infraestructura.entidadesBasicas.InfoTraza.NivelTraza;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import java.awt.Color;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,13 +27,17 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
     private ControlCenterGUI4 ventanaControlCenterGUI;
     private VisorEscenariosRosace visorEscenarios;
     private VisualizacionJfreechart visualizadorJFchart;
-    private NotificacionEventosVisualizadorEntornosSimulacion notifEvt;
+    private NotificadorInfoUsuarioSimulador notifEvt;
     private String recursoId;
     private String identAgenteaReportar;
     private Map<String,HebraMovimiento> tablaHebrasMov;
     private int coordX = 40;
     private int coordY = 40;  // valores iniciales 
 //   private int coordX, coordY ; // coordenadas de visualizacion  se le dan valores iniciales y se incrementan para que las ventanas no coincidan
+    private ControladorVisualizacionSimulRosace controladorIUSimulador;
+ // para prueba de integracion 
+    private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
+    private String identFicheroEscenarioSimulacion=directorioPersistencia+"modeloOrg_JerarquicoNumRobts_4NumVicts_2.xml" ;
 
     public ClaseGeneradoraRecursoVisualizadorEntornosSimulacion(String idRecurso) throws Exception {
         //#start_nodeconstructorMethod:constructorMethod <--constructorMethod-- DO NOT REMOVE THIS
@@ -40,12 +45,14 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
         recursoId = idRecurso;
         try {
             trazas.aceptaNuevaTraza(new InfoTraza(idRecurso, "El constructor de la clase generadora del recurso " + idRecurso + " ha completado su ejecucion ....", InfoTraza.NivelTraza.debug));
-            notifEvt = new NotificacionEventosVisualizadorEntornosSimulacion(recursoId, identAgenteaReportar);
+            notifEvt = new NotificadorInfoUsuarioSimulador(recursoId, identAgenteaReportar);
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
+//            visorEscenarios = new VisorEscenariosRosace3();
             visorEscenarios = new VisorEscenariosRosace();
-            ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
+//            ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
+            controladorIUSimulador = new ControladorVisualizacionSimulRosace(notifEvt);
         } catch (Exception e) {
-            this.trazas.trazar(recursoId, " Se ha producido un error en la creaciÃ³n del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
+            this.trazas.trazar(recursoId, " Se ha producido un error en la creación del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
             this.itfAutomata.transita("error");
             throw e;
         }
@@ -53,7 +60,10 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 
     @Override
     public void mostrarVentanaControlSimulador()throws Exception{
-    ventanaControlCenterGUI.setVisible(true);
+//    ventanaControlCenterGUI.setVisible(true);
+        // debe devolver un booleano cuando no se pueda abrir el fichero por las causas que sea
+      if ( ! controladorIUSimulador.abrirVisorConEscenario( identFicheroEscenarioSimulacion))
+        trazas.aceptaNuevaTraza(new InfoTraza(recursoId, "El escenario  : " + identFicheroEscenarioSimulacion + " no existe o no se puede abrir ", InfoTraza.NivelTraza.error));
 }
     @Override
     public void crearEInicializarVisorGraficaEstadisticas(String tituloVentanaVisor,
@@ -217,9 +227,13 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
         JOptionPane.showMessageDialog(null, msg);
     }
     @Override
-    public synchronized void mostrarPosicionRobot(String identRobot, int coordX, int coordY)throws Exception{
+//    public synchronized void mostrarPosicionRobot(String identRobot, int coordX, int coordY)throws Exception{
+      public synchronized void mostrarPosicionRobot(String identRobot, Coordinate coordRobot)throws Exception{
+        coordX = (int) coordRobot.getX();
+        coordY = (int) coordRobot.getY();
         visorEscenarios.setVisible(true);
         visorEscenarios.cambiarPosicionRobot(identRobot, coordX, coordY);
+//        visorEscenarios.moverRobot(identRobot, coordX, coordX);
     }
 //    @Override
 //    public synchronized void mostrarPosicionActualRobot(String identRobot)throws Exception{
@@ -233,14 +247,15 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
         visorEscenarios.cambiarIconoVictimaARescatada(identVictima);
     }
     @Override
-     public  void inicializarDestinoRobot(String idRobot,Coordinate coordInicial,Coordinate coordDestino, float velocidadInicial){
+     public  void inicializarDestinoRobot(String idRobot,Coordinate coordInicial,Coordinate coordDestino, double velocidadInicial){
 //        if (idRobot != null )  this.getInstanciaHebraMvto(idRobot).inicializarDestino(idRobot, coordInicial, coordDestino, velocidadInicial);
     } 
     @Override
-    public synchronized void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, float velocidadCrucero) {
+    public synchronized void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, double velocidadCrucero) {
            if (idRobot != null ){
                this.visorEscenarios.setVisible(true);
                this.visorEscenarios.cambiarPosicionRobot(idRobot, coordX, coordX);
+//               visorEscenarios.moverRobot(idRobot, coordX, coordX);
            }
     }
 //        public synchronized void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, float velocidadCrucero) {
@@ -279,6 +294,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //     }
     @Override
     public void mostrarIdentsEquipoRobots(ArrayList identList){
-        this.ventanaControlCenterGUI.visualizarIdentsEquipoRobot(identList);
+//        this.ventanaControlCenterGUI.visualizarIdentsEquipoRobot(identList);
+        controladorIUSimulador.peticionVisualizarIdentsRobots(identList);
     }
 }
