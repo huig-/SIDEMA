@@ -156,6 +156,7 @@ public class Coste {
                 funcionEvaluacion = this.FuncionEvaluacion2(distanciaCamino, 10.0, robot, victima);
             else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion3"))
                 funcionEvaluacion = this.FuncionEvaluacion3(distanciaCamino, 10.0, tiempoAtencionVictimas, 3.0, robot, victima);
+            
             else {
 //                trazas.aceptaNuevaTraza(new InfoTraza("Evaluacion", "FuncionEvaluacion Especificada no existe sobre Victima(" + victima.getName() + ")"  +
 //		          ": robot " + robot.getIdRobot() + "-> -1.0"	    		   
@@ -305,8 +306,8 @@ public class Coste {
 	//Calcula la distancia entre dos puntos
     public double distanciaC1toC2(Coordinate c1, Coordinate c2){
     	
-    	System.out.println("c1->"+c1);
-    	System.out.println("c2->"+c2);
+    	System.out.println("Coord calculo Coste c1->"+c1);
+    	System.out.println("Coord calculo Coste c2->"+c2);
     	
         return Math.sqrt( Math.pow(c1.x - c2.x,2) + 
      	 	   			  Math.pow(c1.y - c2.y,2) +

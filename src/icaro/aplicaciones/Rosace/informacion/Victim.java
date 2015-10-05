@@ -7,7 +7,7 @@ import java.util.List;
 public class Victim implements Serializable{
 
        private String name;
-       private Coordinate coordinateVictim;
+       private volatile Coordinate coordinateVictim;
 	   //Requirements. Robot abilities should cover these requirements to heal the victim.
        public List<Integer> RequiredCompetencies = new ArrayList<Integer>();  
        private int priority; //victim severity

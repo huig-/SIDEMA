@@ -25,17 +25,18 @@ public class RobotStatus {
     private String idRobot;
     private String idRobotRol;
     private int availableEnergy;
-    private Coordinate robotCoordinate;
+    private Coordinate robotCoordinateActual,robotCoordinateAnterior ;
     private float healRange;  
     //Actualmente en nuestra implementacion no se utilizan los atributos rangeProximity y robotCapabilities.
     //No obstante esta clase ya ofrece metodos para poder considerarlos en el futuro 
-    private float rangeProximity;	
+    private float rangeProximity;
+    private final double limiteDespalzamiento = 0.5;
     private List<Integer> robotCapabilities = new ArrayList<Integer>();
     private InfoCompMovimiento infoCompMovt;
         
 	//Constructor sin argumentos
 	public void RobotStatus(){
-		
+		robotCoordinateAnterior = new Coordinate(0,0,0);
 	}
 		
 	public void setIdRobot(String id){
@@ -57,15 +58,17 @@ public class RobotStatus {
 	public int getAvailableEnergy(){
 		return this.availableEnergy;
 	}	
-    public void setRobotCoordinate(Coordinate coord){
-        this.robotCoordinate = coord; 
+    public synchronized void setRobotCoordinate(Coordinate coord){
+        this.robotCoordinateAnterior=robotCoordinateActual;
+        this.robotCoordinateActual = coord; 
         if (infoCompMovt != null) infoCompMovt.itfAccesoComponente.setCoordenadasActuales(coord);        
     }
     
-    public Coordinate getRobotCoordinate(){
-        if (infoCompMovt != null)
-                        return this.robotCoordinate= infoCompMovt.itfAccesoComponente.getCoordenadasActuales();
-        else return robotCoordinate;
+    public synchronized Coordinate getRobotCoordinate(){
+        if ( sinMovimientoSignificativo()||infoCompMovt == null )return robotCoordinateActual;
+//        if (infoCompMovt != null)
+        return this.robotCoordinateActual= infoCompMovt.itfAccesoComponente.getCoordenadasActuales();
+//        else return robotCoordinateActual;
     }
     public void setInfoCompMovt(InfoCompMovimiento compInfo){
         this.infoCompMovt = compInfo;    	
@@ -99,6 +102,11 @@ public class RobotStatus {
         
     public List<Integer> getRobotCapabilities(){
     	return this.robotCapabilities;
+    }
+    public boolean sinMovimientoSignificativo (){
+        if (robotCoordinateAnterior == null) return false;
+        return (limiteDespalzamiento>=Math.abs(robotCoordinateActual.getY()-robotCoordinateAnterior.getY()) && 
+                limiteDespalzamiento>=Math.abs(robotCoordinateActual.getX()-robotCoordinateAnterior.getX()) );
     }
     
     @Override
