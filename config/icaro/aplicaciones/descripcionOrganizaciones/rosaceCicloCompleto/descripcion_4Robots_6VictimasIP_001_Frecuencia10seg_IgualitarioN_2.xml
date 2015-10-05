@@ -7,15 +7,18 @@
 ********************************************************************************************************-->
 <icaro:PropiedadesGlobales>
      <icaro:intervaloMonitorizacionGestores>800000</icaro:intervaloMonitorizacionGestores>
-     <icaro:activarPanelTrazasDebug>true</icaro:activarPanelTrazasDebug>
-        <icaro:listaPropiedades>
-            <icaro:propiedad atributo="identificadorEquipo" valor = "Jerarquico" />
+     <icaro:activarPanelTrazasDebug>false</icaro:activarPanelTrazasDebug>
+     <icaro:listaPropiedades>
+            <icaro:propiedad atributo="identificadorEquipo" valor = "robotIgualitario" />            
             <icaro:propiedad atributo="rutaFicheroVictimasTest" valor = "src/utils/Esc_6Victimas_0IP_001.xml" />            
-            <icaro:propiedad atributo="rutaFicheroRobotsTest" valor = "src/utils/Esc_Jerarquico_4Robots_001.xml" />
-            <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "10000" />   <!-- valor expresado en milisegundos -->  
-            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones1" valor = "6000" />   <!-- se usa en el igualitario y en el jerarquico -->                                                                        
-            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirConfirmacionesRealizacionObjetivo1" valor = "8000" />
-            <icaro:propiedad atributo="timeTimeoutPorDefecto" valor = "7000" />
+            <icaro:propiedad atributo="rutaFicheroRobotsTest" valor = "src/utils/Esc_Igualitario_4Robots_001.xml" />  
+            <icaro:propiedad atributo="timeMsTarea:TimeOutContactarMiembrosEquipo" valor = "3000" />
+            <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "10000" />   <!-- valor expresado en milisegundos -->            
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones1" valor = "5000" />      
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirConfirmacionesRealizacionObjetivo1" valor = "5000" /> <!-- creo que se usa en el igualitario y en el jerarquico -->
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirPropuestaDesempate" valor = "5000" />   <!-- creo que se usa en el igualitario -->
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirRespPropuestasIrYo" valor = "8000" />   <!-- creo que se usa en el igualitario -->                                    
+            <icaro:propiedad atributo="timeTimeoutPorDefecto" valor = "5000" />
         </icaro:listaPropiedades>
 </icaro:PropiedadesGlobales>
 
@@ -41,10 +44,8 @@
        nombreComportamiento="AgenteAplicacionAgteControladorSimuladorRosace" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAgteControladorSimuladorRosaceReactivo.comportamiento"
                             tipo="Reactivo" />
     <icaro:DescComportamientoAgente
-       nombreComportamiento="AgenteAplicacionAsignadorObjetivos" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo" tipo="Cognitivo" />
-     <icaro:DescComportamientoAgente  
-       nombreComportamiento="AgenteAplicacionSubordinado" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo" tipo="Cognitivo"
-       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.procesoResolucionObjetivos.reglasSubordinado.drl"/>
+       nombreComportamiento="AgenteAplicacionrobotIgualitarioN" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo" tipo="Cognitivo" 
+       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.procesoResolucionObjetivos.reglasIgualitarioNC1.drl"/>
 </icaro:DescComportamientoAgentesAplicacion>
 </icaro:DescComportamientoAgentes>
 	<!--******************************************************************************************************
@@ -75,12 +76,11 @@
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorAgentes" refDescripcion="GestorAgentes">
                     <icaro:componentesGestionados>
-                            <icaro:componenteGestionado refId="AgenteControladorSimuladorRosaceReactivo1" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="JerarquicoagenteAsignador" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="JerarquicorobotSubordinado1" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="JerarquicorobotSubordinado2" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="JerarquicorobotSubordinado3" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="JerarquicorobotSubordinado4" tipoComponente="AgenteAplicacion"/>
+                        <icaro:componenteGestionado refId="AgenteControladorSimuladorRosaceReactivo1" tipoComponente="AgenteAplicacion"/>
+                        <icaro:componenteGestionado refId="robotIgualitarioN1" tipoComponente="AgenteAplicacion"/>
+                        <icaro:componenteGestionado refId="robotIgualitarioN2" tipoComponente="AgenteAplicacion"/>
+                        <icaro:componenteGestionado refId="robotIgualitarioN3" tipoComponente="AgenteAplicacion"/>
+                        <icaro:componenteGestionado refId="robotIgualitarioN4" tipoComponente="AgenteAplicacion"/>
                     </icaro:componentesGestionados>
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorRecursos" refDescripcion="GestorRecursos">
@@ -100,15 +100,13 @@
         <icaro:AgentesAplicacion>
                 <icaro:Instancia id="AgenteControladorSimuladorRosaceReactivo1" refDescripcion="AgenteAplicacionAgteControladorSimuladorRosace">
                 </icaro:Instancia>
-                <icaro:Instancia id="JerarquicoagenteAsignador" refDescripcion="AgenteAplicacionAsignadorObjetivos">
+                <icaro:Instancia id="robotIgualitarioN1" refDescripcion="AgenteAplicacionrobotIgualitarioN">
                 </icaro:Instancia>
-                <icaro:Instancia id="JerarquicorobotSubordinado1" refDescripcion="AgenteAplicacionSubordinado">
+                <icaro:Instancia id="robotIgualitarioN2" refDescripcion="AgenteAplicacionrobotIgualitarioN">
                 </icaro:Instancia>
-                <icaro:Instancia id="JerarquicorobotSubordinado2" refDescripcion="AgenteAplicacionSubordinado">
+                <icaro:Instancia id="robotIgualitarioN3" refDescripcion="AgenteAplicacionrobotIgualitarioN">
                 </icaro:Instancia>
-                <icaro:Instancia id="JerarquicorobotSubordinado3" refDescripcion="AgenteAplicacionSubordinado">
-                </icaro:Instancia> 
-                <icaro:Instancia id="JerarquicorobotSubordinado4" refDescripcion="AgenteAplicacionSubordinado">
+                <icaro:Instancia id="robotIgualitarioN4" refDescripcion="AgenteAplicacionrobotIgualitarioN">
                 </icaro:Instancia> 
         </icaro:AgentesAplicacion>
 	<!--******************************************************************************************************
