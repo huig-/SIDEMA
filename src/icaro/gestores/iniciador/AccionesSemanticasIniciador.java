@@ -221,7 +221,7 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
     public String localizarComportamientoGestorInicial ( String identGestor) throws ExcepcionEnComponente, RemoteException {
 
         String locComportamientoGestor = null;
-        // Se obtiene el gestor inicial de la descripción de la organizacion. Puede ser un gestor de organizacion o un gestor de nodo
+        // Se obtiene el gestor inicial de la descripcion de la organizacion. Puede ser un gestor de organizacion o un gestor de nodo
 //         identGestor = configuracionExterna.getIdentGestorInicial();
         try {
 //            DescComportamientoAgente desCompGestor = configuracionExterna.getDescComportamientoAgente(identGestor);
@@ -283,7 +283,7 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
 //                    locComportamientoGestor = NombresPredefinidos.COMPORTAMIENTO_PORDEFECTO_GESTOR_NODO;
 //                    }
 //                    else{
-//             // El gestor inicial debe ser un gestor de organización o un gestor de nodo y no se ha definido ninguno
+//             // El gestor inicial debe ser un gestor de organizaci�n o un gestor de nodo y no se ha definido ninguno
 //                        ItfUsoRecTrazas.aceptaNuevaTraza(new InfoTraza("Iniciador",
 //                        "No se pudo crear el comportamiento del Gestor Inicial porque no hay un Gestor de Organizacion o un Gestor de Nodo definido."
 //                         + " Revisar el fichero de Descripcion de la  Organizacion",
