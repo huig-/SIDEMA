@@ -5,6 +5,7 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl;
 
 import icaro.aplicaciones.agentes.componentesInternos.InfoCompInterno;
+import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.EstadoAbstractoMovRobot;
 import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaEInterfacesPrObj.ItfProcesadorObjetivos;
 
 /**
@@ -13,8 +14,9 @@ import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaE
  */
 public class InfoCompMovimiento extends InfoCompInterno {
    
-    public ItfUsoMovimientoCtrl itfAccesoComponente;
-    public ItfProcesadorObjetivos itfAccesoControlEntidad;
+    public  ItfUsoMovimientoCtrl itfAccesoComponente;
+    public  ItfProcesadorObjetivos itfAccesoControlEntidad;
+    private String identEstadoRobot;
     
   public  InfoCompMovimiento ( String componenteId){
       super (componenteId);
@@ -33,4 +35,12 @@ public class InfoCompMovimiento extends InfoCompInterno {
      public Object getitfAccesoControlEntidad(){
          return itfAccesoControlEntidad ;
      } 
+
+     public String getestadoMovRobot(){
+         identEstadoRobot = itfAccesoComponente.getIdentEstadoMovRobot();
+         return identEstadoRobot;
+     }
+//     public  void actualizarEstadoMovRobot(){
+//         this.estadoRobot = itfAccesoComponente.getIdentEstadoMovRobot();
+//     }
 }

@@ -52,11 +52,8 @@ public class AccionesSemanticasAgenteAplicacionAcceso extends AccionesSemanticas
 
 		catch (Exception ex) {
 			try {
-			ItfUsoRecursoTrazas trazas = (ItfUsoRecursoTrazas)ClaseGeneradoraRepositorioInterfaces.instance().obtenerInterfaz(
-					NombresPredefinidos.ITF_USO+NombresPredefinidos.RECURSO_TRAZAS);
-					trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, "Ha habido un problema al abrir el visualizador"
-                                                + " de Acceso en accion semantica 'arranque()'",
-                                                                InfoTraza.NivelTraza.error));
+			trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, "Ha habido un problema al abrir el visualizador"
+                                                + " de Acceso en accion semantica 'arranque()'",InfoTraza.NivelTraza.error));
 			}catch(Exception e){e.printStackTrace();}
 		}
 	}
@@ -68,9 +65,7 @@ public class AccionesSemanticasAgenteAplicacionAcceso extends AccionesSemanticas
 			(NombresPredefinidos.ITF_USO+"Persistencia1");
 			ok = Persistencia1.compruebaUsuario(infoUsuario.tomaUsuario(),infoUsuario.tomaPassword());
 			try {
-				ItfUsoRecursoTrazas trazas = (ItfUsoRecursoTrazas)ClaseGeneradoraRepositorioInterfaces.instance().obtenerInterfaz(
-						NombresPredefinidos.ITF_USO+NombresPredefinidos.RECURSO_TRAZAS);
-						trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, 
+				trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, 
 															  "Comprobando usuario...", 
 															  InfoTraza.NivelTraza.debug));
 			}catch(Exception e){e.printStackTrace();}
@@ -203,12 +198,11 @@ public class AccionesSemanticasAgenteAplicacionAcceso extends AccionesSemanticas
 		}
 
 		catch (Exception ex) {
-			try {
-				ItfUsoRecursoTrazas trazas = (ItfUsoRecursoTrazas)ClaseGeneradoraRepositorioInterfaces.instance().obtenerInterfaz(
-						NombresPredefinidos.ITF_USO+NombresPredefinidos.RECURSO_TRAZAS);
-						trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, 
-															  "Ha habido un problema al abrir el visualizador de Acceso", 
-															  InfoTraza.NivelTraza.error));
+                    try {
+			ItfUsoRecursoTrazas trazas = (ItfUsoRecursoTrazas)ClaseGeneradoraRepositorioInterfaces.instance().obtenerInterfaz(
+			NombresPredefinidos.ITF_USO+NombresPredefinidos.RECURSO_TRAZAS);
+			trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, "Ha habido un problema al abrir el visualizador de Acceso", 
+                                                               InfoTraza.NivelTraza.error));
 			}catch(Exception e2){e2.printStackTrace();}
 		}
 		// pedirTerminacionGestorAgentes();

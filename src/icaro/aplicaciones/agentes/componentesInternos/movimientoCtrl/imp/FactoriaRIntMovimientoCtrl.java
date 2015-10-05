@@ -42,9 +42,12 @@ public class FactoriaRIntMovimientoCtrl extends FactoriaAbstrCompInterno{
         } catch (Exception ex) {
             Logger.getLogger(FactoriaRIntMovimientoCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
         ItfUsoMovimientoCtrl itfMov =(ItfUsoMovimientoCtrl) maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
+        
         InfoCompMovimiento infoCompCreado = new InfoCompMovimiento (identComponenteAcrear);
         infoCompCreado.setitfAccesoComponente(itfMov);
+//        infoCompCreado.setitfAccesoComponente ((ItfUsoMovimientoCtrl) maquinaEstados);
         return infoCompCreado;
  
     }

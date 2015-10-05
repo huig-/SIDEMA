@@ -55,6 +55,7 @@ public class InterpretarOrdenDelCC extends TareaSincrona{
                                     " Se crea el  objetivo:  "+ newAyudarVictima, InfoTraza.NivelTraza.debug));
             System.out.println("\n"+nombreAgenteEmisor +"Se ejecuta la tarea " + this.getIdentTarea()+ " Se crea el  objetivo:  "+ newAyudarVictima+"\n\n" );
              }
+        //         Si el foco esta en un objetivo solved
                 
        } catch (Exception e) {
 			 e.printStackTrace();

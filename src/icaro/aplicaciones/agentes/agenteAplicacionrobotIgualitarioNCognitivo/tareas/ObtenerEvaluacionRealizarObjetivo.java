@@ -80,12 +80,12 @@ public class ObtenerEvaluacionRealizarObjetivo extends TareaSincrona {
 //	        double distanciaCamino = coste.CalculaDistanciaCamino(nombreAgenteEmisor, robotLocation, victim, victims2R, misObjs);
 //	        funcionEvaluacion = coste.FuncionEvaluacion2(distanciaCamino, 1.0, robot, victim);
 //
-//            System.out.println("nombreAgenteEmisor->" + nombreAgenteEmisor);
-//            System.out.println("robotLocation->"+robotLocation);
-//            System.out.println("victim->"+victim);
-//            System.out.println("victims2R->"+victims2R);
-//            System.out.println("misObjs->"+misObjs);
-
+            System.out.println("Realizando  la evaluacion para el Robot ->" + this.identAgente);
+            System.out.println("robotLocation->"+robot.getRobotCoordinate());
+            System.out.println("para la victima ->"+victim.toString());
+            System.out.println("victims2R->"+victims2R.getlastVictimToRescue().toString());
+//            System.out.println("misObjs->"+misObjs.getobjetivoMasPrioritario().toString());
+            if (misObjs.getobjetivoMasPrioritario()!=null)System.out.println("misObjs->"+misObjs.getobjetivoMasPrioritario().toString());
 	        //Las sentencias siguientes permiten utilizar la funcion de evaluacion 3 que considera el recorrido que tendria que hacer y la engergia y el tiempo
             double distanciaCamino = coste.CalculaDistanciaCamino(this.identAgente, robot.getRobotCoordinate(), victim, victims2R, misObjs);
             double tiempoAtencionVictimas = coste.CalculaTiempoAtencion(3.0, victim, victims2R, misObjs);

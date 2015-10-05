@@ -245,7 +245,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
             itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVictimaRescatada(refVictima);
             infoCasoSimul.addAsignacionVictima(infoAsigVictima);
             if (infoCasoSimul.todasLasVictimasAsgnadas()) {
-                notificarFinSimulacion();
+//                notificarFinSimulacion();
                 visualizarYguardarResultadosCaso();
             }
         } catch (Exception ex) {

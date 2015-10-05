@@ -19,7 +19,7 @@ public class RobotBloqueado extends EstadoAbstractoMovRobot implements ItfUsoMov
        // en este estado se puede simular que el robot no avanza, pero que esta intentando salir del atasco
         // esto puede durar un tiempo. al final o ha salido del atasco para continuar hacia el destino o se queda
         // esperando ordenes
-         super (maquinaEstados,MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
+         super (maquinaEstados,MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotBloqueado);
   
     }
    @Override
@@ -58,9 +58,24 @@ public class RobotBloqueado extends EstadoAbstractoMovRobot implements ItfUsoMov
             this.trazas.trazar (this.identAgente +"."+this.getClass().getSimpleName(), " ignoro la operacion porque estoy parado ", InfoTraza.NivelTraza.debug); 
         }
     @Override
-    public void estamosEnDestino(String identDest){
-        // se podria comprobar que no se esta en el destino e ignorar la operacion
+    public boolean estamosEnDestino(String identDest){
+        return (identDestino.equals(identDest));
+        // 
         // se podria estar atascado y en destino
-         this.trazas.trazar (this.identAgente +"."+this.getClass().getSimpleName(), " ignoro la operacion porque estoy atascado ", InfoTraza.NivelTraza.debug);
+//         this.trazas.trazar (this.identAgente +"."+this.getClass().getSimpleName(), " ignoro la operacion porque estoy atascado ", InfoTraza.NivelTraza.debug);
+    }
+    @Override
+    public  Coordinate getCoordenadasActuales(){
+        return this.monitorizacionLlegadaDestino.getCoordRobot();
+    } 
+    @Override
+     public  String getIdentEstadoMovRobot(){
+         return MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotBloqueado.name();
+     }
+
+    @Override
+    public EstadoAbstractoMovRobot getEstadoActual() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return this;
     }
 }

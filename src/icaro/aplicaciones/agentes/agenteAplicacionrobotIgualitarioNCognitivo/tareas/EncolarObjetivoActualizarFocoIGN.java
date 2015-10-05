@@ -67,20 +67,29 @@ public class EncolarObjetivoActualizarFocoIGN extends TareaSincrona {
             // verificamos que no se esta ayudando a esa victima. Comprobamos que el ident no esta en ninguno de los objetivos 
             //      if((objetivoEjecutantedeTarea == null)) newObjetivo.setSolving(); // se comienza el proceso para intentar conseguirlo                                        
             //       Se genera un objetivo para decidir quien se hace cargo de la ayuda y lo ponemos a solving
-            obj1.setSolving();
+//            obj1.setSolving();
             misObjs.addObjetivo(obj1);
             Objetivo nuevoObj = misObjs.getobjetivoMasPrioritario();
+            if ( obj1.getobjectReferenceId().equalsIgnoreCase(nuevoObj.getobjectReferenceId())){
+                obj1.setSolving();
+            }
             focoActual.setFoco(nuevoObj);
-            victima = victimas.getVictimToRescue(nuevoObj.getobjectReferenceId());
-            ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
-            itfcompMov.moverAdestino(nuevoObj.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); // se pondra la verlocidad por defecto 
-            trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea : " + identTarea + " Se actualiza el  foco al objetivo:  " + nuevoObj + "\n");
-            trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se da orden al comp Movimiento  para salvar a la victima :  " + victima + "\n");
+            victima = victimas.getVictimToRescue(nuevoObj.getobjectReferenceId());          
+                ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
+//                if (itfcompMov.estamosEnDestino(victima.getName())){
+//                    nuevoObj.setSolved();
+//                    this.getEnvioHechos().actualizarHechoWithoutFireRules(nuevoObj);
+//                } else {             
+                itfcompMov.moverAdestino(nuevoObj.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto);
+            // se pondra la verlocidad por defecto 
+            trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Objetivo1 : "+ obj1.toString()+ "Se ejecuta la tarea : " + identTarea + " Se actualiza el  foco al objetivo:  " + nuevoObj + "\n");
+            trazas.aceptaNuevaTrazaEjecReglas(identAgente,"Posicion Robot : "+itfcompMov.getCoordenadasActuales()+ "Se da orden al comp Movimiento  para salvar a la victima :  " + victima + "\n");
             System.out.println("\n" + identAgente + "Se ejecuta la tarea " + identTarea + " Se actualiza el  objetivo:  " + obj1 + "\n\n");
+//            }
             if (infoDecision != null) {
                 this.getEnvioHechos().eliminarHechoWithoutFireRules(infoDecision);
             }
-            this.getEnvioHechos().actualizarHechoWithoutFireRules(obj1);
+            this.getEnvioHechos().actualizarHecho(obj1);
             this.getEnvioHechos().actualizarHechoWithoutFireRules(infoComMov);
             this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
             this.getEnvioHechos().actualizarHecho(focoActual);

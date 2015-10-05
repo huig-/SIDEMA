@@ -11,6 +11,7 @@ package icaro.aplicaciones.agentes.componentesInternos;
 public class InfoCompInterno {
     public String tipoComponente;
     public String idComponente;
+    public String estadoComponente;
     public Object itfAccesoComponente;
     public Object itfAccesoControlEntidad;
     
@@ -28,5 +29,11 @@ public class InfoCompInterno {
      }   
      public Object getitfAccesoControlEntidad(){
          return itfAccesoControlEntidad ;
+     } 
+     public void setestadoComponente( String estadoComp){
+         estadoComponente = estadoComp;
+     }   
+     public String getestadoComponente(){
+         return estadoComponente ;
      } 
 }
