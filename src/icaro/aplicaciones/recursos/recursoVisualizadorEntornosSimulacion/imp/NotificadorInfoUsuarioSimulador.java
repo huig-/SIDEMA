@@ -105,7 +105,8 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
     
     public void sendNotificacionLlegadaDestino (String robotId,String identDestino){
         try {
-            Informe informeLlegada = new Informe (robotId,identDestino, VocabularioRosace.MsgeLlegadaDestino);
+//            Informe informeLlegada = new Informe (robotId,identDestino, VocabularioRosace.MsgeLlegadaDestino);
+             Informe informeLlegada = new Informe (robotId,identDestino, VocabularioRosace.MsgeLlegadaDestino);
             this.enviarInfoAotroAgente(informeLlegada, robotId);
         } catch (Exception ex) {
             Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);

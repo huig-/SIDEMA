@@ -349,7 +349,7 @@ public class VisorEscenariosRosace extends JFrame {
 //            jlabelRobot.setBounds(jlabelRobot.getX()+10, jlabelRobot.getY()+10, jlabelRobot.getWidth(), jlabelRobot.getHeight());
 //            jlabelRobot.setBounds(nueva_coordx, nueva_coordy, jlabelRobot.getWidth(), jlabelRobot.getHeight());
             jlabelRobot.setLocation(nueva_coordx, nueva_coordy);
-            this.notifyAll();
+//            this.notifyAll();
 
             //Eliminar de la visualizacion
 //            jlabelRobot.setVisible(false);

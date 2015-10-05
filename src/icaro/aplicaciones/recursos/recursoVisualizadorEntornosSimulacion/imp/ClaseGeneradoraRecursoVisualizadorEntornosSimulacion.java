@@ -6,6 +6,8 @@ import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoEstadistica.imp.visualizacionEstadisticas.VisualizacionJfreechart;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.InfoTraza.NivelTraza;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Temporizador;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import java.awt.Color;
@@ -38,6 +40,8 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
  // para prueba de integracion 
     private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
     private String identFicheroEscenarioSimulacion=directorioPersistencia+"modeloOrg_JerarquicoNumRobts_4NumVicts_2.xml" ;
+    private Coordinate coordDestino;
+    private String identDestino;
 
     public ClaseGeneradoraRecursoVisualizadorEntornosSimulacion(String idRecurso) throws Exception {
         //#start_nodeconstructorMethod:constructorMethod <--constructorMethod-- DO NOT REMOVE THIS
@@ -231,8 +235,15 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
       public synchronized void mostrarPosicionRobot(String identRobot, Coordinate coordRobot)throws Exception{
         coordX = (int) coordRobot.getX();
         coordY = (int) coordRobot.getY();
+        if ( Math.abs (coordX-coordDestino.getX())<0.6 && Math.abs (coordY-coordDestino.getY())<0.6){
+ // notificamos llegada a destino
+            this.notifEvt.sendNotificacionLlegadaDestino(identRobot, identDestino);
+//        Temporizador informeTemp = new Temporizador (500,itfProcObjetivos,informeLlegada);  
+        }
+        else {
         visorEscenarios.setVisible(true);
         visorEscenarios.cambiarPosicionRobot(identRobot, coordX, coordY);
+        }
 //        visorEscenarios.moverRobot(identRobot, coordX, coordX);
     }
 //    @Override
@@ -247,7 +258,9 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
         visorEscenarios.cambiarIconoVictimaARescatada(identVictima);
     }
     @Override
-     public  void inicializarDestinoRobot(String idRobot,Coordinate coordInicial,Coordinate coordDestino, double velocidadInicial){
+     public  void inicializarDestinoRobot(String idRobot,Coordinate coordInicial,String destinoId, Coordinate coordDestino, double velocidadInicial){
+         this.coordDestino=coordDestino;
+         this.identDestino = destinoId;
 //        if (idRobot != null )  this.getInstanciaHebraMvto(idRobot).inicializarDestino(idRobot, coordInicial, coordDestino, velocidadInicial);
     } 
     @Override
