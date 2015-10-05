@@ -22,7 +22,7 @@ public class FactoriaPercepcionAgenteCognitivoImp2 extends FactoriaPercepcionAge
     private static final int CAPACIDAD_BUZON_CONT_MESSG = 15;
     private LinkedBlockingQueue<Object> buzonMsges;
     private LinkedBlockingQueue<ExtractedInfo> extractedInfoQ;
-    private ItfProcesadorItems itfProcesador;  //no se usa
+//    private ItfProcesadorItems itfProcesador;  //no se usa
     private ProcesadorItems procesItems;
     private PercepcionAgenteCognitivo percepcionAgteCognitivo;
     @Override
@@ -37,7 +37,7 @@ public class FactoriaPercepcionAgenteCognitivoImp2 extends FactoriaPercepcionAge
 // El procesador de items produce elementos extraidos de los mensajes o de los eventos        
         procesItems = new ProcesadorItems();
         
-        itfProcesador = new ProcesadorItems();
+//        itfProcesador = new ProcesadorItems();
         
 // Ensamblaje de los elementos pasando a cada uno los elementos necesarios para su funcionamiento
         percepcionAgteCognitivo.SetParametrosPercepcionAgenteCognitivoImp(buzonMsges, procesItems, agenteCognitivo);

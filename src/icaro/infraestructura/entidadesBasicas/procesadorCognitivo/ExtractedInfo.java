@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class ExtractedInfo {
 	
-    // El contenido puede ser un objeto o  una colecci贸n de entidades que se obtiene a partir de mensajes o de eventos
-    // Se puede crear la evidencia a partir de una collecci贸n de objetos o con una colecci贸n vac铆a a la que
-    //  se van a帽adiendo elementos
+    // El contenido puede ser un objeto o  una colecci髇 de entidades que se obtiene a partir de mensajes o de eventos
+    // Se puede crear la evidencia a partir de una collecci髇 de objetos o con una colecci髇 vac韆 a la que
+    //  se van a馻diendo elementos
 	private Object origen;      //JM: Identificador de la entidad que creo (y lo envio) el mensaje/evento
     private Object creador;     //JM: Identificdor  del agente que recibe el mensaje/evento (es decir el destinatario del mensaje/evento)
 	private Object contenido;   //JM: Contenido del mensaje/evento que fue creado en el origen
@@ -46,7 +46,8 @@ public class ExtractedInfo {
 	}
     
 	public Boolean isContentACollection() {
-		return esElContenidoUnaColeccion;
+
+                return esElContenidoUnaColeccion;
 	}
 	
 	public void setContenido(Object contenido) {
@@ -74,7 +75,7 @@ public class ExtractedInfo {
     
 
     /**
-     *  JM: Cadena de texto para la depuraci贸n
+     *  JM: Cadena de texto para la depuraci髇
      */
     public String toString() {
     	return "ExtractedInfo:" + " origen->" + this.getOrigen() + " ; creador->" + this.getCreador() + " ; contenido->" + this.getContenido(); 

@@ -86,7 +86,7 @@ public abstract class TareaSincrona {
         }
         if(contenido==null)contenido = NombresPredefinidos.PREFIJO_MSG_TIMEOUT;
         InformeDeTarea informeTarea = new InformeDeTarea (idTarea,goalId,idAgenteOrdenante, contenido );
-        InformeTimeout informeTemporizado = new InformeTimeout ( milis, itfProcObjetivos,informeTarea );
+        Temporizador informeTemporizado = new Temporizador ( milis, itfProcObjetivos,informeTarea );
         informeTemporizado.start();
     }
     public void generarInformeTemporizadoFromConfigProperty (String identproperty,Objetivo contxtGoal,String idAgenteOrdenante, Object contenido){

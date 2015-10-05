@@ -77,7 +77,7 @@ public abstract class Tarea extends Thread {
             goalId= contxtGoal.getgoalId();
         }
         InformeDeTarea informeTarea = new InformeDeTarea (idTarea,goalId,idAgenteOrdenante, contenido );
-        InformeTimeout informeTemporizado = new InformeTimeout ( milis, itfProcObjetivos,informeTarea );
+        Temporizador informeTemporizado = new Temporizador ( milis, itfProcObjetivos,informeTarea );
         informeTemporizado.start();
     }
    public ItfUsoConfiguracion getItfUsoConfiguracion() {

@@ -26,8 +26,8 @@ public class MisObjetivos {
             c = new Comparator<Objetivo>() {
            @Override
             public int compare(Objetivo o1, Objetivo o2) {
-                if(o1.getPriority() < (o2.getPriority()))return -1;
-                else if (o1.getPriority() ==  o2.getPriority())return 0;
+                if(o1.getPriority() <= (o2.getPriority()))return -1;
+//                else if (o1.getPriority() ==  o2.getPriority())return 0;
                 else return 1 ;
             }
         };
@@ -46,6 +46,15 @@ public class MisObjetivos {
                     setOfIGoalRefIds.add(goalRefId);
         }
     }
+    public boolean eliminarObjetivo ( Objetivo obj){
+        String goalRefId = obj.getobjectReferenceId();
+        if(goalRefId==null)goalRefId= obj.getgoalId();
+        if (goalRefId==null)return false;
+        if ( existeObjetivoConEsteIdentRef(goalRefId)){
+            setOfIGoalRefIds.remove(goalRefId);
+           return   misObjetivosPriorizados.remove(obj);
+        } else return false;  
+    }
     public Objetivo getobjetivoMasPrioritario ( ){
         objetivoMasPrioritario= misObjetivosPriorizados.peek();
         return objetivoMasPrioritario;       
@@ -59,6 +68,15 @@ public class MisObjetivos {
         
         return setOfIGoalRefIds.contains(identRef);
         
+    }
+    public void cambiarPrioridad(Objetivo obj){
+        Objetivo objetivoNuevo=obj; // obj tiene prioridad diferente que el que esta en la cola 
+        String goalRefId = obj.getobjectReferenceId();
+        if(goalRefId==null)goalRefId= obj.getgoalId();
+        if (goalRefId!=null&&setOfIGoalRefIds.contains(goalRefId)){
+            this.misObjetivosPriorizados.remove(obj);
+            this.misObjetivosPriorizados.add(objetivoNuevo);
+        }
     }
     public PriorityBlockingQueue <Objetivo> getMisObjetivosPriorizados ( ){
 

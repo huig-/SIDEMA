@@ -67,6 +67,7 @@ public class PercepcionAgenteCognitivoImp extends PercepcionAgenteCognitivo {
 		this.agente = agente;
 		this.procesador = prItems;
 		this.envioItems = new EnvioItemsThread();
+                this.envioItems.setName(agente.getIdentAgente()+"envioItemsThread");
 	}
     
     public void SetProcesadorEvidencias(ItfProcesadorObjetivos itfProcesEvidencias) {
@@ -117,6 +118,7 @@ public class PercepcionAgenteCognitivoImp extends PercepcionAgenteCognitivo {
 			termina = false;
 		}
 		
+                @Override
 		public void run() {
 			while (!termina) {
 				Object item = null;
@@ -145,12 +147,14 @@ public class PercepcionAgenteCognitivoImp extends PercepcionAgenteCognitivo {
 	}
 
 	
+        @Override
 	public void termina() {
 		this.envioItems.termina();
 		this.buzon.clear();
 		this.procesador.termina();
 	}
 
+        @Override
 	public void arranca() {
 		this.envioItems.start();
 		this.procesador.arranca();

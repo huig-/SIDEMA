@@ -38,7 +38,7 @@ public class ArranqueSistemaConCrtlGestorO {
 
         if (args.length == 0) {
             System.err.println("Error. Ningun argumento recibido.\n Causa: Es necesario pasar como argumento la ruta del fichero de descripcion.\n Ejemplo: ./config/descripcionAcceso.xml");
-            int opcion = JOptionPane.showConfirmDialog(new JFrame(), "Descripci贸n de Organizacion no encontrado. 驴Desea arrancar el asistente de creaci贸n de Descripci贸n de Organizaci贸n?", "Confirmaci贸n", JOptionPane.YES_NO_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(new JFrame(), "Descripci髇 de Organizacion no encontrado. 緿esea arrancar el asistente de creaci贸n de Descripci髇 de Organizaci髇?", "Confirmaci髇", JOptionPane.YES_NO_OPTION);
            // if (opcion == JOptionPane.YES_OPTION) {
            //     arrancarHerramienta();
           //      herramientaArrancada = true;

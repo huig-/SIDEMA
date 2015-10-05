@@ -44,7 +44,8 @@ public class ProcesadorItems implements ItfProcesadorItems {
 		this.infoExtractedQ = new LinkedBlockingQueue<ExtractedInfo>(
 				CAPACIDAD_BUZON_CONT_MESSG);
 		this.itfProcesadorInfoExtracted = agente.getControl();
-		this.envioEvidencias = new EnvioInfoExtractedThread();		
+		this.envioEvidencias = new EnvioInfoExtractedThread();
+                this.envioEvidencias.setName(agente.getIdentAgente()+"envioEvidenciasThread");
 	}
 	
 	
@@ -246,6 +247,7 @@ public class ProcesadorItems implements ItfProcesadorItems {
     @Override
 	public void arranca() {
         this.envioEvidencias = new EnvioInfoExtractedThread();
+        this.envioEvidencias.setName(agente.getIdentAgente()+"envioEvidenciasThread");
         envioEvidencias.start();
 	}
 	

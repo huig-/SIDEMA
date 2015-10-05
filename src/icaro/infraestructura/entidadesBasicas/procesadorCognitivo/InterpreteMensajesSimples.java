@@ -83,7 +83,12 @@ public ExtractedInfo extractInfo(MensajeSimple mensaje) {
     inforExtracted = new  ExtractedInfo ( );
     inforExtracted.setOrigen(emisorMensaje);
     inforExtracted.setCreador(propietario);
-    inforExtracted.addElementToContent(mensaje.getContenido());
+//    if (contenido.getClass().isArray()){
+//        inforExtracted.setContentCollection((Array)contenido);
+//    }
+    if ( mensaje.isContenidoColection())
+    inforExtracted.setContentCollection(mensaje.getColeccionContenido());
+    else inforExtracted.setContenido(contenido);
 
 return  inforExtracted ;
  }
