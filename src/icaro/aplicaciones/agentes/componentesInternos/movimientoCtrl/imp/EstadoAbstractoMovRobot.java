@@ -18,7 +18,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
  *
  * @author FGarijo
  */
-public abstract class EstadoAbstractoMovRobot  {
+public abstract class EstadoAbstractoMovRobot implements ItfUsoMovimientoCtrl {
 
     public static  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, RobotBloqueado,RobotavanceImposible,enDestino,  error}
     //Nombres de las clases que implementan estados del recurso interno
@@ -62,6 +62,7 @@ public abstract class EstadoAbstractoMovRobot  {
         identComponente = identAgente+"."+this.getClass().getSimpleName();
         trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
         itfusoRecVisSimulador = itfVisSimul;
+        maquinaEstados.inicializar(itfProcObj,itfVisSimul);
  
     }
 //    private EstadoAbstractoMovRobot setEstadoActual(EstadoAbstractoMovRobot estadoMovCtrl) {
@@ -74,27 +75,26 @@ public abstract class EstadoAbstractoMovRobot  {
         maquinaEstados.inicializarInfoMovimiento(coordInicial, velocidadInicial);
     } 
 
-        public abstract void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero);
-//        {
-//            estadoActual.moverAdestino(identDest,coordDestino, velocidadCrucero);
-//            this.identDestino = identDest;
-//         //   identDestino = identDest;
-//        }
+        public  void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero){
+            estadoActual.moverAdestino(identDest,coordDestino, velocidadCrucero);
+            this.identDestino = identDest;
+         //   identDestino = identDest;
+        }
 
         public abstract void cambiaVelocidad( float nuevaVelocidadCrucero) ;
         
 
         public synchronized void cambiaDestino(String identDest,Coordinate coordDestino) {
-            estadoActual.cambiaDestino(identDest,coordDestino);
+            maquinaEstados.getEstadoActual().cambiaDestino(identDest,coordDestino);
             this.identDestino = identDest;
          //   identDestino = identDest;
         }   
         public synchronized void parar(){
-          estadoActual.parar(); 
+          maquinaEstados.getEstadoActual().parar(); 
         }
 
         public void continuar(){
-            estadoActual.continuar();
+            maquinaEstados.getEstadoActual().continuar();
         }
     public abstract  boolean estamosEnDestino(String identDest);
 //    {
@@ -109,6 +109,7 @@ public abstract class EstadoAbstractoMovRobot  {
 
     public synchronized void imposibleAvanzarADestino(){
         maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotBloqueado);
+//        estadoActual=maquinaEstados.getEstadoActual();
     }
     
 
@@ -127,6 +128,13 @@ public abstract class EstadoAbstractoMovRobot  {
         
     }
      
-    public abstract EstadoAbstractoMovRobot getEstadoActual ();
-    
+    public  EstadoAbstractoMovRobot getEstadoActual (){
+        
+    return maquinaEstados.getEstadoActual();
+    }
+    @Override
+    public  String getIdentEstadoMovRobot (){
+        
+    return maquinaEstados.getIdentEstadoMovRobot();
+    }
 }

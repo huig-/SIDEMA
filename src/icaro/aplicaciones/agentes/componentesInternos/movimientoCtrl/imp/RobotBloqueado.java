@@ -78,4 +78,9 @@ public class RobotBloqueado extends EstadoAbstractoMovRobot implements ItfUsoMov
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     return this;
     }
+
+    @Override
+    public boolean paradoEnDestino(String identDestino) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

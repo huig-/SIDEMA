@@ -15,7 +15,7 @@ public interface ItfUsoMovimientoCtrl {
         public void parar();
         public void bloquear();
         public void continuar();
-        public boolean estamosEnDestino(String identDestino);
+        public boolean paradoEnDestino(String identDestino);
         public void imposibleAvanzarADestino();
         
 }

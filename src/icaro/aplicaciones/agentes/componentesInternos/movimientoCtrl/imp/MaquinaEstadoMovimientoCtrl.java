@@ -30,23 +30,7 @@ public class MaquinaEstadoMovimientoCtrl   {
     private String identEstadoActual;
     private String identComponente;
     private String identDestino;
- 
-    
-    public void bloquear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
-    public boolean estamosEnDestino(String identDestino) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    return estadoActual.estamosEnDestino(identDestino);
-    }
-
-    void setVelocidadInicial(float velocidadInicial) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    this.velocidadRobot = velocidadInicial;
-    }
-    public static  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, RobotBloqueado,RobotavanceImposible,enDestino,  error}
+  public static  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, RobotBloqueado,RobotavanceImposible,enDestino,  error}
     //Nombres de las clases que implementan estados del recurso interno
     public static  enum EvalEnergiaRobot {sinEnergia,energiaSuficiente,EnergiaJusta, EnergiaInsuficiente }
     public EstadoAbstractoMovRobot estadoActual;
@@ -64,6 +48,29 @@ public class MaquinaEstadoMovimientoCtrl   {
     protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
     ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
     
+    
+    public void bloquear() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+    public boolean estamosEnDestino(String identDestino) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return estadoActual.estamosEnDestino(identDestino);
+    }
+
+    void setVelocidadInicial(float velocidadInicial) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    this.velocidadRobot = velocidadInicial;
+    }
+
+    public synchronized void inicializar(ItfProcesadorObjetivos itfProcObj, ItfUsoRecursoVisualizadorEntornosSimulacion itfVisSimul) {
+       identAgente = itfProcObj.getAgentId();
+        if (identComponente ==null) identComponente = identAgente+"."+this.getClass().getSimpleName();
+       itfProcObjetivos =itfProcObj;
+       itfUsoRecVisEntornosSimul=itfVisSimul;
+    }
+   
     public  MaquinaEstadoMovimientoCtrl (){
         estadosCreados = new EnumMap<EstadoMovimientoRobot, EstadoAbstractoMovRobot>(EstadoMovimientoRobot.class) ;
         

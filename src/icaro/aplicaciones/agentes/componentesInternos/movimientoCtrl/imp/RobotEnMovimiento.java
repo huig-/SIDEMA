@@ -63,7 +63,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
         public void parar(){
 //            if (monitorizacionLlegadaDestino!=null ) this.monitorizacionLlegadaDestino.finalizar();
             this.maquinaEstados.parar();
-            this.maquinaEstados.cambiarEstado (MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado).parar();
+            this.maquinaEstados.cambiarEstado (MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
 //            this.trazas.trazar (this.identAgente +"."+this.getClass().getSimpleName(), " transito al estado parado ", InfoTraza.NivelTraza.debug);
 //            this.maquinaEstados.getEstadoActual().parar();
         }
@@ -84,9 +84,14 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
      public  String getIdentEstadoMovRobot(){
          return MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotEnMovimiento.name();
      }
-     @Override
-    public EstadoAbstractoMovRobot getEstadoActual() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    return this;
+//     @Override
+//    public EstadoAbstractoMovRobot getEstadoActual() {
+////        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    return maquinaEstados.getEstadoActual();
+//    }
+
+    @Override
+    public boolean paradoEnDestino(String identDestino) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

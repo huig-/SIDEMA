@@ -111,11 +111,11 @@ public class HebraMonitorizacionLlegada extends Thread {
         intervaloEnvioInformesMs = (int)velocidadRobot* 20;
         distanciaRecorridaEnIntervaloInformes = 1;
         
-        try {
-            this.itfusoRecVisSimulador.inicializarDestinoRobot(identRobot, coordActuales, identDestino,coordDestino, velocidadRobot);
-        } catch (Exception ex) {
-            Exceptions.printStackTrace(ex);
-        }
+//        try {
+//            this.itfusoRecVisSimulador.inicializarDestinoRobot(identRobot, coordActuales, identDestino,coordDestino, velocidadRobot);
+//        } catch (Exception ex) {
+//            Exceptions.printStackTrace(ex);
+//        }
     }
 
 
@@ -161,16 +161,16 @@ public class HebraMonitorizacionLlegada extends Thread {
         while (!this.finalizar && (!enDestino)) {
 	  try {
 //	    Thread.sleep(intervaloEnvioInformesMs);
-            Thread.sleep(intervaloEnvioInformesMs);
-	  
+//            Thread.sleep(intervaloEnvioInformesMs);
+	  Thread.sleep(intervaloEnvioInformesMs);
                      calcularNuevasCoordenadas (distanciaRecorridaEnIntervaloInformes);                      
                      log.debug("Coord Robot " + identRobot + " calculadas -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");  
                      enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
                      finalizar = (coordActuales.x<0.5 || coordActuales.y<0.5 );
                      if (itfusoRecVisSimulador != null)
-                        this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
-//                        this.controladorMovimiento.setCoordenadasActuales(coordActuales);
-//                        this.notifyAll();
+                        this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales,coordDestino,identDestino);
+                        this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+                        this.notifyAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -184,7 +184,7 @@ public class HebraMonitorizacionLlegada extends Thread {
                 log.debug("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
 //          System.out.println("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");       
 //                this.controladorMovimiento.setCoordenadasActuales(coordDestino);
-            } catch (InterruptedException ex) {
+            } catch (Exception ex) {
                 log.error( ex);
             }
       }
