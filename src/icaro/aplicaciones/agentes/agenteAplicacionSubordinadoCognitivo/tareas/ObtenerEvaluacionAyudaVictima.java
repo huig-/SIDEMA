@@ -6,7 +6,6 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.*;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
@@ -46,7 +45,7 @@ public class ObtenerEvaluacionAyudaVictima extends TareaSincrona {
             Coordinate victimLocation = victim.getCoordinateVictim();            
   //          InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa)params[2];
             
-            RobotStatus robot = (RobotStatus)params[2];                        
+            RobotStatus1 robot = (RobotStatus1)params[2];                        
             VictimsToRescue victims2R =(VictimsToRescue)params[3];
             MisObjetivos misObjs = (MisObjetivos)params[4];
 
@@ -54,26 +53,11 @@ public class ObtenerEvaluacionAyudaVictima extends TareaSincrona {
             
             String nombreAgenteEmisor = this.getAgente().getIdentAgente();            
             String identTarea = this.getIdentTarea();
-
+            robotLocation = robot.getRobotCoordinate();
             //Mostrar en ventana de trazas informacion de los costes 
  //           trazas.aceptaNuevaTraza(new InfoTraza("Evaluacion", " ", InfoTraza.NivelTraza.info));       		        		                                                           		        		          		           
             
-            try {            	            	
-       	          ItfUsoRepositorioInterfaces ItfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
-       	          try{    		   
-       		           ItfUsoRecursoMorse morseResourceRef;
-       		           morseResourceRef = (ItfUsoRecursoMorse) ItfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
-       				                      "RecursoMorse1");
-       		           robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
-       		           
-       	          }
-   	              catch (Exception ex){
-       		              ex.printStackTrace();
-       	          }
-   	        }
-            catch (Exception e) {
-   		          e.printStackTrace();
-            }
+ 
 
             
             //Las dos sentencias siguientes permiten utilizar la funcion de evaluacion 1 que solo considera la distancia entre el robot y la nueva victima

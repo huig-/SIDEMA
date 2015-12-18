@@ -8,7 +8,7 @@
     ******************     Declaracion del estado inicial y su transicion             	******************
     ******************************************************************************************************-->
   <estadoInicial idInicial="estadoInicial">
-     <transicion input="comenzar" accion="AccionComenzar" estadoSiguiente="esperandoIniciarSimulacion" modoDeTransicion="bloqueante"/>
+     <transicion input="comenzar" accion="AccionComenzar" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/>
   </estadoInicial>
 
 <!--******************************************************************************************************
@@ -17,21 +17,27 @@
 
   <estado idIntermedio="esperandoIniciarSimulacion">
 
-     <transicion input="sendSequenceOfSimulatedVictimsToRobotTeam" accion="SendSequenceOfSimulatedVictimsToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-      <transicion input="peticionSimulacionVictima" accion="SendSimulatedVictimToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-     <transicion input="mostrarEscenarioActualSimulado" accion="MostrarEscenarioActualSimulado" estadoSiguiente="esperandoIniciarSimulacion" modoDeTransicion="bloqueante"/>
+     <transicion input="sendSequenceOfSimulatedVictimsToRobotTeam" accion="sendSequenceOfSimulatedVictimsToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+      <transicion input="peticionSimulacionVictima" accion="sendSimulatedVictimToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+     <transicion input="mostrarEscenarioActualSimulado" accion="mostrarEscenarioActualSimulado" estadoSiguiente="esperandoIniciarSimulacion" modoDeTransicion="bloqueante"/>
   
+  </estado>
+  <estado idIntermedio="esperandoDefinicionEscenario">
+
+     <transicion input="escenarioSeleccionadoUsuario" accion="ValidarEscenarioRecibido" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/>
+      <transicion input="escenarioDefinidoValido" accion="mostrarEscenarioActualSimulado" estadoSiguiente="esperandoIniciarSimulacion" modoDeTransicion="bloqueante"/>
+     <transicion input="timeoutEsperaDefinicionEscenario" accion="solicitarDefinicionEscenario" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/>
+      <transicion input="EscenarioEnfaseDeCreacion" accion="crearTempSolicitarDefinicionEscenario" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/>
+      <transicion input="escenarioNoDefinidoTrasAgotarLosIntentos" accion="solicitarDefinicionEscenario" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/>
   </estado>
 
 
   <estado idIntermedio="simulando">
-
+    <transicion input="peticionSimulacionVictima" accion="sendSimulatedVictimToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
      <transicion input="victimaAsignadaARobot" accion="VictimaAsignadaARobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-
      <transicion input="finSimulacion" accion="FinSimulacion" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>
-
-     <transicion input="mostrarEscenarioActualSimulado" accion="MostrarEscenarioActualSimulado" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-    <transicion input="enviarIdentsEquipo" accion="MostrarRobotsActivos" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+     <transicion input="mostrarEscenarioActualSimulado" accion="mostrarEscenarioActualSimulado" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+    <transicion input="enviarIdentsEquipo" accion="mostrarRobotsActivos" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
     <transicion input="pararRobot" accion="PararRobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
   </estado>
   
@@ -40,7 +46,7 @@
 
      <transicion input="finSimulacion" accion="FinSimulacion" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>
      
-     <transicion input="mostrarEscenarioActualSimulado" accion="MostrarEscenarioActualSimulado" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>     
+     <transicion input="mostrarEscenarioActualSimulado" accion="mostrarEscenarioActualSimulado" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>     
   
   </estado>
 

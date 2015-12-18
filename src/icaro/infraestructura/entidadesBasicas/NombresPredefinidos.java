@@ -27,7 +27,9 @@ public class NombresPredefinidos {
   public static final String NOMBRE_ITF_USO_CONFIGURACION = "Itf_Uso_Configuracion";
   public static final String CONFIGURACION = "Configuracion";
   public static final String INTERVALO_MONITORIZACION_ATR_PROPERTY = "intervaloMonitorizacion";
-  public static final String NOMBRE_PROPIEDAD_GLOBAL_EQUIPO_AGENTES = "identificadorEquipo" ;
+  public static final String NOMBRE_PROPIEDAD_GLOBAL_IDENT_EQUIPO = "identificadorEquipo" ;
+  public static final String NOMBRE_PROPIEDAD_GLOBAL_JEFE_EQUIPO = "nombreJefeEquipo" ;
+  public static final String NOMBRE_PROPIEDAD_GLOBAL_MODELO_ORGANIZATIVO = "organizacion" ;
   public static final String RECURSO_TRAZAS = "RecursoTrazas";
 
   public static final String EXPR_REG_NOMBRE_AGENTE = "AgenteAplicacion([0-9a-zA-Z])*";

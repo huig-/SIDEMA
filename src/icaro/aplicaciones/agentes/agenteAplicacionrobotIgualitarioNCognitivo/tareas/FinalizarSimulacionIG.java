@@ -7,7 +7,6 @@ package icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.ta
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.Rosace.utils.ConstantesRutasEstadisticas;
 import icaro.aplicaciones.recursos.recursoEstadistica.ItfUsoRecursoEstadistica;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
@@ -47,29 +46,30 @@ public class FinalizarSimulacionIG extends TareaSincrona {
             
            String nombreAgenteEmisor = this.getAgente().getIdentAgente();            
            String identTarea = this.getIdentTarea();
+           robotLocation=robot.getRobotCoordinate();
 
             //Mostrar en ventana de trazas informacion de los costes 
             //trazas.aceptaNuevaTraza(new InfoTraza("Evaluacionadfd", " ", InfoTraza.NivelTraza.info)); 		        		                                                           		        		          		           
             //trazas.aceptaNuevaTraza(new InfoTraza("Evaluacionadfd", nombreAgenteEmisor + " ejecutando " + identTarea, InfoTraza.NivelTraza.info));       		        		                                                           		        		          		           
             
-            try {            	            	
-       	          ItfUsoRepositorioInterfaces ItfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
-       	          try{    		   
-       		           ItfUsoRecursoMorse morseResourceRef;
-       		           morseResourceRef = (ItfUsoRecursoMorse) ItfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
-       				                      "RecursoMorse1");
-       		           robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
-       		           
-       				   itfUsoRecursoEstadistica = (ItfUsoRecursoEstadistica)ClaseGeneradoraRepositorioInterfaces.instance().
- 		                                          obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoEstadistica1");       		           
-       	          }
-   	              catch (Exception ex){
-       		              ex.printStackTrace();
-       	          }       	          
-   	        }
-            catch (Exception e) {
-   		          e.printStackTrace();
-            }
+//            try {            	            	
+//       	          ItfUsoRepositorioInterfaces ItfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
+//       	          try{    		   
+//       		           ItfUsoRecursoMorse morseResourceRef;
+//       		           morseResourceRef = (ItfUsoRecursoMorse) ItfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
+//       				                      "RecursoMorse1");
+//       		           robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
+//       		           
+//       				   itfUsoRecursoEstadistica = (ItfUsoRecursoEstadistica)ClaseGeneradoraRepositorioInterfaces.instance().
+// 		                                          obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoEstadistica1");       		           
+//       	          }
+//   	              catch (Exception ex){
+//       		              ex.printStackTrace();
+//       	          }       	          
+//   	        }
+//            catch (Exception e) {
+//   		          e.printStackTrace();
+//            }
             
             Coste coste = new Coste();
 

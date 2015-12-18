@@ -50,7 +50,7 @@ public class InfoParaDecidirQuienVa implements Serializable{
          
             ItfUsoConfiguracion itfConfig = (ItfUsoConfiguracion) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(NombresPredefinidos.ITF_USO+"Configuracion");
             agentesAplicacionDefinidos = itfConfig.getIdentificadoresInstanciasAgentesAplicacion();
-            identEquipo = itfConfig.getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_EQUIPO_AGENTES);
+            identEquipo = itfConfig.getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_IDENT_EQUIPO);
             agentesEquipo = getNombreAgentesEquipoDefinidos(identAgente, identEquipo);
             nombreAgente = identAgente;
             respuestasAgentes = new ArrayList();

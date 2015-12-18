@@ -159,9 +159,9 @@ public class AccionesSemanticasGestorRecursos extends
 					crearUnRecurso(recurso);
 					// si todo ha ido bien, debemos a√±adirlo a la lista de
 					// objetos gestionados por el gestor
-					logger.debug("GestorRecursos: A√±adiendo recurso " + nombre+ " a la lista de objetos gestionados.");
+					logger.debug("GestorRecursos: AÒadiendo recurso " + nombre+ " a la lista de objetos gestionados.");
 					trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-							"A√±adiendo recurso " + nombre+ " a la lista de objetos gestionados.",
+							"AÒadiendo recurso " + nombre+ " a la lista de objetos gestionados.",
 							InfoTraza.NivelTraza.debug));
 					this.nombresRecursosGestionados.add(nombre);
 				} catch (Exception ex) {

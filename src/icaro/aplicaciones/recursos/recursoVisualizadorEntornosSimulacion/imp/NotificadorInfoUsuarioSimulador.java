@@ -35,7 +35,7 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
     protected boolean stop = false;
     private InfoContEvtMsgAgteReactivo peticionEnvioVictimaSimulada,peticionEnvioSecuenciaVictimas,
             peticionParar,peticionMostrarEscenario, peticionPararAgente ;
-    
+     private org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass().getSimpleName());
    
     private InterfazUsoAgente itfUsoAgenteControlador;
         
@@ -49,7 +49,7 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
             identRecurso = idRecurso;
             identificadorAgenteaReportar = identAgteControlador;
             // inicializo tipos de peticiones que se pueden enviar al aagente controlador
-            peticionEnvioVictimaSimulada = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionSimulacionVictima);
+//            peticionEnvioVictimaSimulada = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionSimulacionVictima);
             peticionEnvioSecuenciaVictimas = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionSimulacionSecuenciaVictimas);
             peticionParar = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionPararSimulacion);
             peticionMostrarEscenario= new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionMostrarEscenarioActualSimulado);
@@ -57,11 +57,11 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
     public void setIdentAgenteAReportar(String identAgenteAReportar) {
         identificadorAgenteaReportar =identAgenteAReportar ;
     }
-    public void sendPeticionSimulacionVictimToRobotTeam (){
+    public void sendPeticionSimulacionVictimToRobotTeam (String idVictim){
         
         // se manda la peticion al agente para que decida lo que hay que hacer
      
-            this.informaraOtroAgenteReactivo(peticionEnvioVictimaSimulada, identificadorAgenteaReportar);
+            this.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionSimulacionVictima,idVictim), identificadorAgenteaReportar);
       //      comunicacion.enviarInfoAotroAgente(initialOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
     }
     public void sendPeticionSimulacionSecuenciaVictimasToRobotTeam (int intervaloSecuencia){
@@ -108,6 +108,30 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
 //            Informe informeLlegada = new Informe (robotId,identDestino, VocabularioRosace.MsgeLlegadaDestino);
              Informe informeLlegada = new Informe (robotId,identDestino, VocabularioRosace.MsgeLlegadaDestino);
             this.enviarInfoAotroAgente(informeLlegada, robotId);
+             log.debug("Se envia la notificacion llegada a destino " + " Robot :  "+robotId + "  identDestino :  " +identDestino  ); 
+        } catch (Exception ex) {
+            Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public void sendInfoEscenarioSeleccionado (EscenarioSimulacionRobtsVictms escenario){
+         try {  
+            this.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo ("escenarioSeleccionadoUsuario",escenario) , identificadorAgenteaReportar);
+        } catch (Exception ex) {
+            Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     public void sendInfoIdentEscenarioSeleccionado (String escenarioId){
+         try {  
+            this.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo ("escenarioSeleccionadoUsuario",escenarioId) , identificadorAgenteaReportar);
+        } catch (Exception ex) {
+            Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+
+    void sendNotifAgteControlador(String notifString) {
+//        notif String debe estar en le vocabulario Rosace
+    try {  
+            this.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo (notifString) , identificadorAgenteaReportar);
         } catch (Exception ex) {
             Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);
         }

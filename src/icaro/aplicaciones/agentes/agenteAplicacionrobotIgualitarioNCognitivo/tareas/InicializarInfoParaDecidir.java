@@ -25,7 +25,7 @@ public class InicializarInfoParaDecidir extends TareaSincrona{
              if (miEquipo==null)infoDecisionAgente = new InfoParaDecidirQuienVa(this.identAgente);
              else infoDecisionAgente = new InfoParaDecidirQuienVa(identAgente,miEquipo);
              infoDecisionAgente.setidElementoDecision(idVictim);
-             focoActual.setfaseProcesoConsecObjetivos("DecisionAsignacionVictima");
+//             focoActual.setfaseProcesoConsecObjetivos("DecisionAsignacionVictima");
              this.getEnvioHechos().insertarHecho(infoDecisionAgente);
              this.getEnvioHechos().actualizarHecho(focoActual);
              // Activo un timeout para la decision. Cuando venza se decidira que hacer en funcion de la situacion del agente

@@ -12,10 +12,9 @@ import org.openide.util.Exceptions;
 /**
 * Clase interna que se encarga de generar eventos de monitorizacin cada cierto tiempo
 *
-* @author Carlos Delgado
+* 
 */
 public class HebraMonitorizacionLlegada extends Thread {
-
     /**
 	 * Milisegundos que esperar antes de lanzar otra monitorizacin
 	 * @uml.property  name="milis"
@@ -52,6 +51,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 //     protected double distanciaDestino ;
     private boolean pendienteInfinita = false ;
     private volatile boolean parar = false ;
+//    private volatile boolean iniciar = false ;
     private volatile boolean enDestino = false ;
     private float distanciaArecorrer ;
     private float b ; // punto corte recta con eje Y
@@ -87,6 +87,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 //      coordIncremento = this.calcularIncrementosCoordenadasAvelocidadConstante(intervaloEnvioInformacion);
  //     this.evento = notificacionAProducir;
       this.finalizar= false;
+      this.enDestino = false;
 //       distanciaDestino = this.distanciaEuclidC1toC2(coordActuales, coordDestino);
        double incrX=(coordDestino.getX()-coordActuales.getX());
        double incrY=(coordDestino.getY()-coordActuales.getY());
@@ -157,25 +158,24 @@ public class HebraMonitorizacionLlegada extends Thread {
         log.debug ("Coord Robot " + identRobot + " destino -> ("+this.coordDestino.getX() + " , " + this.coordDestino.getY() + ")");
 //       System.out.println("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");
 //      this.itfusoRecVisSimulador.mostrarMovimientoAdestino(identRobot,identDestino, coordActuales,velocidadRobot);
-        
+ log.debug("Inicio ciclo de envio de coordenadas  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");           
         while (!this.finalizar && (!enDestino)) {
-	  try {
-//	    Thread.sleep(intervaloEnvioInformesMs);
+	  try {  
 //            Thread.sleep(intervaloEnvioInformesMs);
 	  Thread.sleep(intervaloEnvioInformesMs);
                      calcularNuevasCoordenadas (distanciaRecorridaEnIntervaloInformes);                      
-                     log.debug("Coord Robot " + identRobot + " calculadas -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");  
+//                     log.debug("Coord Robot " + identRobot + " calculadas -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");  
                      enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
                      finalizar = (coordActuales.x<0.5 || coordActuales.y<0.5 );
                      if (itfusoRecVisSimulador != null)
                         this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales,coordDestino,identDestino);
                         this.controladorMovimiento.setCoordenadasActuales(coordActuales);
                         this.notifyAll();
-		} catch (Exception e) {
+        } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
       }
+		}
       if (enDestino ){
           finalizar = true;
             try {
@@ -188,8 +188,8 @@ public class HebraMonitorizacionLlegada extends Thread {
                 log.error( ex);
             }
       }
-    }
-
+              }
+ 
 private void calcularNuevasCoordenadas (long incrementoDistancia){
     // suponemos avance en linea recta 
     // formula aplicada x1 = xo + sqrt( espacioRecorrido**2 / (1 + pendienteRecta**2))
@@ -212,5 +212,13 @@ private void calcularNuevasCoordenadas (long incrementoDistancia){
 //          i
         }
 }
+
+ //   public synchronized boolean getOrdenInicio() {
+ //        return iniciar;
+//    }
+//
+//    public void setOrdenInicio(boolean ordenInicio) {
+//       iniciar= ordenInicio;
+//    }
 
 }

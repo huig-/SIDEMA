@@ -7,6 +7,7 @@ package icaro.aplicaciones.Rosace.tareasComunes;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.InfoEquipo;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus1;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.utils.AccesoPropiedadesGlobalesRosace;
 import icaro.aplicaciones.Rosace.utils.ReadXMLTestRobots;
@@ -39,11 +40,11 @@ public class InicializarInfoWorkMemCRN extends Tarea{
              this.getItfConfigMotorDeReglas().setDepuracionHechosInsertados(false);
              this.getItfConfigMotorDeReglas().setDepuracionHechosModificados(false);
              this.getItfConfigMotorDeReglas().setfactHandlesMonitoring_afterActivationFired_DEBUGGING(false);
-             identEquipo = this.getItfUsoConfiguracion().getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_EQUIPO_AGENTES);
+             identEquipo = this.getItfUsoConfiguracion().getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_IDENT_EQUIPO);
              this.getEnvioHechos().insertarHechoWithoutFireRules(new Focus());
              this.getEnvioHechos().insertarHechoWithoutFireRules(new MisObjetivos());
              this.getEnvioHechos().insertarHechoWithoutFireRules(new VictimsToRescue());
-             RobotStatus miStatus = getRobotStatusInicial ( identRolAgte);        
+             RobotStatus1 miStatus = getRobotStatusInicial ( identRolAgte);        
                 if (  miStatus != null){
                     ItfUsoMovimientoCtrl itfCompMov = (ItfUsoMovimientoCtrl) infoCompmov.getitfAccesoComponente();
                     itfCompMov.inicializarInfoMovimiento(miStatus.getRobotCoordinate(), velocidadCruceroPorDefecto);
@@ -59,7 +60,7 @@ public class InicializarInfoWorkMemCRN extends Tarea{
        }                
    }
   
-private RobotStatus getRobotStatusInicial ( String identRol){
+private RobotStatus1 getRobotStatusInicial ( String identRol){
 // Esto habria que cambiarlo cuando se defina el Recurso         
     String rutaFicheroRobotsTest = AccesoPropiedadesGlobalesRosace.getRutaFicheroRobotsTest();        
     	//ReadXMLTestRobots rXMLTRobots = new ReadXMLTestRobots(Constantes.rutasFicheroRobotsJerarquico);
@@ -84,7 +85,7 @@ private RobotStatus getRobotStatusInicial ( String identRol){
                         int energy = rXMLTRobots.getRobotInitialEnergy(info, "initialenergy");
                         Coordinate initialCoordinate = rXMLTRobots.getRobotCoordinate(info);
                         float healRange = rXMLTRobots.getRobotHealRange(info, "healrange");    		        	           	   
-                        RobotStatus robotStatus = new RobotStatus();        	           	   
+                        RobotStatus1 robotStatus = new RobotStatus1();        	           	   
                         robotStatus.setIdRobot(miIdentAgte);
                         robotStatus.setIdRobotRol(identRol);
                         robotStatus.setAvailableEnergy(energy);        	   

@@ -14,6 +14,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaAsincrona;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
  */
 public class MoverseAsalvarVictima extends TareaSincrona {
     // private Victim victim;
+    private Logger log = Logger.getLogger(this.getClass().getSimpleName());
 int velocidadCruceroPordefecto = 5;// metros por segundo
     @Override
     public void ejecutar(Object... params) {
@@ -38,6 +40,14 @@ int velocidadCruceroPordefecto = 5;// metros por segundo
                 misObjs.cambiarPrioridad(objConseguido);
             }
             Objetivo nuevoObj = misObjs.getobjetivoMasPrioritario();
+            trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea " + identTarea
+                            + " Victima salvada  :  " + victima + 
+                            "Objetivo conseguido :  " + objConseguido + "Nuevo objetivo a conseguir  :  " + nuevoObj
+                            + " Los objetivos en la cola son  :  " + misObjs.getMisObjetivosPriorizados() + "\n");
+             log.debug("Se ejecuta la tarea " + identTarea
+                            + " Victima salvada  :  " + victima + 
+                            "Objetivo conseguido :  " + objConseguido + "Nuevo objetivo a conseguir  :  " + nuevoObj
+                            + " Los objetivos en la cola son  :  " + misObjs.getMisObjetivosPriorizados() + "\n"); 
             if (nuevoObj.getPriority()>0 ){
 //            if (!objActual.getobjectReferenceId().equals(victima.getName()))// no se hace nada y se indica un error pq el objetivo debe ser el que esta como mas prioritario  
 //            {
@@ -50,27 +60,31 @@ int velocidadCruceroPordefecto = 5;// metros por segundo
                 ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
                 itfcompMov.moverAdestino(nuevoObj.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); // se pondra la verlocidad por defecto 
                 infoComMov.setitfAccesoComponente(itfcompMov);
-// se elimina el objetivo y se obtiene el siguiente en la cola
-//                this.getEnvioHechos().eliminarHechoWithoutFireRules(objActual);
-//                 }
-                    //          Se cambia el foco a este objetivo
                     nuevoObj.setSolving();
 //                    focoActual.setFoco(nuevoObj);
                     this.getEnvioHechos().actualizarHechoWithoutFireRules(infoComMov);
                     this.getEnvioHechos().actualizarHechoWithoutFireRules(nuevoObj);
-                    
-//                    this.getEnvioHechos().actualizarHechoWithoutFireRules(infoComMov);
-                    
-                    // se da orden de iniciar el movimiento hacia la nueva victima
-                    trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea " + identTarea
-                            + " Se inicia el movimiento  para salvar a la victima :  " + victima + "\n"+
-                            "Se cambia la prioridad a -1 al obj  " + objConseguido
-                            + " Los objetivos en la cola son  :  " + misObjs.getMisObjetivosPriorizados() + "\n");
 //                    trazas.aceptaNuevaTrazaEjecReglas(this.identAgente, "Se elimina el objetivo  " + objActual
 //                            + " Los objetivos en la cola son  :  " + misObjs.getMisObjetivosPriorizados() + "\n");
-                    System.out.println("\n" + identAgente + "Se ejecuta la tarea " + getIdentTarea() + " Se inicia el movimiento  para salvar a la victima :  " + victima + "\n\n");
+                    trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea " + identTarea
+                            + " Se inicia el movimiento  para salvar a la victima :  " + victima + "\n"+
+                            "Objetivo conseguido :  " + objConseguido + "Nuevo objetivo a focalizar  :  " + nuevoObj
+                            + " Los objetivos en la cola son  :  " + misObjs.getMisObjetivosPriorizados() + "\n");
+                   log.debug("Se ejecuta la tarea " + identTarea
+                            + " Se inicia el movimiento  para salvar a la victima :  " + victima + "\n"+
+                            "Objetivo conseguido :  " + objConseguido + "Nuevo objetivo a focalizar  :  " + nuevoObj
+                            + " Los objetivos en la cola son  :  " + misObjs.getMisObjetivosPriorizados() + "\n"); 
                 } // no hay objetivos para salvar victimas el foco se pone a null
-            else nuevoObj = null;    
+            else{
+                
+                trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea " + identTarea
+                            + "Nuevo objetivo a focalizar  :  " + nuevoObj + " Prioridad del objetivo : " + nuevoObj.getPriority()
+                            + " Sin orden de movimiento por no tener victimas en la cola."
+                            + " Los objetivos en la cola son  :  " + misObjs.getMisObjetivosPriorizados() + "\n");
+                 log.debug("\n" + identAgente + "Se ejecuta la tarea " + getIdentTarea() + " Sin orden de movimiento por no tener victimas en la cola."
+                         + "  Foco null. Victima rescatada :  " + victima + "\n\n");
+                 nuevoObj = null;
+            }    
                 focoActual.setFoco(nuevoObj);
                 this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
                 this.getEnvioHechos().actualizarHecho(focoActual);

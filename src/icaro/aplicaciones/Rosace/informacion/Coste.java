@@ -2,7 +2,6 @@ package icaro.aplicaciones.Rosace.informacion;
 
 
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
@@ -25,7 +24,7 @@ public class Coste {
     //Funcion de evaluacion que solo considera distancia entre la nueva victima y la posicion del robot. NO SE CONSIDERA LA ENERGIA NI LAS VICTIMAS QUE TIENE ASIGNADAS PREVIAMENTE.
 	//En este caso, el tercer parametro, robot, solo se utiliza para la depuracion. No interviene en el calculo de la funcion de evaluacion de este metodo
 	//El cuarto parametro solo se utiliza para la depuracion. No interviene en el calculo de la funcion de evaluacion de este metodo
-	public double FuncionEvaluacion1(double par1DistanciaEntreDosPuntos, double pesoPar1, RobotStatus robot, Victim nuevaVictima){
+	public double FuncionEvaluacion1(double par1DistanciaEntreDosPuntos, double pesoPar1, RobotStatus1 robot, Victim nuevaVictima){
 //	    trazas.aceptaNuevaTraza(new InfoTraza("Evaluacion", "Coste: FuncionEvaluacion1 sobre Victima(" + nuevaVictima.getName() + ")"  + 
 //	    		  ": robot " + robot.getIdRobot() + "-> " + (pesoPar1 * par1DistanciaEntreDosPuntos)  	    		  
 //	    		   , InfoTraza.NivelTraza.info));       		        		                                                           		        		          		           			
@@ -34,7 +33,7 @@ public class Coste {
 	//Funcion de evaluacion que considera la energia disponible en el robot para intentar poder atender a las victimas que tenia y la nueva victima. 
 	//El recorrido se haria de acuerdo a la prioridad de las victimas.  
 	//El cuarto parametro, nuevaVictima, solo se utiliza para la depuracion. No interviene en el calculo de la funcion de evaluacion de este metodo	
-	public double FuncionEvaluacion2(double par1DistanciaCamino, double pesoPar1, RobotStatus robot, Victim nuevaVictima){        
+	public double FuncionEvaluacion2(double par1DistanciaCamino, double pesoPar1, RobotStatus1 robot, Victim nuevaVictima){        
 		if (par1DistanciaCamino > robot.getAvailableEnergy()){
 //	       trazas.aceptaNuevaTraza(new InfoTraza("Evaluacion", "Coste: FuncionEvaluacion2 sobre Victima(" + nuevaVictima.getName() + ")"  +
 //		          ": robot " + robot.getIdRobot() + "-> -1.0"	    		   
@@ -55,7 +54,7 @@ public class Coste {
 	//El recorrido se haria de acuerdo a la prioridad de las victimas.  
 	//El cuarto parametro, nuevaVictima, solo se utiliza para la depuracion. No interviene en el calculo de la funcion de evaluacion de este metodo
 	//En esta funcion FuncionEvaluacion3 SE ESTA SUPONIENDO QUE MIENTRAS EL ROBOT CURA A LA VICTIMA, EL ROBOT NO CONSUME ENERGIA
-	public double FuncionEvaluacion3(double par1DistanciaCamino, double pesoPar1, double par2TiempoTotalAtencionVictimas, double pesoPar2, RobotStatus robot, Victim nuevaVictima){
+	public double FuncionEvaluacion3(double par1DistanciaCamino, double pesoPar1, double par2TiempoTotalAtencionVictimas, double pesoPar2, RobotStatus1 robot, Victim nuevaVictima){
 		double resultado;
 		//Si no tiene energía devuelve un -1 para indicar que no tiene recursos para ir
 		if (par1DistanciaCamino > robot.getAvailableEnergy()){
@@ -102,50 +101,50 @@ public class Coste {
 		}
 		else return evaluacionActual;		
 	}
-    public int calculoCosteAyudarVictimaConRLocation (String nombreAgenteEmisor, RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
-            
-        try{    		   
-                ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
-                ItfUsoRecursoMorse morseResourceRef;
-       		 morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
-       				                      "RecursoMorse1");
-       		  robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
-       		           
-       	          }
-   	              catch (Exception ex){
-       		              ex.printStackTrace();
-       	          }
-         double distanciaCamino = this.CalculaDistanciaCamino(nombreAgenteEmisor, robotLocation, victima, victims2R, misObjs);
-         double tiempoAtencionVictimas = this.CalculaTiempoAtencion(3.0, victima, victims2R, misObjs); 
-        if (identFuncEval.equalsIgnoreCase("FuncionEvaluacion1"))
-                funcionEvaluacion = this.FuncionEvaluacion1(distanciaCamino, 10.0,  robot, victima);
-            else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion2"))
-                funcionEvaluacion = this.FuncionEvaluacion2(distanciaCamino, 10.0, robot, victima);
-            else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion3"))
-                funcionEvaluacion = this.FuncionEvaluacion3(distanciaCamino, 10.0, tiempoAtencionVictimas, 3.0, robot, victima);
-            else {
-//                trazas.aceptaNuevaTraza(new InfoTraza("Evaluacion", "FuncionEvaluacion Especificada no existe sobre Victima(" + victima.getName() + ")"  +
-//		          ": robot " + robot.getIdRobot() + "-> -1.0"	    		   
-//	    		   , InfoTraza.NivelTraza.error)); 
-            }
-	        
-           int mi_eval = (int)funcionEvaluacion;   //convierto de double a int porque la implementación inicial de Paco usaba int                                  
-            
-            if (mi_eval>=0){            
-              int  mi_eval_nueva = Integer.MAX_VALUE; 
-//              mi_eval_nueva = cotaMaxima; 
-                //como va el que menor rango tiene, lo inicializamos a la peor                        
-            	//Para que gane el que mayor valor tiene de evaluación le resto el valor de la distancia obtenida al valor máximo de Integer
-            	//El que este más cercano hará decrecer menos ese valor y por tanto es el MEJOR
-            	mi_eval = mi_eval_nueva - mi_eval;
-            }
-            return mi_eval;
-        }
+//    public int calculoCosteAyudarVictimaConRLocation (String nombreAgenteEmisor, RobotStatus1 robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
+//            
+//        try{    		   
+//                ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
+//                ItfUsoRecursoMorse morseResourceRef;
+//       		 morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
+//       				                      "RecursoMorse1");
+//       		  robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
+//       		           
+//       	          }
+//   	              catch (Exception ex){
+//       		              ex.printStackTrace();
+//       	          }
+//         double distanciaCamino = this.CalculaDistanciaCamino(nombreAgenteEmisor, robotLocation, victima, victims2R, misObjs);
+//         double tiempoAtencionVictimas = this.CalculaTiempoAtencion(3.0, victima, victims2R, misObjs); 
+//        if (identFuncEval.equalsIgnoreCase("FuncionEvaluacion1"))
+//                funcionEvaluacion = this.FuncionEvaluacion1(distanciaCamino, 10.0,  robot, victima);
+//            else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion2"))
+//                funcionEvaluacion = this.FuncionEvaluacion2(distanciaCamino, 10.0, robot, victima);
+//            else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion3"))
+//                funcionEvaluacion = this.FuncionEvaluacion3(distanciaCamino, 10.0, tiempoAtencionVictimas, 3.0, robot, victima);
+//            else {
+////                trazas.aceptaNuevaTraza(new InfoTraza("Evaluacion", "FuncionEvaluacion Especificada no existe sobre Victima(" + victima.getName() + ")"  +
+////		          ": robot " + robot.getIdRobot() + "-> -1.0"	    		   
+////	    		   , InfoTraza.NivelTraza.error)); 
+//            }
+//	        
+//           int mi_eval = (int)funcionEvaluacion;   //convierto de double a int porque la implementación inicial de Paco usaba int                                  
+//            
+//            if (mi_eval>=0){            
+//              int  mi_eval_nueva = Integer.MAX_VALUE; 
+////              mi_eval_nueva = cotaMaxima; 
+//                //como va el que menor rango tiene, lo inicializamos a la peor                        
+//            	//Para que gane el que mayor valor tiene de evaluación le resto el valor de la distancia obtenida al valor máximo de Integer
+//            	//El que este más cercano hará decrecer menos ese valor y por tanto es el MEJOR
+//            	mi_eval = mi_eval_nueva - mi_eval;
+//            }
+//            return mi_eval;
+//        }
 
 	//Calcula el tiempo que tardara en atender todas las victimas que tiene asignadas actualmente, mas el tiempo que tardara en atender a la nueva victima
 	//El tiempo para atender una victima es igual al de la prioridad * factorMultiplicativo, siendo factorMultiplicativo el primer parametro pasado a este metodo
 	   
-        public int CalculoCosteAyudarVictima (String nombreAgenteEmisor, Coordinate robotLocation,RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
+        public int CalculoCosteAyudarVictima (String nombreAgenteEmisor, Coordinate robotLocation,RobotStatus1 robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
             
             double distanciaCamino = this.CalculaDistanciaCamino(nombreAgenteEmisor, robotLocation, victima, victims2R, misObjs);
             double tiempoAtencionVictimas = this.CalculaTiempoAtencion(3.0, victima, victims2R, misObjs);

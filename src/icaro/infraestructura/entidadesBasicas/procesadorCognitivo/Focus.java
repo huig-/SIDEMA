@@ -5,6 +5,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTra
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+import org.openide.util.Exceptions;
 
 
 
@@ -102,11 +103,10 @@ public class Focus {
      *  Elimina de la pila el foco y lo toma como foco actual
      *  
      */
-    public synchronized void refocus() {
-       
-        this.foco = this.focosAnteriores.poll();
-        trazas.aceptaNuevaTraza(new InfoTraza("","Foco: Focalizando el objetivo "+foco.getgoalId(),InfoTraza.NivelTraza.debug));
-        
+      public synchronized void refocus() {
+       if (this.focosAnteriores.peekLast() == null) this.setFoco(null);
+       else this.setFoco (this.focosAnteriores.pollLast());
+//        trazas.aceptaNuevaTraza(new InfoTraza("","Foco: Focalizando el objetivo "+foco.getgoalId(),InfoTraza.NivelTraza.debug));
         
         
     }
@@ -129,17 +129,27 @@ public class Focus {
     public synchronized void setFocusToObjetivoMasPrioritario(MisObjetivos misObjs){
         Objetivo obj = misObjs.getobjetivoMasPrioritario();
         if (obj == null) this.foco= null;
-        else
-         if (obj != this.foco) {
-             this.focosAnteriores.add(this.foco);
+        if (this.foco!=null && obj != this.foco) {
+            try {
+                this.wait();
+                this.focosAnteriores.addFirst(this.foco);
             this.foco = obj;
+            } catch (InterruptedException ex) {
+                Exceptions.printStackTrace(ex);
+            }
         }
     }
+    public synchronized void refocusUltimoObjetivoSolving(){
     /**
-     *  Devuelve el contenido del foco como una cadena de texto
-     *
+     *  Devuelve el ultimo objetivo focalizado que sigue en solving . Esto permite refocalizar en el ultimo 
+     *  Objetivo solving. De paso eliminamos los objetivos  conseguidos 
      *@return    Description of the Return Value
      */
+        
+        while (foco!=null && foco.getState()== Objetivo.SOLVED){
+            foco=this.focosAnteriores.pollLast();
+        }
+    }
     @Override
     public String toString() {
         return "(FOCO: focoActual= " + this.foco + "  focosAnteriores= " + this.focosAnteriores + " )";

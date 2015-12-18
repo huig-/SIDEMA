@@ -27,7 +27,7 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
     private int mi_eval, mi_eval_nueva;
     private String nombreAgenteEmisor;
     private PeticionAgente  peticionRecibida;
-    private ItfUsoRecursoTrazas trazas;
+//    private ItfUsoRecursoTrazas trazas;
     private MisObjetivos misObjtvs;
     private String identObjEvaluacion;
     private String nombreAgenteQuePideLaEvaluacion ;
@@ -36,19 +36,18 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
     private  Integer valorParaExcluirmeDelObjetivo = -5000 ;
     private VictimsToRescue victimasRecibidas ;
     private Victim victimEnPeticion ;
-    private RobotStatus robot;
+    private RobotStatus1 robot;
     private Coordinate robotLocation;
     //private TimeOutRespuestas tiempoSinRecibirRespuesta; //no usado
     
 	@Override
 	public void ejecutar(Object... params) {
 		
-          trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
           Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
    //       infoDecision = (InfoParaDecidirQuienVa)params[1];
           peticionRecibida = (PeticionAgente) params[1]; 
           misObjtvs = (MisObjetivos) params[2];
-          robot = (RobotStatus)params[3];
+          robot = (RobotStatus1)params[3];
           victimasRecibidas = (VictimsToRescue) params[4];
                        //      EvaluacionAgente miEvaluacion = (EvaluacionAgente) params[2];
           nombreAgenteEmisor = this.getIdentAgente();
@@ -58,7 +57,6 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 //        agentesEquipo = infoDecision.getNombreAgentesEquipoDefinidos(nombreAgenteEmisor, VocabularioRosace.IdentComunAgtesSubordinados);
           identObjEvaluacion = peticionRecibida.getidentObjectRefPeticion();
           nombreAgenteQuePideLaEvaluacion= peticionRecibida.getIdentAgente();
-         
           try {
               trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identTarea , InfoTraza.NivelTraza.debug));
       // si el identificador esta entre mis objetivos es que esta resuelto , le mando un valor para que se desanime

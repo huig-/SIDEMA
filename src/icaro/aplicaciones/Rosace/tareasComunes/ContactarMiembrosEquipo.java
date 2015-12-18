@@ -9,6 +9,7 @@ import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.Rosace.utils.AccesoPropiedadesGlobalesRosace;
 import icaro.aplicaciones.Rosace.informacion.InfoRolAgente;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus1;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 	@Override
 	public void ejecutar(Object... params) {
 		try {     
-              RobotStatus miStatus = (RobotStatus)params[0];    
+              RobotStatus1 miStatus = (RobotStatus1)params[0];    
              InfoEquipo equipoInfo = (InfoEquipo)params[1];  
               nombreAgenteEmisor = this.getAgente().getIdentAgente();
               agentesEquipo = equipoInfo.getTeamMemberIDs();

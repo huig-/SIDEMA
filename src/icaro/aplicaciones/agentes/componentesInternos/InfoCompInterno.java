@@ -30,10 +30,10 @@ public class InfoCompInterno {
      public Object getitfAccesoControlEntidad(){
          return itfAccesoControlEntidad ;
      } 
-     public void setestadoComponente( String estadoComp){
-         estadoComponente = estadoComp;
-     }   
-     public String getestadoComponente(){
-         return estadoComponente ;
-     } 
+//     public void setestadoComponente( String estadoComp){
+//         estadoComponente = estadoComp;
+//     }   
+//     public String getestadoComponente(){
+//         return estadoComponente ;
+//     } 
 }

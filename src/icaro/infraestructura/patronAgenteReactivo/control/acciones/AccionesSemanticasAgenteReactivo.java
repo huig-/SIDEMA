@@ -208,6 +208,11 @@ public String getNombreAgente() {
 		logger.debug("Generando evento de timeout de "+ milis + " milisegundos");
 		timeout.start();
  }
+ public void generarTimeOutInterno(long milis, String nombre, String origen,ItfUsoAgenteReactivo itfAgente) {
+		GenerarEventoTimeOut timeout = new GenerarEventoTimeOut(milis, nombre, origen, itfAgente);
+		logger.debug("Generando evento de timeout interno de "+ milis + " milisegundos");
+		timeout.start();
+ }
  public ComunicacionAgentes getComunicator (){
      if (comunicator==null) comunicator = new ComunicacionAgentes(nombreAgente);
      return comunicator;

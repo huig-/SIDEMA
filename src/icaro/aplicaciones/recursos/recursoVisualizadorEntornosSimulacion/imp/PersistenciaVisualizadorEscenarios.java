@@ -5,8 +5,14 @@
  */
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
+import icaro.aplicaciones.Rosace.informacion.RobotCapability;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus1;
 import java.io.File;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -21,19 +27,32 @@ public class PersistenciaVisualizadorEscenarios {
     }
     public void guardarInfoEscenarioSimulacion(String rutaFicheroInfoPersistencia,EscenarioSimulacionRobtsVictms escenario){
          Serializer serializer = new Persister();
-         String identFichero = escenario.getIdentEscenario();
+         String identFichero = rutaFicheroInfoPersistencia+escenario.getIdentEscenario()+".xml";
          try {
               File dirFicherosPersistencia = new File(rutaFicheroInfoPersistencia);
                 if(!dirFicherosPersistencia.exists()){
                     dirFicherosPersistencia.mkdir();
 //                    rutaFicheroInfoPersistencia= dirFicherosPersistencia.getAbsolutePath()+"\\";
                 }
-//             File result = new File(rutaFicheroInfoPersistencia+identFichero+".xml");
+             File result = new File(identFichero);
+             if (result.exists()){
+                 result.delete();
+                 serializer.write(escenario, new File(identFichero));
+             }else serializer.write(escenario, result);
+             ArrayList<String> robotNombres = escenario.getListIdentsRobots();
+             for (String ideRobot:robotNombres){
+//                 String ideRobot = (String)robtIter.next();
+              RobotStatus1 infoRobot = (RobotStatus1) escenario.getRobotInfo(ideRobot);
+             
+              List<RobotCapability> capacidades=infoRobot.getRobotCapabilities();
+                 System.out.println(" Desde persistencia Lista de capacidades a guardar del robot  : " + ideRobot+"Capacidades : "+ capacidades.toString() );
+             }
+              System.out.println("Desde peticion Guardar Numero de Robots  : " + escenario.getNumRobots()+" Numero de victimas : "+ escenario.getNumVictimas());
 
-          serializer.write(escenario, new File(rutaFicheroInfoPersistencia+identFichero+".xml"));
+//          serializer.write(escenario, new File(rutaFicheroInfoPersistencia+identFichero+".xml"));
           
           System.out.println("En el fichero   : "+ rutaFicheroInfoPersistencia+identFichero);
-          System.out.println("Se va a guardar  : "+ escenario.toString());
+          System.out.println("Se va a guardar  : "+ escenario.toString() );
           
           
         

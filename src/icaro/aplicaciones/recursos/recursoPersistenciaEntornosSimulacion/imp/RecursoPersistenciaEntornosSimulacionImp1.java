@@ -95,6 +95,25 @@ public class RecursoPersistenciaEntornosSimulacionImp1 extends ImplRecursoSimple
     }
          
      }
+     
+     public EscenarioSimulacionRobtsVictms obtenerInfoEscenarioSimulacion(String rutaFicheroInfoPersistencia){
+         try {
+              File ficheroEscenario = new File(rutaFicheroInfoPersistencia);
+                if(!ficheroEscenario.exists()){
+//                    dirFicherosPersistencia.mkdir();
+//                    rutaFicheroInfoPersistencia= dirFicherosPersistencia.getAbsolutePath()+"\\";
+                System.out.println("El fichero   : "+ rutaFicheroInfoPersistencia+ " No existe " );
+             
+                }else {
+                   Serializer serializer = new Persister();
+                return   serializer.read(EscenarioSimulacionRobtsVictms.class,ficheroEscenario, false);
+                    
+                }   
+                }catch (Exception e) { // catches ANY exception
+        e.printStackTrace();
+    }
+         return null;
+     }
      /**
  * Saves the current person data to the specified file.
  * 

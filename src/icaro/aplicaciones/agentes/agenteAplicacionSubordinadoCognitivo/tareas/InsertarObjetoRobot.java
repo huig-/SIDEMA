@@ -1,7 +1,7 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
-import icaro.aplicaciones.Rosace.informacion.RobotStatus;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus1;
 import icaro.aplicaciones.Rosace.utils.AccesoPropiedadesGlobalesRosace;
 import icaro.aplicaciones.Rosace.utils.ConstantesRutasEstadisticas;
 import icaro.aplicaciones.Rosace.utils.ReadXMLTestRobots;
@@ -43,7 +43,7 @@ public class InsertarObjetoRobot extends TareaSincrona{
         	   Coordinate initialCoordinate = rXMLTRobots.getRobotCoordinate(info);
         	   float healRange = rXMLTRobots.getRobotHealRange(info, "healrange");
         		        	           	   
-        	   RobotStatus robotStatus = new RobotStatus();        	           	   
+        	   RobotStatus1 robotStatus = new RobotStatus1();        	           	   
         	   robotStatus.setIdRobot(valueid);
         	   robotStatus.setAvailableEnergy(energy);        	   
         	   robotStatus.setRobotCoordinate(initialCoordinate);        	   

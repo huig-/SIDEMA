@@ -26,7 +26,7 @@ public class ProcesarPropuestaParaAsumirObjetivo extends TareaSincrona {
 
     private String nombreAgenteEmisor;
     private ItfUsoRecursoTrazas trazas;
-    private RobotStatus miStatus;
+    private RobotStatus1 miStatus;
     private String identDeEstaTarea ;
 //    private String mensajePropuesta ;   ////????????????????????esto no se inicializa?????????????
 
@@ -35,7 +35,7 @@ public class ProcesarPropuestaParaAsumirObjetivo extends TareaSincrona {
             try {
                   trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
                   Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
-                  miStatus = (RobotStatus)params[1];
+                  miStatus = (RobotStatus1)params[1];
                   MisObjetivos misObjtvs = (MisObjetivos) params[2];
                   VictimsToRescue victimasRecibidas = (VictimsToRescue) params[3];
                   PropuestaAgente propuestaRecibida =  (PropuestaAgente)params[4];

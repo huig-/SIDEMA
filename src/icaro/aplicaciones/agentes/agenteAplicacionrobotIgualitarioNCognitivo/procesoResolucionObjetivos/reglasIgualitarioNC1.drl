@@ -254,14 +254,15 @@ no-loop true
 when  
    obj1 :AyudarVictima(state == Objetivo.SOLVING, idVict:victimId )
     obj2: DecidirQuienVa (state == Objetivo.SOLVING,idVict2:objectDecisionId != idVict )
-    exists Victim(name ==idVict2 )
+//    infoCompMov:InfoCompMovimiento ()
     victims2R:VictimsToRescue(victims2Rescue!=null)
   //  misObjs : MisObjetivos()
- //   infoCompMov:InfoCompMovimiento ()
-    focoActual:Focus(foco != obj2,faseProcesoConsecObjetivos=="DecisionAsignacionVictima")
+ //   
+    focoActual:Focus( faseProcesoConsecObjetivos=="DecisionAsignacionVictima")
  then
-    modify ( focoActual ){
+   modify ( focoActual ){
         setFoco(obj2)
+    //    refocus()
         };
 recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() +
 "Foco actual : "+focoActual+  "\n");
@@ -269,10 +270,7 @@ end
 rule "Tratamiento Informe victima rescatada Consecucion del  objetivo Ayudar a la victima "
 no-loop true
 when
-//    victimaCC:Victim(idVict:name)
-//    obj1 :AyudarVictima(state == Objetivo.SOLVING, victimId == idVict)
     AyudarVictima(state == Objetivo.SOLVING, idVict:victimId)
-    obj2: DecidirQuienVa (state == Objetivo.SOLVED,objectDecisionId == idVict )
     victims2R:VictimsToRescue(victims2Rescue!=null)
     misObjs : MisObjetivos()
     infoCompMov:InfoCompMovimiento ()
@@ -391,8 +389,9 @@ rule " Si me piden mi evaluacion en DecidirQuienVa  Solved se la mando "
     robot:RobotStatus()
     victims2R:VictimsToRescue(victims2Rescue!=null)
     victimaCC:Victim(idVict:name)    
-     obj1:AyudarVictima(state == Objetivo.PENDING,victimId == idVict)
-     obj:DecidirQuienVa(state==Objetivo.SOLVED,objectDecisionId == idVict)
+ //    obj1:AyudarVictima(state == Objetivo.PENDING,victimId == idVict)
+ //    obj:DecidirQuienVa(state==Objetivo.SOLVED,objectDecisionId == idVict)
+     obj:DecidirQuienVa(objectDecisionId == idVict)
      Focus(foco == obj) 
      infoDecision: InfoParaDecidirQuienVa(idElementoDecision == idVict,miEvaluacionEnviadaAtodos == true)
  //    InformeDeTarea(identTarea == "ObtenerEvaluacionRealizarObjetivo")
@@ -465,7 +464,8 @@ rule "Obtener la evaluacion del Objetivo"
     infoDecision: InfoParaDecidirQuienVa(idElementoDecision == idVict, tengoMiEvaluacion== false,miEvaluacionEnviadaAtodos == false) // no se ha ralizado la evaluacion   
     AyudarVictima(state == Objetivo.PENDING,victimId == idVict)
     obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == idVict )
-    focoActual:Focus(foco == obj,faseProcesoConsecObjetivos == "DecisionAsignacionVictima" )
+//    focoActual:Focus(foco == obj,faseProcesoConsecObjetivos == "DecisionAsignacionVictima" )
+    focoActual:Focus(foco == obj )
     not ( exists EvaluacionAgente(identAgente ==agentId, objectEvaluationId == idVict)) 
   then
      recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Resolviendo el objetivo : "+obj.getgoalId()+"  Ejecutando la tarea : ObtenerEvaluacionRealizarObjetivo () ",InfoTraza.NivelTraza.debug));

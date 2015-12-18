@@ -35,8 +35,9 @@ public class ReadXMLTestSequence {
 			  return doc;
         } catch (Exception e) {
              e.printStackTrace();
+             return null;
         }
-        return doc; //this return will be not executed
+//        return doc; //this return will be not executed
 	}
 	
 	//tag parameter should be equal to "victim"

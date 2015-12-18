@@ -6,9 +6,11 @@
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoPanelEspecifico;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,7 +38,7 @@ public class GestionEscenariosSimulacion {
          int indiceEscenarioRepetido = 0;
          while (identsEscenarios.contains(identEscenario)){
              indiceEscenarioRepetido ++;
-             identEscenario =identEscenario+indiceEscenarioRepetido;
+             identEscenario =identEscenario+"_"+indiceEscenarioRepetido;
          }
          return identEscenario;
      }
@@ -45,6 +47,7 @@ public class GestionEscenariosSimulacion {
      }
      public EscenarioSimulacionRobtsVictms crearEscenarioSimulacion(){
          EscenarioSimulacionRobtsVictms escenarioSim = new EscenarioSimulacionRobtsVictms();
+         
          escenarioSim.setGestorEscenarios(this);
          escenarioSim.setIdentEscenario(getIdentEscenario (orgModeloInicial,0, 0));
          return escenarioSim;

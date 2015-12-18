@@ -9,7 +9,6 @@ import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.DecidirQuienVa;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
@@ -41,7 +40,7 @@ public class MandarEvaluacionAQuienLaPide  extends TareaSincrona {
     private  Integer valorParaExcluirmeDelObjetivo = -5000 ;
     private VictimsToRescue victimasRecibidas ;
     private Victim victimEnPeticion ;
-    private RobotStatus robot;
+    private RobotStatus1 robot;
     private Coordinate robotLocation;
     //private TimeOutRespuestas tiempoSinRecibirRespuesta; //no usado
     
@@ -53,14 +52,14 @@ public class MandarEvaluacionAQuienLaPide  extends TareaSincrona {
           infoDecision = (InfoParaDecidirQuienVa)params[1];
           peticionRecibida = (PeticionAgente) params[2]; 
           misObjtvs = (MisObjetivos) params[3];
-          robot = (RobotStatus)params[4];
+          robot = (RobotStatus1)params[4];
           victimasRecibidas = (VictimsToRescue) params[5];
                        //      EvaluacionAgente miEvaluacion = (EvaluacionAgente) params[2];
           nombreAgenteEmisor = this.getIdentAgente();
           agentesEquipo = infoDecision.getIdentsAgentesEquipo();
           identObjEvaluacion = peticionRecibida.getidentObjectRefPeticion();
           nombreAgenteQuePideLaEvaluacion= peticionRecibida.getIdentAgente();
-         
+         robotLocation= robot.getRobotCoordinate();
           try {
               trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identTarea , InfoTraza.NivelTraza.debug));
       // si el identificador esta entre mis objetivos es que esta resuelto , le mando un valor para que se desanime
@@ -111,17 +110,17 @@ public class MandarEvaluacionAQuienLaPide  extends TareaSincrona {
    }
         private int calcularCosteEstimadoVictima(){
           
-          try{    		   
-                ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
-                ItfUsoRecursoMorse morseResourceRef;
-       		 morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
-       				                      "RecursoMorse1");
-       		  robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
-       		           
-       	          }
-   	              catch (Exception ex){
-       		              ex.printStackTrace();
-       	          }  
+//          try{    		   
+//                ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
+//                ItfUsoRecursoMorse morseResourceRef;
+//       		 morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
+//       				                      "RecursoMorse1");
+//       		  robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
+//       		           
+//       	          }
+//   	              catch (Exception ex){
+//       		              ex.printStackTrace();
+//       	          }  
           Coste coste = new Coste();
           return coste.CalculoCosteAyudarVictima(nombreAgenteEmisor, robotLocation, robot, victimEnPeticion, victimasRecibidas, misObjtvs, "FuncionEvaluacion3");
                               

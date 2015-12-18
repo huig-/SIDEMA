@@ -18,7 +18,7 @@ global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
-//Primera regla que se ejecutara. Solo se debe disparar una vez.
+/*Primera regla que se ejecutara. Solo se debe disparar una vez.
 rule "Acciones Iniciales Subordinado"
  when
     not ( exists(Focus()))
@@ -35,12 +35,12 @@ rule "Acciones Iniciales Subordinado"
    //recursoTrazas.aceptaNuevaTraza(new InfoTraza("OrdenAsignacion",agentId + " : REGLA " + drools.getRule().getName(), InfoTraza.NivelTraza.debug));    
     
 end
-
+*/
 rule "Si me llega una peticion de envio de mi evaluacion del Agte Asignador  la calculo y se la mando"
  when    
 //    focoActual : Focus(foco == null)
     misObjs: MisObjetivos()
-    robot:RobotStatus()
+    robot:RobotStatus1()
     victims2R:VictimsToRescue(victims2Rescue!=null)
     peticionAgte: PeticionAgente( mensajePeticion == VocabularioRosace.MsgPeticionEnvioEvaluaciones,
                                  identAgente == VocabularioRosace.IdentAgteDistribuidorTareas,victimaCC:justificacion)
@@ -56,7 +56,7 @@ rule "Procesar propuesta para que asuma el objetivo cuando no tengo objetivo foc
       victimaCC:Victim(idVict:name)   
 //      focoActual : Focus(foco == null)
       misObjs: MisObjetivos()
-      miStatus:RobotStatus()
+      miStatus:RobotStatus1()
       victims2R:VictimsToRescue(victims2Rescue !=null)
       propuesta:PropuestaAgente (msgPropuesta:mensajePropuesta == VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo,identObjectRefPropuesta == idVict)
       not( exists ( AceptacionPropuesta(propuestaAceptada == propuesta  )))
@@ -104,7 +104,7 @@ end
 
 rule "Fin de la simulacion"
   when    
-    robot:RobotStatus()
+    robot:RobotStatus1()
     victims2R:VictimsToRescue(victims2Rescue!=null)
     misObjs: MisObjetivos()
 //    finSimu: FinSimulacion(flagActivacion==false)                

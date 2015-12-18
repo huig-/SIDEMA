@@ -5,12 +5,15 @@
 package icaro.aplicaciones.Rosace.informacion;
 
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
+import icaro.infraestructura.entidadesBasicas.excepciones.ExcepcionEnComponente;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openide.util.Exceptions;
 
 /**
  *
@@ -28,17 +31,18 @@ public class InfoEquipo {
       private ItfUsoConfiguracion itfConfig  ;
       private ArrayList<String> teamRobotIds;
       private ArrayList<String> teamRobotIdsWithMyRol;
-      private Map<String, RobotStatus> teamInfoAgentStatus;
+      private Map<String, RobotStatus1> teamInfoAgentStatus;
     
      public  InfoEquipo (String agtePropietarioId, String identEquipo){       
              this.identEquipo = identEquipo;
              identAgentePropietario= agtePropietarioId;
              getIdentsAgentesEquipoFromConfig(identEquipo);
+             identAgenteJefeEquipo=getIdentJefeEquipoFromConfig();
              initializeAgentTeamStatus();
     }
     
     private void  initializeAgentTeamStatus(){
-           teamInfoAgentStatus = new HashMap<String,RobotStatus>();
+           teamInfoAgentStatus = new HashMap<String,RobotStatus1>();
            for(int i = 0; i < teamRobotIds.size();  i++ ) {
                String aux = (String) teamRobotIds.get(i); 
                teamInfoAgentStatus.put(aux, null);
@@ -76,6 +80,16 @@ public class InfoEquipo {
             }
             this.numberOfTeamMembers =  teamRobotIds.size();    
      }
+     public String getIdentJefeEquipoFromConfig(){
+          try {
+              return  itfConfig.getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_JEFE_EQUIPO);
+          } catch (ExcepcionEnComponente ex) {
+              Logger.getLogger(InfoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (RemoteException ex) {
+             Logger.getLogger(InfoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return null;
+     }
     private ArrayList<String> getIdentsAgentesAplicacionRegistrados(){
        
          try {   
@@ -97,7 +111,7 @@ public class InfoEquipo {
       }
       public synchronized void addAgteAmiEquipo(String idAgte,String rolEnEquipoId){
           if (teamInfoAgentStatus.get(idAgte)== null){
-              RobotStatus estatusAgte = new RobotStatus();
+              RobotStatus1 estatusAgte = new RobotStatus1();
               estatusAgte.setIdRobotRol(rolEnEquipoId); 
               // si no esta entre los que se han obtenido de la configuracion lo meto y si esta no se hace nada
               if(!teamRobotIds.contains(idAgte)) teamRobotIds.add(idAgte);   
@@ -107,7 +121,7 @@ public class InfoEquipo {
      public synchronized ArrayList<String> getTeamMemberIDsWithThisRol(String rolId){
          ArrayList<String> agtesConMismoRol = new ArrayList();
        //  int indiceagtesConMirol=0;
-         RobotStatus estatusAgte;
+         RobotStatus1 estatusAgte;
          String identAgte;
          for (int i = 0; i < teamRobotIds.size();  i++ ){
              identAgte = teamRobotIds.get(i);
@@ -131,7 +145,7 @@ public class InfoEquipo {
      public synchronized ArrayList<String> getTeamMemberIDs (){
          return this.teamRobotIds;
      }
-     public synchronized RobotStatus getTeamMemberStatus(String identMember){ 
+     public synchronized RobotStatus1 getTeamMemberStatus(String identMember){ 
          return teamInfoAgentStatus.get(identMember);
      }
  /*    
@@ -150,7 +164,7 @@ public class InfoEquipo {
          if ( identMiRolEnEsteEquipo != null && identAgte.equals(identAgentePropietario)) return this.identMiRolEnEsteEquipo;
          else return teamInfoAgentStatus.get(identAgte).getIdRobotRol();
      }
-     public synchronized void setTeamMemberStatus(String identMember, RobotStatus robotSt){ 
+     public synchronized void setTeamMemberStatus(String identMember, RobotStatus1 robotSt){ 
          teamInfoAgentStatus.put(identMember, robotSt);
      }
      public synchronized Boolean isRobotStatusDefined(String robtId){ 

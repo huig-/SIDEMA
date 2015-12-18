@@ -129,7 +129,7 @@ public class Temporizador extends Thread {
         } catch (InterruptedException ex) {}
 
         // Genera un nuevo evento de input
-        this.itfEnvioHechos.insertarHecho(informeAGenerar); 
+        this.itfEnvioHechos.insertarHecho(informeAGenerar);
 
       }    
       

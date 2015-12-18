@@ -40,8 +40,8 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
             super(idrecurso);           
              try {
            impPersistenciaXML = new RecursoPersistenciaEntornosSimulacionImp(idrecurso);
-           impPersistenciaXML.inicializarRecursoPersistenciaEntornosSimulacion();
-           impPersistenciaXML.setNumeroVictimasDiferentesSimulacion();
+//           impPersistenciaXML.inicializarRecursoPersistenciaEntornosSimulacion();
+//           impPersistenciaXML.setNumeroVictimasDiferentesSimulacion();
            
         } catch (Exception ex) {
             Logger.getLogger(RecursoPersistenciaEntornosSimulacionImp.class.getName()).log(Level.SEVERE, null, ex);

@@ -6,7 +6,6 @@
 package icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.tareas;
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
@@ -39,12 +38,12 @@ public class ObtenerEvaluacionRealizarObjetivo extends TareaSincrona {
             Coordinate victimLocation = victim.getCoordinateVictim();            
             InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa)params[2];
             
-            RobotStatus robot = (RobotStatus)params[3];                        
+            RobotStatus1 robot = (RobotStatus1)params[3];                        
             VictimsToRescue victims2R =(VictimsToRescue)params[4];
             MisObjetivos misObjs = (MisObjetivos)params[5];
 
             Coste coste = new Coste();
-            
+            robotLocation = robot.getRobotCoordinate();
 //            String nombreAgenteEmisor = this.getAgente().getIdentAgente();            
 //
 //            //Mostrar en ventana de trazas informacion de los costes 
@@ -81,13 +80,13 @@ public class ObtenerEvaluacionRealizarObjetivo extends TareaSincrona {
 //	        funcionEvaluacion = coste.FuncionEvaluacion2(distanciaCamino, 1.0, robot, victim);
 //
             System.out.println("Realizando  la evaluacion para el Robot ->" + this.identAgente);
-            System.out.println("robotLocation->"+robot.getRobotCoordinate());
+            System.out.println("robotLocation->"+robotLocation);
             System.out.println("para la victima ->"+victim.toString());
             System.out.println("victims2R->"+victims2R.getlastVictimToRescue().toString());
 //            System.out.println("misObjs->"+misObjs.getobjetivoMasPrioritario().toString());
             if (misObjs.getobjetivoMasPrioritario()!=null)System.out.println("misObjs->"+misObjs.getobjetivoMasPrioritario().toString());
 	        //Las sentencias siguientes permiten utilizar la funcion de evaluacion 3 que considera el recorrido que tendria que hacer y la engergia y el tiempo
-            double distanciaCamino = coste.CalculaDistanciaCamino(this.identAgente, robot.getRobotCoordinate(), victim, victims2R, misObjs);
+            double distanciaCamino = coste.CalculaDistanciaCamino(this.identAgente, robotLocation, victim, victims2R, misObjs);
             double tiempoAtencionVictimas = coste.CalculaTiempoAtencion(3.0, victim, victims2R, misObjs);
             funcionEvaluacion = coste.FuncionEvaluacion3(distanciaCamino, 5.0, tiempoAtencionVictimas, 9.0, robot, victim);
 	                
@@ -106,16 +105,8 @@ public class ObtenerEvaluacionRealizarObjetivo extends TareaSincrona {
             eval.setObjectEvaluationId(victim.getName());// Referenciamos la evaluacion con el ident de la victima
             infoDecision.setMi_eval(mi_eval);
             infoDecision.setTengoMiEvaluacion(Boolean.TRUE);
-            
             this.getEnvioHechos().insertarHechoWithoutFireRules(eval);
             this.getEnvioHechos().actualizarHecho(infoDecision);
-       
-            //Mostrar en ventana de trazas del agente información de la posición del robot, la victima y distancia entre ellos
-            //trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "^^^^^Posicion actual robot -> "    + robotLocation.toString() + 
-       		//                                                     " , Posicion actual victima -> "  + victimLocation.toString() +
-       		//                                                     " , Funcion distancia -> "  + funcionEvaluacion + " , eval-> " + mi_eval, 
-       		//                                 InfoTraza.NivelTraza.debug));       		        		                                                           		        		          		           
-       
        } catch (Exception e) {
 		   e.printStackTrace();
        }

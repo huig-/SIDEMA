@@ -19,6 +19,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openide.util.Exceptions;
 
 
 /**
@@ -47,7 +48,7 @@ public class MaquinaEstadoMovimientoCtrl   {
     public ItfProcesadorObjetivos itfProcObjetivos;
     protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
     ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
-    
+    private org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass().getSimpleName());
     
     public void bloquear() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -152,39 +153,47 @@ public synchronized void moverAdestino(String identdest,Coordinate coordDestino,
     // cuando se da desde un estado en movimiento se activa la orden cambiar destino
         if (velocidadCrucero<= 0)trazas.trazar(identComponente, "La velocidad debe ser mayor que cero. Se ignora la operacion", InfoTraza.NivelTraza.error);
               else this.velocidadRobot = velocidadCrucero;
-        if ( this.identEstadoActual.equals(EstadoMovimientoRobot.RobotEnMovimiento))
+        if ( this.identEstadoActual.equals(EstadoMovimientoRobot.RobotEnMovimiento.name()))
                 if ( identdest.equals(identDestino))
                         this.trazas.trazar (this.identComponente, " Se esta avanzando hacia el destino ", InfoTraza.NivelTraza.debug);
-                else { // cambiar destino 
-               if (monitorizacionLlegadaDestino != null)this.monitorizacionLlegadaDestino.finalizar();
-               robotposicionActual = monitorizacionLlegadaDestino.getCoordRobot();
-               this.velocidadRobot = velocidadCrucero;
-               this.destinoCoord = coordDestino;
-               this.identDestino = identdest;
+                else { 
+                    // cambiar destino
+                    if (monitorizacionLlegadaDestino != null)this.monitorizacionLlegadaDestino.finalizar();
+                    robotposicionActual = monitorizacionLlegadaDestino.getCoordRobot();
+                    this.velocidadRobot = velocidadCrucero;
+                    this.destinoCoord = coordDestino;
+                    this.identDestino = identdest;
                this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,this,this.itfUsoRecVisEntornosSimul);
 //               monitorizacionLlegadaDestino.setValoresIniciales(identDestino,robotposicionActual,destinoCoord);
 //               this.robotposicionActual = this.maquinaEstados.getCoordenadasActuales();
-//               this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,this,this.itfUsoRecVisEntornosSimul);       
-               monitorizacionLlegadaDestino.inicializarDestino(identdest,this.robotposicionActual,coordDestino,velocidadCrucero);
-               monitorizacionLlegadaDestino.start();
+//               this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,this,this.itfUsoRecVisEntornosSimul);
+                    monitorizacionLlegadaDestino.inicializarDestino(identdest,this.robotposicionActual,coordDestino,velocidadCrucero);
+                    monitorizacionLlegadaDestino.start();
                   }
-        if ( this.identEstadoActual.equals(EstadoMovimientoRobot.RobotParado))
+        if ( this.identEstadoActual.equals(EstadoMovimientoRobot.RobotParado.name()))
             if ( identdest.equals(identDestino))
                         this.trazas.trazar (this.identComponente, " Estamos parados en destino ", InfoTraza.NivelTraza.error);
             else{// se da la orden de avanzar al destino
-               if (monitorizacionLlegadaDestino == null)
-                    monitorizacionLlegadaDestino= new HebraMonitorizacionLlegada (this.identAgente,this,this.itfUsoRecVisEntornosSimul);
-               robotposicionActual = monitorizacionLlegadaDestino.getCoordRobot();
                this.velocidadRobot = velocidadCrucero;
                this.destinoCoord = coordDestino;
                this.identDestino = identdest;
+               if (monitorizacionLlegadaDestino == null) {
+                   log.debug("Se crea la hebra de  monitorizacion para destino " + identdest + "  posicion actual -> ("+this.robotposicionActual.getX() + " , " + this.robotposicionActual.getY() + ")"); 
+                    monitorizacionLlegadaDestino= new HebraMonitorizacionLlegada (this.identAgente,this,this.itfUsoRecVisEntornosSimul);
+                    monitorizacionLlegadaDestino.inicializarDestino(identdest,this.robotposicionActual,coordDestino,velocidadCrucero);
+                     monitorizacionLlegadaDestino.start();
+               }else {
+//               robotposicionActual = monitorizacionLlegadaDestino.getCoordRobot();
+              
 //               this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,this,this.itfUsoRecVisEntornosSimul);
 //               monitorizacionLlegadaDestino.setValoresIniciales(identDestino,robotposicionActual,destinoCoord);
 //               this.robotposicionActual = this.maquinaEstados.getCoordenadasActuales();
 //               this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,this,this.itfUsoRecVisEntornosSimul);       
+               log.debug("Se da orden de  monitorizacion para destino " + identdest + "  posicion actual -> ("+this.robotposicionActual.getX() + " , " + this.robotposicionActual.getY() + ")"); 
                monitorizacionLlegadaDestino.inicializarDestino(identdest,this.robotposicionActual,coordDestino,velocidadCrucero);
-               monitorizacionLlegadaDestino.start(); 
-            }
+               monitorizacionLlegadaDestino.start();
+               }
+                   }
          }
   
         public void cambiaVelocidad( float nuevaVelocidadCrucero) {

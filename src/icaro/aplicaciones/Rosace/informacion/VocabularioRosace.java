@@ -12,12 +12,13 @@ import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
  */
 public class VocabularioRosace extends NombresPredefinidos{
     public static final String NombrePropiedadGlobalIdentEquipo= "identificadorEquipo";
+    public static final String NombrePropiedadGlobalModeloOrganizacion= "organizacion";
     public static final String IdentMisionEquipo = "mision1";
     public static final String IdentEquipoIgualitario= "robotMasterIA";
     public static final String IdentEquipoJerarquico= "Jerarquico";  ///ES LO QUE ESTABA ANTES
 //    public static final String IdentEquipoJerarquico= "robotSubordinado";
     public static final String IdentEquipoJerarquicoConCambioRol= "jerarquicoConCR";
-    public static final String IdentAgteDistribuidorTareas= IdentEquipoJerarquico+"agenteAsignador";
+    public static final String IdentAgteDistribuidorTareas= IdentEquipoJerarquico+"RobotAsignador";
     public static final String IdentRolAgteDistribuidorTareas= "agenteAsignador";
     public static final String IdentRolAgtesSubordinados= "robotSubordinado";
     public static final String IdentRolAgtesSubordinadosConCR= "robotSubordinadoConCR";
@@ -105,8 +106,8 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String IdentRecursoCreacionEntornosSimulacion = "RecursoCreacionEntornosSimulacion1";
     static public  final String IdentRecursoVisualizadorEntornosSimulacion = "RecursoVisualizadorEntornosSimulacion1";
     static public  final String IdentPersistenciaEntornosSimulacion = "RecursoPersistenciaEntornosSimulacion1";
-    static public  final String IdentDirectorioPersistenciaSimulacion = "PersistenciaResultadosSimulacion";
-    static public  final String IdentDirectorioPersistenciaEscenarios = "PersistenciaEscenariosSimulacion";
+    static public  final String IdentDirectorioPersistenciaSimulacion = "persistenciaResultadosSimulacion";
+    static public  final String IdentDirectorioPersistenciaEscenarios = "persistenciaEscenariosSimulacion";
     // Valores de los inputs del agente controlador. Son necesarios para que el visualizador envie notificaciones y para definir
     // el automata
     static public  final String peticionSimulacionVictima = "peticionSimulacionVictima";

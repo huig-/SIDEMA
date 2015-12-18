@@ -26,9 +26,9 @@ public class MisObjetivos {
             c = new Comparator<Objetivo>() {
            @Override
             public int compare(Objetivo o1, Objetivo o2) {
-                if(o1.getPriority() <= (o2.getPriority()))return -1;
+                if(o1.getPriority() <= (o2.getPriority()))return 1;
 //                else if (o1.getPriority() ==  o2.getPriority())return 0;
-                else return 1 ;
+                else return -1 ;
             }
         };
         misObjetivosPriorizados = new PriorityBlockingQueue <Objetivo> (11,c);

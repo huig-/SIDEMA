@@ -56,7 +56,7 @@ public class InfoCambioRolAgente extends InfoPropuestaEquipo{
             miRolhaCambiado = true;
         // Actualizo mi rol 
         String miAgentId = this.miEquipo.getidentAgentePropietario();
-        RobotStatus miStatus = this.miEquipo.getTeamMemberStatus(miAgentId);
+        RobotStatus1 miStatus = this.miEquipo.getTeamMemberStatus(miAgentId);
         String idRolAnterior = miStatus.getIdRobotRol();
             if (identRolAnteriorAgte.equals(miStatus.getIdRobotRol())){
                 miStatus.setIdRobotRol(identRolActualAgte);
@@ -120,7 +120,7 @@ public class InfoCambioRolAgente extends InfoPropuestaEquipo{
     public void procesarInfoCambioRolAgte(InfoRolAgente infoRol){
         String identAgteInformante = infoRol.getAgteIniciadorId();
         if (respuestasCambioRol.addRespuestaAgente(identAgteInformante, refIteracion)){
-        RobotStatus miStatusRobotInformante = this.miEquipo.getTeamMemberStatus(identAgteInformante);
+        RobotStatus1 miStatusRobotInformante = this.miEquipo.getTeamMemberStatus(identAgteInformante);
         String idRolAgteInformante = infoRol.getidentRolAgte();
         if (!idRolAgteInformante.equals(miStatusRobotInformante.getIdRobotRol())){
             miStatusRobotInformante.setIdRobotRol(idRolAgteInformante);

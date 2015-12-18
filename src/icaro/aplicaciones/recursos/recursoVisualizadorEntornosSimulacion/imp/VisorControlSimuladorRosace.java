@@ -28,11 +28,12 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
     private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
     private int numMensajesEnviar = 3;
     private boolean primeraVictima = true;
-    private VisorEscenariosRosace visorSc;
     private ArrayList identsRobotsEquipo ;
+    private ArrayList identsVictimas ;
     private ControladorVisualizacionSimulRosace controladorEscSim;
     private String identEquipoActual;
-     private String identRobotSeleccionado;
+    private String identRobotSeleccionado;
+    private String identVictimaSeleccionada;
      
     
     public VisorControlSimuladorRosace(ControladorVisualizacionSimulRosace controlador) {
@@ -72,13 +73,16 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         jButtonStart = new javax.swing.JButton();
         jPararEnvioMensajes = new javax.swing.JButton();
         jButtonMostrarEscenarioActual = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        listaComponentes = new javax.swing.JList();
+        jScrollPanelistaIdentsVictimas = new javax.swing.JScrollPane();
+        jListIdentsVictims = new javax.swing.JList();
+        jScrollPaneIdentsRobots = new javax.swing.JScrollPane();
+        jlistIdentsRobots = new javax.swing.JList();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldIdentEquipoActual = new javax.swing.JTextField();
+        jTextFieldIdentEscenarioActual = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuEditarEscenario = new javax.swing.JMenu();
         jMenuItemAbrirEscenario = new javax.swing.JMenuItem();
@@ -162,23 +166,30 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
             }
         });
 
-        listaComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
+        jListIdentsVictims.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaComponentesMouseClicked(evt);
+                jListIdentsVictimsMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(listaComponentes);
-        listaComponentes.getAccessibleContext().setAccessibleDescription("");
+        jScrollPanelistaIdentsVictimas.setViewportView(jListIdentsVictims);
 
-        jLabel3.setText("Robots en el escenario");
+        jlistIdentsRobots.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlistIdentsRobotsMouseClicked(evt);
+            }
+        });
+        jScrollPaneIdentsRobots.setViewportView(jlistIdentsRobots);
+        jlistIdentsRobots.getAccessibleContext().setAccessibleDescription("");
+
+        jLabel3.setText("Robots ");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel4.setText("Ident Escenario de Simulación:");
 
-        jTextFieldIdentEquipoActual.setEditable(false);
-        jTextFieldIdentEquipoActual.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldIdentEscenarioActual.setEditable(false);
+        jTextFieldIdentEscenarioActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldIdentEquipoActualActionPerformed(evt);
+                jTextFieldIdentEscenarioActualActionPerformed(evt);
             }
         });
 
@@ -186,6 +197,8 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         jLabel5.setText("Centro de Control");
 
         jLabel6.setText("<html><body>Intervalo de envio  (ms)  <br>de mensajes </body></html>");
+
+        jLabel7.setText("Victimas");
 
         jMenuEditarEscenario.setText("Editor Escenarios");
 
@@ -249,7 +262,6 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sendVictimButton)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,27 +270,32 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPararEnvioMensajes)
                             .addComponent(jtextTextFieldIntervaloEnvioMensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(sendVictimsSequence)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonMostrarEscenarioActual)
                         .addGap(45, 45, 45)
-                        .addComponent(jLabel4)))
+                        .addComponent(jLabel4))
+                    .addComponent(sendVictimButton)
+                    .addComponent(sendVictimsSequence))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 12, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldIdentEquipoActual))
+                        .addComponent(jScrollPaneIdentsRobots, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldIdentEscenarioActual))
                 .addGap(58, 58, 58))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(135, 135, 135))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(274, 274, 274))))
+                        .addGap(274, 274, 274))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPanelistaIdentsVictimas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                        .addGap(120, 120, 120)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,14 +304,24 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextFieldIdentEquipoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldIdentEscenarioActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonMostrarEscenarioActual))
-                .addGap(17, 17, 17)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 61, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jScrollPaneIdentsRobots))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPanelistaIdentsVictimas)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 107, Short.MAX_VALUE)
                         .addComponent(sendVictimButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sendVictimsSequence)
@@ -309,10 +336,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButtonStart)
                                     .addComponent(jPararEnvioMensajes))
-                                .addGap(55, 55, 55))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())))
+                                .addGap(55, 55, 55))))))
         );
 
         pack();
@@ -321,7 +345,12 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
     private void sendVictimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimButtonActionPerformed
           
   //        notifEvts.sendInitialRobotCoordenates();
-            notifEvts.sendPeticionSimulacionVictimToRobotTeam();
+        // peticion salvar victim se delega en el agente controlador. Se podria implementar primero en local
+        // El controlador local, mira si el usuario puede seleccionar una victima y si puede le envia la peticion
+        // con la victima seleccionada
+//        jListIdentsVictims.setListData(identsRobotsEquipo.toArray());
+//            notifEvts.sendPeticionSimulacionVictimToRobotTeam();
+        this.controladorEscSim.peticionSalvarVictima();
    //         primeraVictima = false;
   //          sendVictimButton.setEnabled(false); 
            
@@ -417,15 +446,15 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         controladorEscSim.peticionMostrarEscenarioActual();
     }//GEN-LAST:event_jButtonMostrarEscenarioActualActionPerformed
 
-    private void listaComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaComponentesMouseClicked
+    private void jlistIdentsRobotsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistIdentsRobotsMouseClicked
     if (evt.getClickCount() == 2) {
-    	            int index = listaComponentes.locationToIndex(evt.getPoint());
+    	            int index = jlistIdentsRobots.locationToIndex(evt.getPoint());
 //    	        notifEvts.sendPeticionPararAgente ((String)identsRobotsEquipo.get(index));
     	       //      clasificadorV.muestraVentanaEspecifica(listaComponentes.getSelectedValue().toString());
                     identRobotSeleccionado = (String)identsRobotsEquipo.get(index);
                     jPopupMenuAcionesRobots.setVisible(true);
     	          }
-    }//GEN-LAST:event_listaComponentesMouseClicked
+    }//GEN-LAST:event_jlistIdentsRobotsMouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
@@ -495,33 +524,54 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPopupMenuAcionesRobotsPopupMenuWillBecomeVisible
 
-    private void jTextFieldIdentEquipoActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdentEquipoActualActionPerformed
+    private void jTextFieldIdentEscenarioActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdentEscenarioActualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldIdentEquipoActualActionPerformed
+    }//GEN-LAST:event_jTextFieldIdentEscenarioActualActionPerformed
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jFileChooser1ActionPerformed
+
+    private void jListIdentsVictimsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListIdentsVictimsMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+    	            int index = jListIdentsVictims.locationToIndex(evt.getPoint());
+//    	        notifEvts.sendPeticionPararAgente ((String)identsRobotsEquipo.get(index));
+    	       //      clasificadorV.muestraVentanaEspecifica(listaComponentes.getSelectedValue().toString());
+                    identVictimaSeleccionada = (String)identsVictimas.get(index);
+                   controladorEscSim.victimaSeleccionadaParaSimulacion(identVictimaSeleccionada);
+    	          }
+        
+    }//GEN-LAST:event_jListIdentsVictimsMouseClicked
     private void setIntervaloEnvioMensajesDesdeCC(int intervalo){
 		intervaloSecuencia = intervalo ;
 		int intervaloEnvioMensajesDesdeCC = 1000;
 		String strintervaloEnvioMensajesDesdeCC = "";
     }
-    public void setIdentEquipo(String equipoId){
+    public void setIdentEscenarioActual(String equipoId){
         identEquipoActual = equipoId;
-        jTextFieldIdentEquipoActual.setText(equipoId);
+        jTextFieldIdentEscenarioActual.setText(equipoId);
     }
     public void visualizarIdentsEquipoRobot ( ArrayList<String> equipoIds){
 //        eqipoIds = eqipoIds.toArray();
         identsRobotsEquipo = equipoIds;
-        this.listaComponentes.setListData(identsRobotsEquipo.toArray());
-        listaComponentes.setVisible(true);
+        this.jlistIdentsRobots.setListData(identsRobotsEquipo.toArray());
+        jlistIdentsRobots.setVisible(true);
 }
-     public void visualizarIdEquipoRobots (String identEquipo){
+    public void visualizarIdentsVictimas ( ArrayList<String> victimasIds){
+//        eqipoIds = eqipoIds.toArray();
+        identsVictimas = victimasIds;
+        this.jListIdentsVictims.setListData(victimasIds.toArray());
+        jlistIdentsRobots.setVisible(true);
+}
+     public void visualizarIdEscenarioActual (String identEquipo){
 //         this.identEquipoActual =identEquipo;
-         jTextFieldIdentEquipoActual.setText(identEquipo);
+         jTextFieldIdentEscenarioActual.setText(identEquipo);
          
+     }
+     public boolean solicitarConfirmacion(String texto){
+        return( JOptionPane.showConfirmDialog(rootPane, texto)==JOptionPane.OK_OPTION);  
      }
      
      public void visualizarConsejo (String titulo, String msgConsejo, String recomendacion){
@@ -543,13 +593,32 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         }
         jtextTextFieldIntervaloEnvioMensajes.setText(valorIntervaloDefinido);
      }
-     public File solicitarSeleccionFichero(String directorio){
+     public boolean setDirectorioPersistencia(String dirPersistencia){
          FileNameExtensionFilter filter = new FileNameExtensionFilter("ficheros xml","xml","txt" );
-   
+          jFileChooser1.setFileFilter(filter);
+        jFileChooser1.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        try {
+       jFileChooser1.setCurrentDirectory(new File (dirPersistencia));
+       return true;
+        } catch (Exception ex) {
+            return false;
+        }
+     }
+//     public File solicitarSeleccionFichero(String directorio){
+      public boolean hayFicherosCreados(){
+          File dir = jFileChooser1.getCurrentDirectory();
+      int numFiles = dir.list().length ;
+      return(numFiles > 0);
+      }
+     
+     public File solicitarSeleccionFichero(){
+      FileNameExtensionFilter filter = new FileNameExtensionFilter("ficheros xml","xml","txt" );
       jFileChooser1.setFileFilter(filter);
-      jFileChooser1.setCurrentDirectory(new File(directorio));
+      File dir = jFileChooser1.getCurrentDirectory();
+     int returnVal = jFileChooser1.showOpenDialog(this);
       jFileChooser1.setFileSelectionMode(JFileChooser.FILES_ONLY);
-       int returnVal = jFileChooser1.showOpenDialog(this);
+       jFileChooser1.setCurrentDirectory(dir);
+//       int returnVal = jFileChooser1.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
         return jFileChooser1.getSelectedFile();
      }else return null; // no ha seleccionado nada
@@ -601,6 +670,8 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JList jListIdentsVictims;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
@@ -615,15 +686,16 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemVerEstado;
     private javax.swing.JButton jPararEnvioMensajes;
     private javax.swing.JPopupMenu jPopupMenuAcionesRobots;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneIdentsRobots;
+    private javax.swing.JScrollPane jScrollPanelistaIdentsVictimas;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator8;
-    private javax.swing.JTextField jTextFieldIdentEquipoActual;
+    private javax.swing.JTextField jTextFieldIdentEscenarioActual;
+    private javax.swing.JList jlistIdentsRobots;
     private javax.swing.JTextField jtextTextFieldIntervaloEnvioMensajes;
-    private javax.swing.JList listaComponentes;
     private javax.swing.JButton sendVictimButton;
     private javax.swing.JButton sendVictimsSequence;
     // End of variables declaration//GEN-END:variables

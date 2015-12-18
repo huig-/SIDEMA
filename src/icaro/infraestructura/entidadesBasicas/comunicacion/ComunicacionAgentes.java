@@ -72,6 +72,11 @@ public class ComunicacionAgentes {
     
 public synchronized  boolean enviarInfoAotroAgente (Object infoAEnviar,  String identAgteReceptor) {
         try {
+            if (infoAEnviar==null){
+                trazas.aceptaNuevaTraza(new InfoTraza(agentePropietario,
+						"No se envian objetos  : " +infoAEnviar +" Al agente: " + identAgteReceptor ,InfoTraza.NivelTraza.error));
+                return false;
+            }
             if (existItfAgte (identAgteReceptor)) {
                 MensajeSimple mensajeAenviar = new MensajeSimple(infoAEnviar, agentePropietario,identAgteReceptor);
                itfUsoAgente.aceptaMensaje(mensajeAenviar);

@@ -268,6 +268,7 @@ public class ComponentMover extends MouseAdapter
 
 	/**
 	 *  Restore the original state of the Component
+     * @param e
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e)

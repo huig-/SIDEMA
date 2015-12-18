@@ -90,7 +90,7 @@ public class ClaseGeneradoraRecursoEstadistica extends ImplRecursoSimple impleme
                //itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
                
                ItfUsoConfiguracion itfconfig = (ItfUsoConfiguracion)itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
-              identificadorEquipo = itfconfig.getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_EQUIPO_AGENTES);
+              identificadorEquipo = itfconfig.getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_IDENT_EQUIPO);
                equipo = new InfoEquipo("", identificadorEquipo);
                identsAgtesEquipo = equipo.getTeamMemberIDs();
 

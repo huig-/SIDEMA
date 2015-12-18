@@ -5,6 +5,7 @@
 
 package icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.tareas;
 import icaro.aplicaciones.Rosace.informacion.EvaluacionAgente;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
@@ -20,7 +21,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
  * @author Francisco J Garijo
  */
 public class ProcesarInformeLlegadaDestino extends TareaSincrona{
-        
+  int velocidadCruceroPordefecto = 1;// metros por segundo      
   @Override
   public void ejecutar(Object... params) {
 		try {
@@ -31,8 +32,8 @@ public class ProcesarInformeLlegadaDestino extends TareaSincrona{
              Focus focoActual = (Focus) params[2];
              InfoCompMovimiento infoCompMov = (InfoCompMovimiento) params[3];
              Informe informeRecibido = (Informe) params[4];
-             trazas.aceptaNuevaTraza(new InfoTraza(this.identAgente, "Se Ejecuta la Tarea :"+ this.identTarea , InfoTraza.NivelTraza.info));
-             trazas.aceptaNuevaTraza(new InfoTraza(this.identAgente, "Se Procesa el informe   recibido por el agente :"+ informeRecibido.referenciaContexto +" Cuyo contenido:"+informeRecibido.contenidoInforme  , InfoTraza.NivelTraza.debug));
+//             trazas.aceptaNuevaTraza(new InfoTraza(this.identAgente, "Se Ejecuta la Tarea :"+ this.identTarea , InfoTraza.NivelTraza.info));
+             trazas.aceptaNuevaTrazaEjecReglas(this.identAgente, "Se Procesa el informe   recibido por el agente :"+ informeRecibido.referenciaContexto +" Cuyo contenido:"+informeRecibido.contenidoInforme + "\n");
             // se actualiza el coste de la  vicitima salvada
              String victimaRescatadaId = informeRecibido.getReferenciaContexto();
              victims.addEstimatedCostVictim2Rescue(victimaRescatadaId, 0);
@@ -45,10 +46,22 @@ public class ProcesarInformeLlegadaDestino extends TareaSincrona{
                   objetivoConseguido.setPriority(-1);
                   misObjs.cambiarPrioridad(objetivoConseguido);
                   // Se actualiza el componente movimiento
+                  
+                  
+             // Verificamos el foco si tiene un objetivo solved cambiamos el foco al objetivo actual
+             // si tiene uno solving lo dejamos
+                  Objetivo nuevoObjetivo = misObjs.getobjetivoMasPrioritario();
+                  if( nuevoObjetivo.getState()!= Objetivo.SOLVED){
+             // tiene  objetivos pendientes , se da la orden de que vaya a salvar a la victima
+                      Victim victimaRescatada = victims.getVictimToRescue(victimaRescatadaId);
+                     infoCompMov.setidentDestino(nuevoObjetivo.getobjectReferenceId());
+                     infoCompMov.itfAccesoComponente.moverAdestino(nuevoObjetivo.getobjectReferenceId(), victimaRescatada.getCoordinateVictim(), velocidadCruceroPordefecto);
+                  }
                   String estadoComponente = infoCompMov.itfAccesoComponente.getIdentEstadoMovRobot();
-                  infoCompMov.setestadoComponente(estadoComponente);
-             // Verificamos el foco si tiene un objetivo solved ponemos el foco en un objetivo pendiente de mis objetivos
-                  if(focoActual.getFoco().getState()==Objetivo.SOLVED) focoActual.setFoco(objetivoConseguido);
+                  infoCompMov.setidentEstadoRobot(estadoComponente);
+//                  if(focoActual.getFoco().getState()==Objetivo.SOLVED) focoActual.setFoco(objetivoConseguido);
+//                  focoActual.setFoco(objetivoConseguido);
+                   focoActual.refocusUltimoObjetivoSolving();
               // Se envian los cambios al motor   
                   
                   this.getEnvioHechos().actualizarHechoWithoutFireRules(victims);
@@ -56,13 +69,16 @@ public class ProcesarInformeLlegadaDestino extends TareaSincrona{
                   this.getEnvioHechos().actualizarHechoWithoutFireRules(infoCompMov);
                   this.getEnvioHechos().actualizarHechoWithoutFireRules(objetivoConseguido);
                   this.getEnvioHechos().actualizarHecho(focoActual);
-                  trazas.aceptaNuevaTraza(new InfoTraza(this.identAgente, "Foco actual  :"+ focoActual, InfoTraza.NivelTraza.debug));
+                  trazas.aceptaNuevaTrazaEjecReglas(this.identAgente, "Se Ejecuta la Tarea :"+ this.identTarea +
+                           "El identificador de la victima  :"+ victimaRescatadaId + " y el del ultimo objetivo : "+objetivoConseguido.getobjectReferenceId()+" coinciden " +
+                           "EstadoComponente : "+estadoComponente+ "Objetivo mas prioritario en curso "+misObjs.getMisObjetivosPriorizados().toString()+ "\n"+ "  El foco esta en el ojetivo :  "+focoActual + "\n");
               }else
-                   trazas.aceptaNuevaTraza(new InfoTraza(this.identAgente, "Se Ejecuta la Tarea :"+ this.identTarea +
-                           "El identificador de la victima  :"+ victimaRescatadaId + " y el del ultimo objetivo : "+objetivoConseguido.getobjectReferenceId()+"no coinciden " , InfoTraza.NivelTraza.error));
+                   trazas.aceptaNuevaTrazaEjecReglas(this.identAgente, "Se Ejecuta la Tarea :"+ this.identTarea +
+                           "El identificador de la victima  :"+ victimaRescatadaId + " y el del ultimo objetivo : "+objetivoConseguido.getobjectReferenceId()+" NO coinciden " + "\n");
         } catch (Exception e) {
 			   e.printStackTrace();
         }
+                
 }
 
 
