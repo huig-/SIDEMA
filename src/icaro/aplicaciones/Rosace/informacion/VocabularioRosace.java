@@ -88,10 +88,10 @@ public class VocabularioRosace extends NombresPredefinidos{
     //identificadores de propiedades globales que hay en fichero de descripcion de la organizacion asociadas a aplicaciones rosace
     static public  final String identificadorEquipo = "identificadorEquipo"; 
     
-    static public  final String rutaFicheroVictimasTest  = "rutaFicheroVictimasTest";
+    static public  final String identRutaFicheroEscenarioSimulacion  = "rutaFicheroEscenarioSimulacion";
     static public  final String rutaFicheroRobotsTest    = "rutaFicheroRobotsTest";
-    static public  final String rutaPruebaFicheroVictimasTest  = "src/utils/Escenario_0IP_V001_6Victims.xml" ;
-    static public  final String rutaPruebaFicheroRobotsTest    = "src/utils/Escenario_Jerarquico_001_4Robots.xml";
+    static public  final String identRutaPersistenciaEscenarios  = "rutaPersistenciaEscenarios" ;
+    static public  final String rutaPersistenciaEscenarios    = "src/PersistenciaEscenariosSimulacion";
     static public  final String intervaloMilisegundosEnvioCCMensajes = "intervaloMilisegundosEnvioMensajesDesdeCC"; 
     static public  final String timeTimeoutPorDefecto = "timeTimeoutPorDefecto";     
     static public  final String timeTimeoutMilisegundosRecibirEvaluaciones = "timeTimeoutMilisegundosRecibirEvaluaciones";     

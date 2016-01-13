@@ -85,41 +85,44 @@ private  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, 
                 victimas.addVictimToRescue(victima);
 //                misObjs.addObjetivo(objetivoAsignado);
             Objetivo objetivoActual = misObjs.getobjetivoMasPrioritario();
-             ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
-             while( objetivoActual != null&& objetivoActual.getPriority()>0 ){
-                 if (objetivoActual.getState()== Objetivo.SOLVED){  
-                                    objetivoActual.setPriority(-1);
-                                    misObjs.cambiarPrioridad(objetivoActual);
-                                    objetivoActual=misObjs.getobjetivoMasPrioritario();
-                             }
-             }
+            String estadoMovRobot= null;
+//             while( objetivoActual != null&& objetivoActual.getPriority()>0 ){
+//                 if (objetivoActual.getState()== Objetivo.SOLVED){  
+//                                    objetivoActual.setPriority(-1);
+//                                    misObjs.cambiarPrioridad(objetivoActual);
+//                                    objetivoActual=misObjs.getobjetivoMasPrioritario();
+//                            }
+//             }
+              ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
 //             } if ( nuevoObj == null||nuevoObj.getState()==Objetivo.SOLVED){
-             if ( objetivoActual==null){// se pone el objetivo actual a solving y se da orden para que se empiece a mover
+             if ( objetivoActual==null||objetivoActual.getState()==Objetivo.SOLVED){// se pone el objetivo actual a solving y se da orden para que se empiece a mover
                 misObjs.addObjetivo(objetivoAsignado);
-//                focoActual.setFoco(obj1);
+                focoActual.setFoco(objetivoAsignado);
                 infoComMov.setidentDestino(objetivoAsignado.getobjectReferenceId());
                 itfcompMov.moverAdestino(objetivoAsignado.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto);
-                infoComMov.setidentEstadoRobot(itfcompMov.getIdentEstadoMovRobot());
-                this.getEnvioHechos().actualizarHechoWithoutFireRules(infoComMov);
+                estadoMovRobot = EstadoMovimientoRobot.RobotEnMovimiento.name();
+//                infoComMov.setidentEstadoRobot(estadoMovRobot);
+//                this.getEnvioHechos().actualizarHechoWithoutFireRules(infoComMov);
                 this.getEnvioHechos().actualizarHechoWithoutFireRules(objetivoAsignado);
                 this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
+                
                 trazas.aceptaNuevaTrazaEjecReglas(identAgente, "No hay objetivos anteriores Objetivo considerado : "+ objetivoAsignado.toString()+
                         "Se ejecuta la tarea : " + identTarea + " Se actualiza el  foco al objetivo:  " + objetivoAsignado +
                         "estado del robot : "+infoComMov.getidentEstadoRobot()+"\n");
             
-            }else{
-                
+            }else{       
         // hay un objetivo en curso ayudar victima comparamos prioridades
                 if(objetivoAsignado.getPriority()<= objetivoActual.getPriority()){ // tiene menor prioridad  encolamos el objetivo
                                     misObjs.addObjetivo(objetivoAsignado);
                                     this.getEnvioHechos().actualizarHecho(misObjs);
                  trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea : " + identTarea + "El objetivo asignado : "+ objetivoAsignado.toString()+
                        "Tiene menor o igual prioridad que el objetivo en curso  :  " + objetivoActual +
-                        "estado del robot : "+infoComMov.getidentEstadoRobot()+"\n");                   
+                        "estado del robot : "+estadoMovRobot+"\n");                   
                 }
                 else {// El objetivo actual tiene mayor prioridad
                     // se  mira si el robot se esta moviendo a rescatar la victima                      
                     victima = victimas.getVictimToRescue(objetivoActual.getobjectReferenceId());
+                    focoActual.setFoco(objetivoActual);
                     if (itfcompMov.getIdentEstadoMovRobot().equalsIgnoreCase(EstadoMovimientoRobot.RobotEnMovimiento.name())){   
                        itfcompMov.cambiaDestino(objetivoActual.getobjectReferenceId(), victima.getCoordinateVictim());
                        infoComMov.setidentDestino(objetivoActual.getobjectReferenceId());
@@ -127,42 +130,21 @@ private  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, 
                        objetivoActual.setPending();
                        this.getEnvioHechos().actualizarHechoWithoutFireRules(objetivoAsignado);
                        this.getEnvioHechos().actualizarHechoWithoutFireRules(objetivoActual);
+                      
                        trazas.aceptaNuevaTrazaEjecReglas(identAgente,"Se ejecuta la tarea : " + identTarea +"  El objetivo asignado : "+ objetivoAsignado.toString()+
                        "Tiene mayor  prioridad que el objetivo en curso. Se cambia de objetivo. Se pone a solving Objetivo1 : "+ objetivoAsignado.toString()+ " Se actualiza el  foco al objetivo:  " + objetivoActual + "\n");
                     }
                      else {
                     trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Robot parado. Se espera el tratamiento de la llegada a destino : "+ objetivoAsignado.toString()+ "Se ejecuta la tarea : " + identTarea + " Objetivo en curso:  " + objetivoActual + "\n");
+                    infoComMov.setidentDestino(objetivoAsignado.getobjectReferenceId());
+                    itfcompMov.moverAdestino(objetivoAsignado.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto);
                     }// verificar si esta parado en destino Se espera a que llegue y se trate la notificacion de llegada 
-                       
-                       
-                       
-//                       itfcompMov.moverAdestino(objetivoAsignado.getobjectReferenceId(), victima.getCoordinateVictim(),velocidadCruceroPordefecto);
-//                       infoComMov.setitfAccesoComponente(itfcompMov);
-//                       this.getEnvioHechos().actualizarHechoWithoutFireRules(infoComMov);
-//                       focoActual.setFoco(nuevoObj);
-                       
                 }
             }
-
-            
             System.out.println("\n" + identAgente + "Se ejecuta la tarea " + identTarea + " Se actualiza el  objetivo:  " + objetivoAsignado + "\n\n");
-//            }
-//            if (infoDecision != null) {
-//                this.getEnvioHechos().eliminarHechoWithoutFireRules(infoDecision);
-//            }
-//            this.getEnvioHechos().actualizarHecho(obj1);
-           String estadoMovRobot= itfcompMov.getIdentEstadoMovRobot();
-           infoComMov.setidentEstadoRobot(estadoMovRobot);
-            
-            this.getEnvioHechos().actualizarHechoWithoutFireRules(infoComMov);
-//            this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
-            // El foco debe ponerse en la ultima decision pendiente o en su caso al ultimo objetivo solving
-            // esto implica que una vez conseguido el objetivo continua con lo que estaba haciendo
-//            focoActual.setfaseProcesoConsecObjetivos("DecisionAsignacionVictima");
-            focoActual.refocusUltimoObjetivoSolving();
-           
+           this.getEnvioHechos().eliminarHechoWithoutFireRules(propuestaAceptada);
             this.getEnvioHechos().actualizarHecho(focoActual);
-            trazas.aceptaNuevaTrazaEjecReglas(identAgente,"Posicion Robot : "+itfcompMov.getCoordenadasActuales()+
+            trazas.aceptaNuevaTrazaEjecReglas(identAgente,"Posicion Robot despues de ordenar movimiento : "+itfcompMov.getCoordenadasActuales()+
                     "estado del Movimiento del Robot: "+estadoMovRobot+" Victima objetivo  :  "+infoComMov.getidentDestino()+
                     " Victima asignada  :  "+ victima + " El foco actual es : "+ focoActual+ "\n");
         } catch (Exception e) {

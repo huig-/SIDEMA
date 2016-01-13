@@ -33,7 +33,11 @@ public class InfoAsignacionVictima implements Serializable{
 
     public InfoAsignacionVictima() {
     }
-
+    public InfoAsignacionVictima(int numVictimasEntorno, int numRobotsSimulacion, int intervSecuencia) {
+        numeroVictimasEntorno = numVictimasEntorno;
+        numeroRobotsSimulacion = numRobotsSimulacion;
+        intervaloSecuencia = intervSecuencia;
+    }
     public Victim getVictima() {
         return victima;
     }
@@ -89,11 +93,7 @@ public class InfoAsignacionVictima implements Serializable{
         this.nrovictimasenentorno = nrovictimasenentorno;
     }
 
-    public InfoAsignacionVictima(int numVictimasEntorno, int numRobotsSimulacion, int intervSecuencia) {
-        numeroVictimasEntorno = numVictimasEntorno;
-        numeroRobotsSimulacion = numRobotsSimulacion;
-        intervaloSecuencia = intervSecuencia;
-    }
+    
 /*
     public void setInfoCtxAsignacion(InfoContextoAsignacionVictima infoContxVict) {
         infoCtxtAsingacionVictima = infoContxVict;

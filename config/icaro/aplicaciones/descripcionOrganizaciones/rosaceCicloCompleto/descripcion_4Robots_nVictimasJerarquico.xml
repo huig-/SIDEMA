@@ -13,11 +13,12 @@
             <icaro:propiedad atributo="nombreJefeEquipo" valor = "rescate1RobotAsignador" />   
             <icaro:propiedad atributo="organizacion" valor = "Jerarquico" />
     <!--        <icaro:propiedad atributo="rutaFicheroVictimasTest" valor = "src/utils/Esc_6Victimas_0IP_001.xml" />  -->
-            <icaro:propiedad atributo="rutaFicheroVictimasTest" valor = "persistenciaEscenariosSimulacion/modeloOrg_jerarquico_NumRobts4NumVicts_3.xml" />            
+            <icaro:propiedad atributo="rutaFicheroEscenarioSimulacion" valor = "PersistenciaEscenariosSimulacion/modeloOrg_JerarquicoNumRobts_5NumVicts_5.xml" />            
             <icaro:propiedad atributo="rutaFicheroRobotsTest" valor = "src/utils/Esc_Jerarquico_4Robots_001.xml" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutContactarMiembrosEquipo" valor = "3000" />
             <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "10000" />   <!-- valor expresado en milisegundos -->  
             <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones1" valor = "6000" />   <!-- se usa en el igualitario y en el jerarquico -->                                                                        
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones2" valor = "6000" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirConfirmacionesRealizacionObjetivo1" valor = "8000" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEstatusComunicacionConJefe" valor = "3000" />     
             <icaro:propiedad atributo="timeMsTarea:TimeOutReaccionJefeAmsgeCC" valor = "3000" />
@@ -60,9 +61,6 @@
 	******************   Descripcion de los recursos de aplicacion                          ******************
 	********************************************************************************************************-->
 <icaro:DescRecursosAplicacion>
-    <icaro:DescRecursoAplicacion nombre="RecursoMorse" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoMorse.imp.ClaseGeneradoraRecursoMorse"/>
-<!--    <icaro:DescRecursoAplicacion nombre="RecursoGUI" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoGUI.imp.ClaseGeneradoraRecursoGUI"/>  -->
-	<icaro:DescRecursoAplicacion nombre="RecursoEstadistica" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoEstadistica.imp.ClaseGeneradoraRecursoEstadistica"/>
         <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion"/>			            		
 	<icaro:DescRecursoAplicacion nombre="RecursoPersistenciaEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ClaseGeneradoraRecursoPersistenciaEntornosSimulacion"/>			            		
 	<icaro:DescRecursoAplicacion nombre="RecursoCreacionEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.imp.ClaseGeneradoraRecursoCreacionEntornosSimulacion"/>		
@@ -129,9 +127,9 @@
                 <icaro:Instancia id="RecursoGUI1" refDescripcion="RecursoGUI" xsi:type="icaro:Instancia">    
                 </icaro:Instancia>    --> 
                 <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia"/>
-  			    <icaro:Instancia id="RecursoVisualizadorEntornosSimulacion1" refDescripcion="RecursoVisualizadorEntornosSimulacion" xsi:type="icaro:Instancia"/>
-			    <icaro:Instancia id="RecursoPersistenciaEntornosSimulacion1" refDescripcion="RecursoPersistenciaEntornosSimulacion" xsi:type="icaro:Instancia"/>
-			    <icaro:Instancia id="RecursoCreacionEntornosSimulacion1" refDescripcion="RecursoCreacionEntornosSimulacion" xsi:type="icaro:Instancia"/>                
+                <icaro:Instancia id="RecursoVisualizadorEntornosSimulacion1" refDescripcion="RecursoVisualizadorEntornosSimulacion" xsi:type="icaro:Instancia"/>
+                <icaro:Instancia id="RecursoPersistenciaEntornosSimulacion1" refDescripcion="RecursoPersistenciaEntornosSimulacion" xsi:type="icaro:Instancia"/>
+                <icaro:Instancia id="RecursoCreacionEntornosSimulacion1" refDescripcion="RecursoCreacionEntornosSimulacion" xsi:type="icaro:Instancia"/>                
         </icaro:RecursosAplicacion>
 
 	<!--******************************************************************************************************

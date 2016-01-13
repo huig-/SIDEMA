@@ -8,11 +8,13 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 import icaro.aplicaciones.Rosace.informacion.RobotCapability;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus1;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
@@ -72,12 +74,13 @@ public class ControladorVisualizacionSimulRosace {
     private boolean escenarioActualAbierto = false ;
     private int numeroRobots, mumeroVictimas;
     private volatile GestionEscenariosSimulacion gestionEscComp;
-    private volatile EscenarioSimulacionRobtsVictms escenarioActualComp;
-    private volatile PersistenciaVisualizadorEscenarios persistencia;
+    private volatile EscenarioSimulacionRobtsVictms escenarioEdicionComp, escenarioSimulComp;
+    private volatile PersistenciaVisualizadorEscenarios persistenciaLocal;
     private String modeloOrganizativo;
     private String identEquipoActual;
     private VisorCreacionEscenarios1 visorEditorEscen;
     private VisorMovimientoEscenario visorMovimientoEscen;
+    private ItfUsoRecursoPersistenciaEntornosSimulacion itfPersistenciaSimul;
     private boolean visorControlSimuladorIniciado;
     private boolean visorMovientoIniciado;
 //    private boolean escenarioSimulacionAbierto;
@@ -93,51 +96,48 @@ public class ControladorVisualizacionSimulRosace {
     public  ControladorVisualizacionSimulRosace (NotificadorInfoUsuarioSimulador notificadorInfoUsuarioSimulador){
         notifEvts=notificadorInfoUsuarioSimulador;
     }
+    public void setIftRecPersistencia(ItfUsoRecursoPersistenciaEntornosSimulacion itfPersisSimul){
+        itfPersistenciaSimul = itfPersisSimul;
+    }
+    
     public void initModelosYvistas(){
 //       String  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
 //            VisorControlSimuladorRosace visorSc;
-             persistencia= new PersistenciaVisualizadorEscenarios();
-             gestionEscComp= new GestionEscenariosSimulacion();
-            gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-                try {
-                    gestionEscComp = new GestionEscenariosSimulacion();
-                    gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-//        escenarioActualComp = gestionEscComp.crearEscenarioSimulación();
-                    visorControlSim = new VisorControlSimuladorRosace(this);
-                    visorEditorEscen= new VisorCreacionEscenarios1(this);
-                    visorEditorEscen.setGestorEscenarionComp(gestionEscComp);
-                    visorControlSim.setDirectorioPersistencia(directorioPersistencia);
-                   
-             
-//                    persistencia= new PersistenciaVisualizadorEscenarios();
-//                    visor.setPersistencia(persistencia);
-//                    visor.setGestorEscenarionComp(gestionEscComp);
-//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulación());
-//                    visor.setIdentEquipoActual()
-//                    visor.actualizarInfoEquipoEnEscenario();
-                    visorControlSim.setVisible(true);
+         gestionEscComp= new GestionEscenariosSimulacion();
+         HashSet setIdentsEscenarios;
+       try {
+        if(itfPersistenciaSimul == null){
+             persistenciaLocal= new PersistenciaVisualizadorEscenarios();
+             setIdentsEscenarios = persistenciaLocal.obtenerIdentsEscenarioSimulacion(directorioPersistencia);
+        }else setIdentsEscenarios = itfPersistenciaSimul.obtenerIdentsEscenarioSimulacion();
+              gestionEscComp.setIdentsEscenariosSimulacion(setIdentsEscenarios);
+              visorControlSim = new VisorControlSimuladorRosace(this);
+              visorEditorEscen= new VisorCreacionEscenarios1(this);
+              visorEditorEscen.setGestorEscenarionComp(gestionEscComp);
+              visorControlSim.setDirectorioPersistencia(directorioPersistencia);
+              visorControlSim.setVisible(true);
                 } catch (Exception ex) {
                     Exceptions.printStackTrace(ex);
                 }
                      
     }
 
-  public void peticionComenzarSimulacion(String identEquipoActual, int intervaloSecuencia) {
+  public void peticionComenzarSimulacion(String identEscenarioActual, int intervaloSecuencia) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    if ( escenarioActualComp ==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido,mensajeEscenarioNoDefinido,recomendacionDefinirEscenario);
-    else if (identEquipoActual== null)visorControlSim.setIdentEscenarioActual(escenarioActualComp.getIdentEscenario());
+    if ( escenarioSimulComp ==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido,mensajeEscenarioNoDefinido,recomendacionDefinirEscenario);
+    else if (identEscenarioActual== null)visorControlSim.setIdentEscenarioActual(escenarioEdicionComp.getIdentEscenario());
     else if (intervaloSecuencia <=0)visorControlSim.solicitarDefinicionItervaloSecuencia();
         else notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
     }
 
   public void peticionCrearEscenario() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-      escenarioActualComp = gestionEscComp.crearEscenarioSimulacion();
-      escenarioActualComp.initEscenario();
+      escenarioEdicionComp = gestionEscComp.crearEscenarioSimulacion();
+      escenarioEdicionComp.initEscenario();
 
 //      visorEditorEscen.setEscenarioActualComp(escenarioActualComp);
 // System.out.println("Desde Peticion Lista de capacidades definidas del robot  : " + robotInfo.getIdRobot()+" Robot Info : "+ robotInfo.toString() );
-      visorEditorEscen.visualizarEscenario(escenarioActualComp);
+      visorEditorEscen.visualizarEscenario(escenarioEdicionComp);
       visorEditorEscen.setVisible(true);
 //        ArrayList<String> robotNombres = escenarioActualComp.getListIdentsRobots();
 //             for (String ideRobot:robotNombres){
@@ -158,11 +158,11 @@ public class ControladorVisualizacionSimulRosace {
        File ficheroSeleccionado=   visorControlSim.solicitarSeleccionFichero();
     if (ficheroSeleccionado==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido, mensajeEscenarioNoSeleccionado,recomendacionDefinirEscenario);
     else{
-        escenarioActualComp = persistencia.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
-        escenarioActualComp.setGestorEscenarios(gestionEscComp);
-        identEquipoActual=escenarioActualComp.getIdentEscenario();
+        escenarioEdicionComp = persistenciaLocal.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
+        escenarioEdicionComp.setGestorEscenarios(gestionEscComp);
+        identEquipoActual=escenarioEdicionComp.getIdentEscenario();
         visorControlSim.setIdentEscenarioActual(identEquipoActual);
-        identsRobotsEquipo=escenarioActualComp.getListIdentsRobots();
+        identsRobotsEquipo=escenarioEdicionComp.getListIdentsRobots();
         if(escenarioActualAbierto){
             visorEditorEscen.setVisible(false);
             escenarioActualAbierto=false;
@@ -199,8 +199,8 @@ public  void peticionGuardarEscenario(EscenarioSimulacionRobtsVictms escenarioCo
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     // si no hay un escenario actual definido indicamos al usuario que no hay escenario definido
     // si en el escenario a guardar no hay robots ni victimas se lo decimos
-        escenarioActualComp = escenarioComp;
-        if (escenarioActualComp.getNumRobots()<=0)visorEditorEscen.visualizarConsejo(tituloAvisoEscenSinRobotsDefinidos, mensajeEscenarioSinRobots, recomendacionDefinirRobots);
+        escenarioEdicionComp = escenarioComp;
+        if (escenarioEdicionComp.getNumRobots()<=0)visorEditorEscen.visualizarConsejo(tituloAvisoEscenSinRobotsDefinidos, mensajeEscenarioSinRobots, recomendacionDefinirRobots);
         else{
             int respuesta =visorEditorEscen.confirmarPeticionGuardarEscenario("Se va a guardar el escenario : ");
             if (respuesta==JOptionPane.OK_OPTION){
@@ -212,11 +212,18 @@ public  void peticionGuardarEscenario(EscenarioSimulacionRobtsVictms escenarioCo
               List<RobotCapability> capacidades=infoRobot.getRobotCapabilities();
                  System.out.println("Desde peticion Guardar Lista de capacidades a guardar del robot  : " + ideRobot+"Capacidades : "+ capacidades.toString() );
              }
-             System.out.println("Desde peticion Guardar Numero de Robots  : " + escenarioActualComp.getNumRobots()+" Numero de victimas : "+ escenarioActualComp.getNumVictimas());
-                persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioActualComp);
+             System.out.println("Desde peticion Guardar Numero de Robots  : " + escenarioEdicionComp.getNumRobots()+" Numero de victimas : "+ escenarioEdicionComp.getNumVictimas());
+             if (itfPersistenciaSimul==null)   
+                persistenciaLocal.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioEdicionComp);
+             else 
+                 try {
+                     itfPersistenciaSimul.guardarInfoEscenarioSimulacion(escenarioEdicionComp);
+                 } catch (Exception ex) {
+                     Exceptions.printStackTrace(ex);
+                 }
                 if ( peticionObtenerEscenarioValido&&!escenarioValidoObtenido){
                     // se envia el escenario al agente controlador que puede estar esperandolo
-                    notifEvts.sendInfoEscenarioSeleccionado(escenarioActualComp);
+                    notifEvts.sendInfoEscenarioSeleccionado(escenarioEdicionComp);
                 }
             }
 //            else if (respuesta==JOptionPane.)
@@ -231,6 +238,8 @@ public  void peticionMostrarEscenarioMovimiento(EscenarioSimulacionRobtsVictms e
             if (visorMovimientoEscen == null)visorMovimientoEscen = new VisorMovimientoEscenario(escenarioComp);
             else visorMovimientoEscen.visualizarEscenario(escenarioComp);
             visorMovimientoEscen.visualizarEscenario();
+            escenarioSimulComp = escenarioComp;
+            visorMovientoIniciado = true;
         } catch (Exception ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -238,10 +247,10 @@ public  void peticionMostrarEscenarioMovimiento(EscenarioSimulacionRobtsVictms e
 }
 public  void peticionMostrarEscenarioActual() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    if (escenarioActualAbierto)visorEditorEscen.setVisible(true);
-    else if ( escenarioActualComp ==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido,mensajeEscenarioNoDefinido,recomendacionDefinirEscenario);
+    if (escenarioSimulComp != null)visorMovimientoEscen.setVisible(true);
+    else if ( escenarioEdicionComp ==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido,mensajeEscenarioNoDefinido,recomendacionDefinirEscenario);
     else{
-        visorEditorEscen.visualizarEscenario(escenarioActualComp);
+        visorEditorEscen.visualizarEscenario(escenarioEdicionComp);
         escenarioActualAbierto=true;
     }
     }
@@ -254,15 +263,15 @@ public  boolean abrirVisorConEscenario(String identFicheroEscenarioSimulacion) {
             visorEditorEscen.setVisible(true);
         }
         if(identFicheroEscenarioSimulacion !=null)
-        escenarioActualComp= persistencia.obtenerInfoEscenarioSimulacion(identFicheroEscenarioSimulacion);
-       if (escenarioActualComp ==null){
+        escenarioEdicionComp= persistenciaLocal.obtenerInfoEscenarioSimulacion(identFicheroEscenarioSimulacion);
+       if (escenarioEdicionComp ==null){
            this.visorControlSim.visualizarConsejo("fichero no encontrado ", "verifique el identificador del fichero ", "Puede abrir  un escenario existente o crear un nuevo escenario");
            return false ;
        }
         visorControlSim.setIdentEscenarioActual(identFicheroEscenarioSimulacion);
-        visorControlSim.visualizarIdentsEquipoRobot(escenarioActualComp.getListIdentsRobots());
+        visorControlSim.visualizarIdentsEquipoRobot(escenarioEdicionComp.getListIdentsRobots());
         visorControlSimuladorIniciado=true;
-        visorEditorEscen.visualizarEscenario(escenarioActualComp);
+        visorEditorEscen.visualizarEscenario(escenarioEdicionComp);
     }
     return true;
     }
@@ -271,21 +280,26 @@ public  boolean abrirVisorConEscenario(String identFicheroEscenarioSimulacion) {
     if(!visorMovientoIniciado){
         try {
             //        initModelosYvistas();
-            escenarioActualComp= persistencia.obtenerInfoEscenarioSimulacion(identFicheroEscenarioSimulacion);
-            if (escenarioActualComp ==null){
+            escenarioEdicionComp= persistenciaLocal.obtenerInfoEscenarioSimulacion(identFicheroEscenarioSimulacion);
+            if (escenarioEdicionComp ==null){
                 this.visorControlSim.visualizarConsejo("fichero no encontrado ", "verifique el identificador del ficero", null);
                 return false ;
             }
-            visorMovimientoEscen = new VisorMovimientoEscenario(escenarioActualComp);
+            visorMovimientoEscen = new VisorMovimientoEscenario(escenarioEdicionComp);
             visorMovimientoEscen.visualizarEscenario();
 //            visorControlSim.visualizarIdentsEquipoRobot(escenarioActualComp.getListIdentsRobots());
             visorControlSimuladorIniciado=true;
+            visorMovientoIniciado = true;
         } catch (Exception ex) {
             Exceptions.printStackTrace(ex);
         }
     }
     return true;
     }
+ public VisorMovimientoEscenario getVisorMovimiento(){
+    if(visorMovientoIniciado) return visorMovimientoEscen;
+    else return null;
+ } 
 
 public void peticionVisualizarIdentsRobots(ArrayList identList) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -295,28 +309,28 @@ public void peticionVisualizarIdentsRobots(ArrayList identList) {
     
     if (identList!=null){
         visorControlSim.visualizarIdentsEquipoRobot(identList);
-        visorControlSim.setIdentEscenarioActual(escenarioActualComp.getIdentEscenario());
+        visorControlSim.setIdentEscenarioActual(escenarioEdicionComp.getIdentEscenario());
         this.robotsVisualizados = true;
-        if (escenarioActualComp.getListIdentsRobots().size()!= identList.size() )
+        if (escenarioEdicionComp.getListIdentsRobots().size()!= identList.size() )
             visorControlSim.visualizarConsejo("Imposible cambiar los identificadores" , "El numero de robots en el escenario actual y el recibido es diferente",
             "revisar las definiciones de los escenarios");
         
         else{
-        this.escenarioActualComp.renombrarIdentRobts(identList);
-         ArrayList<String> robotNombres = escenarioActualComp.getListIdentsRobots();
+        this.escenarioEdicionComp.renombrarIdentRobts(identList);
+         ArrayList<String> robotNombres = escenarioEdicionComp.getListIdentsRobots();
              for (String ideRobot:robotNombres){
 //                 String ideRobot = (String)robtIter.next();
-              RobotStatus1 infoRobot = (RobotStatus1) escenarioActualComp.getRobotInfo(ideRobot);
+              RobotStatus1 infoRobot = (RobotStatus1) escenarioEdicionComp.getRobotInfo(ideRobot);
 //              List<RobotCapability> capacidades=infoRobot.getRobotCapabilities();
                  System.out.println("Desde peticionVisualizarIdentsRobots  nuevo ident Robot : " + ideRobot );
              } 
-             Object[] victimasIdents = escenarioActualComp.getVictims().keySet().toArray();
+             Object[] victimasIdents = escenarioEdicionComp.getVictims().keySet().toArray();
              for( int i=0; i<victimasIdents.length;i++){
                  String idVictima = (String)victimasIdents[i];
                  System.out.println("Desde peticionVisualizarIdentsRobots  nuevo ident Vicitima : " + idVictima );
              }
              
-        visorEditorEscen.visualizarEscenario(escenarioActualComp);
+        visorEditorEscen.visualizarEscenario(escenarioEdicionComp);
         }
     }
     }
@@ -326,8 +340,10 @@ public  void peticionSalvarVictima() {
     // obtener las victimas del escenario, se visualizan y se le pide al usuario que seleccione una
     // situaciones a anotar : escenario valido seleccionado, robots en el escenario visualizados,victimas visualizadas 
     if(robotsVisualizados&&escenarioValidoObtenido){
-       identsVictims =  escenarioActualComp.getListIdentsVictims();
-        visorControlSim.visualizarIdentsVictimas(identsVictims);
+        if(!victimasVisualizadas){
+            identsVictims =  escenarioSimulComp.getListIdentsVictims();
+            visorControlSim.visualizarIdentsVictimas(identsVictims);
+        }
          visorControlSim.visualizarConsejo("Seleccion de Victima", "Debe seleccionar la victima a rescatar ", "Haga doble clic en el identificador de la victima");
     }
    
@@ -337,14 +353,14 @@ public  void peticionSalvarVictima() {
          return (this.numeroRobots==numRobots) &&(this.modeloOrganizativo.equalsIgnoreCase(orgModelo));
     }
  public boolean verificarCaracteristicasEscenarioSeleccionado ( File ficheroSeleccionado,String orgModelo,int numRobots ){
-     escenarioActualComp = persistencia.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
-        if(escenarioActualComp == null ) return false;
-     identEquipoActual=escenarioActualComp.getIdentEscenario();
-        numeroRobots = escenarioActualComp.getNumRobots();
-        modeloOrganizativo= escenarioActualComp.getmodeloOrganizativo();
+     escenarioEdicionComp = persistenciaLocal.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
+        if(escenarioEdicionComp == null ) return false;
+     identEquipoActual=escenarioEdicionComp.getIdentEscenario();
+        numeroRobots = escenarioEdicionComp.getNumRobots();
+        modeloOrganizativo= escenarioEdicionComp.getmodeloOrganizativo();
        if(this.numeroRobots==numRobots &&this.modeloOrganizativo.equalsIgnoreCase(orgModelo)){
            // se envia notificacion al agente controlador con el computacional obtenido
-        escenarioActualComp.setGestorEscenarios(gestionEscComp);  
+        escenarioEdicionComp.setGestorEscenarios(gestionEscComp);  
         escenarioValidoObtenido = true;
         return true;
        }else {
@@ -366,7 +382,7 @@ public void peticionObtenerEscenarioSimulacion(String modOrganizativo, int numRo
     if( escenarioActualAbierto){
           if(this.verificarCaracteristicasEscenarioAbierto(modOrganizativo,numRobots))
             if (  visorControlSim.solicitarConfirmacion("Desea utilizar el escenario actual abierto como escenario de simulacion ?"))
-                notifEvts.sendInfoEscenarioSeleccionado(escenarioActualComp);
+                notifEvts.sendInfoEscenarioSeleccionado(escenarioEdicionComp);
     }
         peticionObtenerEscenarioValido= true;
         escenarioValidoObtenido = false;
@@ -398,7 +414,7 @@ public void peticionObtenerEscenarioSimulacion(String modOrganizativo, int numRo
             numeroIntentos ++;
         }
        if (ficheroSeleccionadoValido){
-           notifEvts.sendInfoEscenarioSeleccionado(escenarioActualComp);
+           notifEvts.sendInfoEscenarioSeleccionado(escenarioEdicionComp);
            escenarioValidoObtenido = true;
            peticionObtenerEscenarioValido = false;
        }
@@ -451,5 +467,34 @@ public void peticionObtenerEscenarioSimulacion(String modOrganizativo, int numRo
 
     void peticionMostrarVictimaRescatada(String identVictima) {
         this.visorMovimientoEscen.cambiarIconoEntidad(identVictima, rutaIconos+imageniconoMujerRescatada);
+        
     }
+
+    void abrirVisorConEscenarioComp(EscenarioSimulacionRobtsVictms escenarioSimulacion) {
+       if(!visorControlSimuladorIniciado){
+        initModelosYvistas();
+        // Se abre el visor sin 
+            visorControlSim.setVisible(true);
+        }
+        if(escenarioSimulacion !=null){
+           this.escenarioSimulComp = escenarioSimulacion;
+            visorControlSim.setIdentEscenarioActual(escenarioSimulacion.getIdentEscenario());
+            visorControlSim.visualizarIdentsEquipoRobot(escenarioSimulacion.getListIdentsRobots());
+            visorControlSim.visualizarIdentsVictimas(escenarioSimulacion.getListIdentsVictims());
+            escenarioValidoObtenido= true;
+            robotsVisualizados= true;
+            victimasVisualizadas = true;
+            if(visorMovimientoEscen== null)
+                try {
+                    visorMovimientoEscen= new VisorMovimientoEscenario(escenarioSimulComp);
+                    visorMovientoIniciado = true;
+                }
+                catch (Exception ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+            visorMovimientoEscen.visualizarEscenario(escenarioSimulComp);  
+       }
+         visorControlSimuladorIniciado=true;     
+    }
+    
 }

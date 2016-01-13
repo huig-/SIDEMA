@@ -432,7 +432,7 @@ public class VisorMovimientoEscenario extends javax.swing.JFrame {
   public synchronized void cambiarPosicionRobot(String idRobot, int nueva_coordx, int nueva_coordy) {
 
 //        String numeroRobot = getNumeroRobot(idRobot);
-
+//       System.out.println("Peticiones de cambio de posicion  Robot : "+ idRobot+ " CoordX: " +nueva_coordx + " CoordY: " +nueva_coordy );
         //JLabel jlabelRobot = new JLabel();
         if (tablaEntidadesEnEscenario!=null){
         JLabel jlabelRobot = tablaEntidadesEnEscenario.get(idRobot);
@@ -481,7 +481,7 @@ public class VisorMovimientoEscenario extends javax.swing.JFrame {
     }
 
     public void cambiarIconoEntidad(String idEntidad, String rutaImagen) {
-
+// en vez de pasar la ruta habria que pasar el identificador de la imagen
 //        String numeroVictima = getNumeroVictima(valor_idVictima);
 
 //        int numeroIdVictima = Integer.parseInt(numeroVictima);
@@ -491,7 +491,15 @@ public class VisorMovimientoEscenario extends javax.swing.JFrame {
        JLabel jlabelEntidad = tablaEntidadesEnEscenario.get(idEntidad);
 
         if (idEntidad != null) {
-            jlabelEntidad.setIcon(new ImageIcon (rutaImagen));
+//            jlabelEntidad.setEnabled(false);
+            ImageIcon icono = new ImageIcon (IMAGEmujerRes);
+//            new ImageIcon (rutaImagen)
+//            Icon icon = jlabelEntidad.getIcon();
+//            jlabelEntidad.setDisabledIcon(icon);
+            jlabelEntidad.setIcon(icono);
+            
+            
+//            jlabelEntidad.setVisible(true);
             //String rutaAbsolutaIconoVictima = jlabelVictima.getIcon().toString();			
             //System.out.println("victima " + numeroVictima + "  , " + jlabelVictima.getIcon().toString());
             

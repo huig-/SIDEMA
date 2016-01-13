@@ -31,7 +31,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
     private ArrayList identsRobotsEquipo ;
     private ArrayList identsVictimas ;
     private ControladorVisualizacionSimulRosace controladorEscSim;
-    private String identEquipoActual;
+    private String identEscenarioActual;
     private String identRobotSeleccionado;
     private String identVictimaSeleccionada;
      
@@ -67,10 +67,10 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItemVerEstado = new javax.swing.JMenuItem();
         jFileChooser1 = new javax.swing.JFileChooser();
-        sendVictimButton = new javax.swing.JButton();
-        sendVictimsSequence = new javax.swing.JButton();
+        jButtonSendVictim = new javax.swing.JButton();
+        jButtonSendVictimsSequence = new javax.swing.JButton();
         jtextTextFieldIntervaloEnvioMensajes = new javax.swing.JTextField();
-        jButtonStart = new javax.swing.JButton();
+        jButtonComenzar = new javax.swing.JButton();
         jPararEnvioMensajes = new javax.swing.JButton();
         jButtonMostrarEscenarioActual = new javax.swing.JButton();
         jScrollPanelistaIdentsVictimas = new javax.swing.JScrollPane();
@@ -83,7 +83,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuBarEditorEsc = new javax.swing.JMenuBar();
         jMenuEditarEscenario = new javax.swing.JMenu();
         jMenuItemAbrirEscenario = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
@@ -130,25 +130,25 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Centro de Control");
 
-        sendVictimButton.setText("Salvar Victima");
-        sendVictimButton.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSendVictim.setText("Salvar Victima");
+        jButtonSendVictim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendVictimButtonActionPerformed(evt);
+                jButtonSendVictimActionPerformed(evt);
             }
         });
 
-        sendVictimsSequence.setText("Salvar Victimas del escenario");
-        sendVictimsSequence.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSendVictimsSequence.setText("Salvar Victimas del escenario");
+        jButtonSendVictimsSequence.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendVictimsSequenceActionPerformed(evt);
+                jButtonSendVictimsSequenceActionPerformed(evt);
             }
         });
 
-        jButtonStart.setText("Comenzar");
-        jButtonStart.setNextFocusableComponent(jPararEnvioMensajes);
-        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
+        jButtonComenzar.setText("Comenzar");
+        jButtonComenzar.setNextFocusableComponent(jPararEnvioMensajes);
+        jButtonComenzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartActionPerformed(evt);
+                jButtonComenzarActionPerformed(evt);
             }
         });
 
@@ -233,7 +233,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         jMenuItemSalir.setText("Salir");
         jMenuEditarEscenario.add(jMenuItemSalir);
 
-        jMenuBar1.add(jMenuEditarEscenario);
+        jMenuBarEditorEsc.add(jMenuEditarEscenario);
 
         jMenu2.setText("Simulador");
 
@@ -248,12 +248,12 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBarEditorEsc.add(jMenu2);
 
         jMenu3.setText("Trazas");
-        jMenuBar1.add(jMenu3);
+        jMenuBarEditorEsc.add(jMenu3);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBarEditorEsc);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,7 +265,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonStart))
+                            .addComponent(jButtonComenzar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPararEnvioMensajes)
@@ -274,8 +274,8 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
                         .addComponent(jButtonMostrarEscenarioActual)
                         .addGap(45, 45, 45)
                         .addComponent(jLabel4))
-                    .addComponent(sendVictimButton)
-                    .addComponent(sendVictimsSequence))
+                    .addComponent(jButtonSendVictim)
+                    .addComponent(jButtonSendVictimsSequence))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -322,9 +322,9 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 107, Short.MAX_VALUE)
-                        .addComponent(sendVictimButton)
+                        .addComponent(jButtonSendVictim)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sendVictimsSequence)
+                        .addComponent(jButtonSendVictimsSequence)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -334,7 +334,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButtonStart)
+                                    .addComponent(jButtonComenzar)
                                     .addComponent(jPararEnvioMensajes))
                                 .addGap(55, 55, 55))))))
         );
@@ -342,7 +342,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sendVictimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimButtonActionPerformed
+    private void jButtonSendVictimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendVictimActionPerformed
           
   //        notifEvts.sendInitialRobotCoordenates();
         // peticion salvar victim se delega en el agente controlador. Se podria implementar primero en local
@@ -355,16 +355,16 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
   //          sendVictimButton.setEnabled(false); 
            
            
-    }//GEN-LAST:event_sendVictimButtonActionPerformed
+    }//GEN-LAST:event_jButtonSendVictimActionPerformed
 
-    private void sendVictimsSequenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimsSequenceActionPerformed
+    private void jButtonSendVictimsSequenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendVictimsSequenceActionPerformed
          // Se deja al visualizador que obtenga el intervalo en ms . Si no hay valor definido lo pide
         // por medio del Joptionpane. Le manda lo obtenido al controlador que debe verificarlo
         // Si no son validos los valore debe ordenar que salga el JoptionPane con  los valores que correspondan y luego enviarle los valores 
         // de vuelta al controlador . En definitiva hay que desdoblar esto
          System.out.println("Ha pulsado el boton send victims");
          this.solicitarDefinicionItervaloSecuencia();
-         controladorEscSim.peticionComenzarSimulacion(identEquipoActual, intervaloSecuencia);
+         controladorEscSim.peticionComenzarSimulacion(identEscenarioActual, intervaloSecuencia);
 //         jButtonStart.setEnabled(true);
          
 //         String valorIntervaloDefinido=  jtextTextFieldIntervaloEnvioMensajes.getText();
@@ -426,14 +426,14 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
 //         notifEvts.sendInitialRobotCoordenates();
 //         notifEvts.sendFirstSimulatedVictimToRobotTeam();
 //         sendVictimsSequence.setEnabled(false); 
-    }//GEN-LAST:event_sendVictimsSequenceActionPerformed
+    }//GEN-LAST:event_jButtonSendVictimsSequenceActionPerformed
 
-    private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
+    private void jButtonComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComenzarActionPerformed
         // TODO add your handling code here:
         this.solicitarDefinicionItervaloSecuencia();
-        controladorEscSim.peticionComenzarSimulacion(identEquipoActual, intervaloSecuencia); 
+        controladorEscSim.peticionComenzarSimulacion(identEscenarioActual, intervaloSecuencia); 
 //        notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
-    }//GEN-LAST:event_jButtonStartActionPerformed
+    }//GEN-LAST:event_jButtonComenzarActionPerformed
 
     private void jPararEnvioMensajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPararEnvioMensajesActionPerformed
         // TODO add your handling code here:
@@ -549,9 +549,9 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
 		int intervaloEnvioMensajesDesdeCC = 1000;
 		String strintervaloEnvioMensajesDesdeCC = "";
     }
-    public void setIdentEscenarioActual(String equipoId){
-        identEquipoActual = equipoId;
-        jTextFieldIdentEscenarioActual.setText(equipoId);
+    public void setIdentEscenarioActual(String escenarioId){
+        identEscenarioActual = escenarioId;
+        jTextFieldIdentEscenarioActual.setText(escenarioId);
     }
     public void visualizarIdentsEquipoRobot ( ArrayList<String> equipoIds){
 //        eqipoIds = eqipoIds.toArray();
@@ -663,8 +663,10 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonComenzar;
     private javax.swing.JButton jButtonMostrarEscenarioActual;
-    private javax.swing.JButton jButtonStart;
+    private javax.swing.JButton jButtonSendVictim;
+    private javax.swing.JButton jButtonSendVictimsSequence;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -674,7 +676,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
     private javax.swing.JList jListIdentsVictims;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBarEditorEsc;
     private javax.swing.JMenu jMenuEditarEscenario;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -696,7 +698,5 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldIdentEscenarioActual;
     private javax.swing.JList jlistIdentsRobots;
     private javax.swing.JTextField jtextTextFieldIntervaloEnvioMensajes;
-    private javax.swing.JButton sendVictimButton;
-    private javax.swing.JButton sendVictimsSequence;
     // End of variables declaration//GEN-END:variables
 }

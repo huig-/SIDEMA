@@ -56,7 +56,7 @@ public class RecursoPersistenciaEntornosSimulacionImp extends ImplRecursoSimple{
      public  void  inicializarRecursoPersistenciaEntornosSimulacion (){
         try {
             ItfUsoConfiguracion   itfconfig = (ItfUsoConfiguracion) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
-               rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroVictimasTest);
+               rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.identRutaFicheroEscenarioSimulacion);
                rutaFicheroRobotsTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroRobotsTest);
                rXMLTSeq = new ReadXMLTestSequence(rutaFicheroVictimasTest);
                Document doc = this.getDocumentVictimas(rXMLTSeq);

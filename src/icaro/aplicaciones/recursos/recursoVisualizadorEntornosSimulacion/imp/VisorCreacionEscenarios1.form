@@ -277,9 +277,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="intervalNumVictimas" min="-2" pref="33" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabelIdentEquipo" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="jLabelIdentEquipo" min="-2" pref="95" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextFieldIdentEquipo" min="-2" pref="299" max="-2" attributes="0"/>
+                      <Component id="jTextFieldIdentEquipo" min="-2" pref="292" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonGuardarEscenario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -378,7 +378,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelIdentEquipo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ident Equipo"/>
+        <Property name="text" type="java.lang.String" value="Ident Escenario"/>
       </Properties>
     </Component>
   </SubComponents>

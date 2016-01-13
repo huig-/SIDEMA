@@ -176,7 +176,20 @@ when
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 end
-
+rule "Tratamiento Informe victima rescatada Consecucion del  objetivo Ayudar a la victima "
+no-loop true
+when
+    AyudarVictima(state == Objetivo.SOLVING, idVict:victimId)
+    victims2R:VictimsToRescue(victims2Rescue!=null)
+    misObjs : MisObjetivos()
+    infoCompMov:InfoCompMovimiento ()
+    focoActual:Focus()
+    informe: Informe ( referenciaContexto == idVict,contenidoInforme == VocabularioRosace.MsgeLlegadaDestino)
+ then
+TareaSincrona tarea = gestorTareas.crearTareaSincrona(ProcesarInformeLlegadaDestino.class);
+tarea.ejecutar(misObjs,victims2R,focoActual,infoCompMov,informe );
+recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+end
 rule "Movimiento hacia una nueva victima tras conseguir salvar a la victima mas prioritaria"
 salience 20
 when
@@ -199,32 +212,25 @@ end
 //           
 //==========================================================================
 //
-
+/*
 rule "Consecucion del  objetivo Ayudar a una victima"
 no-loop true
-// Se recibe un informe diciendo de un componente interno diciendo que se ha llegado a la situacion de la victima 
+// Se recibe un informe  de un componente interno diciendo que se ha llegado a la situacion de la victima 
 when
     victimaCC:Victim(idVict:name)
     misObjs : MisObjetivos()
-//    infoComMov :InfoCompMovimiento()
-//    victims2R:VictimsToRescue(victims2Rescue!=null)
     informe: Informe ( referenciaContexto==idVict ,contenidoInforme == VocabularioRosace.MsgeLlegadaDestino)
     obj1 :AyudarVictima(state == Objetivo.SOLVING, victimId == idVict)   
     focoActual:Focus(foco == obj1)
-//    focoActual:Focus(obj1:foco)
  then
-//    modify(obj1) { setState(Objetivo.SOLVED) }
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConseguirObjetivoActualizarFocoOpcional.class);
     tarea.ejecutar(misObjs,obj1,null);
-//   TareaSincrona tarea = gestorTareas.crearTareaSincrona(MoverseAsalvarVictima.class); //crea otro  objetivo ayudar victima
-//    tarea.ejecutar(misObjs,focoActual,victimaCC,infoComMov,victims2R); // poner tambien en la tarea la creacion del objetivo decidir quien va
- //  retract (informe);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
   
 end
-
+*/
 rule "Fin de la simulacion"
   when    
     robot:RobotStatus1()

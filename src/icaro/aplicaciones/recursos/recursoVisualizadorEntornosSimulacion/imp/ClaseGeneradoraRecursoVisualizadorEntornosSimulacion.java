@@ -4,6 +4,7 @@ import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.PuntoEstadistica;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoEstadistica.imp.visualizacionEstadisticas.VisualizacionJfreechart;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.InfoTraza.NivelTraza;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
@@ -47,7 +48,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
     private String identDestino;
     private boolean escenarioMovAbierto;
     private org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass().getSimpleName());
-    private VisorMovimientoEscenario visorMovimiento;
+//    private VisorMovimientoEscenario visorMovimiento;
 
     public ClaseGeneradoraRecursoVisualizadorEntornosSimulacion(String idRecurso) throws Exception {
         //#start_nodeconstructorMethod:constructorMethod <--constructorMethod-- DO NOT REMOVE THIS
@@ -75,6 +76,15 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
         identFicheroEscenarioSimulacion = rutaFicheroEscenario;
       if ( ! controladorIUSimulador.abrirVisorConEscenario( identFicheroEscenarioSimulacion))
         trazas.aceptaNuevaTraza(new InfoTraza(recursoId, "El escenario  : " + identFicheroEscenarioSimulacion + " no existe o no se puede abrir ", InfoTraza.NivelTraza.error));
+//      controladorIUSimulador.abrirVisorMovimientoConEscenario(identFicheroEscenarioSimulacion);
+}
+    @Override
+    public void mostrarVentanaControlSimulador(EscenarioSimulacionRobtsVictms escenarioSimulacion)throws Exception{
+//    ventanaControlCenterGUI.setVisible(true);
+        // debe devolver un booleano cuando no se pueda abrir el fichero por las causas que sea
+        controladorIUSimulador.abrirVisorConEscenarioComp(escenarioSimulacion);
+//      if ( escenarioSimulacion !=null)
+//        trazas.aceptaNuevaTraza(new InfoTraza(recursoId, "Se abre el  escenario  : " + escenarioSimulacion.getIdentEscenario() , InfoTraza.NivelTraza.info));
 //      controladorIUSimulador.abrirVisorMovimientoConEscenario(identFicheroEscenarioSimulacion);
 }
     @Override
@@ -272,21 +282,25 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
       public synchronized void mostrarPosicionRobot(String identRobot, Coordinate coordRobot,Coordinate coordDestino,String identDestino)throws Exception{
        Integer coordX = (int) coordRobot.getX();
        Integer coordY = (int) coordRobot.getY();
-        if ( Math.abs (coordX-coordDestino.getX())<0.6 && Math.abs (coordY-coordDestino.getY())<0.6){
- // notificamos llegada a destino
-            this.notifEvt.sendNotificacionLlegadaDestino(identRobot, identDestino);
-            log.debug("Envio notificacion de destino  " + identRobot + " en destino -> ("+coordX + " , " + coordY + ")");
-//        Temporizador informeTemp = new Temporizador (500,itfProcObjetivos,informeLlegada);  
-        }
-        else {
-//        visorEscenarios.setVisible(true);
-//        visorEscenarios.cambiarPosicionRobot(identRobot, coordX, coordY);
-//            visorMovimiento.setVisible(true);
-//            visorMovimiento.cambiarPosicionRobot(identRobot, coordX, coordY);
-            controladorIUSimulador.peticionCambiarPosicionRobot(identRobot, coordX, coordY);
-        }
+//        if ( Math.abs (coordX-coordDestino.getX())<0.6 && Math.abs (coordY-coordDestino.getY())<0.6){
+// // notificamos llegada a destino
+//            this.notifEvt.sendNotificacionLlegadaDestino(identRobot, identDestino);
+//            log.debug("Envio notificacion de destino  " + identRobot + " en destino -> ("+coordX + " , " + coordY + ")");
+////        Temporizador informeTemp = new Temporizador (500,itfProcObjetivos,informeLlegada);  
+//        }
+//        else {
+            if(visorEscenarioMov==null){
+                visorEscenarioMov = controladorIUSimulador.getVisorMovimiento();
+                if(visorEscenarioMov==null)controladorIUSimulador.peticionAbrirEscenario();
+            }else{
+                visorEscenarioMov.setVisible(true);
+                visorEscenarioMov.cambiarPosicionRobot(identRobot, coordX, coordY);
+//            controladorIUSimulador.peticionCambiarPosicionRobot(identRobot, coordX, coordY);
+            }
+            
 //        visorEscenarios.moverRobot(identRobot, coordX, coordX);
-    }
+        
+      }
 //    @Override
 //    public synchronized void mostrarPosicionActualRobot(String identRobot)throws Exception{
 //        visorEscenarios.setVisible(true);
@@ -350,5 +364,10 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
     public void mostrarIdentsEquipoRobots(ArrayList identList){
 //        this.ventanaControlCenterGUI.visualizarIdentsEquipoRobot(identList);
         controladorIUSimulador.peticionVisualizarIdentsRobots(identList);
+    }
+
+    @Override
+    public void setItfUsoPersistenciaSimulador(ItfUsoRecursoPersistenciaEntornosSimulacion itfUsopersistencia) throws Exception {
+        this.controladorIUSimulador.setIftRecPersistencia(itfUsopersistencia);
     }
 }

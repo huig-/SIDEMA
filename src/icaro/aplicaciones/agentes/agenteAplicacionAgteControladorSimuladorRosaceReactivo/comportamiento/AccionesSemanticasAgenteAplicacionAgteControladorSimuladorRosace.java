@@ -56,7 +56,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
     private int numeroRobotsSimulacion = 0;         //Numero de robots diferentes que van a intervenir en el proceso de simulacion
     private int intervaloSecuencia;                 //Intervalo uniforme de envio de la secuencia de victimas
     private ArrayList<Victim> victimasDefinidas;     //Victimas definidas en la simulacion 
-    private Map<String, Victim> victims2Rescue = new HashMap<String, Victim>();      //Victimas que han sido enviadas al equipo   
+    private Map<String, Victim> victims2Rescue ;      //Victimas que han sido enviadas al equipo   
     private Map<String, String> victimasAsignadas = new HashMap<String, String>();   //Victimas que han sido asignadas a algun robot, es decir, algun robot se ha hecho responsable para salvarla
     private Map<String, InfoAsignacionVictima> infoVictimasAsignadas;
     private ItfUsoRecursoCreacionEntornosSimulacion itfUsoRecursoCreacionEntornosSimulacion = null;
@@ -74,6 +74,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
     private boolean peticionTerminacionSimulacionUsuario = false;
     private boolean robotEstatusEquipoInicializado = false;
     private EscenarioSimulacionRobtsVictms escenarioActual;
+    private String identFicheroEscenario;
 
     // AccionA is the action initial executed when agent manager sends the comenzar event
     public void AccionComenzar() {
@@ -92,26 +93,67 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
         //----------------------------------------------------------------------------------------------------------------	
         try {
             itfconfig = (ItfUsoConfiguracion) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
-//            rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroVictimasTest);
-//            itfUsoRecursoPersistenciaEntornosSimulacion = (ItfUsoRecursoPersistenciaEntornosSimulacion) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaEntornosSimulacion1");
-            modeloOrganizativo = itfconfig.getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_MODELO_ORGANIZATIVO);
-            identificadorEquipo = itfconfig.getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_IDENT_EQUIPO);
-            equipo = new InfoEquipo(this.nombreAgente, identificadorEquipo);  //el primer parametro es una cadena con un caracter en blanco, asi obtengo el equipo correctamente
-            identsAgtesEquipo = equipo.getTeamMemberIDs();
-            this.numeroRobotsSimulacion = identsAgtesEquipo.size();
+            itfUsoRecursoPersistenciaEntornosSimulacion = (ItfUsoRecursoPersistenciaEntornosSimulacion) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaEntornosSimulacion1");
             itfUsoRecursoVisualizadorEntornosSimulacion = (ItfUsoRecursoVisualizadorEntornosSimulacion) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoVisualizadorEntornosSimulacion1");
             itfUsoRecursoVisualizadorEntornosSimulacion.setIdentAgenteAReportar(this.nombreAgente);
-            itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVentanaControlSimulador(rutaFicheroVictimasTest);
-            itfUsoRecursoVisualizadorEntornosSimulacion.obtenerEscenarioSimulacion(modeloOrganizativo, numeroRobotsSimulacion);
-//            itfUsoRecursoVisualizadorEntornosSimulacion.mostrarIdentsEquipoRobots(identsAgtesEquipo);
+            itfUsoRecursoVisualizadorEntornosSimulacion.setItfUsoPersistenciaSimulador(itfUsoRecursoPersistenciaEntornosSimulacion);
+            identFicheroEscenario = itfconfig.getValorPropiedadGlobal(VocabularioRosace.identRutaFicheroEscenarioSimulacion);
+            identificadorEquipo = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NOMBRE_PROPIEDAD_GLOBAL_IDENT_EQUIPO);
+            equipo = new InfoEquipo(this.nombreAgente, identificadorEquipo);
+            identsAgtesEquipo = equipo.getTeamMemberIDs(); // Se obtienen de la configuracion
             comunicator = this.getComunicator();
+            this.obtenerEscenarioSimulacion();
+//            if (identFicheroEscenario != null){
+//                escenarioActual = itfUsoRecursoPersistenciaEntornosSimulacion.obtenerInfoEscenarioSimulacion(identFicheroEscenario);
+//               
+//            }
+//            if (escenarioActual != null){
+//                escenarioActual.renombrarIdentRobts(identsAgtesEquipo);
+//                itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVentanaControlSimulador(escenarioActual);
+//            }
+//            else{
+//                modeloOrganizativo = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NOMBRE_PROPIEDAD_GLOBAL_MODELO_ORGANIZATIVO);
+//                this.numeroRobotsSimulacion = identsAgtesEquipo.size();
+//                itfUsoRecursoVisualizadorEntornosSimulacion.obtenerEscenarioSimulacion(modeloOrganizativo, numeroRobotsSimulacion);
+//            }
+                
+             //el primer parametro es una cadena con un caracter en blanco, asi obtengo el equipo correctamente
+           
+            
+     
+//            itfUsoRecursoVisualizadorEntornosSimulacion.mostrarIdentsEquipoRobots(identsAgtesEquipo);
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         trazas.trazar(this.nombreAgente, "Accion AccionComenzar completada ....", NivelTraza.debug);
     }
+   public void obtenerEscenarioSimulacion(){
+       // Se intenta primero obtenerlo de  la descripcion de la orgaizacion y de la persistencia 
+       // Si no se obtiene nada se le pide a la interfaz de usuario
+       try {
+        if (identFicheroEscenario != null){
+                escenarioActual = itfUsoRecursoPersistenciaEntornosSimulacion.obtenerInfoEscenarioSimulacion(identFicheroEscenario);
+               
+            }
+            if (escenarioActual != null){
+                escenarioActual.renombrarIdentRobts(identsAgtesEquipo);
+                itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVentanaControlSimulador(escenarioActual);
+                this.inicializarEstatusRobotsEquipo();
+                victims2Rescue = escenarioActual.getVictims();
+                numeroVictimasDiferentesSimulacion = victims2Rescue.size();
+                this.informaraMiAutomata("escenarioDefinidoValido", null);
+            }
+            else{
+                modeloOrganizativo = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NOMBRE_PROPIEDAD_GLOBAL_MODELO_ORGANIZATIVO);
+                this.numeroRobotsSimulacion = identsAgtesEquipo.size();
+                itfUsoRecursoVisualizadorEntornosSimulacion.obtenerEscenarioSimulacion(modeloOrganizativo, numeroRobotsSimulacion);
+            }
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+       trazas.trazar(this.nombreAgente, "Accion obtenerEscenarioSimulacion completada ....", NivelTraza.debug);
+   }
    public void  ValidarEscenarioRecibido (EscenarioSimulacionRobtsVictms escenario){
         try {
             if (escenario !=null){
@@ -127,8 +169,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
                 }
         }
             this.inicializarEstatusRobotsEquipo();
-            this.
-            itfUsoRecursoVisualizadorEntornosSimulacion.mostrarIdentsEquipoRobots(identsAgtesEquipo);
+            this.itfUsoRecursoVisualizadorEntornosSimulacion.mostrarIdentsEquipoRobots(identsAgtesEquipo);
             
             
         } catch (Exception ex) {
@@ -268,13 +309,13 @@ public void sendSimulatedVictimToRobotTeam(String idVictima) {
     //Esta accion semantica se ejecuta cuando se envia el input "victimaAsignadaARobot" en la  
     //tarea sincrona GeneraryEncolarObjetivoActualizarFoco del agente Subordinado
     //Esta accion semantica se ejecuta cuando se envia el input "victimaAsignadaARobot" en la  
-    //tarea sincrona EncolarObjetivoActualizarFoco del agente Igualitario (robotMasterIA)
-    //	public void VictimaAsignadaARobot(Object[] params){  //ASI NO FUNCIONABA		
+    //tarea sincrona EncolarObjetivoActualizarFoco del agente Igualitario (robotMasterIA)	
     public void VictimaAsignadaARobot(Long tiempoReportado, String refVictima, String nombreAgenteEmisor, Integer miEvaluacion) {
         try {
             trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente,
                     "Accion VictimaAsignadaARobot  ... " + "tiempoActual->" + tiempoReportado + " ; refVictima->"
                     + refVictima + " ; nombreAgenteEmisor->" + nombreAgenteEmisor + " ; miEvaluacion->" + miEvaluacion, InfoTraza.NivelTraza.debug));
+            itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVictimaRescatada(refVictima);
             if (infoCasoSimul!=null){
             InfoAsignacionVictima infoAsigVictima = infoCasoSimul.getInfoAsignacionVictima(refVictima);
             infoAsigVictima.setEvaluacion(miEvaluacion);
@@ -285,6 +326,7 @@ public void sendSimulatedVictimToRobotTeam(String idVictima) {
             itfUsoRecursoPersistenciaEntornosSimulacion.guardarInfoAsignacionVictima(infoAsigVictima);
             itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVictimaRescatada(refVictima);
             infoCasoSimul.addAsignacionVictima(infoAsigVictima);
+            itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVictimaRescatada(refVictima);
             if (infoCasoSimul.todasLasVictimasAsgnadas()) {
 //                notificarFinSimulacion();
                 visualizarYguardarResultadosCaso();

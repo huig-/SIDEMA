@@ -2,10 +2,12 @@ package icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp;
 
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +33,7 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
    private String rutaFicheroVictimasTest;	
    private String rutaFicheroRobotsTest; 
    private Document doc;
-   private RecursoPersistenciaEntornosSimulacionImp impPersistenciaXML ;
+   private RecursoPersistenciaEntornosSimulacionImp1 impRecPersistenciaXML ;
    private Map<String, String> victimsDiferentesXML = new HashMap <String, String>();  //Victimas diferentes que hay en el fichero de secuencia tomado como entrada
    private int numeroVictimasDiferentesSimulacion; //Numero de victimas diferentes que van a intervenir en el proceso de simulacion
    private ArrayList<Victim> victimasDefinidas; 
@@ -39,8 +41,8 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
    public ClaseGeneradoraRecursoPersistenciaEntornosSimulacion(String idrecurso) throws Exception {
             super(idrecurso);           
              try {
-           impPersistenciaXML = new RecursoPersistenciaEntornosSimulacionImp(idrecurso);
-//           impPersistenciaXML.inicializarRecursoPersistenciaEntornosSimulacion();
+           impRecPersistenciaXML = new RecursoPersistenciaEntornosSimulacionImp1(idrecurso);
+           impRecPersistenciaXML.inicializarRecursoPersistenciaEntornosSimulacion();
 //           impPersistenciaXML.setNumeroVictimasDiferentesSimulacion();
            
         } catch (Exception ex) {
@@ -53,14 +55,14 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
 //    @Override
     
      public int getNumeroTotalVictimasEnLaSecuencia(){
-         return this.impPersistenciaXML.getNumeroTotalVictimasEnLaSecuencia();
+         return this.impRecPersistenciaXML.getNumeroTotalVictimasEnLaSecuencia();
      }
     
  
     @Override
     public ArrayList<Victim> getVictimasArescatar ()throws Exception{
         if (victimasDefinidas == null)
-        victimasDefinidas = this.impPersistenciaXML.getVictimsArescatar ();
+        victimasDefinidas = this.impRecPersistenciaXML.getVictimsArescatar ();
         return victimasDefinidas;
         
     }
@@ -86,12 +88,12 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
 
     @Override
     public void guardarInfoAsignacionVictima(InfoAsignacionVictima infoAsignVictima) throws Exception {
-        this.impPersistenciaXML.guardarInfoAsignacionVictima(infoAsignVictima);
+        this.impRecPersistenciaXML.guardarInfoAsignacionVictima(infoAsignVictima);
     }
 
     @Override
     public ArrayList<InfoAsignacionVictima> obtenerInfoAsignacionVictimas() throws Exception {
-       return  this.impPersistenciaXML.obtenerInfoAsignacionVictimas();
+       return  this.impRecPersistenciaXML.obtenerInfoAsignacionVictimas();
     }
 
     @Override
@@ -100,16 +102,37 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
     }
     @Override
     public boolean guardarSerieResultadosSimulacion(InfoSerieResultadosSimulacion infoSerieResultados)throws Exception{
-       return  this.impPersistenciaXML.guardarSerieResultadosXML(infoSerieResultados);
+       return  this.impRecPersistenciaXML.guardarSerieResultadosXML(infoSerieResultados);
     }
     @Override
     public String getIdentEscenarioSimulacion()throws Exception{
-    return  impPersistenciaXML.getRutaEscenarioSimulacion();
+    return  impRecPersistenciaXML.getRutaEscenarioSimulacion();
 }
     @Override
     public RobotStatus getRobotStatus ( String robotId)throws Exception{
-        return impPersistenciaXML.getRobotStatus (  robotId);
+        return impRecPersistenciaXML.getRobotStatus (  robotId);
         
+    }
+
+    @Override
+    public EscenarioSimulacionRobtsVictms obtenerInfoEscenarioSimulacion(String rutaFicheroEscenario) throws Exception {
+      return this.impRecPersistenciaXML.obtenerInfoEscenarioSimulacion(rutaFicheroEscenario);
+    }
+
+    @Override
+    public boolean eliminarEscenarioSimulacion(String rutaFicheroInfoPersistencia) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean guardarInfoEscenarioSimulacion( EscenarioSimulacionRobtsVictms escenario) throws Exception {
+        return impRecPersistenciaXML.guardarInfoEscenarioSimulacion(escenario);
+    }
+
+    @Override
+    public HashSet obtenerIdentsEscenarioSimulacion() throws Exception {
+        
+       return impRecPersistenciaXML.obtenerIdentsEscenarioSimulacion(VocabularioRosace.rutaPersistenciaEscenarios);
     }
 }
             

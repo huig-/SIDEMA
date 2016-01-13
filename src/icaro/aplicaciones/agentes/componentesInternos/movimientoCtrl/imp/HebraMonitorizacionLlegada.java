@@ -2,9 +2,12 @@ package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.patronAgenteCognitivo.percepcion.imp.PercepcionAgenteCognitivoImp;
+import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaEInterfacesPrObj.ItfProcesadorObjetivos;
 import org.apache.log4j.Logger;
 import org.openide.util.Exceptions;
 
@@ -58,8 +61,9 @@ public class HebraMonitorizacionLlegada extends Thread {
     private int dirX =0, dirY=0,incrementoDistancia=0;
     private int intervaloEnvioInformesMs ;
     private int distanciaRecorridaEnIntervaloInformes ;
-    private long tiempoParaAlcanzarDestino = 2000;
+    private long tiempoParaAlcanzarDestino =3000;
     public ItfUsoRecursoVisualizadorEntornosSimulacion itfusoRecVisSimulador;
+    public ItfProcesadorObjetivos itfProcObjetivos;
 //    private int numeroPuntos = 20;
     /**
      * Constructor
@@ -71,6 +75,7 @@ public class HebraMonitorizacionLlegada extends Thread {
       controladorMovimiento =contrMovimiento;
       this.itfusoRecVisSimulador = itfRecVisSimulador;
       identRobot = idRobot;
+      itfProcObjetivos = contrMovimiento.itfProcObjetivos;
     }
   public synchronized void inicializarDestino (String idDestino,Coordinate coordRobot,Coordinate coordDest, double velocidad ){    
 //      this.finalizar= false;
@@ -102,6 +107,7 @@ public class HebraMonitorizacionLlegada extends Thread {
         this.distanciaArecorrer =(float) Math.sqrt(incrX*incrX+incrY*incrY);
         this.b = (float) (coordActuales.y -pendienteRecta * coordActuales.x ) ;
         
+        
        }
 //        this.incrementoDistancia= (int)distanciaArecorrer/numeroPuntos;
 //        tiempoParaAlcanzarDestino = (long)(distanciaArecorrer/velocidadRobot); // en milisegundos
@@ -109,7 +115,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 //       intervaloEnvioInformesMs = 40;
 //        distanciaRecorridaEnIntervaloInformes = (long)(1+velocidadRobot*intervaloEnvioInformesMs/50);
 //       coordIncremento = this.calcularIncrementosCoordenadasAvelocidadConstante(intervaloEnvioInformacion);
-        intervaloEnvioInformesMs = (int)velocidadRobot* 20;
+        intervaloEnvioInformesMs = (int)velocidadRobot* 100;
         distanciaRecorridaEnIntervaloInformes = 1;
         
 //        try {
@@ -149,6 +155,12 @@ public class HebraMonitorizacionLlegada extends Thread {
     public synchronized void setVelocidadRobot(double velRobot) {
 	this.velocidadRobot= velRobot;
     }
+    // se informa al control de que estamos en el destino. Se cambia el estado a parar
+//        estadoActual = this.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
+//        this.estadoActual.identDestino = identDest;
+//        Informe informeLlegada = new Informe (identComponente,identDest, VocabularioRosace.MsgeLlegadaDestino);
+//        Temporizador informeTemp = new Temporizador (500,itfProcObjetivos,informeLlegada);
+//        robotposicionActual = monitorizacionLlegadaDestino.getCoordDestino();
 
     @Override
     public synchronized void run() {
@@ -182,8 +194,14 @@ public class HebraMonitorizacionLlegada extends Thread {
                 Thread.sleep(tiempoParaAlcanzarDestino);
                 this.controladorMovimiento.estamosEnDestino(identDestino,coordDestino );
                 log.debug("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
-//          System.out.println("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");       
-//                this.controladorMovimiento.setCoordenadasActuales(coordDestino);
+          System.out.println("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");       
+                this.controladorMovimiento.setCoordenadasActuales(coordDestino);
+                // se informa al control de que estamos en el destino. Se cambia el estado a parar
+
+        Informe informeLlegada = new Informe (this.identRobot,this.identDestino, VocabularioRosace.MsgeLlegadaDestino);
+//        Temporizador informeTemp = new Temporizador (500,itfProcObjetivos,informeLlegada);
+        itfProcObjetivos.insertarHecho(informeLlegada);
+        this.notifyAll();     
             } catch (Exception ex) {
                 log.error( ex);
             }

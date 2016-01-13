@@ -95,7 +95,7 @@ public class AccesoPropiedadesGlobalesRosace {
     	try{    	
     		itfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
     		itfconfig = (ItfUsoConfiguracion)itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
-    		rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroVictimasTest); 
+    		rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.identRutaFicheroEscenarioSimulacion); 
     	}
     	catch (Exception e){
     		e.printStackTrace();

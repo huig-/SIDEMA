@@ -2,6 +2,7 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.PuntoEstadistica;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.patronRecursoSimple.ItfUsoRecursoSimple;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public void aniadirSerieAVisorGraficaEstadisticas( String tituloSerie, int index
 	
  public void mostrarEscenarioMovimiento(EscenarioSimulacionRobtsVictms infoEscenario)throws Exception;
  public void mostrarVentanaControlSimulador(String rutaEscenrioSimulacion)throws Exception;
+ public void mostrarVentanaControlSimulador(EscenarioSimulacionRobtsVictms rutaEscenrioSimulacion)throws Exception;
  public void mostrarEscenario()throws Exception;
  public void crearVisorGraficasLlegadaYasignacionVictimas (int numeroRobotsSimulacion,int numeroVictimasDiferentesSimulacion,int intervaloSecuencia,String identificadorEquipo)throws Exception;
  public void visualizarLlegadaYasignacionVictimas(ArrayList<PuntoEstadistica> llegada,ArrayList<PuntoEstadistica> asignacion)throws Exception;
@@ -38,4 +40,6 @@ public void aniadirSerieAVisorGraficaEstadisticas( String tituloSerie, int index
  public boolean escenarioSimulacionDefinido()throws Exception;
  public void obtenerEscenarioSimulacion (String modOrganizativo, int numRobots )throws Exception ;
  public void notificarRecomendacion (String titulo, String motivo, String recomendacion)throws Exception ;
+ public void setItfUsoPersistenciaSimulador (ItfUsoRecursoPersistenciaEntornosSimulacion itfUsopersistencia)throws Exception;
+ 
 }

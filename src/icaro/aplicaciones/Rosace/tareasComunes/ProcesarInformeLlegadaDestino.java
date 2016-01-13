@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.tareas;
+package icaro.aplicaciones.Rosace.tareasComunes;
 import icaro.aplicaciones.Rosace.informacion.EvaluacionAgente;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
@@ -58,7 +58,7 @@ public class ProcesarInformeLlegadaDestino extends TareaSincrona{
                      infoCompMov.itfAccesoComponente.moverAdestino(nuevoObjetivo.getobjectReferenceId(), victimaRescatada.getCoordinateVictim(), velocidadCruceroPordefecto);
                   }
                   String estadoComponente = infoCompMov.itfAccesoComponente.getIdentEstadoMovRobot();
-                  infoCompMov.setidentEstadoRobot(estadoComponente);
+//                  infoCompMov.setidentEstadoRobot(estadoComponente);
 //                  if(focoActual.getFoco().getState()==Objetivo.SOLVED) focoActual.setFoco(objetivoConseguido);
 //                  focoActual.setFoco(objetivoConseguido);
                    focoActual.refocusUltimoObjetivoSolving();
@@ -66,12 +66,12 @@ public class ProcesarInformeLlegadaDestino extends TareaSincrona{
                   
                   this.getEnvioHechos().actualizarHechoWithoutFireRules(victims);
                   this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
-                  this.getEnvioHechos().actualizarHechoWithoutFireRules(infoCompMov);
+//                  this.getEnvioHechos().actualizarHechoWithoutFireRules(infoCompMov);
                   this.getEnvioHechos().actualizarHechoWithoutFireRules(objetivoConseguido);
                   this.getEnvioHechos().actualizarHecho(focoActual);
                   trazas.aceptaNuevaTrazaEjecReglas(this.identAgente, "Se Ejecuta la Tarea :"+ this.identTarea +
                            "El identificador de la victima  :"+ victimaRescatadaId + " y el del ultimo objetivo : "+objetivoConseguido.getobjectReferenceId()+" coinciden " +
-                           "EstadoComponente : "+estadoComponente+ "Objetivo mas prioritario en curso "+misObjs.getMisObjetivosPriorizados().toString()+ "\n"+ "  El foco esta en el ojetivo :  "+focoActual + "\n");
+                           "EstadoComponente : "+estadoComponente+ "Objetivo mas prioritario en curso "+misObjs.getobjetivoMasPrioritario().toString()+ "\n"+ "  El foco esta en el ojetivo :  "+focoActual + "\n");
               }else
                    trazas.aceptaNuevaTrazaEjecReglas(this.identAgente, "Se Ejecuta la Tarea :"+ this.identTarea +
                            "El identificador de la victima  :"+ victimaRescatadaId + " y el del ultimo objetivo : "+objetivoConseguido.getobjectReferenceId()+" NO coinciden " + "\n");

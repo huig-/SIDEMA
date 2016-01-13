@@ -183,7 +183,7 @@ public Set getSetVictims (){
     if(numVictimas>0)infoVictimas.remove(victimInicialId);
     return this.infoVictimas.entrySet();
 }
-public Map<String, Victim> getVictims (){
+public synchronized Map<String, Victim> getVictims (){
     if(numVictimas>0)infoVictimas.remove(victimInicialId);
     return this.infoVictimas;
 }

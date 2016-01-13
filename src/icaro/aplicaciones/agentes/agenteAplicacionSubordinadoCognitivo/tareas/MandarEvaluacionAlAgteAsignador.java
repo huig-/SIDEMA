@@ -99,8 +99,10 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
               this.getComunicator().enviarInfoAotroAgente(miEvaluacion, nombreAgenteQuePideLaEvaluacion);
               this.generarInformeOK(identTarea, objetivoEjecutantedeTarea, nombreAgenteEmisor, VocabularioRosace.ResEjTaskMiEvaluacionEnviadaAlAgtesQLaPide+ nombreAgenteQuePideLaEvaluacion);
               
-              trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "EvaluacionEnviadaAlAgente : "+ nombreAgenteQuePideLaEvaluacion, InfoTraza.NivelTraza.info));
-                       //            tiempoSinRecibirRespuesta.start();
+//              trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "EvaluacionEnviadaAlAgente : "+ nombreAgenteQuePideLaEvaluacion, InfoTraza.NivelTraza.info));
+              trazas.aceptaNuevaTrazaEjecReglas(nombreAgenteEmisor, "Victima En Peticion : "+victimEnPeticion + "  EvaluacionEnviadaAlAgente : "+
+                                            nombreAgenteQuePideLaEvaluacion + " Evaluacion : "+miEvalDeRespuesta );
+              //            tiempoSinRecibirRespuesta.start();
 
 		  } catch (Exception e) {
 			  e.printStackTrace();

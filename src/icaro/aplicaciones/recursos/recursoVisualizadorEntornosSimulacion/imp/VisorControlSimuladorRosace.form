@@ -36,7 +36,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFileChooser1ActionPerformed"/>
       </Events>
     </Component>
-    <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+    <Menu class="javax.swing.JMenuBar" name="jMenuBarEditorEsc">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenuEditarEscenario">
           <Properties>
@@ -115,7 +115,7 @@
     <Property name="title" type="java.lang.String" value="Centro de Control"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBarEditorEsc"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
@@ -140,7 +140,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel6" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                          <Component id="jButtonStart" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonComenzar" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -153,8 +153,8 @@
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="sendVictimButton" alignment="0" min="-2" max="-2" attributes="1"/>
-                  <Component id="sendVictimsSequence" alignment="0" min="-2" max="-2" attributes="1"/>
+                  <Component id="jButtonSendVictim" alignment="0" min="-2" max="-2" attributes="1"/>
+                  <Component id="jButtonSendVictimsSequence" alignment="0" min="-2" max="-2" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -217,9 +217,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="107" max="32767" attributes="0"/>
-                      <Component id="sendVictimButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonSendVictim" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="sendVictimsSequence" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonSendVictimsSequence" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
@@ -230,7 +230,7 @@
                               <Component id="jLabel6" min="-2" pref="44" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButtonStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonComenzar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jPararEnvioMensajes" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -243,25 +243,25 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="sendVictimButton">
+    <Component class="javax.swing.JButton" name="jButtonSendVictim">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salvar Victima"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendVictimButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSendVictimActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="sendVictimsSequence">
+    <Component class="javax.swing.JButton" name="jButtonSendVictimsSequence">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salvar Victimas del escenario"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendVictimsSequenceActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSendVictimsSequenceActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtextTextFieldIntervaloEnvioMensajes">
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonStart">
+    <Component class="javax.swing.JButton" name="jButtonComenzar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Comenzar"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -269,7 +269,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonComenzarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jPararEnvioMensajes">
