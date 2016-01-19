@@ -371,7 +371,7 @@ public  void peticionSalvarVictima() {
     }
  public boolean verificarCaracteristicasEscenarioSeleccionado ( File ficheroSeleccionado,String orgModelo,int numRobots ){
          try {
-             escenarioEdicionComp = itfPersistenciaSimul.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
+             escenarioEdicionComp = itfPersistenciaSimul.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getName());
          } catch (Exception ex) {
              Exceptions.printStackTrace(ex);
          }
