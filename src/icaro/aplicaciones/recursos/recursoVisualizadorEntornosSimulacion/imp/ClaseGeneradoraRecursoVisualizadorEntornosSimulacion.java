@@ -41,7 +41,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //   private int coordX, coordY ; // coordenadas de visualizacion  se le dan valores iniciales y se incrementan para que las ventanas no coincidan
     private ControladorVisualizacionSimulRosace controladorIUSimulador;
  // para prueba de integracion 
-    private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
+    private String directorioPersistencia = VocabularioRosace.NombreDirectorioPersistenciaEscenarios+File.separator;
 //    private String identFicheroEscenarioSimulacion=directorioPersistencia+"modeloOrg_JerarquicoNumRobts_4NumVicts_2.xml" ;
     private String identFicheroEscenarioSimulacion;
     private Coordinate coordDestino;
@@ -62,6 +62,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //            visorEscenarios = new VisorEscenariosRosace();
 //            ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
             controladorIUSimulador = new ControladorVisualizacionSimulRosace(notifEvt);
+            
         } catch (Exception e) {
             this.trazas.trazar(recursoId, " Se ha producido un error en la creación del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
             this.itfAutomata.transita("error");
@@ -369,5 +370,6 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
     @Override
     public void setItfUsoPersistenciaSimulador(ItfUsoRecursoPersistenciaEntornosSimulacion itfUsopersistencia) throws Exception {
         this.controladorIUSimulador.setIftRecPersistencia(itfUsopersistencia);
+        this.controladorIUSimulador.initModelosYvistas();
     }
 }

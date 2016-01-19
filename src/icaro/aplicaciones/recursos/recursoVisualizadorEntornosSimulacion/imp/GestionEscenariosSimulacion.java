@@ -30,26 +30,31 @@ public class GestionEscenariosSimulacion {
     private String  orgModeloInicial = "SinDefinir";
 
      public GestionEscenariosSimulacion (){
-          tablaEscenariosDefinidos = new HashMap();      
+        tablaEscenariosDefinidos = new HashMap();      
         identsEscenarios = new HashSet();
      }
      public synchronized String getIdentEscenario (String orgTipo,int numRobts, int numVictm){
-         String identEscenario = orgModelo+orgTipo+numRobots+numRobts+numVictims+numVictm;
-         int indiceEscenarioRepetido = 0;
-         while (identsEscenarios.contains(identEscenario)){
-             indiceEscenarioRepetido ++;
-             identEscenario =identEscenario+"_"+indiceEscenarioRepetido;
-         }
+         String identEscenario = orgModelo+orgTipo+numRobots+numRobts+numVictims+numVictm+"_0";
+//         if (identsEscenarios.isEmpty())return identEscenario+"_0";
+//         int indiceEscenarioRepetido = 0;      
+//         while (getIdentsEscenariosSimulacion ( ).contains(identEscenario)){
+//             indiceEscenarioRepetido ++;
+//             identEscenario =identEscenario+"_"+indiceEscenarioRepetido;
+//         }
          return identEscenario;
      }
      public void  setIdentsEscenariosSimulacion ( HashSet setIdentsEscenarios){
          identsEscenarios = setIdentsEscenarios;
      }
+      public  HashSet getIdentsEscenariosSimulacion ( ){
+          return identsEscenarios;
+      }
      public EscenarioSimulacionRobtsVictms crearEscenarioSimulacion(){
          EscenarioSimulacionRobtsVictms escenarioSim = new EscenarioSimulacionRobtsVictms();
-         
          escenarioSim.setGestorEscenarios(this);
-         escenarioSim.setIdentEscenario(getIdentEscenario (orgModeloInicial,0, 0));
+         String identEscenario = getIdentEscenario (orgModeloInicial,0, 0);
+//         escenarioSim.setIdentEscenario(getIdentEscenario (orgModeloInicial,0, 0));
+         escenarioSim.setIdentEscenario (identEscenario);
          return escenarioSim;
     }
     public void addEscenario(EscenarioSimulacionRobtsVictms escenario){

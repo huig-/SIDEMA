@@ -90,7 +90,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     
     static public  final String identRutaFicheroEscenarioSimulacion  = "rutaFicheroEscenarioSimulacion";
     static public  final String rutaFicheroRobotsTest    = "rutaFicheroRobotsTest";
-    static public  final String identRutaPersistenciaEscenarios  = "rutaPersistenciaEscenarios" ;
+    static public  final String identDirectorioPersistenciaEscenarios  = "PersistenciaEscenariosSimulacion" ;
     static public  final String rutaPersistenciaEscenarios    = "src/PersistenciaEscenariosSimulacion";
     static public  final String intervaloMilisegundosEnvioCCMensajes = "intervaloMilisegundosEnvioMensajesDesdeCC"; 
     static public  final String timeTimeoutPorDefecto = "timeTimeoutPorDefecto";     
@@ -106,8 +106,8 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String IdentRecursoCreacionEntornosSimulacion = "RecursoCreacionEntornosSimulacion1";
     static public  final String IdentRecursoVisualizadorEntornosSimulacion = "RecursoVisualizadorEntornosSimulacion1";
     static public  final String IdentPersistenciaEntornosSimulacion = "RecursoPersistenciaEntornosSimulacion1";
-    static public  final String IdentDirectorioPersistenciaSimulacion = "persistenciaResultadosSimulacion";
-    static public  final String IdentDirectorioPersistenciaEscenarios = "persistenciaEscenariosSimulacion";
+    static public  final String IdentDirectorioPersistenciaSimulacion = "PersistenciaResultadosSimulacion";
+    static public  final String NombreDirectorioPersistenciaEscenarios = "PersistenciaEscenariosSimulacion";
     // Valores de los inputs del agente controlador. Son necesarios para que el visualizador envie notificaciones y para definir
     // el automata
     static public  final String peticionSimulacionVictima = "peticionSimulacionVictima";
@@ -123,5 +123,6 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String NombreFicheroSeriePeticionVictimas = "seriePeticionVictimas";
     static public  final String NombreFicheroSerieLlegadaYasignacion = "serieLlegadaYasignacionVictimas";
     static public  final String NombreFicheroSerieAsignacion = "serieAsignacionVictimas";
+    static public  final String NombreFicheroEscenarioSimulacion = "identFicheroEscenarioSimulacion";
     static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo};
 }

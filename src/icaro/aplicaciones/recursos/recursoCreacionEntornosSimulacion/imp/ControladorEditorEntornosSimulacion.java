@@ -37,7 +37,7 @@ public class ControladorEditorEntornosSimulacion {
     private static  Image IMAGErobot,IMAGEmujer,IMAGEmujerRes ;
     private String rutaIconos = "\\src\\utilsDiseniaEscenariosRosace\\";
 //    private String rutaPersistenciaEscenario = "\\src\\persistenciaEscenarios\\";
-    private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
+    private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaSimulacion+File.separator;
      private String imageniconoHombre = "Hombre.png";
     private String imageniconoMujer = "Mujer.png";
     private String imageniconoMujerRescatada = "MujerRescatada.png";
@@ -76,7 +76,7 @@ public class ControladorEditorEntornosSimulacion {
         notifEvts=notificadorInfoUsuarioSimulador;
     }
     public void initModelosYvistas(){
-       String  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
+       String  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaSimulacion+File.separator;
 //            VisorControlSimuladorRosace visorSc;
              persistencia= new PersistenciaVisualizadorEscenarios();
              gestionEscComp= new GestionEscenariosSimulacion();

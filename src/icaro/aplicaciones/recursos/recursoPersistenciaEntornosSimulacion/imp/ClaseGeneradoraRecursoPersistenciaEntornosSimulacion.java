@@ -115,8 +115,8 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
     }
 
     @Override
-    public EscenarioSimulacionRobtsVictms obtenerInfoEscenarioSimulacion(String rutaFicheroEscenario) throws Exception {
-      return this.impRecPersistenciaXML.obtenerInfoEscenarioSimulacion(rutaFicheroEscenario);
+    public EscenarioSimulacionRobtsVictms obtenerInfoEscenarioSimulacion(String identFicheroEscenario) throws Exception {
+      return this.impRecPersistenciaXML.obtenerInfoEscenarioSimulacion(identFicheroEscenario);
     }
 
     @Override
@@ -132,7 +132,7 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
     @Override
     public HashSet obtenerIdentsEscenarioSimulacion() throws Exception {
         
-       return impRecPersistenciaXML.obtenerIdentsEscenarioSimulacion(VocabularioRosace.rutaPersistenciaEscenarios);
+       return impRecPersistenciaXML.obtenerIdentsEscenarioSimulacion(VocabularioRosace.identDirectorioPersistenciaEscenarios);
     }
 }
             

@@ -73,7 +73,7 @@ public class VisorCreacionEscenarios1 extends javax.swing.JFrame {
     private static  Image IMAGErobot,IMAGEmujer,IMAGEmujerRes ;
     private String rutaIconos = "\\src\\utilsDiseniaEscenariosRosace\\";
 //    private String rutaPersistenciaEscenario = "\\src\\persistenciaEscenarios\\";
-    private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
+    private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaSimulacion+File.separator;
      private String imageniconoHombre = "Hombre.png";
     private String imageniconoMujer = "Mujer.png";
     private String imageniconoMujerRescatada = "MujerRescatada.png";
@@ -982,7 +982,7 @@ public class VisorCreacionEscenarios1 extends javax.swing.JFrame {
 
             @Override
             public void run() {
-            String  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
+            String  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaSimulacion+File.separator;
             VisorCreacionEscenarios1 visor;
             PersistenciaVisualizadorEscenarios persistencia= new PersistenciaVisualizadorEscenarios();
             GestionEscenariosSimulacion gestionEscComp= new GestionEscenariosSimulacion();
