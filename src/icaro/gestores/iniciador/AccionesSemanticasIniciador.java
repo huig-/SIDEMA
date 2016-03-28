@@ -104,9 +104,10 @@ public void verificarExistenciaEntidadesDescripcion () {
         ComprobadorRutasEntidades comprobadorRutas = new ComprobadorRutasEntidades();
         Boolean SeHapodidoLocalizarEsquema = true;
         Boolean SeHapodidoLocalizarFicheroDescripcion = true;
-        this.trazas.trazar(nombreAgente, "Verificando la existencia de entidadesDescrpcion", NivelTraza.debug);
+        this.trazas.trazar(nombreAgente, "Verificando la existencia de entidadesDescripcion", NivelTraza.debug);
 
        if ( !comprobadorRutas.existeSchemaDescOrganizacion()){
+           SeHapodidoLocalizarEsquema = false;
            ItfUsoRecTrazas.aceptaNuevaTraza(new InfoTraza("Iniciador",
                         "No se pudo encontrar fichero que define el esquema para interpretar la descripcion de la Organizacion",
                         InfoTraza.NivelTraza.error));
@@ -114,6 +115,7 @@ public void verificarExistenciaEntidadesDescripcion () {
                 }
             rutaDescripcionOrganizacion = comprobadorRutas.buscarDescOrganizacion(NombresPredefinidos.DESCRIPCION_XML_POR_DEFECTO);
          if ( rutaDescripcionOrganizacion==null){
+             SeHapodidoLocalizarFicheroDescripcion = false;
            ItfUsoRecTrazas.aceptaNuevaTraza(new InfoTraza("Iniciador",
                         "No se pudo encontrar fichero de descripcion de la Organizacion",
                         InfoTraza.NivelTraza.error));

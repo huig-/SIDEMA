@@ -115,7 +115,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 //       intervaloEnvioInformesMs = 40;
 //        distanciaRecorridaEnIntervaloInformes = (long)(1+velocidadRobot*intervaloEnvioInformesMs/50);
 //       coordIncremento = this.calcularIncrementosCoordenadasAvelocidadConstante(intervaloEnvioInformacion);
-        intervaloEnvioInformesMs = (int)velocidadRobot* 100;
+        intervaloEnvioInformesMs = (int)velocidadRobot* 50;
         distanciaRecorridaEnIntervaloInformes = 1;
         
 //        try {
@@ -180,9 +180,10 @@ public class HebraMonitorizacionLlegada extends Thread {
                      enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
                      finalizar = (coordActuales.x<0.5 || coordActuales.y<0.5 );
                      if (itfusoRecVisSimulador != null)
-                        this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales,coordDestino,identDestino);
-                        this.controladorMovimiento.setCoordenadasActuales(coordActuales);
-                        this.notifyAll();
+                         this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+                        this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
+                       
+//                        this.notifyAll();
         } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

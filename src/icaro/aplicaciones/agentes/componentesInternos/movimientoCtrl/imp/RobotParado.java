@@ -9,6 +9,7 @@ import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,12 +18,13 @@ import java.util.logging.Logger;
  * @author FGarijo
  */
 public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimientoCtrl{
-   
+   private Semaphore semaforo;
     public  RobotParado (MaquinaEstadoMovimientoCtrl maquinaEstados){
        
    // this.Inicializar(itfProcObjetivos);
   //  MovimientoCtrlImp estado = estadosCreados.get(EstadoMovimientoRobot.RobotParado);
      super (maquinaEstados,MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
+     semaforo=new Semaphore(1);
 //     estadoActual = this;
     //  this.Inicializar(itfProcObjetivos) ; 
  
@@ -39,6 +41,12 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
     } 
     @Override
         public void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero) {
+            try {
+			semaforo.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
          if (coordDestino!= null)  {
              if (identDest.equals(identDestino))
               this.trazas.trazar (this.identComponente, " No ha variado el destino en el que estoy : " +robotposicionActual + "  Destino :"+identDest , InfoTraza.NivelTraza.error);
@@ -51,18 +59,19 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
         //    int intervaloEnvioInformes = (int)tiempoParaAlcanzarDestino/10; // 10 informes maximo
            this.robotposicionActual = this.maquinaEstados.getCoordenadasActuales();
 //           this.robotposicionActual = this.getCoordenadasActuales();  
-           if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.finalizar();
+           if (monitorizacionLlegadaDestino!= null)monitorizacionLlegadaDestino.finalizar();
            trazas.trazar(identComponente, "Estoy parado en la posicion : "+robotposicionActual +
                   "  Me muevo al destino  : " + identDestino +" Coordenadas:  " + destinoCoord, InfoTraza.NivelTraza.error);
                this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,maquinaEstados,this.itfusoRecVisSimulador);       
                monitorizacionLlegadaDestino.inicializarDestino(this.identDestino,robotposicionActual,this.destinoCoord,this.velocidadCrucero); 
 //               monitorizacionLlegadaDestino.start();
-               monitorizacionLlegadaDestino.run();
+               monitorizacionLlegadaDestino.start();
            this.maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotEnMovimiento);
            }else trazas.trazar(identComponente, "La velocidad debe ser mayor que cero. Se ignora la operacion", InfoTraza.NivelTraza.error);
            
         }
              }
+         this.semaforo.release();
     }
     @Override
     public synchronized boolean estamosEnDestino(String destinoId){

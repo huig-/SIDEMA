@@ -48,6 +48,7 @@ public class RobotStatus1 implements Cloneable{
 //    @Element(name="robotCapability")
     private RobotCapability capablity;
     private InfoCompMovimiento infoCompMovt;
+    private boolean bloqueado;
 
     public RobotStatus1() {
         robotCoordinateAnteriorP = new Point(0,0);
@@ -165,6 +166,13 @@ public class RobotStatus1 implements Cloneable{
     public double getRangeProximity(){
     	return this.rangeProximity;
     }
+    public boolean getBloqueado(){
+		return this.bloqueado;
+	}
+
+	public void setBloqueado(boolean b){
+		this.bloqueado = b;
+	}
     
     public void setRobotCapability(RobotCapability capabilityR){
            if(!robotCapabilities.contains(capabilityR)) robotCapabilities.add(capabilityR);

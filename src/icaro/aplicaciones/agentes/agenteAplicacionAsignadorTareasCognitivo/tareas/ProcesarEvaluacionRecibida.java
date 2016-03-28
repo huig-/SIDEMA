@@ -31,8 +31,6 @@ public class ProcesarEvaluacionRecibida extends TareaSincrona{
                      // para generar el informe con referencia al objetivo en que se ejecuta la tarea, se le pasa el ident del objetivo en el primer parametro
              trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
              Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
-                     //  String identTareaLong = getClass().getName();
-                     //  String identTarea = this.getIdentTarea();
              String nombreAgenteEmisor = this.identAgente;
              InfoParaDecidirAQuienAsignarObjetivo infoDecisionAgente = (InfoParaDecidirAQuienAsignarObjetivo) params[1];
              EvaluacionAgente evaluacionRecibida = (EvaluacionAgente) params[2];

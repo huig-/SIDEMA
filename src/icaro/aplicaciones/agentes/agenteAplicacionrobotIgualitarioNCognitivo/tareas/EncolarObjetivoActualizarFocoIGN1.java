@@ -35,12 +35,15 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
  then
  */
 public class EncolarObjetivoActualizarFocoIGN1 extends TareaSincrona {
-private  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, RobotBloqueado,RobotavanceImposible,enDestino,  error}
+        private  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, RobotBloqueado,RobotavanceImposible,enDestino,  error}
+        private ItfUsoMovimientoCtrl itfcompMov;
+	private Victim victima;
+	private int velocidadCruceroPordefecto;
     @Override
     public void ejecutar(Object... params) {
         
         //    ItfUsoRecursoEstadistica itfUsoRecursoEstadistica=null;
-        int velocidadCruceroPordefecto = 1;// metros por segundo
+         velocidadCruceroPordefecto = 1;// metros por segundo
         //Para recoger estadisticas del instante de envio de victimas desde el centro de control
 
         try {
@@ -50,7 +53,7 @@ private  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, 
             InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa) params[2];
             Focus focoActual = (Focus) params[3];
             InfoCompMovimiento infoComMov = (InfoCompMovimiento) params[4];
-            Victim victima = (Victim) params[5];
+             victima = (Victim) params[5];
             VictimsToRescue victimas =(VictimsToRescue) params[6];
             String nombreAgenteEmisor = this.getIdentAgente();
 
@@ -82,7 +85,7 @@ private  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, 
             // Se compara con los objetivos pendientes
             // Miramos si la cola de objetivos esta o no vacia 
             Objetivo nuevoObj = misObjs.getobjetivoMasPrioritario();
-             ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
+              itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
 //             while( nuevoObj != null&& nuevoObj.getPriority()>0 ){
 //                 if (nuevoObj.getState()== Objetivo.SOLVED){  
 //                                    nuevoObj.setPriority(-1);
@@ -90,11 +93,20 @@ private  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, 
 //                                    nuevoObj=misObjs.getobjetivoMasPrioritario();
 //                             }
 //             }
+             Thread t = new Thread(){
+				
+				public void run(){
+					
+					itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); 
+				}
+			};
+             
              if ( nuevoObj == null||nuevoObj.getState()==Objetivo.SOLVED){// se pone el objetivo actual a solving y se da orden para que se empiece a mover
                 objetivoAsignado.setSolving();
                 misObjs.addObjetivo(objetivoAsignado);
 //                focoActual.setFoco(obj1);
-                itfcompMov.moverAdestino(objetivoAsignado.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto);
+//                itfcompMov.moverAdestino(objetivoAsignado.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto);
+                t.run();
                 infoComMov.setidentDestino(objetivoAsignado.getobjectReferenceId());
                 infoComMov.setidentEstadoRobot(itfcompMov.getIdentEstadoMovRobot());
                   

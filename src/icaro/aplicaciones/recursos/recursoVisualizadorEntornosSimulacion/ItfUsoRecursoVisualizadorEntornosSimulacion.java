@@ -32,7 +32,8 @@ public void aniadirSerieAVisorGraficaEstadisticas( String tituloSerie, int index
  public void crearVisorGraficasTiempoAsignacionVictimas (int numeroRobotsSimulacion,int numeroVictimasDiferentesSimulacion,int intervaloSecuencia,String identificadorEquipo)throws Exception;
  public void visualizarTiempoAsignacionVictimas (ArrayList<PuntoEstadistica> elapsed)throws Exception;
  public void mostrarResultadosFinSimulacion()throws Exception;
- public void mostrarPosicionRobot(String identRobot, Coordinate coordRobot,Coordinate coordDestino, String identDestino)throws Exception;
+// public void mostrarPosicionRobot(String identRobot, Coordinate coordRobot,Coordinate coordDestino, String identDestino)throws Exception;
+ public  void mostrarPosicionRobot(String identRobot, Coordinate coordRobot)throws Exception;
  public void mostrarVictimaRescatada(String identVictima)throws Exception;
  public  void inicializarDestinoRobot(String idRobot,Coordinate coordInicial,String destinoId, Coordinate coordDestino, double velocidadInicial)throws Exception;;
  public void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, double velocidadCrucero) throws Exception;

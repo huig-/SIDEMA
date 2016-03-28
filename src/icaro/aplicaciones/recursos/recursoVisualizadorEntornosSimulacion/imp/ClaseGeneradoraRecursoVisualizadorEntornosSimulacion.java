@@ -279,8 +279,8 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
         JOptionPane.showMessageDialog(null, msg);
     }
     @Override
-//    public synchronized void mostrarPosicionRobot(String identRobot, int coordX, int coordY)throws Exception{
-      public synchronized void mostrarPosicionRobot(String identRobot, Coordinate coordRobot,Coordinate coordDestino,String identDestino)throws Exception{
+    public synchronized void mostrarPosicionRobot(String identRobot, Coordinate coordRobot)throws Exception{
+//      public synchronized void mostrarPosicionRobot(String identRobot, Coordinate coordRobot,Coordinate coordDestino,String identDestino)throws Exception{
        Integer coordX = (int) coordRobot.getX();
        Integer coordY = (int) coordRobot.getY();
 //        if ( Math.abs (coordX-coordDestino.getX())<0.6 && Math.abs (coordY-coordDestino.getY())<0.6){

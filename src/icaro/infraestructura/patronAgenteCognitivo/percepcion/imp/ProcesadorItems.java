@@ -208,8 +208,7 @@ public class ProcesadorItems implements ItfProcesadorItems {
 		             if (filtradoPercepcion==false){                    	
                     	ExtractedInfo infoExtr = null;
 				        try {
-					         log.debug("Recogiendo item desde el buzon de items de la percepcion...");
-					         infoExtr = infoExtractedQ.take();
+					         log.debug("Recogiendo item desde el buzon de items de la percepcion...");					         infoExtr = infoExtractedQ.take();
 					         if (infoExtr != null) {
 ////					  if (filtradoPercepcion==false){      	 
 						         boolean seguirEnviando = itfProcesadorInfoExtracted.procesarExtractedInfo(infoExtr);

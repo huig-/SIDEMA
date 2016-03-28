@@ -22,10 +22,10 @@ public class Victim implements Serializable{
        private Point victimCoordinateP;
     
        private int estimatedCost;
+       private boolean isRescued = false;
        private boolean isCostEstimated = false;
        private Point victimCoordinateAnteriorP;
    
-
        public Victim(){
            victimCoordinateAnteriorP = new Point(0,0);
            victimCoordinateP = new Point(1,1);
@@ -38,6 +38,9 @@ public class Victim implements Serializable{
        } 
 	
        //In our first scenario (1 injured group, 1 new injured) this constructor was used.
+       public Victim(Coordinate coorVictim){
+    	   this.coordinateVictim = coorVictim;
+       }
        public Victim(String nombre){
     	   this.name = nombre;
            victimCoordinateAnteriorP = new Point(0,0);
@@ -107,6 +110,13 @@ public class Victim implements Serializable{
            public synchronized boolean isCostEstimated(){
 		  return isCostEstimated ;
 	   }
+            public synchronized boolean getRescued(){
+   		   return this.isRescued;
+   	   }
+   	   
+   	   public synchronized void setRescued(){
+   		   this.isRescued = true;
+   	   }
    	   //Method for debugging
     @Override
    	   public String toString(){

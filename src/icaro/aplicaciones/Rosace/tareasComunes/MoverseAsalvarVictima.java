@@ -23,13 +23,16 @@ import org.apache.log4j.Logger;
 public class MoverseAsalvarVictima extends TareaSincrona {
     // private Victim victim;
     private Logger log = Logger.getLogger(this.getClass().getSimpleName());
-int velocidadCruceroPordefecto = 5;// metros por segundo
+    int velocidadCruceroPordefecto = 5;// metros por segundo
+    private ItfUsoMovimientoCtrl itfcompMov;
+	private Victim victima;
+
     @Override
     public void ejecutar(Object... params) {
     
             MisObjetivos misObjs = (MisObjetivos) params[0];
             Focus focoActual = (Focus) params[1];
-            Victim victima = (Victim) params[2];
+             victima = (Victim) params[2];
             InfoCompMovimiento infoComMov = (InfoCompMovimiento) params[3];
             VictimsToRescue victimasArescatar = (VictimsToRescue) params[4];
             String identAgente =this.getIdentAgente();
@@ -48,6 +51,13 @@ int velocidadCruceroPordefecto = 5;// metros por segundo
                             + " Victima salvada  :  " + victima + 
                             "Objetivo conseguido :  " + objConseguido + "Nuevo objetivo a conseguir  :  " + nuevoObj
                             + " Los objetivos en la cola son  :  " + misObjs.getMisObjetivosPriorizados() + "\n"); 
+             Thread t = new Thread(){
+				
+				public void run(){
+					
+					itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); 
+				}
+			};
             if (nuevoObj.getPriority()>0 ){
 //            if (!objActual.getobjectReferenceId().equals(victima.getName()))// no se hace nada y se indica un error pq el objetivo debe ser el que esta como mas prioritario  
 //            {
@@ -55,11 +65,13 @@ int velocidadCruceroPordefecto = 5;// metros por segundo
 //                        + " El ident de la victima debe coindidir con el del objetivo mas prioritario :  " + victima + "\n", InfoTraza.NivelTraza.error);
 //            } else {
 //                 Objetivo    nuevoObj = misObjs.getobjetivoMasPrioritario();
-//                 if (nuevoObj != null) {      
+//                 if (nuevoObj != null) { 
+                
                 victima = victimasArescatar.getVictimToRescue(nuevoObj.getobjectReferenceId());
-                ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
-                itfcompMov.moverAdestino(nuevoObj.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); // se pondra la verlocidad por defecto 
-                infoComMov.setitfAccesoComponente(itfcompMov);
+                 itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
+//                itfcompMov.moverAdestino(nuevoObj.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); // se pondra la verlocidad por defecto 
+                t.run();
+                 infoComMov.setitfAccesoComponente(itfcompMov);
                     nuevoObj.setSolving();
 //                    focoActual.setFoco(nuevoObj);
                     this.getEnvioHechos().actualizarHechoWithoutFireRules(infoComMov);
