@@ -20,13 +20,10 @@ end
 rule "Explorar Terreno"
 	when
 		focoActual : Focus(foco == null)
-		obj: ExplorarTerreno();
-		//peticionAgte: PeticionAgente( mensajePeticion == VocabularioRosace.MsgPeticionExplorar)
+		peticionAgte: PeticionAgente( mensajePeticion == VocabularioRosace.MsgPeticionExplorar)
 	then
-		focoActual.set(obj);
-		//TareaSincrona tarea = gestorTareas.crearTareaSincrona(ExplorarTerreno.class);
-		//tarea.ejecutar();
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(ExplorarTerreno.class);
+		tarea.ejecutar();
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Explorar Terreno\n\n");
-		update(focoActual);
 end
