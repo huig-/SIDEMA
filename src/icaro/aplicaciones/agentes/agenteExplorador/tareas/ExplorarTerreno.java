@@ -13,8 +13,7 @@ public class ExplorarTerreno extends TareaSincrona {
 	@Override
 	public void ejecutar(Object... params) {
 		try {
-			 Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
-			 celdasAExplorar = (ArrayList<Celda>)params[1];
+			 celdasAExplorar = (ArrayList<Celda>)params[0];
 		}
 		catch (Exception e) {
 			   e.printStackTrace();

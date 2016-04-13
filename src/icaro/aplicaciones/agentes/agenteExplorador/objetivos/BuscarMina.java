@@ -11,5 +11,4 @@ public class BuscarMina extends Objetivo {
 	public BuscarMina(String id) {
 		super.setgoalId(id);
 	}
-
 }
