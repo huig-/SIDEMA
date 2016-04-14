@@ -57,16 +57,19 @@ public class Ventana extends JFrame{
 		
 		//Creacion del mapa de simulacion.
 		//Lo quitaremos cuando este creado el controlador y se creará al pulsar cargar
-		
+		centro = new JPanel();
 		escenario = new VisualEscenario();
-		this.add(escenario,BorderLayout.CENTER);
+		centro.add(escenario);
+		this.add(escenario,BorderLayout.WEST);
 		
-		derecha = new JPanel(new GridLayout(4, 1,8,8));
+		derecha = new JPanel(new GridLayout(4, 0,0,20));
 		simular = new Boton("Simular");
 		simular.setActionCommand("Simular");
+		simular.setText("Simular");
 		derecha.add(simular);
 		terminar = new Boton("Terminar");
 		terminar.setActionCommand("Terminar");
+		terminar.setText("Terminar Simulacion");
 		derecha.add(terminar);
 		datos = new JTextPane();
 		datos.setEditable(false);
@@ -95,6 +98,6 @@ public class Ventana extends JFrame{
 	private JMenuItem item1,item2,item3;
 	private Boton simular, terminar;
 	private JTextPane datos;
-	private JPanel derecha;
+	private JPanel derecha,centro;
 	private VisualEscenario escenario;
 }
