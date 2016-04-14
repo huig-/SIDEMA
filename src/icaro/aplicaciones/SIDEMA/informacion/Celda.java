@@ -4,11 +4,28 @@ import java.io.Serializable;
 
 public class Celda implements Serializable {
 	
-	public double x, y;
+	private double x, y;
+	private boolean accesible;
+	private boolean mina;
 	  
-	  public Celda(double x, double y) {
+	  public Celda(double x, double y,boolean accesible, boolean mina) {
 	    this.x = x;
 	    this.y = y;
+	    this.accesible = accesible;
+	    this.mina = mina;
+	  }
+	  
+	  public Celda(double x, double y,boolean mina){
+		  this.x = x;
+		  this.y = y;
+		  this.mina = mina;
+	  }
+	  
+	  public Celda(double x, double y){
+		  this.x = x;
+		  this.y = y;
+		  this.mina = false;
+		  this.accesible = true;
 	  }
 	  public synchronized void setX (double XCoord){
 	      this.x=XCoord;
@@ -21,6 +38,22 @@ public class Celda implements Serializable {
 	  }
 	  public synchronized double getY (){
 	      return this.y;
+	  }
+	  
+	  public synchronized boolean getMina(){
+		  return this.mina;
+	  }
+	  
+	  public synchronized boolean getAccesible(){
+		  return this.accesible;
+	  }
+	  
+	  public synchronized void setMina(boolean mina){
+		  this.mina = mina;
+	  }
+	  
+	  public synchronized void setAccesible(boolean accesible){
+		  this.accesible = accesible;
 	  }
 	  @Override
 	  public String toString() {
