@@ -2,6 +2,7 @@ package icaro.aplicaciones.ventana;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -60,24 +61,25 @@ public class Ventana extends JFrame{
 		centro = new JPanel();
 		escenario = new VisualEscenario();
 		centro.add(escenario);
-		this.add(escenario,BorderLayout.WEST);
+		this.add(escenario,BorderLayout.CENTER);
 		
-		derecha = new JPanel(new GridLayout(4, 0,0,20));
+		botonera = new JPanel(new FlowLayout());
 		simular = new Boton("Simular");
 		simular.setActionCommand("Simular");
 		simular.setText("Simular");
-		derecha.add(simular);
+		
+		botonera.add(simular);
 		terminar = new Boton("Terminar");
 		terminar.setActionCommand("Terminar");
 		terminar.setText("Terminar Simulacion");
-		derecha.add(terminar);
+		botonera.add(terminar);
 		datos = new JTextPane();
 		datos.setEditable(false);
 		datos.setText("");
 		datos.setSize(50, 80);
-		derecha.add(datos);
+		botonera.add(datos);
 		
-		this.add(derecha, BorderLayout.EAST);
+		this.add(botonera, BorderLayout.SOUTH);
 		
 	}
 	/*
@@ -98,6 +100,6 @@ public class Ventana extends JFrame{
 	private JMenuItem item1,item2,item3;
 	private Boton simular, terminar;
 	private JTextPane datos;
-	private JPanel derecha,centro;
+	private JPanel botonera,centro;
 	private VisualEscenario escenario;
 }
