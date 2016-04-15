@@ -13,13 +13,19 @@ public class CeldaVisual extends JButton {
 	public CeldaVisual(boolean mina, boolean accesible) {
 		if (accesible) {
 			if (mina) {
-				this.setBackground(Color.RED);
+				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
+				this.setIcon(arena);
+				//this.setBackground(Color.RED);
 			} else {
-				this.setBackground(Color.GREEN);
+				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
+				this.setIcon(arena);
+				//this.setBackground(Color.GREEN);
 			}
 
 		} else {
-			this.setBackground(Color.GRAY);
+			ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arenanegra.jpg"));
+			this.setIcon(arena);
+			//this.setBackground(Color.GRAY);
 		}
 
 	}
@@ -30,6 +36,11 @@ public class CeldaVisual extends JButton {
 		this.setIcon(arena);
 	    
 		//this.setBackground(Color.YELLOW);
+	}
+	
+	public void setMina(){
+		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
+		this.setIcon(arena);
 	}
 
 }
