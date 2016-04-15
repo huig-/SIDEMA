@@ -2,7 +2,11 @@ package icaro.aplicaciones.ventana;
 
 import java.awt.Color;
 
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import icaro.aplicaciones.ventana.dibujos.*; 
 
 public class CeldaVisual extends JButton {
 
@@ -21,7 +25,11 @@ public class CeldaVisual extends JButton {
 	}
 	
 	public CeldaVisual(){
-		this.setBackground(Color.YELLOW);
+		//ImageIcon arena = new ImageIcon("arena_marron.bmp");
+		 ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
+		this.setIcon(arena);
+	    
+		//this.setBackground(Color.YELLOW);
 	}
 
 }
