@@ -1,6 +1,7 @@
 package icaro.aplicaciones.agentes.agenteCC.tareas;
 
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 public class DistribuirTerreno extends TareaSincrona {
@@ -9,7 +10,14 @@ public class DistribuirTerreno extends TareaSincrona {
 
 	@Override
 	public void ejecutar(Object... params) {
-		m = (Mapa)params[0];
+		try {
+			m = (Mapa)params[0];
+			OrdenExplorar orden = new OrdenExplorar("CC", m);
+			this.getComunicator().enviarInfoAotroAgente(orden, "0"); //0 es el identificador del explorador
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
