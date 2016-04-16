@@ -13,7 +13,7 @@ public class CeldaVisual extends JButton {
 	public CeldaVisual(boolean mina, boolean accesible) {
 		if (accesible) {
 			if (mina) {
-				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
+				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
 				this.setIcon(arena);
 				//this.setBackground(Color.RED);
 			} else {

@@ -1,5 +1,8 @@
 package icaro.aplicaciones.ventana;
 
+import icaro.aplicaciones.SIDEMA.informacion.Celda;
+import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,8 +18,8 @@ import javax.swing.JTextPane;
 public class Ventana extends JFrame{
 	
 	/*Creacion de la ventana principal de simulacion.
-	 * Eleccion del tamaño de la ventana en funcion del tamaño del monitor. 
-	 * Creación de la vista principal.
+	 * Eleccion del tama��o de la ventana en funcion del tama��o del monitor. 
+	 * Creaci��n de la vista principal.
 	 */
 	
 	public Ventana(/*Escenario escLog*/){
@@ -57,9 +60,18 @@ public class Ventana extends JFrame{
 		this.setLayout(new BorderLayout());
 		
 		//Creacion del mapa de simulacion.
-		//Lo quitaremos cuando este creado el controlador y se creará al pulsar cargar
+		//Lo quitaremos cuando este creado el controlador y se crear�� al pulsar cargar
 		centro = new JPanel();
-		escenario = new VisualEscenario();
+		
+		//Creacion de un mapa por defecto
+		Celda[][] celdas = new Celda[2][2];
+		celdas[0][0] = new Celda(0,0,true,false);
+		celdas[0][1] = new Celda(0,1,true,false);
+		celdas[1][0] = new Celda(1,0,true,false);
+		celdas[1][1] = new Celda(1,1,true,true);
+		
+		
+		escenario = new VisualEscenario(new Mapa(celdas));
 		centro.add(escenario);
 		this.add(escenario,BorderLayout.CENTER);
 		

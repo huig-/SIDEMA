@@ -10,6 +10,19 @@ public class Mapa {
 	
 	public Mapa(Celda[][] mapa){
 		this.mapa = mapa;
+		this.rows = mapa.length;
+		this.columns = mapa.length;
+	}
+	
+	//Constructor por defecto cableado con el mapa
+	public Mapa() {
+		this.mapa = new Celda[2][2];
+		this.mapa[0][0] = new Celda(0,0,true,false);
+		this.mapa[0][1] = new Celda(0,1,true,false);
+		this.mapa[1][0] = new Celda(1,0,true,false);
+		this.mapa[1][1] = new Celda(1,1,true,true);
+		this.rows = 2;
+		this.columns = 2;
 	}
 	
 	public synchronized boolean tieneMina(int row, int column){

@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
-import javafx.scene.paint.Color;
+//import javafx.scene.paint.Color;
 
 public class VisualEscenario extends JPanel{
 
