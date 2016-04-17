@@ -26,3 +26,13 @@ rule "Distribuir Terreno"
 		tarea.ejecutar(mapa);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Distribuir Terreno\n\n");
+		
+rule "Enviar Neutralizador"
+	when
+		focoActual : Focus(foco == null)
+		ordenCC: OrdenMinaEncontrada( mensajeControl == VocabularioSIDEMA.MsgPeticionMinaEncontrada, celdaMina:justificacion)
+	then
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(EnviarNeutralizador.class);
+		tarea.ejecutar(celdaMina);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +"EJECUTO LA REGLA Enviar Neutralizador\n\n");

@@ -42,5 +42,16 @@ public class CeldaVisual extends JButton {
 		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
 		this.setIcon(arena);
 	}
+	
+	public void minaEncontrada(){
+		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
+		this.setIcon(arena);
+	}
+	
+	public void desactivarMina(){
+		//CAMBIAR EL DIBUJO
+		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
+		this.setIcon(arena);
+	}
 
 }

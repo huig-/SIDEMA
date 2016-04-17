@@ -3,7 +3,7 @@ global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
 /*Primera regla que se ejecutara. Solo se debe disparar una vez.
-rule "Acciones Iniciales Explorador"
+rule "Acciones Iniciales Neutralizador"
 	when
 		not (exists(Focus()))
 		not (exists(MisObjetivos()))
@@ -17,13 +17,13 @@ rule "Acciones Iniciales Explorador"
    		System.out.println( "\n"+agentId +"EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end
 
-rule "Explorar Terreno"
+rule "Desactivar Mina"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenExplorar( mensajeControl == VocabularioSIDEMA.MsgPeticionExplorar, celdasAExplorar:justificacion)
+		ordenCC: OrdenDesactivar( mensajeControl == VocabularioSIDEMA.MsgPeticionDesactivar, celdaMina:justificacion)
 	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(ExplorarTerreno.class);
-		tarea.ejecutar(celdasAExplorar);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(DesactivarMina.class);
+		tarea.ejecutar(celdaMina);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-		System.out.println("\n"+agentId +"EJECUTO LA REGLA Explorar Terreno\n\n");
+		System.out.println("\n"+agentId +"EJECUTO LA REGLA Desactivar Mina\n\n");
 end

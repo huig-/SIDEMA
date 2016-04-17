@@ -54,7 +54,14 @@ public class Celda implements Serializable {
 	  
 	  public synchronized void setAccesible(boolean accesible){
 		  this.accesible = accesible;
+	  } 
+	  
+	  public synchronized void desactivarMina(){
+		  this.mina = false;
+		  //Activar el action listener correspondiente
 	  }
+	  
+	  
 	  @Override
 	  public String toString() {
 	    return "Coordinate: (" + x + "," + y + ")";

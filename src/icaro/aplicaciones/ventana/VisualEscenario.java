@@ -33,7 +33,7 @@ public class VisualEscenario extends JPanel{
 	}
 	
 	public void MinaEncontrada(int i,int j){
-		this.mapaVisual[i][j].setMina();
+		this.mapaVisual[i][j].minaEncontrada();
 	}
 	
 	private CeldaVisual[][] mapaVisual;
