@@ -50,11 +50,14 @@
        nombreComportamiento="AgenteAplicacionAgteControladorSimuladorRosace" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAgteControladorSimuladorRosaceReactivo.comportamiento"
                             tipo="Reactivo" />
     <icaro:DescComportamientoAgente
-       nombreComportamiento="AgenteAplicacionAsignadorTareas" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo" tipo="Cognitivo" 
-       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.procesoResolucionObjetivos.reglasjearqJefeCambioRol.drl"/>
+       nombreComportamiento="AgenteExplorador" rol="AgenteExplorador" localizacionComportamiento="icaro.aplicaciones.agentes.agenteExplorador" tipo="Cognitivo" 
+       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteExplorador.procesoResolucionObjetivos.reglasExplorador.drl"/>
      <icaro:DescComportamientoAgente  
-       nombreComportamiento="AgenteAplicacionSubordinado" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo" tipo="Cognitivo"
-       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.procesoResolucionObjetivos.reglasSubordConCambioRolNC.drl"/>
+       nombreComportamiento="AgenteNeutralizador" rol="AgenteNeutralizador" localizacionComportamiento="icaro.aplicaciones.agentes.agenteNeutralizador" tipo="Cognitivo"
+       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteNeutralizador.procesoResolucionObjetivos.reglasNeutralizador.drl"/>
+     <icaro:DescComportamientoAgente  
+       nombreComportamiento="AgenteCC" rol="Centro de control" localizacionComportamiento="icaro.aplicaciones.agentes.agenteCC" tipo="Cognitivo"
+       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteCC.procesoResolucionObjetivos.reglasCC.drl"/>
 </icaro:DescComportamientoAgentesAplicacion>
 </icaro:DescComportamientoAgentes>
 	<!--******************************************************************************************************

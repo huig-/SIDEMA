@@ -1,8 +1,11 @@
 package icaro.aplicaciones.ventana.imp;
 
+import java.awt.Image;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton; 
+import javax.swing.SwingConstants;
 
 public class VisualCelda extends JButton {
 
