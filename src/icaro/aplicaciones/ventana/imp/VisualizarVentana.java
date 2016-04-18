@@ -27,9 +27,18 @@ public class VisualizarVentana {
 			while(Math.abs(end-j) > 0){
 				c.getVentanaEntorno().getEscenario().movimientoExplorador(i,j);
 				for (int k = 0; k < 1000000; k++);//Delay 10000
+				try {
+				    Thread.sleep(1000);                 //1000 milliseconds is one second.
+				} catch(InterruptedException ex) {
+				    Thread.currentThread().interrupt();
+				}
 				if (c.getMapa().getCelda(i, j).getMina()) {
 					//Si encontramos una mina, se produce un retraso mayor.
-					for (int k = 0; k < 5000000; k++); //Delay 50000
+					try {
+					    Thread.sleep(2000);                 //1000 milliseconds is one second.
+					} catch(InterruptedException ex) {
+					    Thread.currentThread().interrupt();
+					}
 					c.getVentanaEntorno().getEscenario().minaEncontrada(i, j);
 				}
 				
@@ -38,6 +47,11 @@ public class VisualizarVentana {
 		}
 		for(int i = 0; i < num_rows; i++){
 			c.getVentanaEntorno().getEscenario().movimientoNeutralizador(i,0);
+			try {
+			    Thread.sleep(2000);                 //1000 milliseconds is one second.
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
 			for (int k = 0; k < 5000000; k++); //Delay 50000
 		}
 	}
