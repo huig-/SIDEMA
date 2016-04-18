@@ -1,4 +1,4 @@
-package icaro.aplicaciones.ventana;
+package icaro.aplicaciones.ventana.imp;
 
 public class VisualizarVentana {
 

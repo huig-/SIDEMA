@@ -64,7 +64,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
             controladorIUSimulador = new ControladorVisualizacionSimulRosace(notifEvt);
             
         } catch (Exception e) {
-            this.trazas.trazar(recursoId, " Se ha producido un error en la creación del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
+            this.trazas.trazar(recursoId, " Se ha producido un error en la creaciï¿½n del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
             this.itfAutomata.transita("error");
             throw e;
         }
@@ -245,6 +245,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
         notifEvt.setIdentAgenteAReportar(identAgenteAReportar);
     }
 
+ /*
     @Override
     public void mostrarEscenario() throws Exception {
 //         if (visorEscenarios == null) {
@@ -256,7 +257,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //        } 
 //        visorEscenarios.setVisible(true);
     }
-
+*/
     @Override
     public void mostrarResultadosFinSimulacion() throws Exception {
         String directorioTrabajo = System.getProperty("user.dir");  //Obtener directorio de trabajo 

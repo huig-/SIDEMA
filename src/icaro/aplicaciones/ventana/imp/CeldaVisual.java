@@ -1,12 +1,7 @@
-package icaro.aplicaciones.ventana;
+package icaro.aplicaciones.ventana.imp;
 
-import java.awt.Color;
-
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import icaro.aplicaciones.ventana.dibujos.*; 
+import javax.swing.JButton; 
 
 public class CeldaVisual extends JButton {
 

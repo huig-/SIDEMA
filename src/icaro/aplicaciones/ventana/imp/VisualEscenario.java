@@ -1,11 +1,13 @@
-package icaro.aplicaciones.ventana;
+package icaro.aplicaciones.ventana.imp;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import com.sun.glass.ui.CommonDialogs.Type;
+
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
-//import javafx.scene.paint.Color;
 
 public class VisualEscenario extends JPanel{
 
@@ -32,9 +34,10 @@ public class VisualEscenario extends JPanel{
 				this.add(new CeldaVisual());
 	}
 	
-	public void MinaEncontrada(int i,int j){
+	public void minaEncontrada(int i,int j){
 		this.mapaVisual[i][j].minaEncontrada();
 	}
 	
 	private CeldaVisual[][] mapaVisual;
+	private ArrayList<Type> agentes;
 }

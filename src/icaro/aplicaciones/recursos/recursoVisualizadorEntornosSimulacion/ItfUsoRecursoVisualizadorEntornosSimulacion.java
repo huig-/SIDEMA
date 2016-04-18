@@ -26,7 +26,7 @@ public void aniadirSerieAVisorGraficaEstadisticas( String tituloSerie, int index
  public void mostrarEscenarioMovimiento(EscenarioSimulacionRobtsVictms infoEscenario)throws Exception;
  public void mostrarVentanaControlSimulador(String rutaEscenrioSimulacion)throws Exception;
  public void mostrarVentanaControlSimulador(EscenarioSimulacionRobtsVictms rutaEscenrioSimulacion)throws Exception;
- public void mostrarEscenario()throws Exception;
+// public void mostrarEscenario()throws Exception;
  public void crearVisorGraficasLlegadaYasignacionVictimas (int numeroRobotsSimulacion,int numeroVictimasDiferentesSimulacion,int intervaloSecuencia,String identificadorEquipo)throws Exception;
  public void visualizarLlegadaYasignacionVictimas(ArrayList<PuntoEstadistica> llegada,ArrayList<PuntoEstadistica> asignacion)throws Exception;
  public void crearVisorGraficasTiempoAsignacionVictimas (int numeroRobotsSimulacion,int numeroVictimasDiferentesSimulacion,int intervaloSecuencia,String identificadorEquipo)throws Exception;

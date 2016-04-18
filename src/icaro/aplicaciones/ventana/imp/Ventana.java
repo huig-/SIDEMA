@@ -1,4 +1,4 @@
-package icaro.aplicaciones.ventana;
+package icaro.aplicaciones.ventana.imp;
 
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
@@ -93,6 +93,14 @@ public class Ventana extends JFrame{
 		
 		this.add(botonera, BorderLayout.SOUTH);
 		
+	}
+	
+	public void setEscenario(VisualEscenario esc){
+		this.escenario = esc;
+	}
+	
+	public VisualEscenario getEscenario(){
+		return this.escenario;
 	}
 	/*
 	public void cargarEscenario(Escenario esc){
