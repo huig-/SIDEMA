@@ -1,10 +1,13 @@
 package icaro.aplicaciones.ventana.imp;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton; 
 
 public class VisualCelda extends JButton {
 
+	private boolean mina;
+	
 	public VisualCelda(boolean mina, boolean accesible) {
 		this.setBorder(null);
 		if (accesible) {
@@ -40,13 +43,42 @@ public class VisualCelda extends JButton {
 	}
 	
 	public void minaEncontrada(){
-		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
+		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/explorador_mina.jpg"));
 		this.setIcon(arena);
 	}
 	
 	public void desactivarMina(){
 		//CAMBIAR EL DIBUJO
 		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
+		this.setIcon(arena);
+	}
+	
+	public void movimientoExplorador(boolean mina){
+		Icon arena;
+		if(mina){
+			arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/explorador-mina.jpg"));
+		}else{
+		 arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/explorador.jpg"));
+		}this.setIcon(arena);
+	}
+	
+	public void movimientoNeutralizador(boolean mina){
+		Icon arena;
+		if(mina){
+		arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/neutralizador-mina.jpg"));
+		}else{
+		arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/neutralizador.jpg"));
+		}
+		this.setIcon(arena);
+	}
+	
+	public void abandonarCelda(){
+		Icon arena;
+		if(mina){
+			arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
+		}else{
+			arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
+		}
 		this.setIcon(arena);
 	}
 
