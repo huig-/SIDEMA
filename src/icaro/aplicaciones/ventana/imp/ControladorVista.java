@@ -2,6 +2,7 @@ package icaro.aplicaciones.ventana.imp;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 
@@ -12,6 +13,7 @@ public class ControladorVista implements ActionListener{
 	
 	public ControladorVista(Ventana ventana, Mapa escenario){
 		this.v = ventana;
+		this.v.setControlador(this);
 		this.escLog = escenario;
 	}
 	
@@ -23,6 +25,7 @@ public class ControladorVista implements ActionListener{
 	public ControladorVista(){
 		this.v = new Ventana();
 		this.escLog = new Mapa();
+		this.v.setControlador(this);
 	}
 	
 	public void setEscenario(Ventana ventana){
@@ -42,8 +45,18 @@ public class ControladorVista implements ActionListener{
 	
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent evento) {
 		// TODO Auto-generated method stub
+		
+			if ( evento.getActionCommand().equals("Cargar") ) {
+				File file = this.v.cargarEscenario();
+				//this.modelo.setArchivo(file);
+			}
+			
+			if ( evento.getActionCommand().equals("Terminar") ) {
+				this.v.mostrarConfirmacionTerminar();
+				//this.modelo.setArchivo(file);
+			}
 		
 	}
 

@@ -7,13 +7,17 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Ventana extends JFrame{
 	
@@ -38,6 +42,7 @@ public class Ventana extends JFrame{
 		
 		item1 = new JMenuItem("Guardar");
 		item3 = new JMenuItem("Elegir Escenario");
+		this.elegirArchivo = new JFileChooser();
 		item1.setEnabled(true);
 		item1.setActionCommand("Guardar");
 		item3.setActionCommand("Cargar");
@@ -92,6 +97,7 @@ public class Ventana extends JFrame{
 		botonera.add(datos);
 		
 		this.add(botonera, BorderLayout.SOUTH);
+		this.setVisible(true);
 		
 	}
 	
@@ -101,6 +107,35 @@ public class Ventana extends JFrame{
 	
 	public VisualEscenario getEscenario(){
 		return this.escenario;
+	}
+	
+	public File cargarEscenario(){
+		File archivo = null;
+		FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.XML", "xml");
+		this.elegirArchivo.setFileFilter(filtro);
+		int seleccion=this.elegirArchivo.showOpenDialog(this.item3);
+		if (seleccion == JFileChooser.APPROVE_OPTION){
+			archivo =	this.elegirArchivo.getSelectedFile();
+		}
+		
+		
+		
+		return archivo;
+	}
+	
+	public void mostrarConfirmacionTerminar(){
+		String msg = "Va a cancelar la simulación.¿Está seguro?";
+		new JOptionPane(msg, JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
+		int option = JOptionPane.showConfirmDialog(this, msg);
+		if (option == JOptionPane.YES_OPTION){
+			this.dispose();
+		}
+	}
+	
+	public void setControlador(ControladorVista c){
+		this.item3.addActionListener(c);
+		this.simular.addActionListener(c);
+		this.terminar.addActionListener(c);
 	}
 	/*
 	public void cargarEscenario(Escenario esc){
@@ -122,4 +157,5 @@ public class Ventana extends JFrame{
 	private JTextPane datos;
 	private JPanel botonera,centro;
 	private VisualEscenario escenario;
+	private JFileChooser elegirArchivo;
 }

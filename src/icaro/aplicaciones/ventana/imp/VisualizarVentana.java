@@ -4,8 +4,9 @@ public class VisualizarVentana {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Ventana v = new Ventana();
-		v.setVisible(true);
+		ControladorVista c = new ControladorVista();
+		//Ventana v = new Ventana();
+		
 	}
 
 }
