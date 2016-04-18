@@ -50,13 +50,13 @@
        nombreComportamiento="AgenteAplicacionAgteControladorSimuladorRosace" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAgteControladorSimuladorRosaceReactivo.comportamiento"
                             tipo="Reactivo" />
     <icaro:DescComportamientoAgente
-       nombreComportamiento="AgenteExplorador" rol="AgenteExplorador" localizacionComportamiento="icaro.aplicaciones.agentes.agenteExplorador" tipo="Cognitivo" 
+       nombreComportamiento="AgenteAplicacion0" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteExplorador" tipo="Cognitivo" 
        localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteExplorador.procesoResolucionObjetivos.reglasExplorador.drl"/>
      <icaro:DescComportamientoAgente  
-       nombreComportamiento="AgenteNeutralizador" rol="AgenteNeutralizador" localizacionComportamiento="icaro.aplicaciones.agentes.agenteNeutralizador" tipo="Cognitivo"
+       nombreComportamiento="AgenteAplicacion1" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteNeutralizador" tipo="Cognitivo"
        localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteNeutralizador.procesoResolucionObjetivos.reglasNeutralizador.drl"/>
      <icaro:DescComportamientoAgente  
-       nombreComportamiento="AgenteCC" rol="Centro de control" localizacionComportamiento="icaro.aplicaciones.agentes.agenteCC" tipo="Cognitivo"
+       nombreComportamiento="AgenteAplicacion2" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteCC" tipo="Cognitivo"
        localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteCC.procesoResolucionObjetivos.reglasCC.drl"/>
 </icaro:DescComportamientoAgentesAplicacion>
 </icaro:DescComportamientoAgentes>
@@ -65,7 +65,7 @@
 	********************************************************************************************************-->
 <icaro:DescRecursosAplicacion>
   
-  <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornoSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraSDM"/>
+  <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornoSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.ventana.imp.ClaseGeneradoraSDM"/>
 <!-- <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion"/>			            		 -->
 	<!-- <icaro:DescRecursoAplicacion nombre="RecursoPersistenciaEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ClaseGeneradoraRecursoPersistenciaEntornosSimulacion"/>			            		 -->
 	<!-- <icaro:DescRecursoAplicacion nombre="RecursoCreacionEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.imp.ClaseGeneradoraRecursoCreacionEntornosSimulacion"/> -->		
@@ -87,12 +87,9 @@
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorAgentes" refDescripcion="GestorAgentes">
                     <icaro:componentesGestionados>
-                            <icaro:componenteGestionado refId="AgenteControladorSimuladorRosaceReactivo1" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="rescate1RobotAsignador" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="rescate1RobotSubordinado1" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="rescate1RobotSubordinado2" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="rescate1RobotSubordinado3" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="rescate1RobotSubordinado4" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="agenteExplorador0" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="agenteNeutralizador0" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="agenteCC" tipoComponente="AgenteAplicacion"/>
                     </icaro:componentesGestionados>
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorRecursos" refDescripcion="GestorRecursos">
@@ -110,11 +107,11 @@
 	******************   Instancias de Agentes de aplicacion                                ******************
 	*******************************************************************************************************-->            
         <icaro:AgentesAplicacion>
-                <icaro:Instancia id="agenteCC" refDescripcion="agenteCC">
+                <icaro:Instancia id="agenteCC" refDescripcion="AgenteAplicacion2">
                 </icaro:Instancia>
-                <icaro:Instancia id="agenteExplorador0" refDescripcion="agenteExplorador">
+                <icaro:Instancia id="agenteExplorador0" refDescripcion="AgenteAplicacion0">
                 </icaro:Instancia>
-                <icaro:Instancia id="agenteNeutralizador0" refDescripcion="agenteNeutralizador">
+                <icaro:Instancia id="agenteNeutralizador0" refDescripcion="AgenteAplicacion1">
                 </icaro:Instancia>
         </icaro:AgentesAplicacion>
 	<!--******************************************************************************************************
