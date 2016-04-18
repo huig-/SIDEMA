@@ -13,15 +13,15 @@ public class VisualEscenario extends JPanel{
 
 	public VisualEscenario(Mapa escLog){
 		this.setLayout(new GridLayout(escLog.getRows(), escLog.getColumns()));
-		this.mapaVisual = new CeldaVisual[escLog.getRows()][escLog.getColumns()];
+		this.mapaVisual = new VisualCelda[escLog.getRows()][escLog.getColumns()];
 		boolean mina;
 		boolean accesible;
-		CeldaVisual cel;
+		VisualCelda cel;
 		for(int i=0;i<escLog.getRows();i++)
 			for(int j=0;j<escLog.getColumns();j++){
 				mina = escLog.getCelda(i, j).getMina();
 				accesible = escLog.getCelda(i,j).getAccesible();
-				cel = new CeldaVisual(mina,accesible);
+				cel = new VisualCelda(mina,accesible);
 				this.add(cel);
 				this.mapaVisual[i][j]=cel;}	
 	}
@@ -31,13 +31,13 @@ public class VisualEscenario extends JPanel{
 		
 		for(int i=0;i<8;i++)
 			for(int j=0;j<8;j++)
-				this.add(new CeldaVisual());
+				this.add(new VisualCelda());
 	}
 	
 	public void minaEncontrada(int i,int j){
 		this.mapaVisual[i][j].minaEncontrada();
 	}
 	
-	private CeldaVisual[][] mapaVisual;
+	private VisualCelda[][] mapaVisual;
 	//private ArrayList<Type> agentes;
 }

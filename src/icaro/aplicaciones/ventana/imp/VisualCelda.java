@@ -3,9 +3,9 @@ package icaro.aplicaciones.ventana.imp;
 import javax.swing.ImageIcon;
 import javax.swing.JButton; 
 
-public class CeldaVisual extends JButton {
+public class VisualCelda extends JButton {
 
-	public CeldaVisual(boolean mina, boolean accesible) {
+	public VisualCelda(boolean mina, boolean accesible) {
 		if (accesible) {
 			if (mina) {
 				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
@@ -25,7 +25,7 @@ public class CeldaVisual extends JButton {
 
 	}
 	
-	public CeldaVisual(){
+	public VisualCelda(){
 		//ImageIcon arena = new ImageIcon("arena_marron.bmp");
 		 ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
 		this.setIcon(arena);
