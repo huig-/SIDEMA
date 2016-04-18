@@ -6,6 +6,7 @@ import javax.swing.JButton;
 public class VisualCelda extends JButton {
 
 	public VisualCelda(boolean mina, boolean accesible) {
+		this.setBorder(null);
 		if (accesible) {
 			if (mina) {
 				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
