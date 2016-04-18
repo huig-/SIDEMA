@@ -37,7 +37,7 @@ public class ExplorarTerreno extends TareaSincrona {
 					end = 0;
 					inc = -1;
 				}
-				for (int j = ini; Math.abs(end-ini) >= 0; j = j + inc) {
+				for (int j = ini; Math.abs(end-j) >= 0; j = j + inc) {
 					for (int k = 0; k < 10000; k++); //Delay 10000
 					if (celdasAExplorar.getCelda(i, j).getMina()) {
 						//Si encontramos una mina, se produce un retraso mayor.

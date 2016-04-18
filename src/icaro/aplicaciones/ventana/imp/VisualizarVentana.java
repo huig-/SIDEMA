@@ -15,29 +15,30 @@ public class VisualizarVentana {
 		for (int i = 0; i < num_rows; i++) {
 			if(i%2==0){
 				ini = 0;
-				end = num_columns - 1;
+				end = num_columns;
 				inc = 1;
 			}
 			else{
 				ini = num_columns - 1;
-				end = 0;
+				end = -1;
 				inc = -1;
 			}
-			for (int j = ini; Math.abs(end-ini) >= 0; j = j + inc) {
+			int j = ini;
+			while(Math.abs(end-j) > 0){
 				c.getVentanaEntorno().getEscenario().movimientoExplorador(i,j);
-				for (int k = 0; k < 10000; k++);//Delay 10000
+				for (int k = 0; k < 1000000; k++);//Delay 10000
 				if (c.getMapa().getCelda(i, j).getMina()) {
 					//Si encontramos una mina, se produce un retraso mayor.
-					for (int k = 0; k < 50000; k++); //Delay 50000
+					for (int k = 0; k < 5000000; k++); //Delay 50000
 					c.getVentanaEntorno().getEscenario().minaEncontrada(i, j);
 				}
 				
-
+			j = j + inc;
 			}
 		}
 		for(int i = 0; i < num_rows; i++){
-			c.getVentanaEntorno().getEscenario().movimientoNeutralizador(0,i);
-			for (int k = 0; k < 50000; k++); //Delay 50000
+			c.getVentanaEntorno().getEscenario().movimientoNeutralizador(i,0);
+			for (int k = 0; k < 5000000; k++); //Delay 50000
 		}
 	}
 }

@@ -10,6 +10,7 @@ public class VisualCelda extends JButton {
 	
 	public VisualCelda(boolean mina, boolean accesible) {
 		this.setBorder(null);
+		this.mina = mina;
 		if (accesible) {
 			if (mina) {
 				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
@@ -55,8 +56,8 @@ public class VisualCelda extends JButton {
 	
 	public void movimientoExplorador(){
 		Icon arena;
-		if(mina){
-			arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/explorador-mina.jpg"));
+		if(this.mina){
+			arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/explorador_mina.jpg"));
 		}else{
 		 arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/explorador.jpg"));
 		}this.setIcon(arena);

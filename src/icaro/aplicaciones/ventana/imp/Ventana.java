@@ -72,8 +72,8 @@ public class Ventana extends JFrame{
 		Celda[][] celdas = new Celda[2][2];
 		celdas[0][0] = new Celda(0,0,true,false);
 		celdas[0][1] = new Celda(0,1,true,false);
-		celdas[1][0] = new Celda(1,0,true,false);
-		celdas[1][1] = new Celda(1,1,true,true);
+		celdas[1][0] = new Celda(1,0,true,true);
+		celdas[1][1] = new Celda(1,1,true,false);
 		
 		
 		escenario = new VisualEscenario(new Mapa(celdas));
