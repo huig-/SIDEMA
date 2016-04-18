@@ -107,18 +107,12 @@
 	******************   Instancias de Agentes de aplicacion                                ******************
 	*******************************************************************************************************-->            
         <icaro:AgentesAplicacion>
-                <icaro:Instancia id="AgenteControladorSimuladorRosaceReactivo1" refDescripcion="AgenteAplicacionAgteControladorSimuladorRosace">
+                <icaro:Instancia id="agenteCC" refDescripcion="agenteCC">
                 </icaro:Instancia>
-                <icaro:Instancia id="rescate1RobotAsignador" refDescripcion="AgenteAplicacionAsignadorTareas">
+                <icaro:Instancia id="agenteExplorador0" refDescripcion="agenteExplorador">
                 </icaro:Instancia>
-                <icaro:Instancia id="rescate1RobotSubordinado1" refDescripcion="AgenteAplicacionSubordinado">
+                <icaro:Instancia id="agenteNeutralizador0" refDescripcion="agenteNeutralizador">
                 </icaro:Instancia>
-                <icaro:Instancia id="rescate1RobotSubordinado2" refDescripcion="AgenteAplicacionSubordinado">
-                </icaro:Instancia>
-                <icaro:Instancia id="rescate1RobotSubordinado3" refDescripcion="AgenteAplicacionSubordinado">
-                </icaro:Instancia> 
-                <icaro:Instancia id="rescate1RobotSubordinado4" refDescripcion="AgenteAplicacionSubordinado">
-                </icaro:Instancia> 
         </icaro:AgentesAplicacion>
 	<!--******************************************************************************************************
 	******************   Instancias de Recursos de aplicacion                               ******************

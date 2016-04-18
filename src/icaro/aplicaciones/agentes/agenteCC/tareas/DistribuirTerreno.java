@@ -12,8 +12,8 @@ public class DistribuirTerreno extends TareaSincrona {
 	public void ejecutar(Object... params) {
 		try {
 			m = (Mapa)params[0];
-			OrdenExplorar orden = new OrdenExplorar("CC", m);
-			this.getComunicator().enviarInfoAotroAgente(orden, "0"); //0 es el identificador del explorador
+			OrdenExplorar orden = new OrdenExplorar("agenteCC", m);
+			this.getComunicator().enviarInfoAotroAgente(orden, "agenteExplorador0"); //0 es el identificador del explorador
 		}
 		catch (Exception e) {
 			e.printStackTrace();

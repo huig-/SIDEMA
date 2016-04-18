@@ -43,8 +43,8 @@ public class ExplorarTerreno extends TareaSincrona {
 						//Si encontramos una mina, se produce un retraso mayor.
 						for (int k = 0; k < 50000; k++); //Delay 50000
 						Celda c = celdasAExplorar.getCelda(i,j);
-						OrdenMinaEncontrada orden = new OrdenMinaEncontrada("0", c);
-						this.getComunicator().enviarInfoAotroAgente(orden, "CC"); //0 es el identificador del explorador
+						OrdenMinaEncontrada orden = new OrdenMinaEncontrada("agenteExplorador0", c);
+						this.getComunicator().enviarInfoAotroAgente(orden, "agenteCC"); //0 es el identificador del explorador
 					}
 					//TODO
 					//decirle al recurso de visualizacion que hay que acceder a la casilla i,j

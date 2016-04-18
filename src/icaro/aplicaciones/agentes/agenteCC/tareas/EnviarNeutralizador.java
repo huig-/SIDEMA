@@ -13,8 +13,8 @@ public class EnviarNeutralizador extends TareaSincrona {
 		try {
 			Celda c = (Celda)params[0];
 			//Elegir...OrdenElegirNeutralizador orden = new OrdenElegirNeutralizador("CC", m);
-			OrdenDesactivar orden = new OrdenDesactivar("CC",c);
-			this.getComunicator().enviarInfoAotroAgente(orden, "1"); //1 es el identificador del neutralizador
+			OrdenDesactivar orden = new OrdenDesactivar("agenteCC",c);
+			this.getComunicator().enviarInfoAotroAgente(orden, "agenteNeutralizador0"); //1 es el identificador del neutralizador
 		}
 		catch (Exception e) {
 			e.printStackTrace();
