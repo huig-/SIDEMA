@@ -19,8 +19,8 @@ public class Mapa {
 		this.mapa = new Celda[2][2];
 		this.mapa[0][0] = new Celda(0,0,true,false);
 		this.mapa[0][1] = new Celda(0,1,true,false);
-		this.mapa[1][0] = new Celda(1,0,true,false);
-		this.mapa[1][1] = new Celda(1,1,true,true);
+		this.mapa[1][0] = new Celda(1,0,true,true);
+		this.mapa[1][1] = new Celda(1,1,true,false);
 		this.rows = 2;
 		this.columns = 2;
 	}
