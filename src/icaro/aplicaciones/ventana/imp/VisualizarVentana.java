@@ -12,6 +12,11 @@ public class VisualizarVentana {
 		int num_rows = 2;
 		int num_columns = 2;
 		int ini, end, inc;
+		try {
+		    Thread.sleep(5000);                 //1000 milliseconds is one second.
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
 		for (int i = 0; i < num_rows; i++) {
 			if(i%2==0){
 				ini = 0;
@@ -26,7 +31,6 @@ public class VisualizarVentana {
 			int j = ini;
 			while(Math.abs(end-j) > 0){
 				c.getVentanaEntorno().getEscenario().movimientoExplorador(i,j);
-				for (int k = 0; k < 1000000; k++);//Delay 10000
 				try {
 				    Thread.sleep(1000);                 //1000 milliseconds is one second.
 				} catch(InterruptedException ex) {

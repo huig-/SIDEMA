@@ -12,15 +12,15 @@ public class VisualCelda extends JButton {
 		this.setBorder(null);
 		this.mina = mina;
 		if (accesible) {
-			if (mina) {
+			/*if (mina) {
 				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
 				this.setIcon(arena);
 				//this.setBackground(Color.RED);
-			} else {
+			} else {*/
 				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
 				this.setIcon(arena);
 				//this.setBackground(Color.GREEN);
-			}
+			
 
 		} else {
 			ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arenanegra.jpg"));
