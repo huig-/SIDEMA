@@ -38,6 +38,15 @@ public class VisualEscenario extends JPanel{
 		this.mapaVisual[i][j].minaEncontrada();
 	}
 	
+	public void movimientoExplorador(int i, int j){
+		this.mapaVisual[i][j].movimientoExplorador();
+	}
+	
+	public void movimientoNeutralizador(int i, int j){
+		this.mapaVisual[i][j].movimientoNeutralizador();
+	}
+	
+	
 	private VisualCelda[][] mapaVisual;
 	//private ArrayList<Type> agentes;
 }
