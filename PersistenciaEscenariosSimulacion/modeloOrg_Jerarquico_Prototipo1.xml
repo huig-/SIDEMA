@@ -1,0 +1,68 @@
+<escenarioSimulacion>
+   <identEscenario>modeloOrg_Jerarquico_Prototipo1</identEscenario>
+   <modeloOrganizativo>Jerarquico</modeloOrganizativo>
+   <numExploradores>1</numExploradores>
+   <numNeutralizadores>1</numNeutralizadores>
+   <numMinas>1</numMinas>
+   <robots key="Explorador1">
+      <robotStatus1>
+         <idRobot>agenteExplorador0</idRobot>
+         <idRobotRol>indefinido</idRobotRol>
+         <availableEnergy>100000</availableEnergy>
+         <robotCeldaActual>
+            <x>0</x>
+            <y>0</y>
+         </robotCeldaActual>
+         <robotCapabilities class="java.util.ArrayList">
+            <robotCapability nombre="radar">
+               <descripcion>radar del robot</descripcion>
+            </robotCapability>
+         </robotCapabilities>
+      </robotStatus1>
+   </robots>
+   <robots key="Neutralizador1">
+      <robotStatus1>
+         <idRobot>agenteNeutralizador0</idRobot>
+         <idRobotRol>indefinido</idRobotRol>
+         <availableEnergy>100000</availableEnergy>
+         <robotCeldaActual>
+            <x>0</x>
+            <y>0</y>
+         </robotCeldaActual>
+         <robotCapabilities class="java.util.ArrayList">
+            <robotCapability nombre="radar">
+               <descripcion>radar del robot</descripcion>
+            </robotCapability>
+         </robotCapabilities>
+      </robotStatus1>
+   </robots>
+   <robots key="CentroControl">
+      <robotStatus1>
+         <idRobot>agenteCC</idRobot>
+         <idRobotRol>indefinido</idRobotRol>
+         <availableEnergy>100000</availableEnergy>
+         <robotCeldaActual>
+            <x>0</x>
+            <y>0</y>
+         </robotCeldaActual>
+         <robotCapabilities class="java.util.ArrayList">
+            <robotCapability nombre="radar">
+               <descripcion>radar del robot</descripcion>
+            </robotCapability>
+         </robotCapabilities>
+      </robotStatus1>
+   </robots>
+   <minas key="mina">
+      <mina>
+         <name>mina1</name>
+         <priority>100</priority>
+         <requiredCompetencies class="java.util.ArrayList">
+            <competency>25</competency>
+         </requiredCompetencies>
+         <minaCelda>
+            <x>1</x>
+            <y>1</y>
+         </minaCelda>
+      </mina>
+   </minass>
+</escenarioSimulacion>
