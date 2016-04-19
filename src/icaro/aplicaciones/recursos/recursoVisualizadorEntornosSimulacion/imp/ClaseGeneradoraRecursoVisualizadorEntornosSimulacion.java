@@ -41,13 +41,13 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //   private int coordX, coordY ; // coordenadas de visualizacion  se le dan valores iniciales y se incrementan para que las ventanas no coincidan
     private ControladorVisualizacionSimulRosace controladorIUSimulador;
  // para prueba de integracion 
-    private String directorioPersistencia = VocabularioRosace.NombreDirectorioPersistenciaEscenarios+File.separator;
+//    private String directorioPersistencia = VocabularioRosace.NombreDirectorioPersistenciaEscenarios+File.separator;
 //    private String identFicheroEscenarioSimulacion=directorioPersistencia+"modeloOrg_JerarquicoNumRobts_4NumVicts_2.xml" ;
     private String identFicheroEscenarioSimulacion;
     private Coordinate coordDestino;
     private String identDestino;
     private boolean escenarioMovAbierto;
-    private org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass().getSimpleName());
+//    private org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass().getSimpleName());
 //    private VisorMovimientoEscenario visorMovimiento;
 
     public ClaseGeneradoraRecursoVisualizadorEntornosSimulacion(String idRecurso) throws Exception {
@@ -321,7 +321,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //        if (idRobot != null )  this.getInstanciaHebraMvto(idRobot).inicializarDestino(idRobot, coordInicial, coordDestino, velocidadInicial);
     } 
     @Override
-    public synchronized void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, double velocidadCrucero) {
+ /*   public synchronized void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, double velocidadCrucero) {
 //           if (idRobot != null ){
 //               this.visorEscenarios.setVisible(true);
 //               this.visorEscenarios.cambiarPosicionRobot(idRobot, coordX, coordX);
@@ -363,6 +363,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //         
 //     }
     @Override
+    */
     public void mostrarIdentsEquipoRobots(ArrayList identList){
 //        this.ventanaControlCenterGUI.visualizarIdentsEquipoRobot(identList);
         controladorIUSimulador.peticionVisualizarIdentsRobots(identList);

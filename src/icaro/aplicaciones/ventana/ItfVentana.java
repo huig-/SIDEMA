@@ -8,6 +8,7 @@ public interface ItfVentana extends ItfUsoRecursoSimple{
 	public void minaEncontrada(int x,int y);
 	public void mostrarMensaje(String msg);
 	public void mostrarEntornoSimulacion();
+	public void termina();
 	
 	
 }
