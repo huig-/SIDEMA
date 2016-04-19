@@ -6,14 +6,18 @@ import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.gestorTar
 import icaro.aplicaciones.SIDEMA.informacion.*;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.aplicaciones.agentes.agenteCC.tareas.*;
-import icaro.aplicaciones.agentes.agenteCC.objetivos*;
+import icaro.aplicaciones.agentes.agenteCC.objetivos.*;
+import icaro.aplicaciones.Rosace.informacion.*;
+import icaro.aplicaciones.Rosace.tareasComunes.*;
+import icaro.aplicaciones.Rosace.objetivosComunes.*;
+import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas.*;
 import java.lang.String;
 
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
-*Primera regla que se ejecutara. Solo se debe disparar una vez.
+//Primera regla que se ejecutara. Solo se debe disparar una vez.
 rule "Acciones Iniciales Centro de Control"
 	when
 		not (exists(Focus()))
@@ -33,17 +37,19 @@ rule "Distribuir Terreno"
 		focoActual : Focus(foco == null)
 		mapa : Mapa();
 	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(DistribuirTerreno.class);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
 		tarea.ejecutar(mapa);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Distribuir Terreno\n\n");
-		
+end
+
 rule "Enviar Neutralizador"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenMinaEncontrada( mensajeControl == VocabularioSIDEMA.MsgPeticionMinaEncontrada, celdaMina:justificacion)
+		ordenCC: OrdenMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, celdaMina:justificacion)
 	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(EnviarNeutralizador.class);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
 		tarea.ejecutar(celdaMina);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Enviar Neutralizador\n\n");
+end

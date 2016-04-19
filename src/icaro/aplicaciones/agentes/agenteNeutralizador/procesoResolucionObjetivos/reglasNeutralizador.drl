@@ -6,14 +6,18 @@ import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.gestorTar
 import icaro.aplicaciones.SIDEMA.informacion.*;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.aplicaciones.agentes.agenteNeutralizador.tareas.*;
-import icaro.aplicaciones.agentes.agenteNeutralizador.objetivos*;
+import icaro.aplicaciones.agentes.agenteNeutralizador.objetivos.*;
 import java.lang.String;
+import icaro.aplicaciones.Rosace.informacion.*;
+import icaro.aplicaciones.Rosace.tareasComunes.*;
+import icaro.aplicaciones.Rosace.objetivosComunes.*;
+import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas.*;
 
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
-/*Primera regla que se ejecutara. Solo se debe disparar una vez.
+//Primera regla que se ejecutara. Solo se debe disparar una vez.
 rule "Acciones Iniciales Neutralizador"
 	when
 		not (exists(Focus()))
@@ -31,9 +35,9 @@ end
 rule "Desactivar Mina"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenDesactivar( mensajeControl == VocabularioSIDEMA.MsgPeticionDesactivar, celdaMina:justificacion)
+		ordenCC: OrdenDesactivar( mensajeOrden == VocabularioSIDEMA.MsgPeticionDesactivar, celdaMina:justificacion)
 	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(DesactivarMina.class);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteNeutralizador.tareas.DesactivarMina.class);
 		tarea.ejecutar(celdaMina);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Desactivar Mina\n\n");
