@@ -26,7 +26,7 @@ rule "Acciones Iniciales Explorador"
 		TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
    		tarea1.ejecutar( );
    		//TODO mirar que hace tarea 2
-   		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobotStatus.class);
+   		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobot.class);
    		tarea2.ejecutar( );
    		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
    		System.out.println( "\n"+agentId +"EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
