@@ -125,8 +125,8 @@ public class Ventana extends JFrame{
 	
 	public void mostrarConfirmacionTerminar(){
 		String msg = "Va a cancelar la simulación.¿Está seguro?";
-		new JOptionPane(msg, JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
-		int option = JOptionPane.showConfirmDialog(this, msg);
+		//new JOptionPane(msg, JOptionPane.WARNING_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+		int option = JOptionPane.showConfirmDialog(this,msg,"¡Cuidado!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
 		if (option == JOptionPane.YES_OPTION){
 			this.dispose();
 		}
