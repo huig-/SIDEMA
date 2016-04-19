@@ -65,7 +65,7 @@
 	********************************************************************************************************-->
 <icaro:DescRecursosAplicacion>
   
-  <icaro:DescRecursoAplicacion nombre="RecursoVisualizacionSIDEMA" localizacionClaseGeneradora="icaro.aplicaciones.ventana.imp.ClaseGeneradoraSDM"/>
+  <icaro:DescRecursoAplicacion nombre="RecursoVisualizacionSIDEMA" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp.ClaseGeneradoraRecursoVisualizacionSIDEMA"/>
  <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion"/>			            		 
 <icaro:DescRecursoAplicacion nombre="RecursoPersistenciaEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ClaseGeneradoraRecursoPersistenciaEntornosSimulacion"/>			            		 
 	 <icaro:DescRecursoAplicacion nombre="RecursoCreacionEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.imp.ClaseGeneradoraRecursoCreacionEntornosSimulacion"/> 
@@ -126,7 +126,7 @@
                 </icaro:Instancia>
                 <icaro:Instancia id="RecursoGUI1" refDescripcion="RecursoGUI" xsi:type="icaro:Instancia">    
                 </icaro:Instancia>    --> 
-	        <icaro:Instancia id="RecursoVisualizacionSIDEMA1" refDescripcion="RecursoVisualSIDEMA" xsi:type="icaro:Instancia"/>
+	        <icaro:Instancia id="RecursoVisualizacionSIDEMA1" refDescripcion="RecursoVisualizacionSIDEMA" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoVisualizadorEntornosSimulacion1" refDescripcion="RecursoVisualizadorEntornosSimulacion" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoPersistenciaEntornosSimulacion1" refDescripcion="RecursoPersistenciaEntornosSimulacion" xsi:type="icaro:Instancia"/>
