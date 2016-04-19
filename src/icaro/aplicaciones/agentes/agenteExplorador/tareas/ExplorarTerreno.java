@@ -43,7 +43,7 @@ public class ExplorarTerreno extends TareaSincrona {
 				int j = ini;
 				while(Math.abs(end-j) > 0){
 					try {
-					    Thread.sleep(500);                 //1000 milliseconds is one second.
+					    Thread.sleep(1000);                 //1000 milliseconds is one second.
 					} catch(InterruptedException ex) {
 					    Thread.currentThread().interrupt();
 					}
@@ -54,41 +54,24 @@ public class ExplorarTerreno extends TareaSincrona {
 						this.getComunicator().enviarInfoAotroAgente(orden, "agenteCC"); //0 es el identificador del explorador
 						try {
 						    Thread.sleep(1000);                 //1000 milliseconds is one second.
-						    ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
-						    		NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
-									NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
-							if (visualizador != null) {
-								visualizador.minaEncontrada(i, j);
-								System.out.println("---------");
-								System.out.println("Funciona!");
-								System.out.println("---------");
-							}
-							else {
-								//this.generarInformeConCausaTerminacion(identTarea, , idAgenteOrdenante, contenido, causaTerminacion);\
-								System.out.println("------------------------");
-								System.out.println("Fallo en el visualizador");
-								System.out.println("------------------------");
-							}
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
 						}
 					}
+					ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
+							NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
+									NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
+					if (visualizador != null) {
+						visualizador.mover("explorador",i, j);
+						System.out.println("---------");
+						System.out.println("Funciona!");
+						System.out.println("---------");
+					}
 					else {
-						ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
-								NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
-										NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
-						if (visualizador != null) {
-							visualizador.mover(identAgente, i, j);	
-							System.out.println("---------");
-							System.out.println("Funciona!");
-							System.out.println("---------");
-						}
-						else {
-							//this.generarInformeConCausaTerminacion(identTarea, , idAgenteOrdenante, contenido, causaTerminacion);\
-							System.out.println("------------------------");
-							System.out.println("Fallo en el visualizador");
-							System.out.println("------------------------");
-						}
+						//this.generarInformeConCausaTerminacion(identTarea, , idAgenteOrdenante, contenido, causaTerminacion);\
+						System.out.println("------------------------");
+						System.out.println("Fallo en el visualizador");
+						System.out.println("------------------------");
 					}
 					j = j + inc;
 				}

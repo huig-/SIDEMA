@@ -8,6 +8,8 @@ import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenMinaEncontrada;
 import icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador;
+import icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.ItfUsoRecursoVisualizacionSIDEMA;
+import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
@@ -20,9 +22,30 @@ public class DesactivarMina extends TareaSincrona {
 		try {
 			Celda c = (Celda)params[0];
 			//INCLUIR MOVIMIENTO DEL NEUTRALIZADOR.
-
-			for (int k = 0; k < 50000; k++); //Delay 50000
-			c.desactivarMina();
+			ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
+					NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
+							NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
+			for(int j = 0; j <= c.getY();j++)
+				if (visualizador != null) {
+					try {
+					    Thread.sleep(2000);                 //1000 milliseconds is one second.
+					} catch(InterruptedException ex) {
+					    Thread.currentThread().interrupt();
+					}
+					visualizador.mover("neutralizador",0,j);
+					c.desactivarMina();
+				}
+			for(int i = 0; i <= c.getX(); i++)
+					if (visualizador != null) {
+						try {
+						    Thread.sleep(2000);                 //1000 milliseconds is one second.
+						} catch(InterruptedException ex) {
+						    Thread.currentThread().interrupt();
+						}
+						visualizador.mover("neutralizador",i,(int)c.getY());
+						c.desactivarMina();
+					}
+		
 		}
 		catch (Exception e) {
 			   e.printStackTrace();

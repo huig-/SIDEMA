@@ -31,8 +31,11 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 
 	@Override
 	public void mover(String identAgente, int x, int y) throws Exception {
-		this.control.getVentanaEntorno().getEscenario().movimientoExplorador(x, y);
-		
+		if(identAgente.equals("explorador")){
+			this.control.getVentanaEntorno().getEscenario().movimientoExplorador(x, y);
+		}else{
+			this.control.getVentanaEntorno().getEscenario().movimientoNeutralizador(x, y);
+		}		
 	}
 
 	@Override
