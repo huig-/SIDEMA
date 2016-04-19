@@ -51,7 +51,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	@Override
 	public void mostrarEntornoSimulacion() throws Exception{
 		this.control = new ControladorVista();
-		identFicheroEscenarioSimulacion = this.control.getVentanaEntorno().cargarEscenario();
+		/*identFicheroEscenarioSimulacion = this.control.getVentanaEntorno().cargarEscenario();
 		//llamar al parser;
 		if(identFicheroEscenarioSimulacion != null){
 			trazas.aceptaNuevaTraza(new InfoTraza(this.id, "El escenario  : " + identFicheroEscenarioSimulacion.getName() + " se ha cargado correctamente", InfoTraza.NivelTraza.debug));
@@ -60,7 +60,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 			trazas.aceptaNuevaTraza(new InfoTraza(this.id, "El escenario  : " + identFicheroEscenarioSimulacion + " no existe o no se puede abrir ", InfoTraza.NivelTraza.error));
 		}
 		
-		
+		*/
 	}
 	
 	public void termina(){
