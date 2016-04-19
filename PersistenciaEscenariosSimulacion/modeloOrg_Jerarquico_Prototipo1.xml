@@ -21,7 +21,7 @@
      </celdaActual>
    </robot>
    <robot type="CentroControl">
-     <idt>agenteCC</id>
+     <id>agenteCC</id>
      <energy>100000</energy>
      <celdaActual>
         <x>0</x>

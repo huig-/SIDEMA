@@ -47,6 +47,7 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 	            		int y = Integer.parseInt(celda.getElementsByTagName("y").item(0).toString());
 	            		Robot robot = new Robot(id, type, new Celda(x,y, true, false), energy);
 	            		this.getEnvioHechos().insertarHecho(robot);
+	            		System.out.println(robot.toString());
             		}
             	}
             }

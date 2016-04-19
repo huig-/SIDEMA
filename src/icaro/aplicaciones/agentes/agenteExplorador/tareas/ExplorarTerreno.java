@@ -29,12 +29,12 @@ public class ExplorarTerreno extends TareaSincrona {
 			for (int i = 0; i < num_rows; i++) {
 				if(i%2==0){
 					ini = 0;
-					end = num_columns - 1;
+					end = num_columns;
 					inc = 1;
 				}
 				else{
 					ini = num_columns - 1;
-					end = 0;
+					end = -1;
 					inc = -1;
 				}
 				for (int j = ini; Math.abs(end-j) >= 0; j = j + inc) {

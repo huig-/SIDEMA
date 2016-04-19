@@ -81,6 +81,7 @@ public class AgenteCognitivotImp2 extends AgenteCognitivo implements Serializabl
     }
     @Override
     public void aceptaMensaje(MensajeSimple mensaje) {
+    	arranca();
         if ((estadoAgente.equals(NombresPredefinidos.ESTADO_ACTIVO))){
             try {
                 percepcion.aceptaMensaje(mensaje);
@@ -134,7 +135,7 @@ public class AgenteCognitivotImp2 extends AgenteCognitivo implements Serializabl
                 }
 	}
 
-    //JM: El siguiente metodo lo he añadido para poder enviar eventos simples
+    //JM: El siguiente metodo lo he a��adido para poder enviar eventos simples
     @Override
     public void aceptaEvento(EventoSimple evento) {
 		if ((estadoAgente.equals(NombresPredefinidos.ESTADO_ACTIVO))){
