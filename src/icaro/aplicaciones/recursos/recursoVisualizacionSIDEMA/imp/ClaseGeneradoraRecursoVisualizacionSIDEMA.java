@@ -9,9 +9,9 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Not
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 
-public class ClaseGeneradoraSDM extends ImplRecursoSimple implements ItfUsoRecursoVisualizacionSIDEMA{
+public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple implements ItfUsoRecursoVisualizacionSIDEMA{
 
-	public ClaseGeneradoraSDM(String idRecurso) throws RemoteException {
+	public ClaseGeneradoraRecursoVisualizacionSIDEMA(String idRecurso) throws RemoteException {
 		super(idRecurso);
 		try {
             trazas.aceptaNuevaTraza(new InfoTraza(idRecurso, "El constructor de la clase generadora del recurso " + idRecurso + " ha completado su ejecucion ....", InfoTraza.NivelTraza.debug));
