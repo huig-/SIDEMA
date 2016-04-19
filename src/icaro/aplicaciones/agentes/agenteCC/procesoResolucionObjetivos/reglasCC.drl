@@ -35,10 +35,9 @@ end
 rule "Distribuir Terreno"
 	when
 		focoActual : Focus(foco == null)
-		mapa : Mapa();
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
-		tarea.ejecutar(mapa);
+		tarea.ejecutar(new Mapa());
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Distribuir Terreno\n\n");
 end
