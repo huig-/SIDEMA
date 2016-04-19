@@ -5,11 +5,11 @@ import java.rmi.RemoteException;
 
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.NotificadorInfoUsuarioSimulador;
-import icaro.aplicaciones.ventana.ItfVentana;
+import icaro.aplicaciones.ventana.ItfUsoRecursoVisualizacionSIDEMA;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 
-public class ClaseGeneradoraSDM extends ImplRecursoSimple implements ItfVentana{
+public class ClaseGeneradoraSDM extends ImplRecursoSimple implements ItfUsoRecursoVisualizacionSIDEMA{
 
 	public ClaseGeneradoraSDM(String idRecurso) throws RemoteException {
 		super(idRecurso);
