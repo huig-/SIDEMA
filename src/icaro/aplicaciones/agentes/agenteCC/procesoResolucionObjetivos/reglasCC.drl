@@ -45,7 +45,7 @@ end
 rule "Enviar Neutralizador"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, celdaMina:justificacion)
+		ordenCC: OrdenMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, celdaMina : justificacion)
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
 		tarea.ejecutar(celdaMina);
