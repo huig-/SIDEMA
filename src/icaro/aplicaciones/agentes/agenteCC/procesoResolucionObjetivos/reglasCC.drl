@@ -29,7 +29,7 @@ rule "Acciones Iniciales Centro de Control"
    		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobotStatus.class);
    		tarea2.ejecutar( );
    		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-   		System.out.println( "\n"+agentId +"EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
+   		System.out.println( "\n"+agentId +" EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end
 
 rule "Distribuir Terreno"
@@ -39,7 +39,7 @@ rule "Distribuir Terreno"
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
 		tarea.ejecutar(new Mapa());
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-		System.out.println("\n"+agentId +"EJECUTO LA REGLA Distribuir Terreno\n\n");
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Distribuir Terreno\n\n");
 end
 
 rule "Enviar Neutralizador"
@@ -50,5 +50,5 @@ rule "Enviar Neutralizador"
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
 		tarea.ejecutar(celdaMina);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-		System.out.println("\n"+agentId +"EJECUTO LA REGLA Enviar Neutralizador\n\n");
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
 end
