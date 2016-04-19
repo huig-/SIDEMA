@@ -8,6 +8,9 @@ import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenMinaEncontrada;
 import icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador;
+import icaro.aplicaciones.informacion.dominioClases.aplicacionAcceso.VocabularioSistemaAcceso;
+import icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.ItfUsoRecursoVisualizacionSIDEMA;
+import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
@@ -55,8 +58,22 @@ public class ExplorarTerreno extends TareaSincrona {
 						    Thread.currentThread().interrupt();
 						}
 					}
-					
-				j = j + inc;
+					ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
+							NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
+									NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
+					if (visualizador != null) {
+						visualizador.mover(identAgente, i, j);
+						System.out.println("---------");
+						System.out.println("Funciona!");
+						System.out.println("---------");
+					}
+					else {
+						//this.generarInformeConCausaTerminacion(identTarea, , idAgenteOrdenante, contenido, causaTerminacion);\
+						System.out.println("------------------------");
+						System.out.println("Fallo en el visualizador");
+						System.out.println("------------------------");
+					}
+					j = j + inc;
 				}
 			}
 			for (int i = 0; i < num_rows; i++) {
