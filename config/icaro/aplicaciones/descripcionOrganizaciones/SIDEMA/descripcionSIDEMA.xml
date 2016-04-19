@@ -65,7 +65,7 @@
 	********************************************************************************************************-->
 <icaro:DescRecursosAplicacion>
   
-  <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornoSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.ventana.imp.ClaseGeneradoraSDM"/>
+  <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorSIDEMA" localizacionClaseGeneradora="icaro.aplicaciones.ventana.imp.ClaseGeneradoraSDM"/>
  <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion"/>			            		 
 <icaro:DescRecursoAplicacion nombre="RecursoPersistenciaEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ClaseGeneradoraRecursoPersistenciaEntornosSimulacion"/>			            		 
 	 <icaro:DescRecursoAplicacion nombre="RecursoCreacionEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.imp.ClaseGeneradoraRecursoCreacionEntornosSimulacion"/> 
@@ -96,7 +96,11 @@
                     <icaro:componentesGestionados>
                     <!--        <icaro:componenteGestionado refId="RecursoMorse1" tipoComponente="RecursoAplicacion"/> 
                                 <icaro:componenteGestionado refId="RecursoGUI1" tipoComponente="RecursoAplicacion"/>   
-                                <icaro:componenteGestionado refId="RecursoEstadistica1" tipoComponente="RecursoAplicacion"/>  -->
+                                <icaro:componenteGestionado
+				refId="RecursoEstadistica1"
+				tipoComponente="RecursoAplicacion"/>
+		    -->
+	                        <icaro:componenteGestionado refId="RecursoVisualizacionSIDEMA1" tipoComponente="RecursoAplicacion"/>	    
                                 <icaro:componenteGestionado refId="RecursoVisualizadorEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>	    
 				<icaro:componenteGestionado refId="RecursoPersistenciaEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>
 				<icaro:componenteGestionado refId="RecursoCreacionEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>                            
@@ -122,6 +126,7 @@
                 </icaro:Instancia>
                 <icaro:Instancia id="RecursoGUI1" refDescripcion="RecursoGUI" xsi:type="icaro:Instancia">    
                 </icaro:Instancia>    --> 
+	        <icaro:Instancia id="RecursoVisualizacionSIDEMA1" refDescripcion="RecursoVisualSIDEMA" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoVisualizadorEntornosSimulacion1" refDescripcion="RecursoVisualizadorEntornosSimulacion" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoPersistenciaEntornosSimulacion1" refDescripcion="RecursoPersistenciaEntornosSimulacion" xsi:type="icaro:Instancia"/>
