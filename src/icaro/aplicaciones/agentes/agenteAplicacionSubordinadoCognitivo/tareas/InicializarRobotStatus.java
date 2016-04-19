@@ -29,7 +29,7 @@ public class InicializarRobotStatus extends TareaSincrona{
         
 		Document doc = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePaht());
 		//Obtain all the robots
-		NodeList nodeLst = rXMLTRobots.getRobotsXMLStructure(doc, "robot");	
+		NodeList nodeLst = rXMLTRobots.getRobotsXMLStructure(doc, "robots");	
 		int numeroRobotsSimulation = rXMLTRobots.getNumberOfRobots(nodeLst);	
 		int j=0;
                 boolean encontrado= false;     
