@@ -22,8 +22,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Ventana extends JFrame{
 	
 	/*Creacion de la ventana principal de simulacion.
-	 * Eleccion del tama��o de la ventana en funcion del tama��o del monitor. 
-	 * Creaci��n de la vista principal.
+	 * Eleccion del tamanyo de la ventana en funcion del tamanyoo del monitor. 
+	 * Creacion de la vista principal.
 	 */
 	
 	public Ventana(/*Escenario escLog*/){
