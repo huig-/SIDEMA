@@ -37,17 +37,18 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
             	Node nNode = nList.item(i);
             	if (nNode.getNodeType() == Node.ELEMENT_NODE) {
             		Element eElement = (Element) nNode;
-            		String id = eElement.getElementsByTagName("id").item(0).toString();
+            		//String id = ((Node)eElement.getElementsByTagName("id").item(0)).getTextContent();
+            		String id = ((Node)eElement.getElementsByTagName("id").item(0)).getTextContent();
             		if (id.equals(miIdentAgte)) {
             			found = true;
-	            		String type = eElement.getAttribute("type");
-	            		int energy = Integer.parseInt(eElement.getElementsByTagName("energy").item(0).toString());
+            			String type = eElement.getAttribute("type");
+	            		int energy = Integer.parseInt(((Node)eElement.getElementsByTagName("energy").item(0)).getTextContent());
 	            		Element celda = (Element)eElement.getElementsByTagName("celdaActual").item(0);
-	            		int x = Integer.parseInt(celda.getElementsByTagName("x").item(0).toString());
-	            		int y = Integer.parseInt(celda.getElementsByTagName("y").item(0).toString());
+	            		int x = Integer.parseInt(((Node)celda.getElementsByTagName("x").item(0)).getTextContent());
+	            		int y = Integer.parseInt(((Node)celda.getElementsByTagName("y").item(0)).getTextContent());
 	            		Robot robot = new Robot(id, type, new Celda(x,y, true, false), energy);
 	            		this.getEnvioHechos().insertarHecho(robot);
-	            		System.out.println(robot.toString());
+	            		System.out.println(robot.toString()); //cambiar por trazas?
             		}
             	}
             }
@@ -58,5 +59,4 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
         }
 		
 	}
-
 }
