@@ -20,13 +20,13 @@ public class VisualCelda extends JButton {
 				this.setIcon(arena);
 				//this.setBackground(Color.RED);
 			} else {*/
-				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
+				ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron.jpg"));
 				this.setIcon(arena);
 				//this.setBackground(Color.GREEN);
 			
 
 		} else {
-			ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arenanegra.jpg"));
+			ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arenanegra.jpg"));
 			this.setIcon(arena);
 			//this.setBackground(Color.GRAY);
 		}
@@ -35,25 +35,25 @@ public class VisualCelda extends JButton {
 	
 	public VisualCelda(){
 		//ImageIcon arena = new ImageIcon("arena_marron.bmp");
-		 ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron.jpg"));
+		 ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron.jpg"));
 		this.setIcon(arena);
 	    
 		//this.setBackground(Color.YELLOW);
 	}
 	
 	public void setMina(){
-		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
+		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron_mina.jpg"));
 		this.setIcon(arena);
 	}
 	
 	public void minaEncontrada(){
-		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/explorador_mina.jpg"));
+		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/explorador_mina.jpg"));
 		this.setIcon(arena);
 	}
 	
 	public void desactivarMina(){
 		//CAMBIAR EL DIBUJO
-		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
+		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron_mina.jpg"));
 		this.setIcon(arena);
 	}
 	
