@@ -2,6 +2,10 @@ package icaro.aplicaciones.SIDEMA.informacion;
 
 public class Mapa {
 
+	private Celda[][] mapa ;
+	private int rows;
+	private int columns;
+	
 	public Mapa(int rows, int column){
 		this.mapa = new Celda[rows][column];
 		this.rows = rows;
@@ -22,7 +26,10 @@ public class Mapa {
 		for(int i = 0; i < this.rows; i++)
 			for(int j = 0; j < this.columns; j++)
 				this.mapa[i][j] = new Celda(i,j,true,false);
-		this.mapa[1][2].setMina(true);
+		this.mapa[0][0].setMina(true);
+		this.mapa[1][1].setMina(true);
+		this.mapa[2][1].setMina(true);
+		this.mapa[2][2].setMina(true);
 	}
 	
 	public synchronized boolean tieneMina(int row, int column){
@@ -66,7 +73,5 @@ public class Mapa {
 		return this.columns;
 	}
 	
-	private Celda[][] mapa ;
-	private int rows;
-	private int columns;
+	
 }
