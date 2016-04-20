@@ -4,7 +4,7 @@ import icaro.infraestructura.patronRecursoSimple.ItfUsoRecursoSimple;
 
 public interface ItfUsoRecursoPersistenciaSIDEMA extends ItfUsoRecursoSimple{
 	
-	public void parserXMLModelo() throws Exception;
+	public void parserCSVModelo() throws Exception;
 	
 
 }
