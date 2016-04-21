@@ -43,6 +43,18 @@ rule "Distribuir Terreno"
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Distribuir Terreno\n\n");
 end
 
+rule "Solicitar Ubicacion Actual"
+	when
+		focoActual : Focus(foco == null)
+		ordenCC: OrdenMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, celdaMina : justificacion)
+		robot: Robot(id == agentId)
+	then
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.SolicitarInformacionNeutralizador.class);
+		tarea.ejecutar(robot);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Solicitar Ubicacion Actual\n\n");
+end
+
 rule "Enviar Neutralizador"
 	when
 		focoActual : Focus(foco == null)

@@ -20,8 +20,6 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 public class DesactivarMina extends TareaSincrona {
-	
-//	private ArrayList<Celda> celdasAExplorar; v1.0
 
 	@Override
 	public void ejecutar(Object... params) {
@@ -60,29 +58,6 @@ public class DesactivarMina extends TareaSincrona {
 			}
 			visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY());
 			c.desactivarMina();
-			
-//			for(int j = (int)r.getCurrentPos().getX(); j <= c.getY();j++)
-//				if (visualizador != null) {
-//					try {
-//					    Thread.sleep(1000);                 //1000 milliseconds is one second.
-//					} catch(InterruptedException ex) {
-//					    Thread.currentThread().interrupt();
-//					}
-//					visualizador.mover("neutralizador",(int)r.getCurrentPos().getX(),j);
-//					r.setCurrentPos(new Celda((int)r.getCurrentPos().getX(),j));
-//					c.desactivarMina();
-//				}
-//			for(int i = (int)r.getCurrentPos().getY(); i <= c.getX(); i++)
-//					if (visualizador != null) {
-//						try {
-//						    Thread.sleep(1000);                 //1000 milliseconds is one second.
-//						} catch(InterruptedException ex) {
-//						    Thread.currentThread().interrupt();
-//						}
-//						visualizador.mover("neutralizador",i,(int)c.getY());
-//						r.setCurrentPos(new Celda(i,(int)c.getY()));
-//						c.desactivarMina();
-//					}
 		}
 		catch (Exception e) {
 			   e.printStackTrace();
