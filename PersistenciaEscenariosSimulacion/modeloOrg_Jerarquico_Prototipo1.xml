@@ -2,7 +2,7 @@
    <identEscenario>modeloOrg_Jerarquico_Prototipo1</identEscenario>
    <modeloOrganizativo>Jerarquico</modeloOrganizativo>
    <numExploradores>1</numExploradores>
-   <numNeutralizadores>1</numNeutralizadores>
+   <numNeutralizadores>2</numNeutralizadores>
    <numMinas>1</numMinas>
    <robot type="Explorador">
      <id>agenteExplorador0</id>
@@ -19,6 +19,19 @@
    </robot>
    <robot type="Neutralizador">
      <id>agenteNeutralizador0</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+     <movementTime>500</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <desactivationTime>500</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+     <nameCC>agenteCC</nameCC>
+   </robot>
+ <robot type="Neutralizador">
+     <id>agenteNeutralizador1</id>
      <energy>100000</energy>
      <celdaActual>
         <x>0</x>
