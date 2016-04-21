@@ -14,6 +14,7 @@ import icaro.aplicaciones.Rosace.utils.AccesoPropiedadesGlobalesRosace;
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
 import icaro.aplicaciones.SIDEMA.informacion.CentroControl;
 import icaro.aplicaciones.SIDEMA.informacion.Explorador;
+import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.Neutralizador;
 import icaro.aplicaciones.SIDEMA.informacion.Robot;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
@@ -36,6 +37,7 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("robot");
             boolean found = false;
+            Mapa m = Mapa.instance;
             for (int i = 0; i < nList.getLength() && !found; i++) {
             	Node nNode = nList.item(i);
             	if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -49,33 +51,32 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 	            		Element celda = (Element)eElement.getElementsByTagName("celdaActual").item(0);
 	            		int x = Integer.parseInt(((Node)celda.getElementsByTagName("x").item(0)).getTextContent());
 	            		int y = Integer.parseInt(((Node)celda.getElementsByTagName("y").item(0)).getTextContent());
-	            		String leader = eElement.getAttribute("nameCC");
+	            		String leader = ((Node)eElement.getElementsByTagName("nameCC").item(0)).getTextContent();
 	            		Robot robot;
 	            		if(type.equalsIgnoreCase("Explorador")){
-	            			int timeMov = Integer.parseInt(eElement.getAttribute("MovementTime"));
-	            			int enerMov = Integer.parseInt(eElement.getAttribute("MovementEnergy"));
-	            			int timeExp = Integer.parseInt(eElement.getAttribute("ExplorationTime"));
-	            			int enerExp = Integer.parseInt(eElement.getAttribute("ExplorationEnergy"));
-	            			robot = new Explorador(id, new Celda(x,y, true, false), energy,leader,timeMov,enerMov,timeExp,enerExp);
+	            			int timeMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementTime").item(0)).getTextContent());
+	            			int enerMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementEnergy").item(0)).getTextContent());
+	            			int timeExp = Integer.parseInt(((Node)eElement.getElementsByTagName("explorationTime").item(0)).getTextContent());
+	            			int enerExp = Integer.parseInt(((Node)eElement.getElementsByTagName("explorationEnergy").item(0)).getTextContent());
+	            			robot = new Explorador(id,m.getCelda(x, y), energy,leader,timeMov,enerMov,timeExp,enerExp);
 	            	  		this.getEnvioHechos().insertarHecho(robot);
 		            		System.out.println(robot.toString()); //cambiar por trazas?
 	            
 	            		}else if(type.equalsIgnoreCase("Neutralizador")){
-	            			int timeMov = Integer.parseInt(eElement.getAttribute("MovementTime"));
-	            			int enerMov = Integer.parseInt(eElement.getAttribute("MovementEnergy"));
-	            			int timeExp = Integer.parseInt(eElement.getAttribute("DesactivationTime"));
-	            			int enerExp = Integer.parseInt(eElement.getAttribute("DesactivationEnergy"));
-	            			robot = new Neutralizador(id, new Celda(x,y,true,false), energy,leader,timeMov,enerMov,timeExp,enerExp);
+	            			int timeMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementTime").item(0)).getTextContent());
+	            			int enerMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementEnergy").item(0)).getTextContent());
+	            			int timeExp = Integer.parseInt(((Node)eElement.getElementsByTagName("desactivationTime").item(0)).getTextContent());
+	            			int enerExp = Integer.parseInt(((Node)eElement.getElementsByTagName("desactivationEnergy").item(0)).getTextContent());
+	            			robot = new Neutralizador(id,m.getCelda(x, y), energy,leader,timeMov,enerMov,timeExp,enerExp);
 	            	  		this.getEnvioHechos().insertarHecho(robot);
 		            		System.out.println(robot.toString()); //cambiar por trazas?
 	            
 	            		}
 	            		else if(type.equalsIgnoreCase("CentroControl")){
-	            			robot = new CentroControl(id, new Celda(x,y,true,false), energy,leader);
+	            			robot = new CentroControl(id,m.getCelda(x, y), energy,leader);
 	            	  		this.getEnvioHechos().insertarHecho(robot);
 		            		System.out.println(robot.toString()); //cambiar por trazas?
-	            
-	    	            	
+		            		this.getEnvioHechos().insertarHecho(m);
 	            		}
 	            		else{
 	                    	this.trazas.trazar(miIdentAgte, "No se ha reconocido el tipo del agente", InfoTraza.NivelTraza.error);

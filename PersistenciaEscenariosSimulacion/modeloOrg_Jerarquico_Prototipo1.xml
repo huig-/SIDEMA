@@ -10,7 +10,11 @@
      <celdaActual>
         <x>0</x>
         <y>0</y>
-     </celdaActual>
+     </celdaActual>	            			
+     <movementTime>500</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <explorationTime>500</explorationTime>
+     <explorationEnergy>20</explorationEnergy>
      <nameCC>agenteCC</nameCC>
    </robot>
    <robot type="Neutralizador">
@@ -19,8 +23,12 @@
      <celdaActual>
         <x>0</x>
         <y>0</y>
-     <nameCC>agenteCC</nameCC>
      </celdaActual>
+     <movementTime>500</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <desactivationTime>500</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+     <nameCC>agenteCC</nameCC>
    </robot>
    <robot type="CentroControl">
      <id>agenteCC</id>

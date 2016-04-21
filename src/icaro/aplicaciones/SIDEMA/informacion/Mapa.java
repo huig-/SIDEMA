@@ -1,39 +1,78 @@
 package icaro.aplicaciones.SIDEMA.informacion;
 
+import org.jgrapht.GraphPath;
+import org.jgrapht.graph.WeightedMultigraph;
+import org.jgrapht.alg.DijkstraShortestPath;
 public class Mapa {
 
 	private Celda[][] mapa ;
 	private int rows;
 	private int columns;
-	
+	private int numExploradas = 0;
+	private WeightedMultigraph<Celda,Integer> graph;
+	public static Mapa instance; 
 	public Mapa(int rows, int column){
 		this.mapa = new Celda[rows][column];
 		this.rows = rows;
 		this.columns = column;
+		this.graph = new WeightedMultigraph<Celda,Integer>(Integer.class);
 	}
 	
 	public Mapa(Celda[][] mapa){
 		this.mapa = mapa;
 		this.rows = mapa.length;
 		this.columns = mapa.length;
+		this.graph = new WeightedMultigraph<Celda,Integer>(Integer.class);
 	}
 	
 	//Constructor por defecto cableado con el mapa
 	public Mapa() {
-		this.rows = 3;
-		this.columns = 3;
-		this.mapa = new Celda[this.rows][this.columns];
-		for(int i = 0; i < this.rows; i++)
-			for(int j = 0; j < this.columns; j++)
-				this.mapa[i][j] = new Celda(i,j,true,false);
-		this.mapa[0][0].setMina(true);
-		this.mapa[1][1].setMina(true);
-		this.mapa[2][1].setMina(true);
-		this.mapa[2][2].setMina(true);
+		if(this.instance == null){
+			this.rows = 3;
+			this.columns = 3;
+			this.mapa = new Celda[this.rows][this.columns];
+			for(int i = 0; i < this.rows; i++)
+				for(int j = 0; j < this.columns; j++)
+					this.mapa[i][j] = new Celda(i,j,true,false);
+			this.mapa[0][0].setMina(true);
+			this.mapa[1][1].setMina(true);
+			this.mapa[2][0].setMina(true);
+			this.mapa[2][2].setMina(true);
+			this.graph = new WeightedMultigraph<Celda,Integer>(Integer.class);
+			instance = this;
+		}
 	}
 	
+	public Mapa getInstance(){ return this.instance;}
+	
 	public synchronized boolean tieneMina(int row, int column){
+		this.updateGrafo(row,column);
 		return mapa[row][column].getMina();
+		
+	}
+	public synchronized GraphPath<Celda,Integer> findPath(Celda ini, Celda fin){
+		DijkstraShortestPath<Celda,Integer> path = new DijkstraShortestPath<Celda,Integer>(this.graph,ini,fin);
+		return path.getPath();
+	}
+	public synchronized void updateGrafo(int r, int c){
+		Celda celda = this.mapa[r][c];
+		if(!this.graph.containsVertex(celda)) this.graph.addVertex(celda);
+		if(r > 0 && this.graph.containsVertex(this.mapa[r-1][c])){
+			this.graph.addEdge(celda,this.mapa[r-1][c],this.numExploradas);
+			this.numExploradas++;
+		}
+		if(r < this.rows-1 && this.graph.containsVertex(this.mapa[r+1][c])){
+			this.graph.addEdge(celda,this.mapa[r+1][c],this.numExploradas);
+			this.numExploradas++;
+		}
+		if(c > 0 && this.graph.containsVertex(this.mapa[r][c-1])){
+			this.graph.addEdge(celda,this.mapa[r][c-1],this.numExploradas);
+			this.numExploradas++;
+		}
+		if(c < this.columns-1 && this.graph.containsVertex(this.mapa[r][c+1])){
+			this.graph.addEdge(celda,this.mapa[r][c+1],this.numExploradas);
+			this.numExploradas++;
+		}
 	}
 	
 	public synchronized boolean esAccesible(int row, int column){

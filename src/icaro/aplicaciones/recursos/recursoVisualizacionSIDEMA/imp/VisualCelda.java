@@ -57,7 +57,7 @@ public class VisualCelda extends JButton {
 		this.setIcon(arena);
 	}
 	
-	public void movimientoExplorador(){
+	public synchronized void movimientoExplorador(){
 		Icon arena;
 		if(this.mina){
 			arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/explorador_mina.jpg"));
@@ -66,7 +66,7 @@ public class VisualCelda extends JButton {
 		}this.setIcon(arena);
 	}
 	
-	public void movimientoNeutralizador(){
+	public synchronized void movimientoNeutralizador(){
 		Icon arena;
 		if(mina){
 		arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/neutralizador-mina.jpg"));

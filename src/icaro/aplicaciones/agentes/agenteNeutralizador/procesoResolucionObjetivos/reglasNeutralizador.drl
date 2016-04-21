@@ -37,6 +37,7 @@ rule "Desactivar Mina"
 		focoActual : Focus(foco == null)
 		ordenCC: OrdenDesactivar( mensajeOrden == VocabularioSIDEMA.MsgPeticionDesactivar, celdaMina:justificacion)
 		robot : Robot(id == agentId)
+		//mapa : Mapa()
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteNeutralizador.tareas.DesactivarMina.class);
 		tarea.ejecutar(celdaMina,robot);

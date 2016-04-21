@@ -43,35 +43,30 @@ public class ExplorarTerreno extends TareaSincrona {
 				int j = ini;
 				while(Math.abs(end-j) > 0){
 					try {
-					    Thread.sleep(1000);                 //1000 milliseconds is one second.
+					    Thread.sleep(500);                 //1000 milliseconds is one second.
 					} catch(InterruptedException ex) {
 					    Thread.currentThread().interrupt();
-					}
-					if (celdasAExplorar.getCelda(i, j).getMina()) {
-						//Si encontramos una mina, se produce un retraso mayor.
-						Celda c = celdasAExplorar.getCelda(i,j);
-						OrdenMinaEncontrada orden = new OrdenMinaEncontrada("agenteExplorador0", c);
-						this.getComunicator().enviarInfoAotroAgente(orden, "agenteCC"); //0 es el identificador del explorador
-						try {
-						    Thread.sleep(1000);                 //1000 milliseconds is one second.
-						} catch(InterruptedException ex) {
-						    Thread.currentThread().interrupt();
-						}
 					}
 					ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
 							NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
 									NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
 					if (visualizador != null) {
 						visualizador.mover("explorador",i, j);
-						System.out.println("---------");
-						System.out.println("Funciona!");
-						System.out.println("---------");
+						
 					}
 					else {
 						//this.generarInformeConCausaTerminacion(identTarea, , idAgenteOrdenante, contenido, causaTerminacion);\
-						System.out.println("------------------------");
-						System.out.println("Fallo en el visualizador");
-						System.out.println("------------------------");
+					}
+					if (celdasAExplorar.tieneMina(i, j)) {
+						//Si encontramos una mina, se produce un retraso mayor.
+						Celda c = celdasAExplorar.getCelda(i,j);
+						OrdenMinaEncontrada orden = new OrdenMinaEncontrada("agenteExplorador0", c);
+						this.getComunicator().enviarInfoAotroAgente(orden, "agenteCC"); //0 es el identificador del explorador
+						try {
+						    Thread.sleep(500);                 //1000 milliseconds is one second.
+						} catch(InterruptedException ex) {
+						    Thread.currentThread().interrupt();
+						}
 					}
 					j = j + inc;
 				}
