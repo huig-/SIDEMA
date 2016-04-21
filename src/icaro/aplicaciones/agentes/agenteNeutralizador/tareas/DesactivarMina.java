@@ -8,6 +8,7 @@ import org.jgrapht.GraphPath;
 
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+import icaro.aplicaciones.SIDEMA.informacion.Neutralizador;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenMinaEncontrada;
@@ -26,7 +27,7 @@ public class DesactivarMina extends TareaSincrona {
 	public void ejecutar(Object... params) {
 		try {
 			Celda c = (Celda)params[0];
-			Robot r = (Robot)params[1];
+			Neutralizador r = (Neutralizador)params[1];
 			Mapa m = Mapa.instance;
 			//INCLUIR MOVIMIENTO DEL NEUTRALIZADOR.
 			ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
@@ -43,7 +44,7 @@ public class DesactivarMina extends TareaSincrona {
 					else pos = p.getGraph().getEdgeTarget(edge);
 					if (visualizador != null) {					
 						try {
-						    Thread.sleep(500);                 //1000 milliseconds is one second.
+						    Thread.sleep(r.getTiempoMovimiento());              
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
 						}
@@ -51,6 +52,11 @@ public class DesactivarMina extends TareaSincrona {
 						r.setCurrentPos(pos);	
 					}
 				}while(it.hasNext());
+			}
+			try {
+			    Thread.sleep(r.getTiempoDesactivacion());              
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
 			}
 			visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY());
 			c.desactivarMina();

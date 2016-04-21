@@ -3,6 +3,7 @@ package icaro.aplicaciones.agentes.agenteExplorador.tareas;
 import java.util.ArrayList;
 
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
+import icaro.aplicaciones.SIDEMA.informacion.Explorador;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
@@ -24,6 +25,7 @@ public class ExplorarTerreno extends TareaSincrona {
 		try {
 			//celdasAExplorar = (ArrayList<Celda>)params[0]; v1.0
 			celdasAExplorar = (Mapa)params[0];
+			Explorador exp = (Explorador)params[1];
 			int num_columns = celdasAExplorar.getColumns();
 			int num_rows = celdasAExplorar.getRows();
 			int ini;
@@ -43,7 +45,7 @@ public class ExplorarTerreno extends TareaSincrona {
 				int j = ini;
 				while(Math.abs(end-j) > 0){
 					try {
-					    Thread.sleep(500);                 //1000 milliseconds is one second.
+					    Thread.sleep(exp.getTiempoMovimiento());                 //1000 milliseconds is one second.
 					} catch(InterruptedException ex) {
 					    Thread.currentThread().interrupt();
 					}
@@ -63,7 +65,7 @@ public class ExplorarTerreno extends TareaSincrona {
 						OrdenMinaEncontrada orden = new OrdenMinaEncontrada("agenteExplorador0", c);
 						this.getComunicator().enviarInfoAotroAgente(orden, "agenteCC"); //0 es el identificador del explorador
 						try {
-						    Thread.sleep(500);                 //1000 milliseconds is one second.
+						    Thread.sleep(exp.getTiempoExploracion());                 //1000 milliseconds is one second.
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
 						}
