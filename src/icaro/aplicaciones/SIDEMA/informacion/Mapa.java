@@ -35,7 +35,7 @@ public class Mapa {
 				for(int j = 0; j < this.columns; j++)
 					this.mapa[i][j] = new Celda(i,j,true,false);
 			this.mapa[0][0].setMina(true);
-			this.mapa[1][1].setMina(true);
+			this.mapa[0][2].setMina(true);
 			this.mapa[2][0].setMina(true);
 			this.mapa[2][2].setMina(true);
 			this.graph = new WeightedMultigraph<Celda,Integer>(Integer.class);

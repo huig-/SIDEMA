@@ -15,6 +15,8 @@ public class SolicitarInformacionNeutralizador extends TareaSincrona {
 	public void ejecutar(Object... params) {
 		try {
 			CentroControl r = (CentroControl)params[0];
+			Celda c = (Celda)params[1];
+			r.getMinasPendientes().add(c);
 			for(int i = 0; i < r.getNeutralizadores().size(); i++){
 				OrdenSolicitarPosicion orden = new OrdenSolicitarPosicion("agenteCC",null);
 				this.getComunicator().enviarInfoAotroAgente(orden,r.getNeutralizadores().get(i)); //1 es el identificador del neutralizador

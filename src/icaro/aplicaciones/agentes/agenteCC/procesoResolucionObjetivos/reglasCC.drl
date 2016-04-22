@@ -46,23 +46,40 @@ end
 rule "Solicitar Ubicacion Actual"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, celdaMina : justificacion)
-		robot: Robot(id == agentId)
+		ordenCC: OrdenMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, minaCelda : justificacion)
+		robot: CentroControl(id == agentId)
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.SolicitarInformacionNeutralizador.class);
-		tarea.ejecutar(robot);
+		tarea.ejecutar(robot,minaCelda);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Solicitar Ubicacion Actual\n\n");
+end
+
+rule "Recibir Ubicacion Actual"
+	when
+		focoActual : Focus(foco == null)
+		ordenCC: OrdenInformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
+		robot: CentroControl(id == agentId)
+	then
+		robot.actualizarMsg((Celda)celdaActual,emisor);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Solicitar Ubicacion Actual\n\n");
+		if(robot.recibidosNeutralizadores()){
+			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
+			tarea.ejecutar(robot);
+			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+			System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
+		}
 end
 
 rule "Enviar Neutralizador"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, celdaMina : justificacion)
-		robot: Robot(id == agentId)
+		robot : CentroControl(id == agentId)
+		eval(robot.recibidosNeutralizadores())
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
-		tarea.ejecutar(celdaMina,robot);
+		tarea.ejecutar(robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
 end
