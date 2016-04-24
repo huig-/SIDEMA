@@ -42,8 +42,9 @@ public class VisualCelda extends JButton {
 	}
 	
 	public void setMina(){
-		ImageIcon arena = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron_mina.jpg"));
-		this.setIcon(arena);
+		ImageIcon icono1 = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron.jpg"));
+		ImageIcon icono2 = new ImageIcon(this.getClass().getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/bomba1.jpg"));
+		this.setIcon(new CombinedIcon(icono2, icono1));
 	}
 	
 	public void minaEncontrada(){

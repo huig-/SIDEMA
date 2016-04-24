@@ -3,6 +3,7 @@ package icaro.aplicaciones.recursos.recursoPersistenciaSIDEMA.imp;
 //TODO Despues de crear el mapa, que hacemos con el?
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.rmi.RemoteException;
 
@@ -13,10 +14,7 @@ import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 
 public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple implements ItfUsoRecursoPersistenciaSIDEMA{
 	
-	private int numExplorers = 0;
-	private int numNeutralizers = 0;
-	private Mapa m;
-
+	
 	public ClaseGeneradoraRecursoPersistenciaSIDEMA(String idRecurso) throws RemoteException {
 		super(idRecurso);
 		// TODO Auto-generated constructor stub
@@ -48,4 +46,20 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 		}
 		br.close();
 	}
+	
+	public void obtenerFicheroEscenario(File fichero){
+		this.ficheroEscenario = fichero;
+	}
+	
+	public Mapa proporcionarEscenario() throws Exception{
+		return this.m;
+	}
+
+	private int numExplorers = 0;
+	private int numNeutralizers = 0;
+	private Mapa m;
+	private File ficheroEscenario;
+
 }
+
+

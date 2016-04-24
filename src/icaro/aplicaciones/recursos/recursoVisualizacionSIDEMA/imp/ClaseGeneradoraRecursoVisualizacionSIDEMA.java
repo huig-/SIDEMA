@@ -3,6 +3,7 @@ package icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp;
 import java.io.File;
 import java.rmi.RemoteException;
 
+import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.ItfUsoRecursoVisualizacionSIDEMA;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.NotificadorInfoUsuarioSimulador;
@@ -64,6 +65,14 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		}
 		
 		*/
+	}
+	
+	public File proporcionarFicheroEscenario() throws Exception{
+		return this.identFicheroEscenarioSimulacion;
+	}
+	
+	public void obtenerMapa(Mapa m) throws Exception {
+		this.control.setMapa(m);
 	}
 	
 	public void termina(){
