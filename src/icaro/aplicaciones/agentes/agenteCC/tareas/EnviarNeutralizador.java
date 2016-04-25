@@ -41,6 +41,7 @@ public class EnviarNeutralizador extends TareaSincrona {
 				OrdenDesactivar orden = new OrdenDesactivar(r.getId(), mina);
 				r.getMinasPendientes().remove(0);
 				this.getComunicator().enviarInfoAotroAgente(orden,r.getEmisorNeutralizador().get(elegido));
+				r.getNeutralizadores().remove(r.getEmisorNeutralizador().get(elegido));
 				r.getMsgNeutralizador().remove(elegido);
 				r.getEmisorNeutralizador().remove(elegido);
 				i++;

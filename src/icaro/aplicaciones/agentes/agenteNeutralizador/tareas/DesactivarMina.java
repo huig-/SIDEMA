@@ -11,6 +11,7 @@ import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.Neutralizador;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
+import icaro.aplicaciones.SIDEMA.informacion.OrdenInformarNeutralizadorLibre;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenMinaEncontrada;
 import icaro.aplicaciones.SIDEMA.informacion.Robot;
 import icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador;
@@ -58,6 +59,8 @@ public class DesactivarMina extends TareaSincrona {
 			}
 			visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY());
 			c.desactivarMina();
+			OrdenInformarNeutralizadorLibre orden = new OrdenInformarNeutralizadorLibre(r.getId());
+			this.getComunicator().enviarInfoAotroAgente(orden,r.getCC());
 		}
 		catch (Exception e) {
 			   e.printStackTrace();
