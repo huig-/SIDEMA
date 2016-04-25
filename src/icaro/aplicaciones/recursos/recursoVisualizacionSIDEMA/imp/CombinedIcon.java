@@ -52,8 +52,8 @@ public class CombinedIcon implements Icon {
 	public ImageIcon resizeTop(int id) {
 		ImageIcon imgAux = this.top.get(id);
 		this.top.remove(id);
-		ImageIcon newImg = new ImageIcon(imgAux.getImage().getScaledInstance(this.bottom.getIconWidth() / 4,
-				this.bottom.getIconHeight() / 4, Image.SCALE_SMOOTH));
+		ImageIcon newImg = new ImageIcon(imgAux.getImage().getScaledInstance(this.bottom.getIconWidth() / 2,
+				this.bottom.getIconHeight() / 2, Image.SCALE_SMOOTH));
 		this.top.add(id, newImg);
 		
 		return newImg;
@@ -68,7 +68,7 @@ public class CombinedIcon implements Icon {
 		bottom.paintIcon(c, g, x, y);
 		for (ImageIcon img : top) {
 			newImg = this.resizeTop(top.indexOf(img));
-			newImg.paintIcon(c, g, x + this.bottom.getIconWidth() / 3, y + this.bottom.getIconHeight() / 3);
+			newImg.paintIcon(c, g, x + this.bottom.getIconWidth() / 4, y + this.bottom.getIconHeight() / 4);
 		}
 	}
 
