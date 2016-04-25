@@ -2,9 +2,15 @@ package icaro.aplicaciones.SIDEMA.informacion;
 
 import org.jgrapht.GraphPath;
 import org.jgrapht.graph.WeightedMultigraph;
+import org.jgrapht.alg.BellmanFordShortestPath;
 import org.jgrapht.alg.DijkstraShortestPath;
+
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 public class Mapa {
 
@@ -12,6 +18,7 @@ public class Mapa {
 	private int rows;
 	private int columns;
 	private int numExploradas = 0;
+	private int numCompletas = 0;
 	private WeightedMultigraph<Celda, Integer> ExploredGraph;
 	private WeightedMultigraph<Celda, Integer> completeGraph;
 	public static Mapa instance;
@@ -43,8 +50,9 @@ public class Mapa {
 			this.mapa[0][2].setMina(true);
 			this.mapa[0][1].setMina(true);
 			this.mapa[2][0].setMina(true);
-			this.mapa[2][2].setMina(true);
+			this.mapa[2][1].setMina(true);
 			this.ExploredGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
+			this.completeGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
 			instance = this;
 		}
 	}
@@ -72,22 +80,49 @@ public class Mapa {
 		Celda celda = this.mapa[r][c];
 		if (!this.ExploredGraph.containsVertex(celda))
 			this.ExploredGraph.addVertex(celda);
-		if (r > 0 && this.ExploredGraph.containsVertex(this.mapa[r - 1][c])) {
-			this.ExploredGraph.addEdge(celda, this.mapa[r - 1][c], this.numExploradas);
-			this.numExploradas++;
+		if (!this.completeGraph.containsVertex(celda))
+			this.completeGraph.addVertex(celda);
+		if (r > 0 && this.mapa[r-1][c].getAccesible()){
+			if(this.ExploredGraph.containsVertex(this.mapa[r - 1][c])) {
+				this.ExploredGraph.addEdge(celda, this.mapa[r - 1][c], this.numExploradas);
+				this.numExploradas++;
+			}else{
+				this.completeGraph.addVertex(this.mapa[r-1][c]);
+				this.completeGraph.addEdge(celda, this.mapa[r-1][c],this.numCompletas);
+				this.numCompletas++;
+			}
 		}
-		if (r < this.rows - 1 && this.ExploredGraph.containsVertex(this.mapa[r + 1][c])) {
-			this.ExploredGraph.addEdge(celda, this.mapa[r + 1][c], this.numExploradas);
-			this.numExploradas++;
+		if (r < this.rows - 1 && this.mapa[r + 1][c].getAccesible()){
+			if(this.ExploredGraph.containsVertex(this.mapa[r + 1][c])) {
+				this.ExploredGraph.addEdge(celda, this.mapa[r + 1][c], this.numExploradas);
+				this.numExploradas++;
+			}else{
+				this.completeGraph.addVertex(this.mapa[r+1][c]);
+				this.completeGraph.addEdge(celda, this.mapa[r+1][c],this.numCompletas);
+				this.numCompletas++;
+			}
 		}
-		if (c > 0 && this.ExploredGraph.containsVertex(this.mapa[r][c - 1])) {
-			this.ExploredGraph.addEdge(celda, this.mapa[r][c - 1], this.numExploradas);
-			this.numExploradas++;
+		if (c > 0 && this.mapa[r][c-1].getAccesible()){
+			if(this.ExploredGraph.containsVertex(this.mapa[r][c - 1])) {
+				this.ExploredGraph.addEdge(celda, this.mapa[r][c - 1], this.numExploradas);
+				this.numExploradas++;
+			}else{
+				this.completeGraph.addVertex(this.mapa[r][c-1]);
+				this.completeGraph.addEdge(celda, this.mapa[r][c-1],this.numCompletas);
+				this.numCompletas++;
+				}
 		}
-		if (c < this.columns - 1 && this.ExploredGraph.containsVertex(this.mapa[r][c + 1])) {
-			this.ExploredGraph.addEdge(celda, this.mapa[r][c + 1], this.numExploradas);
-			this.numExploradas++;
+		if (c < this.columns - 1 && this.mapa[r][c+1].getAccesible()){
+			if(this.ExploredGraph.containsVertex(this.mapa[r][c + 1])) {
+				this.ExploredGraph.addEdge(celda, this.mapa[r][c + 1], this.numExploradas);
+				this.numExploradas++;
+			}else{
+				this.completeGraph.addVertex(this.mapa[r][c+1]);
+				this.completeGraph.addEdge(celda, this.mapa[r][c+1],this.numCompletas);
+				this.numCompletas++;
+			}
 		}
+		List<SimpleEntry<Celda,Double>> e = this.getCosteAdyacentes(celda);
 	}
 
 	public synchronized boolean esAccesible(int row, int column) {
@@ -129,10 +164,20 @@ public class Mapa {
 	}
 	
 	public List<Celda> getAdyacentes() {
-		return null;
+		ArrayList<Celda> adys = new ArrayList<Celda>();
+		for(Celda c : this.completeGraph.vertexSet())
+			if(!this.ExploredGraph.containsVertex(c))
+				adys.add(c);
+		return adys;
 	}
 	
-	public List<Entry<Celda, Integer>> getCosteAdyacentes(Celda posicionActual) {
-		return null;
+
+	public List<SimpleEntry<Celda, Double>> getCosteAdyacentes(Celda posicionActual) {
+		BellmanFordShortestPath<Celda, Integer> path = new BellmanFordShortestPath<Celda, Integer>(this.completeGraph,posicionActual);
+		List<SimpleEntry<Celda,Double>> lista = new ArrayList<SimpleEntry<Celda,Double>>();
+		for(Celda c : this.getAdyacentes()){
+			lista.add(new SimpleEntry<Celda,Double>(c,path.getCost(c)));
+		}
+		return lista;
 	}
 }
