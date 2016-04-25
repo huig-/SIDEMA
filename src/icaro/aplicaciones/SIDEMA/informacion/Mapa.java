@@ -58,6 +58,10 @@ public class Mapa {
 		return mapa[row][column].getMina();
 
 	}
+	
+	public synchronized boolean haSidoExplorada(Celda c) {
+		return this.ExploredGraph.containsVertex(c);
+	}
 
 	public synchronized GraphPath<Celda, Integer> findPath(Celda ini, Celda fin) {
 		DijkstraShortestPath<Celda, Integer> path = new DijkstraShortestPath<Celda, Integer>(this.ExploredGraph, ini, fin);
@@ -128,7 +132,7 @@ public class Mapa {
 		return null;
 	}
 	
-	public List<Entry<Celda, Integer>> getCosteAdyacentes() {
+	public List<Entry<Celda, Integer>> getCosteAdyacentes(Celda posicionActual) {
 		return null;
 	}
 }
