@@ -14,6 +14,7 @@ public interface ItfUsoRecursoVisualizacionSIDEMA extends ItfUsoRecursoSimple{
 	public void termina()throws Exception;
 	public File proporcionarFicheroEscenario()throws Exception;
 	public void obtenerMapa(Mapa m) throws Exception;
+	public boolean mapaPintado() throws Exception;
 	
 	
 }

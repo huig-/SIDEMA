@@ -73,6 +73,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	
 	public void obtenerMapa(Mapa m) throws Exception {
 		this.control.setMapa(m);
+		this.pintado = true;
 	}
 	
 	public void termina(){
@@ -84,6 +85,11 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
         super.termina();
     }
 	
+	public boolean mapaPintado(){
+		return this.pintado;
+	}
+	
+	private boolean pintado;
 	private ControladorVista control;
 	//private String directorioPersistencia .. ;
 	private File identFicheroEscenarioSimulacion;

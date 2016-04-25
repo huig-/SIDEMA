@@ -14,14 +14,22 @@ public class CombinedIcon implements Icon {
 	private int w;
 	private int h;
 
+	public CombinedIcon(ImageIcon bottom, int w, int h) {
+		this.bottom = bottom;
+		this.top = new ArrayList<ImageIcon>();
+		this.w = w;
+		this.h = h;
+		this.resizeBottom();
+	}
+
 	public CombinedIcon(ImageIcon top, ImageIcon bottom, int w, int h) {
 		this.top = new ArrayList<ImageIcon>();
 		this.top.add(top);
 		this.bottom = bottom;
 		this.w = w;
-		this.h= h;
+		this.h = h;
 		this.resizeBottom();
-		
+
 	}
 
 	public void add(ImageIcon img) {
@@ -55,20 +63,22 @@ public class CombinedIcon implements Icon {
 		ImageIcon newImg = new ImageIcon(imgAux.getImage().getScaledInstance(this.bottom.getIconWidth() / 2,
 				this.bottom.getIconHeight() / 2, Image.SCALE_SMOOTH));
 		this.top.add(id, newImg);
-		
+
 		return newImg;
 	}
-	
-	public void resizeBottom(){
+
+	public void resizeBottom() {
 		this.bottom = new ImageIcon(this.bottom.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
 	}
 
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		ImageIcon newImg;
 		bottom.paintIcon(c, g, x, y);
-		for (ImageIcon img : top) {
-			newImg = this.resizeTop(top.indexOf(img));
-			newImg.paintIcon(c, g, x + this.bottom.getIconWidth() / 4, y + this.bottom.getIconHeight() / 4);
+		if (!this.top.isEmpty()) {
+			for (ImageIcon img : top) {
+				newImg = this.resizeTop(top.indexOf(img));
+				newImg.paintIcon(c, g, x + this.bottom.getIconWidth() / 4, y + this.bottom.getIconHeight() / 4);
+			}
 		}
 	}
 
