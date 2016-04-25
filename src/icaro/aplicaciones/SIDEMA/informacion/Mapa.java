@@ -3,6 +3,8 @@ package icaro.aplicaciones.SIDEMA.informacion;
 import org.jgrapht.GraphPath;
 import org.jgrapht.graph.WeightedMultigraph;
 import org.jgrapht.alg.DijkstraShortestPath;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class Mapa {
 
@@ -10,21 +12,22 @@ public class Mapa {
 	private int rows;
 	private int columns;
 	private int numExploradas = 0;
-	private WeightedMultigraph<Celda, Integer> graph;
+	private WeightedMultigraph<Celda, Integer> ExploredGraph;
+	private WeightedMultigraph<Celda, Integer> completeGraph;
 	public static Mapa instance;
 
 	public Mapa(int rows, int column) {
 		this.mapa = new Celda[rows][column];
 		this.rows = rows;
 		this.columns = column;
-		this.graph = new WeightedMultigraph<Celda, Integer>(Integer.class);
+		this.ExploredGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
 	}
 
 	public Mapa(Celda[][] mapa) {
 		this.mapa = mapa;
 		this.rows = mapa.length;
 		this.columns = mapa.length;
-		this.graph = new WeightedMultigraph<Celda, Integer>(Integer.class);
+		this.ExploredGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
 	}
 
 	// Constructor por defecto cableado con el mapa
@@ -41,7 +44,7 @@ public class Mapa {
 			this.mapa[0][1].setMina(true);
 			this.mapa[2][0].setMina(true);
 			this.mapa[2][2].setMina(true);
-			this.graph = new WeightedMultigraph<Celda, Integer>(Integer.class);
+			this.ExploredGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
 			instance = this;
 		}
 	}
@@ -57,28 +60,28 @@ public class Mapa {
 	}
 
 	public synchronized GraphPath<Celda, Integer> findPath(Celda ini, Celda fin) {
-		DijkstraShortestPath<Celda, Integer> path = new DijkstraShortestPath<Celda, Integer>(this.graph, ini, fin);
+		DijkstraShortestPath<Celda, Integer> path = new DijkstraShortestPath<Celda, Integer>(this.ExploredGraph, ini, fin);
 		return path.getPath();
 	}
 
 	public synchronized void updateGrafo(int r, int c) {
 		Celda celda = this.mapa[r][c];
-		if (!this.graph.containsVertex(celda))
-			this.graph.addVertex(celda);
-		if (r > 0 && this.graph.containsVertex(this.mapa[r - 1][c])) {
-			this.graph.addEdge(celda, this.mapa[r - 1][c], this.numExploradas);
+		if (!this.ExploredGraph.containsVertex(celda))
+			this.ExploredGraph.addVertex(celda);
+		if (r > 0 && this.ExploredGraph.containsVertex(this.mapa[r - 1][c])) {
+			this.ExploredGraph.addEdge(celda, this.mapa[r - 1][c], this.numExploradas);
 			this.numExploradas++;
 		}
-		if (r < this.rows - 1 && this.graph.containsVertex(this.mapa[r + 1][c])) {
-			this.graph.addEdge(celda, this.mapa[r + 1][c], this.numExploradas);
+		if (r < this.rows - 1 && this.ExploredGraph.containsVertex(this.mapa[r + 1][c])) {
+			this.ExploredGraph.addEdge(celda, this.mapa[r + 1][c], this.numExploradas);
 			this.numExploradas++;
 		}
-		if (c > 0 && this.graph.containsVertex(this.mapa[r][c - 1])) {
-			this.graph.addEdge(celda, this.mapa[r][c - 1], this.numExploradas);
+		if (c > 0 && this.ExploredGraph.containsVertex(this.mapa[r][c - 1])) {
+			this.ExploredGraph.addEdge(celda, this.mapa[r][c - 1], this.numExploradas);
 			this.numExploradas++;
 		}
-		if (c < this.columns - 1 && this.graph.containsVertex(this.mapa[r][c + 1])) {
-			this.graph.addEdge(celda, this.mapa[r][c + 1], this.numExploradas);
+		if (c < this.columns - 1 && this.ExploredGraph.containsVertex(this.mapa[r][c + 1])) {
+			this.ExploredGraph.addEdge(celda, this.mapa[r][c + 1], this.numExploradas);
 			this.numExploradas++;
 		}
 	}
@@ -120,5 +123,12 @@ public class Mapa {
 	public synchronized int getColumns() {
 		return this.columns;
 	}
-
+	
+	public List<Celda> getAdyacentes() {
+		return null;
+	}
+	
+	public List<Entry<Celda, Integer>> getCosteAdyacentes() {
+		return null;
+	}
 }
