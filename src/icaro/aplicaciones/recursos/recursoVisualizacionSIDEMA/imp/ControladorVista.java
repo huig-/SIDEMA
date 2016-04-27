@@ -24,7 +24,8 @@ public class ControladorVista implements ActionListener{
 	
 	public ControladorVista(){
 		this.v = new Ventana();
-		this.escLog = new Mapa();
+		//this.escLog = new Mapa();
+		this.escLog= Mapa.instance;
 		this.v.setControlador(this);
 	}
 	
