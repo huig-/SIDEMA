@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 public class VisualCelda extends JButton {
 
 	private boolean mina;
+	final private String path = "/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/";
 
 	public VisualCelda(boolean mina, boolean accesible) {
 		this.setBorder(null);
@@ -21,14 +22,13 @@ public class VisualCelda extends JButton {
 			 * "/icaro/aplicaciones/ventana/dibujos/arena_marron_mina.jpg"));
 			 * this.setIcon(arena); //this.setBackground(Color.RED); } else {
 			 */
-			ImageIcon arena = new ImageIcon(this.getClass()
-					.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron.jpg"));
+			ImageIcon arena = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
+			//ImageIcon icono = this.resizeImage(arena);
 			this.setIcon(arena);
 			// this.setBackground(Color.GREEN);
 
 		} else {
-			ImageIcon arena = new ImageIcon(this.getClass()
-					.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arenanegra.jpg"));
+			ImageIcon arena = new ImageIcon(this.getClass().getResource(path + "arenanegra.jpg"));
 			this.setIcon(arena);
 			// this.setBackground(Color.GRAY);
 		}
@@ -37,76 +37,86 @@ public class VisualCelda extends JButton {
 
 	public VisualCelda() {
 		// ImageIcon arena = new ImageIcon("arena_marron.bmp");
-		ImageIcon arena = new ImageIcon(this.getClass()
-				.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron.jpg"));
+		ImageIcon arena = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 		this.setIcon(arena);
 
 		// this.setBackground(Color.YELLOW);
 	}
 
 	public void setMina() {
-		ImageIcon icono1 = new ImageIcon(this.getClass()
-				.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron.jpg"));
-		ImageIcon icono2 = new ImageIcon(this.getClass()
-				.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/bomba1.png"));
+		ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
+		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
 		this.setIcon(new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight()));
 		this.repaint();
 	}
 
 	public void minaEncontrada() {
-		ImageIcon icono1 = new ImageIcon(this.getClass()
-				.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/explorador.jpg"));
-		ImageIcon icono2 = new ImageIcon(this.getClass()
-				.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/bomba1.png"));
+		ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "explorador.jpg"));
+		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
 		this.setIcon(new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight()));
 		this.repaint();
 	}
 
 	public void desactivarMina() {
 		// CAMBIAR EL DIBUJO
-		ImageIcon arena = new ImageIcon(this.getClass()
-				.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron_mina.jpg"));
+		ImageIcon arena = new ImageIcon(this.getClass().getResource(path + "arena_marron_mina.jpg"));
 		this.setIcon(arena);
 		this.repaint();
 	}
 
 	public synchronized void movimientoExplorador() {
-		Icon arena;
+		ImageIcon arena;
+		CombinedIcon arenaC;
 		if (this.mina) {
-			arena = new ImageIcon(this.getClass().getResource(
-					"/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/explorador_mina.jpg"));
+			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "explorador.jpg"));
+			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
+			arenaC = new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight());
+			this.setIcon(arenaC);
+			
 		} else {
-			arena = new ImageIcon(this.getClass()
-					.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/explorador.jpg"));
+			
+			ImageIcon icono = new ImageIcon(this.getClass().getResource(path + "explorador.jpg"));
+			arena = this.resizeImage(icono);
+			this.setIcon(arena);
+
 		}
-		this.setIcon(arena);
+		
 		this.repaint();
 	}
 
 	public synchronized void movimientoNeutralizador() {
-		Icon arena;
+		CombinedIcon arenaC;
+		ImageIcon arena;
 		if (mina) {
-			arena = new ImageIcon(this.getClass().getResource(
-					"/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/neutralizador-mina.jpg"));
+			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "neutralizador.jpg"));
+			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
+			arenaC = new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight());
+			this.setIcon(arenaC);
+			
 		} else {
-			arena = new ImageIcon(this.getClass()
-					.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/neutralizador.jpg"));
+			ImageIcon icono = new ImageIcon(this.getClass().getResource(path + "neutralizador.jpg"));
+			arena = this.resizeImage(icono);
+			this.setIcon(arena);
+
 		}
-		this.setIcon(arena);
+
 		this.repaint();
 	}
 
 	public void abandonarCelda() {
 		Icon arena;
 		if (mina) {
-			arena = new ImageIcon(this.getClass().getResource(
-					"/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron_mina.jpg"));
+			arena = new ImageIcon(this.getClass().getResource(path + "arena_marron_mina.jpg"));
 		} else {
-			arena = new ImageIcon(this.getClass()
-					.getResource("/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/arena_marron.jpg"));
+			arena = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 		}
 		this.setIcon(arena);
 		this.repaint();
 	}
 
+	public ImageIcon resizeImage(ImageIcon img) {
+		ImageIcon newImg;
+		newImg = new ImageIcon(img.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH));
+		return newImg;
+	}
 }
