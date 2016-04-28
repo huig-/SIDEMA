@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import icaro.aplicaciones.Rosace.informacion.OrdenAgente;
 
-public class OrdenMinaEncontrada extends OrdenAgente implements Serializable {
+public class OrdenMinaEncontrada extends InformacionDeAgentes implements Serializable {
 
 	public OrdenMinaEncontrada( ) {
         super.setMensajeOrden(VocabularioSIDEMA.MsgPeticionMinaEncontrada);

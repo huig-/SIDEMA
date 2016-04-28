@@ -4,6 +4,7 @@ import icaro.aplicaciones.SIDEMA.informacion.Explorador;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
+import java.util.AbstractMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map.Entry;
@@ -21,11 +22,12 @@ public class EstimarMejorDestino extends TareaSincrona {
 		this.mapa = (Mapa)params[0];
 		this.robot = (Explorador)params[1];
 		//Elaboramos una lista con los adyacentes a los exploradores y el coste del camino
-		List<Entry<Celda, Integer>> candidatos = this.mapa.getCosteAdyacentes(this.robot.getCurrentPos());
+		
+		List<AbstractMap.SimpleEntry<Celda, Double>> candidatos = this.mapa.getCosteAdyacentes(this.robot.getCurrentPos());
 		//Calculamos el valor ganado de explorar los candidatos
-		for (ListIterator<Entry<Celda, Integer>> it = candidatos.listIterator(); it.hasNext();) {
+		for (ListIterator<AbstractMap.SimpleEntry<Celda, Double>> it = candidatos.listIterator(); it.hasNext();) {
 			int cont = 0;
-			Entry<Celda, Integer> entry = it.next();
+			AbstractMap.SimpleEntry<Celda, Double> entry = it.next();
 			Celda c = entry.getKey();
 			double x = c.getX(); double y = c.getY();
 			if (x > 0) { //casillas inferiores
