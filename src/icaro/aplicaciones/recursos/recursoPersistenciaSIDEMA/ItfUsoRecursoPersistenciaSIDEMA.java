@@ -8,7 +8,9 @@ import icaro.infraestructura.patronRecursoSimple.ItfUsoRecursoSimple;
 public interface ItfUsoRecursoPersistenciaSIDEMA extends ItfUsoRecursoSimple{
 	
 	public void parserCSVModelo() throws Exception;
-	public Mapa proporcionarEscenario() throws Exception;
-	public void obtenerFicheroEscenario(File fichero) throws Exception;
+	public void setEscenario(Mapa mapa) throws Exception;
+	public Mapa getEscenario() throws Exception;
+	public void setFicheroEscenario(File fichero) throws Exception;
+	public File getFicheroEscenario() throws Exception;
 
 }

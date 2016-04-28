@@ -44,6 +44,10 @@ public class ControladorVista implements ActionListener{
 		return this.escLog;
 	}
 	
+	public void pintar(){
+		this.v.repaint();
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent evento) {

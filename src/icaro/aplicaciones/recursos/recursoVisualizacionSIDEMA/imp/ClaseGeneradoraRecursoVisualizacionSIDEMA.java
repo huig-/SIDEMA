@@ -51,6 +51,10 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public Mapa getMapa(){
+		return this.control.getMapa();
+	}
 
 	@Override
 	public void mostrarEntornoSimulacion() throws Exception{
@@ -67,11 +71,11 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		*/
 	}
 	
-	public File proporcionarFicheroEscenario() throws Exception{
+	public File getFicheroEscenario() throws Exception{
 		return this.identFicheroEscenarioSimulacion;
 	}
 	
-	public void obtenerMapa(Mapa m) throws Exception {
+	public void setMapa(Mapa m) throws Exception {
 		this.control.setMapa(m);
 		this.pintado = true;
 	}
@@ -85,8 +89,12 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
         super.termina();
     }
 	
-	public boolean mapaPintado(){
+	public boolean getMapaPintado(){
 		return this.pintado;
+	}
+	
+	public void pintarEscenario(){
+		this.control.pintar();
 	}
 	
 	private boolean pintado;

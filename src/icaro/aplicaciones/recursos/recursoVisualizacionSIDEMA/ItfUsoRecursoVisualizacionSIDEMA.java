@@ -12,9 +12,11 @@ public interface ItfUsoRecursoVisualizacionSIDEMA extends ItfUsoRecursoSimple{
 	public void mostrarMensaje(String msg)throws Exception;
 	public void mostrarEntornoSimulacion()throws Exception;
 	public void termina()throws Exception;
-	public File proporcionarFicheroEscenario()throws Exception;
-	public void obtenerMapa(Mapa m) throws Exception;
-	public boolean mapaPintado() throws Exception;
+	public File getFicheroEscenario()throws Exception;
+	public void setMapa(Mapa m) throws Exception;
+	public Mapa getMapa() throws Exception;
+	public boolean getMapaPintado() throws Exception;
+	public void pintarEscenario();
 	
 	
 }

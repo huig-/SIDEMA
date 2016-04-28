@@ -28,7 +28,7 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 	
 	public void parserCSVModelo() throws Exception {
 		@SuppressWarnings("resource") //que es esto?
-		BufferedReader br = new BufferedReader(new FileReader("csvFile")); //TODO csvFile
+		BufferedReader br = new BufferedReader(new FileReader(this.ficheroEscenario)); //TODO csvFile
 		String line;
 		int i = 0;
 		while ((line = br.readLine()) != null) {
@@ -47,16 +47,23 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 		br.close();
 	}
 	
-	public void obtenerFicheroEscenario(File fichero){
+	public void setFicheroEscenario(File fichero) throws Exception{
 		this.ficheroEscenario = fichero;
 	}
 	
-	public Mapa proporcionarEscenario() throws Exception{
+	public Mapa getEscenario() throws Exception{
 		return this.m;
 	}
+	
+	public void setEscenario(Mapa mapa) throws Exception{
+		this.m = mapa;
+	}
+	
+	public File getFicheroEscenario() throws Exception{
+		return this.ficheroEscenario;
+	}
 
-	private int numExplorers = 0;
-	private int numNeutralizers = 0;
+	
 	private Mapa m;
 	private File ficheroEscenario;
 
