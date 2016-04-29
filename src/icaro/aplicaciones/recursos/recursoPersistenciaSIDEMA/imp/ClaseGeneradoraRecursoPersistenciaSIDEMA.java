@@ -19,16 +19,17 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 		super(idRecurso);
 		// TODO Auto-generated constructor stub
 		try {
-			parserCSVModelo();
+			//parserCSVModelo();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RemoteException(); //seguro?
 		}
 	}
 	
-	public void parserCSVModelo() throws Exception {
+	public void parserCSVModelo(File ficheroEscenario) throws Exception {
 		@SuppressWarnings("resource") //que es esto?
-		BufferedReader br = new BufferedReader(new FileReader(this.ficheroEscenario)); //TODO csvFile
+		BufferedReader br = new BufferedReader(new FileReader(ficheroEscenario)); //TODO csvFile
+		this.ficheroEscenario = ficheroEscenario;
 		String line;
 		int i = 0;
 		while ((line = br.readLine()) != null) {

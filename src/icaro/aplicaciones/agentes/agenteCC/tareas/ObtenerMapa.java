@@ -27,8 +27,7 @@ public class ObtenerMapa extends TareaSincrona{
 			if(!visualizador.getMapaPintado()){
 				visualizador.mostrarEntornoSimulacion();
 				fichero = visualizador.getFicheroEscenario();
-				persistencia.setFicheroEscenario(fichero);
-				persistencia.parserCSVModelo();
+				persistencia.parserCSVModelo(fichero);
 				m = persistencia.getEscenario();
 				visualizador.setMapa(m);
 				visualizador.pintarEscenario();
