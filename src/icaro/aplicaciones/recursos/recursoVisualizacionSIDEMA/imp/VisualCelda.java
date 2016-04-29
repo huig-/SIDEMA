@@ -70,14 +70,17 @@ public class VisualCelda extends JButton {
 		if (this.mina) {
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "explorador.jpg"));
 			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
+			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotExplorador.png"));
 			arenaC = new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight());
+			arenaC.add(icono3);
 			this.setIcon(arenaC);
 			
 		} else {
 			
 			ImageIcon icono = new ImageIcon(this.getClass().getResource(path + "explorador.jpg"));
-			arena = this.resizeImage(icono);
-			this.setIcon(arena);
+			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotExplorador.png"));
+			arenaC = new CombinedIcon(icono3, icono, this.getWidth(),this.getHeight());
+			this.setIcon(arenaC);
 
 		}
 		

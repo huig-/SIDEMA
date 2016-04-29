@@ -75,9 +75,9 @@ public class CombinedIcon implements Icon {
 		ImageIcon newImg;
 		bottom.paintIcon(c, g, x, y);
 		if (!this.top.isEmpty()) {
-			for (ImageIcon img : top) {
-				newImg = this.resizeTop(top.indexOf(img));
-				newImg.paintIcon(c, g, x + this.bottom.getIconWidth() / 4, y + this.bottom.getIconHeight() / 4);
+			for (int i = 0; i <this.top.size();i++) {
+				newImg = this.resizeTop(i);
+				newImg.paintIcon(c, g, x + this.bottom.getIconWidth() / 4-i*100, y + this.bottom.getIconHeight() / 4);
 			}
 		}
 	}
