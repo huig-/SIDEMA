@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import icaro.aplicaciones.Rosace.informacion.OrdenAgente;
 
-public class OrdenMinaEncontrada extends OrdenAgente implements Serializable {
+public class OrdenMinaEncontrada extends InformacionDeAgentes implements Serializable {
 
 	public OrdenMinaEncontrada( ) {
         super.setMensajeOrden(VocabularioSIDEMA.MsgPeticionMinaEncontrada);
@@ -12,21 +12,21 @@ public class OrdenMinaEncontrada extends OrdenAgente implements Serializable {
     public OrdenMinaEncontrada(String identCCEmisor) {
         identEmisor= identCCEmisor;
         mensajeOrden = VocabularioSIDEMA.MsgPeticionMinaEncontrada;
-        justificacion = null;
+        //justificacion = null;
 
  }
     public OrdenMinaEncontrada(String identCCEmisor, Object justificat) {
         identEmisor= identCCEmisor;
         mensajeOrden = VocabularioSIDEMA.MsgPeticionMinaEncontrada;
-        justificacion = justificat;
+        //justificacion = justificat;
 
  }
  
   @Override
      public String toString(){
-        if ( justificacion == null )
-            return "Agente Emisor :"+identEmisor+ " MensajeOrden :+" + mensajeOrden+ "  Justificacion: null "+"\n ";
+        if ( mensajeOrden == null )
+            return "Agente Emisor :"+identEmisor+ " MensajeOrden :+" + mensajeOrden+"\n ";
         else 
-            return "Agente Emisor :"+identEmisor+ " MensajeOrden :+" + mensajeOrden+ "  Justificacion: "+justificacion.toString() +"\n ";
+            return "Agente Emisor :"+identEmisor+ " MensajeOrden :+" + mensajeOrden+"\n ";
     }
 }
