@@ -7,7 +7,7 @@ import icaro.aplicaciones.SIDEMA.informacion.*;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.aplicaciones.agentes.agenteExplorador.tareas.*;
 import icaro.aplicaciones.agentes.agenteExplorador.objetivos.*;
-import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
+import icaro.aplicaciones.SIDEMA.informacion.informacion.OrdenExplorar;
 import java.lang.String;
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.Rosace.tareasComunes.*;

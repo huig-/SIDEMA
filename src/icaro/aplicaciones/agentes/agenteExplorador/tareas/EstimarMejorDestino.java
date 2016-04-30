@@ -1,5 +1,6 @@
 package icaro.aplicaciones.agentes.agenteExplorador.tareas;
 
+import icaro.aplicaciones.SIDEMA.informacion.Celda;
 import icaro.aplicaciones.SIDEMA.informacion.Explorador;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
@@ -8,8 +9,6 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map.Entry;
-
-import icaro.aplicaciones.SIDEMA.informacion.Celda;
 
 public class EstimarMejorDestino extends TareaSincrona {
 	

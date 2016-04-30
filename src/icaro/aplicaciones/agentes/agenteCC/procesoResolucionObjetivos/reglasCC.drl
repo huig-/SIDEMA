@@ -3,7 +3,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTra
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.*;
 import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.gestorTareas.ItfGestorTareas;
-import icaro.aplicaciones.SIDEMA.informacion.*;
+import icaro.aplicaciones.SIDEMA.*;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.aplicaciones.agentes.agenteCC.tareas.*;
 import icaro.aplicaciones.agentes.agenteCC.objetivos.*;
@@ -32,9 +32,56 @@ rule "Acciones Iniciales Centro de Control"
    		System.out.println( "\n"+agentId +" EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end
 
+
+
+rule "Generacion Objetivo ConseguirMapa "
+// Se genera al principio de la simulacion 
+when
+    focoActual : Focus(foco == null)
+    misObjs: MisObjetivos()
+    not (exists (ConseguirMapa()))
+ then
+    ConseguirMapa conseguirMapaObj = new ConseguirMapa();
+ 	//se genera y se focaliza
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(GenerarObjetivoyFocalizarlo.class);
+    tarea.ejecutar(conseguirMapaObj,misObjs,focoActual); 
+    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
+    System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());     
+end
+
+rule "Consecución Mapa Escenario "
+// Obtención del escenario de simulación
+when   
+    miMapa : Mapa(mapa ==null)
+    obj1 : ConseguirMapa(state == Objetivo.SOLVING)
+    focoActual : Focus(foco == obj1)
+then
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ObtenerMapa.class);
+    tarea.ejecutar(); 
+    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());     
+end
+
+rule "Comprobar consecución Mapa"
+when   
+    misObjs: MisObjetivos()
+    miMapa: Mapa(mapa!=null)
+    obj1 : ConseguirMapa(state == Objetivo.SOLVING)
+    focoActual : Focus(foco == obj1)
+then
+	// se da por conseguido el objetivo 
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConseguirObjetivoActualizarFoco.class);
+    tarea.ejecutar(misObjs,obj1,focoActual ); 
+    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());     
+end
+
 rule "Distribuir Terreno"
+//Distribución del terreno entre los distintos agentes
 	when
 		focoActual : Focus(foco == null)
+		obj : ConseguirMapa(state== Objetivo.SOLVED)
 		mapa: Mapa()
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);

@@ -1,8 +1,5 @@
 package icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp;
 
-import icaro.aplicaciones.SIDEMA.informacion.Celda;
-import icaro.aplicaciones.SIDEMA.informacion.Mapa;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import icaro.aplicaciones.SIDEMA.informacion.Celda;
+import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 
 public class Ventana extends JFrame{
 	

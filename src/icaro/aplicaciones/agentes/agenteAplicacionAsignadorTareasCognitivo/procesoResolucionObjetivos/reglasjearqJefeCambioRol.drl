@@ -58,6 +58,7 @@ when
     System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());     
 end
+
 rule "Inicio consecucion Objetivo Conocer MiEquipo "
 // Consecucion Objetivo Conocer mi equipo
 when   
@@ -71,6 +72,7 @@ then
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());     
 end
+
 rule "Proceso InfoRol para conseguir Objetivo Conocer MiEquipo "
 when   
     miEquipo: InfoEquipo(idTeam:teamId,inicioContactoConEquipo== true)
@@ -117,6 +119,7 @@ when
     System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
 end
+
 rule "Creacion del objetivo inicial  de los robots cuando llega un msg del CC"
 salience 10
  when
@@ -131,6 +134,7 @@ salience 10
     System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
 end
+
 // atiendo la orden y genero los objetivos para cumplirla
 rule "Interpreto la orden del CC cuando no estoy implicado en una decision"
  when
@@ -147,6 +151,7 @@ rule "Interpreto la orden del CC cuando no estoy implicado en una decision"
     System.out.println( "\n"+$idVict +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas($idVict," EJECUTO LA REGLA: " + drools.getRule().getName());      
 end
+
 rule "Tratamiento de una orden del CC cuando estoy intentando conseguir un objetivo de ayuda a una Victima, sin decisiones "
 salience 10
  when

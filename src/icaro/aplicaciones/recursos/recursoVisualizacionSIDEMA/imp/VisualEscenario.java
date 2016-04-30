@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-//import com.sun.glass.ui.CommonDialogs.Type;
-
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 
 public class VisualEscenario extends JPanel{
