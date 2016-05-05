@@ -52,7 +52,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		
 	}
 	
-	public Mapa getMapa(){
+	public Mapa getMapa()throws Exception{
 		return this.control.getMapa();
 	}
 
@@ -89,11 +89,11 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
         super.termina();
     }
 	
-	public boolean getMapaPintado(){
+	public boolean getMapaPintado() throws Exception{
 		return this.pintado;
 	}
 	
-	public void pintarEscenario(){
+	public void pintarEscenario()throws Exception{
 		this.control.pintar();
 	}
 	
