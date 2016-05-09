@@ -103,25 +103,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
             identsAgtesEquipo = equipo.getTeamMemberIDs(); // Se obtienen de la configuracion
             comunicator = this.getComunicator();
             this.obtenerEscenarioSimulacion();
-//            if (identFicheroEscenario != null){
-//                escenarioActual = itfUsoRecursoPersistenciaEntornosSimulacion.obtenerInfoEscenarioSimulacion(identFicheroEscenario);
-//               
-//            }
-//            if (escenarioActual != null){
-//                escenarioActual.renombrarIdentRobts(identsAgtesEquipo);
-//                itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVentanaControlSimulador(escenarioActual);
-//            }
-//            else{
-//                modeloOrganizativo = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NOMBRE_PROPIEDAD_GLOBAL_MODELO_ORGANIZATIVO);
-//                this.numeroRobotsSimulacion = identsAgtesEquipo.size();
-//                itfUsoRecursoVisualizadorEntornosSimulacion.obtenerEscenarioSimulacion(modeloOrganizativo, numeroRobotsSimulacion);
-//            }
-                
-             //el primer parametro es una cadena con un caracter en blanco, asi obtengo el equipo correctamente
-           
-            
-     
-//            itfUsoRecursoVisualizadorEntornosSimulacion.mostrarIdentsEquipoRobots(identsAgtesEquipo);
+//            
            
         } catch (Exception e) {
             e.printStackTrace();

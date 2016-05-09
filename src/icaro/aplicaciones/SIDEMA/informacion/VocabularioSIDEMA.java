@@ -2,6 +2,27 @@ package icaro.aplicaciones.SIDEMA.informacion;
 
 public class VocabularioSIDEMA {
 	
+	//Mensajes de Input de la máquina de estados del agente reactivo	
+	//static public  final String peticionSimulacionVictima = "peticionSimulacionVictima";
+    //static public  final String peticionPararSimulacion = "peticionPararSimulacion";
+   // static public  final String peticionSimulacionSecuenciaVictimas = "sendSequenceOfSimulatedVictimsToRobotTeam";
+    static public  final String peticionMostrarEscenarioActualSimulado = "mostrarEscenarioActualSimulado";
+    static public  final String peticionTerminarSimulacion = "TerminarSimulacion";
+    static public final String botonSimularPulsado = "botonSimulacionPulsado";
+    static public final String botonTerminarPulsado = "botonCancelarPulsado";
+    static public final String informarEscenarioSeleccionado = "escenarioSeleccionadoUsuario";
+    //static public  final String peticionTerminarSimulacionUsuario = "peticionTerminarSimulacion";
+    //static public  final String peticionPararSimulacionUsuario ="peticionPararSimulacionUsuario" ;
+    //static public  final String informacionVictimaAsignadaARobot = "victimaAsignadaARobot";
+    static public  final String informacionFinSimulacion = "finSimulacion";
+    /*static public  final String NombreFicheroSerieInfoAsignacionVictimas = "serieInfoAsignacionVictimas";
+    static public  final String NombreFicheroSeriePeticionVictimas = "seriePeticionVictimas";
+    static public  final String NombreFicheroSerieLlegadaYasignacion = "serieLlegadaYasignacionVictimas";
+    static public  final String NombreFicheroSerieAsignacion = "serieAsignacionVictimas";
+    static public  final String NombreFicheroEscenarioSimulacion = "identFicheroEscenarioSimulacion";*/
+    static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,enviarIdentsEquipo};
+
+	
 	public static final String MsgPeticionExplorar = "explora terreno";
 	public static final String MsgPeticionMinaEncontrada = "mina encontrada";
 	public static final String MsgPeticionDesactivar = "desactiva mina";
