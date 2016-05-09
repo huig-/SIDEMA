@@ -25,9 +25,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.openide.util.Exceptions;
 
-//Other imports used by this Resource
-//#start_nodespecialImports:specialImports <--specialImports-- DO NOT REMOVE THIS
-//#end_nodespecialImports:specialImports <--specialImports-- DO NOT REMOVE THIS
+
 public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRecursoSimple implements ItfUsoRecursoVisualizadorEntornosSimulacion {
 
     private VisorMovimientoEscenario visorEscenarioMov;
@@ -35,7 +33,6 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
     private NotificadorInfoUsuarioSimulador notifEvt;
     private String recursoId;
     private String identAgenteaReportar;
-//    private Map<String,HebraMovimiento> tablaHebrasMov;
     private int coordX = 40;
     private int coordY = 40;  // valores iniciales 
 //   private int coordX, coordY ; // coordenadas de visualizacion  se le dan valores iniciales y se incrementan para que las ventanas no coincidan
@@ -245,19 +242,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
         notifEvt.setIdentAgenteAReportar(identAgenteAReportar);
     }
 
- /*
-    @Override
-    public void mostrarEscenario() throws Exception {
-//         if (visorEscenarios == null) {
-//            try {
-//                visorEscenarios = new VisorEscenariosRosace ();
-//            } catch (Exception ex) {
-//                Logger.getLogger(ClaseGeneradoraRecursoVisualizadorEntornosSimulacion.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } 
-//        visorEscenarios.setVisible(true);
-    }
-*/
+ 
     @Override
     public void mostrarResultadosFinSimulacion() throws Exception {
         String directorioTrabajo = System.getProperty("user.dir");  //Obtener directorio de trabajo 
@@ -320,50 +305,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
          this.identDestino = destinoId;
 //        if (idRobot != null )  this.getInstanciaHebraMvto(idRobot).inicializarDestino(idRobot, coordInicial, coordDestino, velocidadInicial);
     } 
-    @Override
- /*   public synchronized void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, double velocidadCrucero) {
-//           if (idRobot != null ){
-//               this.visorEscenarios.setVisible(true);
-//               this.visorEscenarios.cambiarPosicionRobot(idRobot, coordX, coordX);
-////               visorEscenarios.moverRobot(idRobot, coordX, coordX);
-//           }
-    }
-//        public synchronized void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, float velocidadCrucero) {
-//            if (idRobot != null ){
-//                this.visorEscenarios.setVisible(true);
-//           HebraMovimiento hebraMov =  this.getInstanciaHebraMvto(idRobot);
-//           hebraMov.finalizar();
-//           hebraMov.inicializarDestino(identDest, hebraMov.getCoordRobot(), coordDestino, velocidadCrucero);
-//           hebraMov.run();
-//            }
-//         //   identDestino = identDest;
-//        }
-////    private HebraMovimiento getInstanciaHebraMvto(String identRobot) {
-////         
-////         if(identRobot != null){
-////             HebraMovimiento hebramov;
-////             if (tablaHebrasMov == null ){
-////                 tablaHebrasMov = new HashMap();
-////                 hebramov = new HebraMovimiento (identRobot,notifEvt,visorEscenarios);
-////                 tablaHebrasMov.put(identRobot, hebramov);
-////                 return hebramov;
-////             }else{
-////                 hebramov = tablaHebrasMov.get(identRobot);
-////                 if (hebramov == null){
-////                      hebramov = new HebraMovimiento (identRobot,notifEvt,visorEscenarios);
-////                      tablaHebrasMov.put(identRobot, hebramov);                  
-////                 }
-////                 
-////                 trazas.trazar(identRobot, " se crea el monitor de movimiento del robot ", InfoTraza.NivelTraza.debug);
-////                 return hebramov;
-////             }
-//         }
-//         trazas.trazar(identAgenteAReportar, " el identificador del monitor de movimiento del robot debe ser distinto de null ", InfoTraza.NivelTraza.error);
-//         return null;
-//         
-//     }
-    @Override
-    */
+ 
     public void mostrarIdentsEquipoRobots(ArrayList identList){
 //        this.ventanaControlCenterGUI.visualizarIdentsEquipoRobot(identList);
         controladorIUSimulador.peticionVisualizarIdentsRobots(identList);

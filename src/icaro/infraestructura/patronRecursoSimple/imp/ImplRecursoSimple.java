@@ -49,9 +49,9 @@ public class ImplRecursoSimple extends UnicastRemoteObject
 	 * @uml.property  name="id"
 	 */
 	protected String id;
-        public String identAgenteAReportar;
+    public String identAgenteAReportar;
 	public ItfUsoRecursoTrazas trazas;
-        public ItfUsoRepositorioInterfaces repoIntfaces;//ClaseGeneradoraRepositorioInterfaces.instance();
+    public ItfUsoRepositorioInterfaces repoIntfaces;//ClaseGeneradoraRepositorioInterfaces.instance();
 
 	/**
 	 * @return
