@@ -10,6 +10,8 @@ import java.rmi.RemoteException;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.VocabularioSIDEMA;
 import icaro.aplicaciones.recursos.recursoPersistenciaSIDEMA.ItfUsoRecursoPersistenciaSIDEMA;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.NotificadorInfoUsuarioSimulador;
+import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 
 public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple implements ItfUsoRecursoPersistenciaSIDEMA{
@@ -46,6 +48,8 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 			i++;
 		}
 		br.close();
+		this.notifEvt.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo(VocabularioSIDEMA.informarEscenarioValido), identAgenteaReportar);
+		
 	}
 	
 	public void setFicheroEscenario(File fichero) throws Exception{
@@ -67,6 +71,8 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 	
 	private Mapa m;
 	private File ficheroEscenario;
+	private NotificadorInfoUsuarioSimulador notifEvt;
+	private String identAgenteaReportar;
 
 }
 

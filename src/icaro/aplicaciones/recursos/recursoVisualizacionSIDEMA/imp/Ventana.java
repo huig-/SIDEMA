@@ -128,6 +128,7 @@ public class Ventana extends JFrame{
 		this.item3.addActionListener(c);
 		this.simular.addActionListener(c);
 		this.terminar.addActionListener(c);
+		this.simular.addActionListener(c);
 	}
 	/*
 	public void cargarEscenario(Escenario esc){

@@ -11,6 +11,7 @@ public class VocabularioSIDEMA {
     static public final String botonSimularPulsado = "botonSimulacionPulsado";
     static public final String botonTerminarPulsado = "botonCancelarPulsado";
     static public final String informarEscenarioSeleccionado = "escenarioSeleccionadoUsuario";
+    static public final String informarEscenarioValido = "escenarioDefinidoValido";
     //static public  final String peticionTerminarSimulacionUsuario = "peticionTerminarSimulacion";
     //static public  final String peticionPararSimulacionUsuario ="peticionPararSimulacionUsuario" ;
     //static public  final String informacionVictimaAsignadaARobot = "victimaAsignadaARobot";

@@ -4,9 +4,11 @@ import java.io.File;
 import java.rmi.RemoteException;
 
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+import icaro.aplicaciones.SIDEMA.informacion.VocabularioSIDEMA;
 import icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.ItfUsoRecursoVisualizacionSIDEMA;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.NotificadorInfoUsuarioSimulador;
+import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 
@@ -17,7 +19,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		super(idRecurso);
 		try {
             trazas.aceptaNuevaTraza(new InfoTraza(idRecurso, "El constructor de la clase generadora del recurso " + idRecurso + " ha completado su ejecucion ....", InfoTraza.NivelTraza.debug));
-            //notifEvt = new NotificadorInfoUsuarioSimulador(recursoId, identAgenteaReportar);
+            notifEvt = new NotificadorInfoUsuarioSimulador(super.id, identAgenteaReportar);
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
             //controladorIUSimulador = new ControladorVisualizacionSimulRosace(notifEvt);
             this.mostrarEntornoSimulacion();
@@ -71,6 +73,13 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		*/
 	}
 	
+	public void cargarEscenario() throws Exception{
+		identFicheroEscenarioSimulacion = this.control.getVentanaEntorno().cargarEscenario();
+		if(this.identFicheroEscenarioSimulacion!=null){
+			notifEvt.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo(VocabularioSIDEMA.informarEscenarioSeleccionado), identAgenteaReportar);
+		}
+	}
+	
 	public File getFicheroEscenario() throws Exception{
 		return this.identFicheroEscenarioSimulacion;
 	}
@@ -102,5 +111,6 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	//private String directorioPersistencia .. ;
 	private File identFicheroEscenarioSimulacion;
 	private NotificadorInfoUsuarioSimulador notifEvt;
+	private String identAgenteaReportar;
 
 }

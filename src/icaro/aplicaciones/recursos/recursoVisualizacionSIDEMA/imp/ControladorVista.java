@@ -5,16 +5,23 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.NotificadorInfoUsuarioSimulador;
+import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 
 public class ControladorVista implements ActionListener{
 
 	private Ventana v;
 	private Mapa escLog;
+	private NotificadorInfoUsuarioSimulador notifEvt;
 	
 	public ControladorVista(Ventana ventana, Mapa escenario){
 		this.v = ventana;
 		this.v.setControlador(this);
 		this.escLog = escenario;
+	}
+	
+	public ControladorVista(NotificadorInfoUsuarioSimulador notifEvt){
+		this.notifEvt = notifEvt;
 	}
 	
 	public ControladorVista(Mapa escenario){
@@ -61,6 +68,9 @@ public class ControladorVista implements ActionListener{
 			if ( evento.getActionCommand().equals("Terminar") ) {
 				this.v.mostrarConfirmacionTerminar();
 				//this.modelo.setArchivo(file);
+			}
+			if ( evento.getActionCommand().equals("Simular")){
+				
 			}
 		
 	}

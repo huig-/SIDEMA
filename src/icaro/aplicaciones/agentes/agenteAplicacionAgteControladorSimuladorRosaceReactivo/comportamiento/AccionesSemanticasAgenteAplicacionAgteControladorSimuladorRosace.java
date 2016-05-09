@@ -14,15 +14,12 @@ import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfigurac
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza.NivelTraza;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.openide.util.Exceptions;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 //This agent class need the next imports in order to use resources
 
