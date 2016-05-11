@@ -43,7 +43,8 @@ public class DesactivarMina extends TareaSincrona {
 					else pos = p.getGraph().getEdgeTarget(edge);
 					if (visualizador != null) {					
 						try {
-						    Thread.sleep(r.getTiempoMovimiento());              
+						    Thread.sleep(r.getTiempoMovimiento());   
+						    r.setEnergy(r.getEnergy()-r.getEnergiaMovimiento());
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
 						}
@@ -53,7 +54,8 @@ public class DesactivarMina extends TareaSincrona {
 				}while(it.hasNext());
 			}
 			try {
-			    Thread.sleep(r.getTiempoDesactivacion());              
+			    Thread.sleep(r.getTiempoDesactivacion());
+			    r.setEnergy(r.getEnergy()-r.getEnergiaDesactivacion());             
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}

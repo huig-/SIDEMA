@@ -26,7 +26,7 @@
 
   <estado idIntermedio="esperandoIniciarSimulacion">
 
-     <transicion input="botonSimulacionPulsado" accion="comenzarSimuacion" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+     <transicion input="botonSimulacionPulsado" accion="comenzarSimulacion" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
       <!--transicion input="peticionSimulacionVictima" accion="sendSimulatedVictimToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/-->
      <transicion input="mostrarEscenarioActualSimulado" accion="mostrarEscenarioActualSimulado" estadoSiguiente="esperandoIniciarSimulacion" modoDeTransicion="bloqueante"/>
   

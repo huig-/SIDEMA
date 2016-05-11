@@ -47,7 +47,7 @@
 	********************************************************************************************************-->
 <icaro:DescComportamientoAgentesAplicacion>
     <icaro:DescComportamientoAgente
-       nombreComportamiento="AgenteAplicacionAgteControladorSimuladorRosace" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAgteControladorSimuladorRosaceReactivo.comportamiento"
+       nombreComportamiento="AgenteAplicacionAgteControladorSimuladorSIDEMA" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAgteControladorSimuladorSIDEMAReactivo.comportamiento"
                             tipo="Reactivo" />
      <icaro:DescComportamientoAgente  
        nombreComportamiento="AgenteAplicacion1" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteNeutralizador" tipo="Cognitivo"
@@ -89,6 +89,7 @@
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorAgentes" refDescripcion="GestorAgentes">
                     <icaro:componentesGestionados>
+                             <icaro:componenteGestionado refId="AgenteControladorSimuladorSIDEMAReactivo1" tipoComponente="AgenteAplicacion"/>              
                             <icaro:componenteGestionado refId="agenteCC" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="agenteNeutralizador0" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="agenteNeutralizador1" tipoComponente="AgenteAplicacion"/>
@@ -117,6 +118,8 @@
 	******************   Instancias de Agentes de aplicacion                                ******************
 	*******************************************************************************************************-->            
         <icaro:AgentesAplicacion>
+       			<icaro:Instancia id="AgenteControladorSimuladorSIDEMAReactivo1" refDescripcion="AgenteAplicacionAgteControladorSimuladorSIDEMA">
+                </icaro:Instancia>
                 <icaro:Instancia id="agenteCC" refDescripcion="AgenteAplicacion2">
                 </icaro:Instancia>
                 <icaro:Instancia id="agenteExplorador0" refDescripcion="AgenteAplicacion0">

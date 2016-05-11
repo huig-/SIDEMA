@@ -44,6 +44,7 @@ rule "Devolver Ubicacion Actual"
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Devolver Ubicacion Actual\n\n");
 end
 
+
 rule "Desactivar Mina"
 	when
 		focoActual : Focus(foco == null)

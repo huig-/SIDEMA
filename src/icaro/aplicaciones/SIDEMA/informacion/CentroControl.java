@@ -79,6 +79,6 @@ public class CentroControl extends Robot {
 	}
 	
 	public boolean recibidosNeutralizadores(){
-		return this.getMsgNeutralizador().size() == this.getNeutralizadores().size() && this.getNeutralizadores().size() > 0;
+		return this.getMsgNeutralizador().size() <= this.getNeutralizadores().size() && this.getNeutralizadores().size() > 0;
 	}
 }

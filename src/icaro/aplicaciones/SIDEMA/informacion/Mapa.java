@@ -122,7 +122,6 @@ public class Mapa {
 				this.numCompletas++;
 			}
 		}
-		List<SimpleEntry<Celda,Double>> e = this.getCosteAdyacentes(celda);
 	}
 
 	public synchronized boolean esAccesible(int row, int column) {
