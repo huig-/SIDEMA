@@ -5,6 +5,7 @@
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
 import icaro.aplicaciones.Rosace.informacion.*;
+import icaro.aplicaciones.SIDEMA.informacion.VocabularioSIDEMA;
 import icaro.infraestructura.entidadesBasicas.comunicacion.ComunicacionAgentes;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
@@ -57,6 +58,11 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
     public void setIdentAgenteAReportar(String identAgenteAReportar) {
         identificadorAgenteaReportar =identAgenteAReportar ;
     }
+    
+   public void sendPeticionArranqueSimulacion(){
+	   this.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo(VocabularioSIDEMA.botonSimularPulsado), identificadorAgenteaReportar);
+   }
+   
     public void sendPeticionSimulacionVictimToRobotTeam (String idVictim){
         
         // se manda la peticion al agente para que decida lo que hay que hacer

@@ -97,8 +97,9 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
             itfUsoRecursoPersistenciaSIDEMA = (ItfUsoRecursoPersistenciaSIDEMA) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaSIDEMA1");
             itfUsoRecursoVisualizacionSIDEMA = (ItfUsoRecursoVisualizacionSIDEMA) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
             itfUsoRecursoVisualizacionSIDEMA.setIdentAgenteAReportar(this.nombreAgente);
+            itfUsoRecursoPersistenciaSIDEMA.setIdentAgenteAReportar(this.nombreAgente);
        
-            identFicheroEscenario = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NombreFicheroEscenarioSimulacion);
+            //identFicheroEscenario = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NombreFicheroEscenarioSimulacion);
             identificadorEquipo = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NombrePropiedadGlobalIdentEquipo);
             equipo = new InfoEquipo(this.nombreAgente, identificadorEquipo);
             identsAgtesEquipo = equipo.getTeamMemberIDs(); // Se obtienen de la configuracion
@@ -167,8 +168,36 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
    
   
    public void comenzarSimulacion(){
-	   
-   }
+	   Thread t = new Thread() {
+
+           @Override
+           public void run() {
+               while ((stop == false)) {
+                   //      victima = createNewVictim(rXMLTSeq, nodeLst, i);
+                   OrdenComenzarSimulacion ccOrder = new OrdenComenzarSimulacion("ControlCenter");
+                   // Escribir nueva linea de estadistica en el fichero de llegada de victimas					
+                   try {
+                	   
+                       comunicator.enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
+                   }
+               catch (Exception e) {
+                   e.printStackTrace();
+               }
+                   try {
+                       this.sleep(interv);
+                   } catch (InterruptedException ex) {
+                       ex.printStackTrace();
+                   }
+               }// fin del while
+
+               // Se han enviado todas las victimas
+               // Cerrar el fichero de estadistica en el fichero de llegada de victimas
+
+           }
+       };
+       t.start();
+   }  
+   
    
 
     //Esta accion semantica se ejecuta cuando se envia el input "sendSequenceOfSimulatedVictimsToRobotTeam" en el 

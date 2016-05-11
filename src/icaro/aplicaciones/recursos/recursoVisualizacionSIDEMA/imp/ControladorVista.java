@@ -70,7 +70,7 @@ public class ControladorVista implements ActionListener{
 				//this.modelo.setArchivo(file);
 			}
 			if ( evento.getActionCommand().equals("Simular")){
-				
+				this.notifEvt.sendPeticionArranqueSimulacion();
 			}
 		
 	}
