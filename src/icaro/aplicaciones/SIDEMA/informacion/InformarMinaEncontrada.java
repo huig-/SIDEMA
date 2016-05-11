@@ -4,20 +4,20 @@ import java.io.Serializable;
 
 import icaro.aplicaciones.Rosace.informacion.OrdenAgente;
 
-public class OrdenInformarPosicionActual extends OrdenAgente implements Serializable {
+public class InformarMinaEncontrada extends InformacionAgente implements Serializable {
 
-	public OrdenInformarPosicionActual( ) {
-        super.setMensajeOrden(VocabularioSIDEMA.MsgInformarPosicionActual);
+	public InformarMinaEncontrada( ) {
+        super.setMensajeOrden(VocabularioSIDEMA.MsgPeticionMinaEncontrada);
  }
-    public OrdenInformarPosicionActual(String identCCEmisor) {
-        identEmisor= identCCEmisor;
-        mensajeOrden = VocabularioSIDEMA.MsgInformarPosicionActual;
+    public InformarMinaEncontrada(String identAgteEmisor) {
+        identEmisor= identAgteEmisor;
+        mensajeOrden = VocabularioSIDEMA.MsgPeticionMinaEncontrada;
         justificacion = null;
 
  }
-    public OrdenInformarPosicionActual(String identCCEmisor, Object justificat) {
-        identEmisor= identCCEmisor;
-        mensajeOrden = VocabularioSIDEMA.MsgInformarPosicionActual;
+    public InformarMinaEncontrada(String identAgteEmisor, Object justificat) {
+        identEmisor= identAgteEmisor;
+        mensajeOrden = VocabularioSIDEMA.MsgPeticionMinaEncontrada;
         justificacion = justificat;
 
  }

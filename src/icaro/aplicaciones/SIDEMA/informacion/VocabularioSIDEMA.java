@@ -2,7 +2,7 @@ package icaro.aplicaciones.SIDEMA.informacion;
 
 public class VocabularioSIDEMA {
 	
-	//Mensajes de Input de la máquina de estados del agente reactivo	
+	//Mensajes de Input de la m��quina de estados del agente reactivo	
 	//static public  final String peticionSimulacionVictima = "peticionSimulacionVictima";
     //static public  final String peticionPararSimulacion = "peticionPararSimulacion";
    // static public  final String peticionSimulacionSecuenciaVictimas = "sendSequenceOfSimulatedVictimsToRobotTeam";
@@ -29,11 +29,12 @@ public class VocabularioSIDEMA {
 	public static final String MsgPeticionDesactivar = "desactiva mina";
 	public static final String MsgPeticionRegresar = "regresa a base";
 	public static final String MsgPeticionPosicionActual = "dime tu posicion";
-	public static final String MsgInformarPosicionActual = "te envio mi posición";
+	public static final String MsgInformarPosicionActual = "te envio mi posicion";
 	public static final String MsgInformarNeutralizadorLibre = "ya he desactivado la mina";
 	public static final String CSV_EmptyCell = "E";
 	public static final String CSV_BombCell = "O";
 	public static final String CSV_ObstacleCell = "X";
 	public static final String CSV_SplitBy = " ";
-	public static final String MsgPeticionComenzarSimulacion = "comienza la simulación";
+	public static final String MsgPeticionComenzarSimulacion = "comienza la simulacion";
+	public static final String MsgInformarCandidatos = "informar candidatos";
 }

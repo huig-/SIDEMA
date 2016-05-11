@@ -9,7 +9,7 @@ import icaro.aplicaciones.SIDEMA.informacion.CentroControl;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
-import icaro.aplicaciones.SIDEMA.informacion.OrdenMinaEncontrada;
+import icaro.aplicaciones.SIDEMA.informacion.InformarMinaEncontrada;
 import icaro.aplicaciones.SIDEMA.informacion.Robot;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 

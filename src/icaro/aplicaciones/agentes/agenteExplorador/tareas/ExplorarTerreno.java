@@ -7,7 +7,7 @@ import icaro.aplicaciones.SIDEMA.informacion.Explorador;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
-import icaro.aplicaciones.SIDEMA.informacion.OrdenMinaEncontrada;
+import icaro.aplicaciones.SIDEMA.informacion.InformarMinaEncontrada;
 import icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador;
 import icaro.aplicaciones.informacion.dominioClases.aplicacionAcceso.VocabularioSistemaAcceso;
 import icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.ItfUsoRecursoVisualizacionSIDEMA;
@@ -62,7 +62,7 @@ public class ExplorarTerreno extends TareaSincrona {
 					if (celdasAExplorar.tieneMina(i, j)) {
 						//Si encontramos una mina, se produce un retraso mayor.
 						Celda c = celdasAExplorar.getCelda(i,j);
-						OrdenMinaEncontrada orden = new OrdenMinaEncontrada("agenteExplorador0", c);
+						InformarMinaEncontrada orden = new InformarMinaEncontrada("agenteExplorador0", c);
 						this.getComunicator().enviarInfoAotroAgente(orden, "agenteCC"); //0 es el identificador del explorador
 						try {
 						    Thread.sleep(exp.getTiempoExploracion());                 //1000 milliseconds is one second.

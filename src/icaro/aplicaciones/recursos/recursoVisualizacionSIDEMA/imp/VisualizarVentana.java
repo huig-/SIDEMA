@@ -1,7 +1,7 @@
 package icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp;
 
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
-import icaro.aplicaciones.SIDEMA.informacion.OrdenMinaEncontrada;
+import icaro.aplicaciones.SIDEMA.informacion.InformarMinaEncontrada;
 
 public class VisualizarVentana {
 

@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 import icaro.aplicaciones.Rosace.informacion.OrdenAgente;
 
-public class OrdenInformarNeutralizadorLibre extends OrdenAgente implements Serializable {
+public class InformarNeutralizadorLibre extends InformacionAgente implements Serializable {
 
-	public OrdenInformarNeutralizadorLibre( ) {
+	public InformarNeutralizadorLibre( ) {
         super.setMensajeOrden(VocabularioSIDEMA.MsgInformarNeutralizadorLibre);
  }
-    public OrdenInformarNeutralizadorLibre(String identCCEmisor) {
-        identEmisor= identCCEmisor;
+    public InformarNeutralizadorLibre(String identAgteEmisor) {
+        identEmisor= identAgteEmisor;
         mensajeOrden = VocabularioSIDEMA.MsgInformarNeutralizadorLibre;
         justificacion = null;
 
  }
-    public OrdenInformarNeutralizadorLibre(String identCCEmisor, Object justificat) {
-        identEmisor= identCCEmisor;
+    public InformarNeutralizadorLibre(String identAgteEmisor, Object justificat) {
+        identEmisor= identAgteEmisor;
         mensajeOrden = VocabularioSIDEMA.MsgInformarNeutralizadorLibre;
         justificacion = justificat;
 
