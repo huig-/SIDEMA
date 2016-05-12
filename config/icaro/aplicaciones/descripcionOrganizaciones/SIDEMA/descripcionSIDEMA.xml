@@ -47,7 +47,7 @@
 	********************************************************************************************************-->
 <icaro:DescComportamientoAgentesAplicacion>
     <icaro:DescComportamientoAgente
-       nombreComportamiento="AgenteAplicacionAgteControladorSimuladorSIDEMA" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAgteControladorSimuladorSIDEMAReactivo.comportamiento"
+       nombreComportamiento="AgenteAplicacionAgteControladorSimuladorSIDEMA" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAgteControladorSimuladorSIDEMA.comportamiento"
                             tipo="Reactivo" />
      <icaro:DescComportamientoAgente  
        nombreComportamiento="AgenteAplicacion1" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteNeutralizador" tipo="Cognitivo"
@@ -68,8 +68,8 @@
   <!-- <icaro:DescRecursoAplicacion nombre="RecursoVisualizacionSIDEMA"
 			       localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp.ClaseGeneradoraRecursoVisualizacionSIDEMA"/>
  <icaro:DescRecursoAplicacion nombre="RecursoPersistenciaSIDEMA" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaSIDEMA.imp.ClaseGeneradoraRecursoPersistenciaSIDEMA"/>
---> <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp.ClaseGeneradoraRecursoVisualizacionSIDEMA"/>			            		 
-<icaro:DescRecursoAplicacion nombre="RecursoPersistenciaEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaSIDEMA.imp.ClaseGeneradoraRecursoPersistenciaSIDEMA"/>			            		 
+--> <icaro:DescRecursoAplicacion nombre="RecursoVisualizacionSIDEMA1" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp.ClaseGeneradoraRecursoVisualizacionSIDEMA"/>			            		 
+<icaro:DescRecursoAplicacion nombre="RecursoPersistenciaSIDEMA" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaSIDEMA.imp.ClaseGeneradoraRecursoPersistenciaSIDEMA"/>			            		 
 	 <icaro:DescRecursoAplicacion nombre="RecursoCreacionEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.imp.ClaseGeneradoraRecursoCreacionEntornosSimulacion"/> 
 </icaro:DescRecursosAplicacion>
 
@@ -89,7 +89,7 @@
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorAgentes" refDescripcion="GestorAgentes">
                     <icaro:componentesGestionados>
-                             <icaro:componenteGestionado refId="AgenteControladorSimuladorSIDEMAReactivo1" tipoComponente="AgenteAplicacion"/>              
+                             <icaro:componenteGestionado refId="AgenteControladorSimuladorSIDEMA1" tipoComponente="AgenteAplicacion"/>              
                             <icaro:componenteGestionado refId="agenteCC" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="agenteNeutralizador0" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="agenteNeutralizador1" tipoComponente="AgenteAplicacion"/>
@@ -108,8 +108,8 @@
 				    refId="RecursoVisualizacionSIDEMA1"
 				    tipoComponente="RecursoAplicacion"/>
 				<icaro:componenteGestionado refId="RecursoPersistenciaSIDEMA1" tipoComponente="RecursoAplicacion"/>	    
-    -->                            <icaro:componenteGestionado refId="RecursoVisualizadorEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>	    
-				<icaro:componenteGestionado refId="RecursoPersistenciaEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>
+    -->                            <icaro:componenteGestionado refId="RecursoVisualizacionSIDEMA1" tipoComponente="RecursoAplicacion"/>	    
+				<icaro:componenteGestionado refId="RecursoPersistenciaSIDEMA1" tipoComponente="RecursoAplicacion"/>
 				<icaro:componenteGestionado refId="RecursoCreacionEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>                            
                     </icaro:componentesGestionados>
                 </icaro:InstanciaGestor>
@@ -118,7 +118,7 @@
 	******************   Instancias de Agentes de aplicacion                                ******************
 	*******************************************************************************************************-->            
         <icaro:AgentesAplicacion>
-       			<icaro:Instancia id="AgenteControladorSimuladorSIDEMAReactivo1" refDescripcion="AgenteAplicacionAgteControladorSimuladorSIDEMA">
+       			<icaro:Instancia id="AgenteControladorSimuladorSIDEMA1" refDescripcion="AgenteAplicacionAgteControladorSimuladorSIDEMA">
                 </icaro:Instancia>
                 <icaro:Instancia id="agenteCC" refDescripcion="AgenteAplicacion2">
                 </icaro:Instancia>
@@ -142,8 +142,8 @@
 				 xsi:type="icaro:Instancia"/>
 		<icaro:Instancia id="RecursoPersistenciaSIDEMA1" refDescripcion="RecursoPersistenciaSIDEMA" xsi:type="icaro:Instancia"/>
     -->            <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia"/>
-                <icaro:Instancia id="RecursoVisualizadorEntornosSimulacion1" refDescripcion="RecursoVisualizadorEntornosSimulacion" xsi:type="icaro:Instancia"/>
-                <icaro:Instancia id="RecursoPersistenciaEntornosSimulacion1" refDescripcion="RecursoPersistenciaEntornosSimulacion" xsi:type="icaro:Instancia"/>
+                <icaro:Instancia id="RecursoVisualizacionSIDEMA1" refDescripcion="RecursoVisualizacionSIDEMA1" xsi:type="icaro:Instancia"/>
+                <icaro:Instancia id="RecursoPersistenciaSIDEMA1" refDescripcion="RecursoPersistenciaSIDEMA" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoCreacionEntornosSimulacion1" refDescripcion="RecursoCreacionEntornosSimulacion" xsi:type="icaro:Instancia"/>                
         </icaro:RecursosAplicacion>
 

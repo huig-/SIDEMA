@@ -47,7 +47,7 @@ end
 rule "Solicitar Ubicacion Actual"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, minaCelda : justificacion)
+		ordenCC: InformarMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, minaCelda : justificacion)
 		robot: CentroControl(id == agentId)
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.SolicitarInformacionNeutralizador.class);
@@ -59,7 +59,7 @@ end
 rule "Recibir Ubicacion Actual"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenInformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
+		ordenCC: InformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
 		robot: CentroControl(id == agentId)
 	then
 		robot.actualizarMsg((Celda)celdaActual,emisor);
@@ -76,7 +76,7 @@ end
 rule "Encontrado Neutralizador Libre"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenInformarNeutralizadorLibre( mensajeOrden == VocabularioSIDEMA.MsgInformarNeutralizadorLibre, emisor : identEmisor)
+		ordenCC: InformarNeutralizadorLibre( mensajeOrden == VocabularioSIDEMA.MsgInformarNeutralizadorLibre, emisor : identEmisor)
 		robot: CentroControl(id == agentId)
 	then
 		if(!robot.getNeutralizadores().contains(emisor))

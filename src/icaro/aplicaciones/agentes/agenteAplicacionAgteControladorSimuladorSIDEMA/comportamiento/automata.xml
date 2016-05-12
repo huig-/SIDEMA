@@ -43,7 +43,7 @@
 		estadoSiguiente="simulando"
 		modoDeTransicion="bloqueante"/-->
 <transicion input="botonCancelarPulsado" accion="FinSimulacion"
-	    estadoSiguiente="finalizandoSimulacion" mododeTransicion="bloqueante"/>
+	    estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>
   </estado>
   
   

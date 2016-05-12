@@ -430,7 +430,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
           //  infoAsignVictms = itfUsoRecursoPersistenciaSIDEMA.obtenerInfoAsignacionVictimas();
             contadorRobotsQueContestanFinsimulacion++;
             if (contadorRobotsQueContestanFinsimulacion == identsAgtesEquipo.size())
-                this.itfUsoRecursoVisualizacionSIDEMA.mostrarResultadosFinSimulacion();
+                //this.itfUsoRecursoVisualizacionSIDEMA.mostrarResultadosFinSimulacion();
         } catch (Exception e) {
             e.printStackTrace();
         }
