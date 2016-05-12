@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.io.File;
 
+import javax.swing.SwingUtilities;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -26,7 +27,7 @@ public class Ventana extends JFrame{
 	 * Creacion de la vista principal.
 	 */
 	
-	public Ventana(/*Escenario escLog*/){
+	public Ventana(){
 		
 		//Creacion de la ventana
 		super("SIDEMA - Escenario Simulacion");
@@ -66,8 +67,10 @@ public class Ventana extends JFrame{
 		
 		//Creacion del mapa de simulacion.
 		//Lo quitaremos cuando este creado el controlador y se crear�� al pulsar cargar
+		
 		centro = new JPanel();
 		/*
+		 * centr
 		escenario = new VisualEscenario(new Mapa());
 		centro.add(escenario);
 		this.add(escenario,BorderLayout.CENTER);
@@ -135,7 +138,12 @@ public class Ventana extends JFrame{
 		escenario = new VisualEscenario(m);
 		centro.add(escenario);
 		this.add(escenario,BorderLayout.CENTER);
+		
 	}
+	
+	public void actualizarPantalla(){ 
+		SwingUtilities.updateComponentTreeUI(this); 
+		this.validate(); }
 	
 	/*
 	public void cargarEscenario(Escenario esc){
