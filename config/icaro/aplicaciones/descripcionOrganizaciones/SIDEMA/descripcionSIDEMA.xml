@@ -65,11 +65,11 @@
 	********************************************************************************************************-->
 <icaro:DescRecursosAplicacion>
   
-  <icaro:DescRecursoAplicacion nombre="RecursoVisualizacionSIDEMA"
+  <!-- <icaro:DescRecursoAplicacion nombre="RecursoVisualizacionSIDEMA"
 			       localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp.ClaseGeneradoraRecursoVisualizacionSIDEMA"/>
  <icaro:DescRecursoAplicacion nombre="RecursoPersistenciaSIDEMA" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaSIDEMA.imp.ClaseGeneradoraRecursoPersistenciaSIDEMA"/>
- <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion"/>			            		 
-<icaro:DescRecursoAplicacion nombre="RecursoPersistenciaEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ClaseGeneradoraRecursoPersistenciaEntornosSimulacion"/>			            		 
+--> <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp.ClaseGeneradoraRecursoVisualizacionSIDEMA"/>			            		 
+<icaro:DescRecursoAplicacion nombre="RecursoPersistenciaEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaSIDEMA.imp.ClaseGeneradoraRecursoPersistenciaSIDEMA"/>			            		 
 	 <icaro:DescRecursoAplicacion nombre="RecursoCreacionEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.imp.ClaseGeneradoraRecursoCreacionEntornosSimulacion"/> 
 </icaro:DescRecursosAplicacion>
 
@@ -103,12 +103,12 @@
                                 <icaro:componenteGestionado
 				refId="RecursoEstadistica1"
 				tipoComponente="RecursoAplicacion"/>
-		    -->
+		    
 	                        <icaro:componenteGestionado
 				    refId="RecursoVisualizacionSIDEMA1"
 				    tipoComponente="RecursoAplicacion"/>
 				<icaro:componenteGestionado refId="RecursoPersistenciaSIDEMA1" tipoComponente="RecursoAplicacion"/>	    
-                                <icaro:componenteGestionado refId="RecursoVisualizadorEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>	    
+    -->                            <icaro:componenteGestionado refId="RecursoVisualizadorEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>	    
 				<icaro:componenteGestionado refId="RecursoPersistenciaEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>
 				<icaro:componenteGestionado refId="RecursoCreacionEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>                            
                     </icaro:componentesGestionados>
@@ -137,11 +137,11 @@
                 </icaro:Instancia>
                 <icaro:Instancia id="RecursoGUI1" refDescripcion="RecursoGUI" xsi:type="icaro:Instancia">    
                 </icaro:Instancia>    --> 
-	        <icaro:Instancia id="RecursoVisualizacionSIDEMA1"
+	   <!--     <icaro:Instancia id="RecursoVisualizacionSIDEMA1"
 				 refDescripcion="RecursoVisualizacionSIDEMA"
 				 xsi:type="icaro:Instancia"/>
 		<icaro:Instancia id="RecursoPersistenciaSIDEMA1" refDescripcion="RecursoPersistenciaSIDEMA" xsi:type="icaro:Instancia"/>
-                <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia"/>
+    -->            <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoVisualizadorEntornosSimulacion1" refDescripcion="RecursoVisualizadorEntornosSimulacion" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoPersistenciaEntornosSimulacion1" refDescripcion="RecursoPersistenciaEntornosSimulacion" xsi:type="icaro:Instancia"/>
                 <icaro:Instancia id="RecursoCreacionEntornosSimulacion1" refDescripcion="RecursoCreacionEntornosSimulacion" xsi:type="icaro:Instancia"/>                

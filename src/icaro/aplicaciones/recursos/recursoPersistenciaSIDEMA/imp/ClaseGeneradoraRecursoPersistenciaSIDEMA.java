@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.rmi.RemoteException;
+import java.util.Vector;
 
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.VocabularioSIDEMA;
@@ -21,6 +22,8 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 		super(idRecurso);
 		// TODO Auto-generated constructor stub
 		try {
+			 notifEvt = new NotificadorInfoUsuarioSimulador(super.id, identAgenteAReportar);
+	           
 			//parserCSVModelo();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,15 +31,22 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 		}
 	}
 	
+	
+	
 	public void parserCSVModelo(File ficheroEscenario) throws Exception {
 		@SuppressWarnings("resource") //que es esto?
 		BufferedReader br = new BufferedReader(new FileReader(ficheroEscenario)); //TODO csvFile
 		this.ficheroEscenario = ficheroEscenario;
+		Vector<String> lines = new Vector<String>();
 		String line;
+		while ((line = br.readLine()) != null){
+			lines.add(line);
+		}
 		int i = 0;
-		while ((line = br.readLine()) != null) {
-			String []cells = line.split(VocabularioSIDEMA.CSV_SplitBy);
-			m = new Mapa(cells.length, cells.length);
+		String []cell = lines.get(0).split(VocabularioSIDEMA.CSV_SplitBy);
+		m = new Mapa(lines.size(), cell.length);
+		for (String line2 : lines){
+			String []cells = line2.split(VocabularioSIDEMA.CSV_SplitBy);
 			int j = 0;
 			for (String c : cells) {
 				if (c.equals(VocabularioSIDEMA.CSV_ObstacleCell)) m.setInaccesible(i, j);
@@ -48,12 +58,13 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 			i++;
 		}
 		br.close();
-		this.notifEvt.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo(VocabularioSIDEMA.informarEscenarioValido), identAgenteaReportar);
+		this.notifEvt.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo(VocabularioSIDEMA.informarEscenarioValido), identAgenteAReportar);
 		
 	}
 	
 	public void setFicheroEscenario(File fichero) throws Exception{
 		this.ficheroEscenario = fichero;
+		this.parserCSVModelo(fichero);
 	}
 	
 	public Mapa getEscenario() throws Exception{
@@ -67,12 +78,12 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 	public File getFicheroEscenario() throws Exception{
 		return this.ficheroEscenario;
 	}
+	
 
 	
 	private Mapa m;
 	private File ficheroEscenario;
 	private NotificadorInfoUsuarioSimulador notifEvt;
-	private String identAgenteaReportar;
 
 }
 

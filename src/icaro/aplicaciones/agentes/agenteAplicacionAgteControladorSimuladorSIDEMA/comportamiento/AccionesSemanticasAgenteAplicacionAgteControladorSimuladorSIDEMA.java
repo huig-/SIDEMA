@@ -4,6 +4,7 @@ import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.Rosace.utils.ConstantesRutasEstadisticas;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenComenzarSimulacion;
+import icaro.aplicaciones.SIDEMA.informacion.VocabularioSIDEMA;
 import icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.ItfUsoRecursoCreacionEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestSequence;
@@ -23,7 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
+
 import org.openide.util.Exceptions;
 import org.w3c.dom.NodeList;
 //This agent class need the next imports in order to use resources
@@ -126,7 +129,19 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
         	//this.informaraMiAutomata("escenarioSeleccionadoUsuario", null);
         	
         }
-            
+            /*if (escenarioActual != null){
+                escenarioActual.renombrarIdentRobts(identsAgtesEquipo);
+                itfUsoRecursoVisualizacionSIDEMA.mostrarVentanaControlSimulador(escenarioActual);
+                this.inicializarEstatusRobotsEquipo();
+                victims2Rescue = escenarioActual.getVictims();
+                numeroVictimasDiferentesSimulacion = victims2Rescue.size();
+                this.informaraMiAutomata("escenarioDefinidoValido", null);
+            }
+            else{
+                modeloOrganizativo = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NOMBRE_PROPIEDAD_GLOBAL_MODELO_ORGANIZATIVO);
+                this.numeroRobotsSimulacion = identsAgtesEquipo.size();
+                itfUsoRecursoVisualizacionSIDEMA.obtenerEscenarioSimulacion(modeloOrganizativo, numeroRobotsSimulacion);
+            }*/
             } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,8 +152,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
         try {
           itfUsoRecursoPersistenciaSIDEMA.parserCSVModelo(identFicheroEscenario);
 //          this.informaraMiAutomata("escenarioDefinidoValido", null);
-          this.escenarioActual = itfUsoRecursoPersistenciaSIDEMA.getEscenario();
-          itfUsoRecursoVisualizacionSIDEMA.setMapa(escenarioActual);
             
         } catch (Exception ex) {
             Exceptions.printStackTrace(ex);
@@ -169,7 +182,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
                    // Escribir nueva linea de estadistica en el fichero de llegada de victimas					
                    try {
                 	   
-                       comunicator.enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
+                       comunicator.enviarInfoAotroAgente(ccOrder, VocabularioSIDEMA.IdentAgteDistribuidorTareas);
                    }
                catch (Exception e) {
                    e.printStackTrace();
