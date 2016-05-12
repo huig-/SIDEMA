@@ -32,7 +32,7 @@ public class ControladorVista implements ActionListener{
 	public ControladorVista(){
 		this.v = new Ventana();
 		//this.escLog = new Mapa();
-		this.escLog= Mapa.instance;
+		//this.escLog= Mapa.instance;
 		this.v.setControlador(this);
 	}
 	
@@ -52,6 +52,16 @@ public class ControladorVista implements ActionListener{
 	}
 	
 	public void pintar(){
+		this.v.repaint();
+	}
+	
+	public void setModelo(){
+		this.v.setModelo(escLog);
+	}
+	
+	public void setModelo(Mapa m){
+		this.escLog = m;
+		this.v.setModelo(escLog);
 		this.v.repaint();
 	}
 	

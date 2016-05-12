@@ -67,10 +67,11 @@ public class Ventana extends JFrame{
 		//Creacion del mapa de simulacion.
 		//Lo quitaremos cuando este creado el controlador y se crear�� al pulsar cargar
 		centro = new JPanel();
-		
+		/*
 		escenario = new VisualEscenario(new Mapa());
 		centro.add(escenario);
 		this.add(escenario,BorderLayout.CENTER);
+		*/
 		
 		botonera = new JPanel(new FlowLayout());
 		simular = new Boton("Simular");
@@ -130,6 +131,12 @@ public class Ventana extends JFrame{
 		this.terminar.addActionListener(c);
 		this.simular.addActionListener(c);
 	}
+	public void setModelo(Mapa m){
+		escenario = new VisualEscenario(m);
+		centro.add(escenario);
+		this.add(escenario,BorderLayout.CENTER);
+	}
+	
 	/*
 	public void cargarEscenario(Escenario esc){
 		escenario = new VisualEscenario();

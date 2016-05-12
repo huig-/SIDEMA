@@ -2,12 +2,14 @@ package icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp;
 
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
 import icaro.aplicaciones.SIDEMA.informacion.InformarMinaEncontrada;
+import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 
 public class VisualizarVentana {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ControladorVista c = new ControladorVista();
+		c.setModelo(new Mapa());
 		//Ventana v = new Ventana();
 		int num_rows = 2;
 		int num_columns = 2;

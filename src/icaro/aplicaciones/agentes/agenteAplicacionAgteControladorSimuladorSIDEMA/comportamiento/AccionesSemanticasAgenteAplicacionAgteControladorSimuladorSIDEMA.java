@@ -3,6 +3,7 @@ package icaro.aplicaciones.agentes.agenteAplicacionAgteControladorSimuladorSIDEM
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.Rosace.utils.ConstantesRutasEstadisticas;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+import icaro.aplicaciones.SIDEMA.informacion.OrdenComenzarSimulacion;
 import icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.ItfUsoRecursoCreacionEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestSequence;
@@ -125,19 +126,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
         	//this.informaraMiAutomata("escenarioSeleccionadoUsuario", null);
         	
         }
-            /*if (escenarioActual != null){
-                escenarioActual.renombrarIdentRobts(identsAgtesEquipo);
-                itfUsoRecursoVisualizacionSIDEMA.mostrarVentanaControlSimulador(escenarioActual);
-                this.inicializarEstatusRobotsEquipo();
-                victims2Rescue = escenarioActual.getVictims();
-                numeroVictimasDiferentesSimulacion = victims2Rescue.size();
-                this.informaraMiAutomata("escenarioDefinidoValido", null);
-            }
-            else{
-                modeloOrganizativo = itfconfig.getValorPropiedadGlobal(VocabularioRosace.NOMBRE_PROPIEDAD_GLOBAL_MODELO_ORGANIZATIVO);
-                this.numeroRobotsSimulacion = identsAgtesEquipo.size();
-                itfUsoRecursoVisualizacionSIDEMA.obtenerEscenarioSimulacion(modeloOrganizativo, numeroRobotsSimulacion);
-            }*/
+            
             } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,6 +137,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
         try {
           itfUsoRecursoPersistenciaSIDEMA.parserCSVModelo(identFicheroEscenario);
 //          this.informaraMiAutomata("escenarioDefinidoValido", null);
+          this.escenarioActual = itfUsoRecursoPersistenciaSIDEMA.getEscenario();
+          itfUsoRecursoVisualizacionSIDEMA.setMapa(escenarioActual);
             
         } catch (Exception ex) {
             Exceptions.printStackTrace(ex);
