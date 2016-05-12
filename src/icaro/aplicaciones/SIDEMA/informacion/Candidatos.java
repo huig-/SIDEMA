@@ -1,18 +1,27 @@
 package icaro.aplicaciones.SIDEMA.informacion;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.AbstractMap.SimpleEntry;
 
 public class Candidatos { 
 
 	private String identAgte;
-	private List<SimpleEntry<Celda, Double>> candidatos;
+	private List<CeldaCandidata> celdas;
 	
-	public Candidatos(String identAgte, List<SimpleEntry<Celda, Double>> candidatos) {
+	public Candidatos(String identAgte, List<CeldaCandidata> candidatos) {
 		this.identAgte = identAgte;
-		this.candidatos = candidatos;
+		this.celdas = candidatos;
+	}
+
+	public Candidatos() {
+		this.celdas = new ArrayList<CeldaCandidata>();
+	}
+	
+	public Candidatos(String identAgte) {
+		this.identAgte = identAgte;
+		this.celdas = new ArrayList<CeldaCandidata>();
 	}
 
 	public String getIdentAgte() {
@@ -23,35 +32,35 @@ public class Candidatos {
 		this.identAgte = identAgte;
 	}
 
-	public List<SimpleEntry<Celda, Double>> getCandidatos() {
-		return candidatos;
+	public List<CeldaCandidata> getCeldas() {
+		return celdas;
 	}
 
-	public void setCandidatos(List<SimpleEntry<Celda, Double>> candidatos) {
-		this.candidatos = candidatos;
+	public void setCeldas(List<CeldaCandidata> celdas) {
+		this.celdas = celdas;
 	}
 	
 	public void sort() {
-		Collections.sort(this.candidatos, new Comparator<SimpleEntry<Celda, Double>>() { //decreciente
+		Collections.sort(this.celdas, Collections.reverseOrder(new Comparator<CeldaCandidata>() {
 
 			@Override
-			public int compare(SimpleEntry<Celda, Double> o1,
-					SimpleEntry<Celda, Double> o2) {
-				return o2.getValue().compareTo(o1.getValue()); 
+			public int compare(CeldaCandidata o1, CeldaCandidata o2) {
+				if (o1.getExpectedValue() > o2.getExpectedValue()) return 1;
+				else if (o1.getExpectedValue() < o2.getExpectedValue()) return -1;
+				else return 0;
 			}
-			
-		});
+		}));
 	}
 	
-	public SimpleEntry<Celda, Double> max() {
-		return Collections.max(this.candidatos, new Comparator<SimpleEntry<Celda, Double>>() { //decreciente
+	public CeldaCandidata max() {
+		return Collections.max(this.celdas, new Comparator<CeldaCandidata>() {
 
 			@Override
-			public int compare(SimpleEntry<Celda, Double> o1,
-					SimpleEntry<Celda, Double> o2) {
-				return o2.getValue().compareTo(o1.getValue()); 
+			public int compare(CeldaCandidata o1, CeldaCandidata o2) {
+				if (o1.getExpectedValue() > o2.getExpectedValue()) return 1;
+				else if (o1.getExpectedValue() < o2.getExpectedValue()) return -1;
+				else return 0;
 			}
-			
 		});
 	}
 }

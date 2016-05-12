@@ -4,13 +4,8 @@ import org.jgrapht.GraphPath;
 import org.jgrapht.graph.WeightedMultigraph;
 import org.jgrapht.alg.BellmanFordShortestPath;
 import org.jgrapht.alg.DijkstraShortestPath;
-
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
 
 public class Mapa {
 
@@ -170,12 +165,41 @@ public class Mapa {
 		return adys;
 	}
 	
+	public List<Celda> getAdyacentes(Celda c) {
+		ArrayList<Celda> adys = new ArrayList<Celda>();
+		double x = c.getX(); double y = c.getY();
+		if (x > 0) {
+			if (!this.ExploredGraph.containsVertex(this.getCelda((int)x-1, (int)y)))
+				adys.add(this.getCelda((int)x-1, (int)y));
+			if (y > 0 && !this.ExploredGraph.containsVertex(this.getCelda((int)x-1, (int)y-1)))
+				adys.add(this.getCelda((int)x-1, (int)y-1));
+			if (y < this.getColumns() - 1 && this.ExploredGraph.containsVertex(this.getCelda((int)x-1, (int)y+1)))
+				adys.add(this.getCelda((int)x-1, (int)y+1));
+		}
+		if (x < this.getRows() - 1) {
+			if (!this.ExploredGraph.containsVertex(this.getCelda((int)x+1, (int)y)))
+				adys.add(this.getCelda((int)x+1, (int)y));
+			if (y > 0 && !this.ExploredGraph.containsVertex(this.getCelda((int)x+1, (int)y-1)))
+				adys.add(this.getCelda((int)x+1, (int)y-1));
+			if (y < this.getColumns() - 1 && this.ExploredGraph.containsVertex(this.getCelda((int)x+1, (int)y+1)))
+				adys.add(this.getCelda((int)x+1, (int)y+1));
+		}
+		if (y > 0 && !this.ExploredGraph.containsVertex(this.getCelda((int)x, (int)y-1)))
+			adys.add(this.getCelda((int)x, (int)y-1));
+		if (y < this.getColumns() - 1 && !this.ExploredGraph.containsVertex(this.getCelda((int)x, (int)y+1)))
+			adys.add(this.getCelda((int)x, (int)y+1));
+		return adys;
+	}
+	
 
-	public List<SimpleEntry<Celda, Double>> getCosteAdyacentes(Celda posicionActual) {
+	public List<CeldaCandidata> getCosteAdyacentes(Celda posicionActual) {
 		BellmanFordShortestPath<Celda, Integer> path = new BellmanFordShortestPath<Celda, Integer>(this.completeGraph,posicionActual);
-		List<SimpleEntry<Celda,Double>> lista = new ArrayList<SimpleEntry<Celda,Double>>();
+		List<CeldaCandidata> lista = new ArrayList<CeldaCandidata>();
 		for(Celda c : this.getAdyacentes()){
-			lista.add(new SimpleEntry<Celda,Double>(c,path.getCost(c)));
+			CeldaCandidata cell = new CeldaCandidata();
+			cell.setCelda(c);
+			cell.setCoste(path.getCost(c));
+			lista.add(cell);
 		}
 		return lista;
 	}

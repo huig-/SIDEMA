@@ -1,15 +1,12 @@
 package icaro.aplicaciones.agentes.agenteExplorador.tareas;
 
+import icaro.aplicaciones.SIDEMA.informacion.Candidatos;
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
+import icaro.aplicaciones.SIDEMA.informacion.CeldaCandidata;
 import icaro.aplicaciones.SIDEMA.informacion.Explorador;
 import icaro.aplicaciones.SIDEMA.informacion.InformarCandidatosAExplorar;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
-
-import java.util.AbstractMap.SimpleEntry;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map.Entry;
 
 public class EstimarMejorDestino extends TareaSincrona {
 	
@@ -22,13 +19,13 @@ public class EstimarMejorDestino extends TareaSincrona {
 			this.mapa = (Mapa)params[0];
 			this.robot = (Explorador)params[1];
 			//Elaboramos una lista con los adyacentes a los exploradores y el coste del camino
-			List<SimpleEntry<Celda, Double>> candidatos = this.mapa.getCosteAdyacentes(this.robot.getCurrentPos());
-			int index = 0;
+			Candidatos candidatos = new Candidatos(robot.getId());
+			candidatos.setCeldas(this.mapa.getCosteAdyacentes(this.robot.getCurrentPos()));
 			//Calculamos el valor ganado de explorar los candidatos
-			for (ListIterator<SimpleEntry<Celda, Double>> it = candidatos.listIterator(); it.hasNext();) {
+			for (int index = 0; index < candidatos.getCeldas().size(); index++) {
 				int cont = 0;
-				SimpleEntry<Celda, Double> entry = it.next();
-				Celda c = entry.getKey();
+				CeldaCandidata celdaCandidata = candidatos.getCeldas().get(index);
+				Celda c = celdaCandidata.getCelda();
 				double x = c.getX(); double y = c.getY();
 				if (x > 0) { //casillas inferiores
 					if (this.mapa.haSidoExplorada(this.mapa.getCelda((int)x-1, (int)y))) //inferior
@@ -56,8 +53,8 @@ public class EstimarMejorDestino extends TareaSincrona {
 				if (y < this.mapa.getColumns() - 1 && this.mapa.haSidoExplorada(this.mapa.getCelda((int)x, (int)y+1))) { //casilla derecha
 					cont++;
 				}
-				entry.setValue(cont-entry.getValue()); //ganancia-coste
-				candidatos.set(index++, entry);
+				celdaCandidata.setGanancia(cont);
+				candidatos.getCeldas().set(index, celdaCandidata);
 			}
 			InformarCandidatosAExplorar infor = new InformarCandidatosAExplorar(robot.getId(), candidatos);
 			this.getComunicator().enviarInfoAotroAgente(infor, robot.getCC());
