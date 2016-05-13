@@ -28,7 +28,7 @@ rule "Acciones Iniciales Centro de Control"
    		tarea1.ejecutar( );
    		//TODO mirar que hace tarea 2
    		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobotSIDEMA.class);
-   		tarea2.ejecutar( );
+   		tarea2.ejecutar(mapa);
    		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
    		System.out.println( "\n"+agentId +" EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end
