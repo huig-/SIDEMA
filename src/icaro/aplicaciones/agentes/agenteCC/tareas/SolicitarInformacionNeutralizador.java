@@ -18,7 +18,7 @@ public class SolicitarInformacionNeutralizador extends TareaSincrona {
 			Celda c = (Celda)params[1];
 			r.getMinasPendientes().add(c);
 			for(int i = 0; i < r.getNeutralizadores().size(); i++){
-				OrdenSolicitarPosicion orden = new OrdenSolicitarPosicion(r.getId(),null);
+				OrdenSolicitarPosicion orden = new OrdenSolicitarPosicion(r.getId(),r.getMapa());
 				this.getComunicator().enviarInfoAotroAgente(orden,r.getNeutralizadores().get(i)); //1 es el identificador del neutralizador
 			}
 		}

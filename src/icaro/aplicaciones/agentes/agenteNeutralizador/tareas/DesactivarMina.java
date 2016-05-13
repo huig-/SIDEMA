@@ -27,7 +27,7 @@ public class DesactivarMina extends TareaSincrona {
 		try {
 			Celda c = (Celda)params[0];
 			Neutralizador r = (Neutralizador)params[1];
-			Mapa m = Mapa.instance;
+			Mapa m = r.getMapa();
 			//INCLUIR MOVIMIENTO DEL NEUTRALIZADOR.
 			ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
 					NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(

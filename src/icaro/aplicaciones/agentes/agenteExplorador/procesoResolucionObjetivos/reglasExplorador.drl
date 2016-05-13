@@ -21,7 +21,6 @@ rule "Acciones Iniciales Explorador"
 	when
 		not (exists(Focus()))
 		not (exists(MisObjetivos()))
-		robot : Robot(id == agentId)
 	then
 		TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
    		tarea1.ejecutar( );
@@ -37,9 +36,7 @@ rule "Explorar Terreno"
 		focoActual : Focus(foco == null)
 		robot : Robot(id == agentId)
 		ordenCC: OrdenExplorar( mensajeOrden == VocabularioSIDEMA.MsgPeticionExplorar, celdasAExplorar:justificacion)
-		mapa : Mapa()
 	then
-		robot.setMapa(mapa);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.ExplorarTerreno.class);
 		tarea.ejecutar(celdasAExplorar,robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());

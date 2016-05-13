@@ -137,6 +137,7 @@ public class Ventana extends JFrame{
 	public void setModelo(Mapa m){
 		escenario = new VisualEscenario(m);
 		centro.add(escenario);
+
 		this.add(escenario,BorderLayout.CENTER);
 		
 	}

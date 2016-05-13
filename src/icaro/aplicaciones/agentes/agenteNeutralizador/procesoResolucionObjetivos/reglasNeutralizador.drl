@@ -22,8 +22,6 @@ rule "Acciones Iniciales Neutralizador"
 	when
 		not (exists(Focus()))
 		not (exists(MisObjetivos()))
-		robot : Robot(id == agentId)
-		mapa : Mapa()
 	then
 		TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
    		tarea1.ejecutar( );
@@ -32,7 +30,6 @@ rule "Acciones Iniciales Neutralizador"
    		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobotSIDEMA.class);
    		tarea2.ejecutar();
    		
-   		robot.setMapa(mapa);
    		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
    		System.out.println( "\n"+agentId +"EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end
@@ -40,11 +37,11 @@ end
 rule "Devolver Ubicacion Actual"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: OrdenSolicitarPosicion( mensajeOrden == VocabularioSIDEMA.MsgPeticionPosicionActual)
-		robot : Neutralizador(id == agentId)
+		ordenCC: OrdenSolicitarPosicion( mensajeOrden == VocabularioSIDEMA.MsgPeticionPosicionActual, mapa:justificacion)
+		robot : Robot(id == agentId)
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteNeutralizador.tareas.InformarPosicion.class);
-		tarea.ejecutar(robot);
+		tarea.ejecutar(robot,mapa);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Devolver Ubicacion Actual\n\n");
 end
@@ -55,7 +52,6 @@ rule "Desactivar Mina"
 		focoActual : Focus(foco == null)
 		ordenCC: OrdenDesactivar( mensajeOrden == VocabularioSIDEMA.MsgPeticionDesactivar, celdaMina:justificacion)
 		robot : Robot(id == agentId)
-		//mapa : Mapa()
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteNeutralizador.tareas.DesactivarMina.class);
 		tarea.ejecutar(celdaMina,robot);

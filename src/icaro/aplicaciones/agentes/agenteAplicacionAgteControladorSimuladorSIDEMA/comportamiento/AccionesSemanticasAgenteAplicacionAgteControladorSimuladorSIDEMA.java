@@ -122,6 +122,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
        try {
         if (identFicheroEscenario != null){
                 escenarioActual = itfUsoRecursoPersistenciaSIDEMA.getEscenario();
+                this.itfUsoRecursoVisualizacionSIDEMA.setMapa(escenarioActual);
                
             }else{
         	itfUsoRecursoVisualizacionSIDEMA.cargarEscenario();
@@ -151,6 +152,9 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
    public void  validarEscenarioRecibido (){
         try {
           itfUsoRecursoPersistenciaSIDEMA.parserCSVModelo(identFicheroEscenario);
+          escenarioActual = itfUsoRecursoPersistenciaSIDEMA.getEscenario();
+          this.itfUsoRecursoVisualizacionSIDEMA.setMapa(escenarioActual);
+          
 //          this.informaraMiAutomata("escenarioDefinidoValido", null);
             
         } catch (Exception ex) {

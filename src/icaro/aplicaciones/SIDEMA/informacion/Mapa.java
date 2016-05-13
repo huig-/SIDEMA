@@ -60,6 +60,7 @@ public class Mapa {
 			for(int j = 0;j<this.columns;j++)
 				this.mapa[i][j] = new Celda(i, j, true, false);
 		this.ExploredGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
+		this.completeGraph	 = new WeightedMultigraph<Celda, Integer>(Integer.class);
 	}
 
 	public Mapa(Celda[][] mapa) {
@@ -67,6 +68,7 @@ public class Mapa {
 		this.rows = mapa.length;
 		this.columns = mapa.length;
 		this.ExploredGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
+		this.completeGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
 	}
 
 	// Constructor por defecto cableado con el mapa

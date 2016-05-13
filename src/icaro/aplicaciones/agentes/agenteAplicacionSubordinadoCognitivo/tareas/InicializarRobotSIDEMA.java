@@ -52,8 +52,7 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 	            		String leader = ((Node)eElement.getElementsByTagName("nameCC").item(0)).getTextContent();
 	            		Robot robot;
 	            		if(type.equalsIgnoreCase("Explorador")){
-	            	        Mapa m = (Mapa)params[0];
-	            			int timeMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementTime").item(0)).getTextContent());
+	            	      int timeMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementTime").item(0)).getTextContent());
 	            			int enerMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementEnergy").item(0)).getTextContent());
 	            			int timeExp = Integer.parseInt(((Node)eElement.getElementsByTagName("explorationTime").item(0)).getTextContent());
 	            			int enerExp = Integer.parseInt(((Node)eElement.getElementsByTagName("explorationEnergy").item(0)).getTextContent());
@@ -62,8 +61,7 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 		            		System.out.println(robot.toString()); //cambiar por trazas?
 	            
 	            		}else if(type.equalsIgnoreCase("Neutralizador")){
-	            	        Mapa m = (Mapa)params[0];
-	            			int timeMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementTime").item(0)).getTextContent());
+	            	       int timeMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementTime").item(0)).getTextContent());
 	            			int enerMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementEnergy").item(0)).getTextContent());
 	            			int timeExp = Integer.parseInt(((Node)eElement.getElementsByTagName("desactivationTime").item(0)).getTextContent());
 	            			int enerExp = Integer.parseInt(((Node)eElement.getElementsByTagName("desactivationEnergy").item(0)).getTextContent());

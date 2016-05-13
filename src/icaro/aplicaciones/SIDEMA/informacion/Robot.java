@@ -11,7 +11,7 @@ public abstract class Robot {
 	private int energy;
 	private InfoCompMovimiento infoCompMovt;
 	private String nameCC;
-	private Mapa m;
+	protected Mapa m;
 	
 	public Robot(String id, Celda currentPos, int energy, String leader) {
 		this.id = id;
@@ -27,6 +27,9 @@ public abstract class Robot {
 		this.nameCC = leader;
 	}
 	
+	public Mapa getMapa(){
+		return this.m;
+	}
 	public void setMapa(Mapa m){
 		this.m = m;
 		this.currentPos = this.m.getCelda(i, j);
