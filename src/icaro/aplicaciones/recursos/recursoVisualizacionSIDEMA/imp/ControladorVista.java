@@ -42,8 +42,10 @@ public class ControladorVista implements ActionListener{
 		this.v = ventana;
 	}
 	
-	public void setMapa(Mapa mapa){
-		this.escLog = mapa;	}
+	public void setModelo(Mapa mapa){
+		this.escLog = mapa;
+		this.v.setModelo(escLog);
+		}
 	
 	public Ventana getVentanaEntorno(){
 		return this.v;
@@ -61,12 +63,7 @@ public class ControladorVista implements ActionListener{
 		this.v.setModelo(escLog);
 	}
 	
-	public void setModelo(Mapa m){
-		this.escLog = m;
-		this.v.setModelo(escLog);
-		/*this.v.setVisible(false);
-		this.v.setVisible(true);
-		this.pintar();*/
+	public void actualizarPantalla(){
 		this.v.actualizarPantalla();
 	}
 	

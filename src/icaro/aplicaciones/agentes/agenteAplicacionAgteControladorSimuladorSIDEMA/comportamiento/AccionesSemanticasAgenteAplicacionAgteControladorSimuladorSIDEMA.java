@@ -151,6 +151,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
    public void  validarEscenarioRecibido (){
         try {
           itfUsoRecursoPersistenciaSIDEMA.parserCSVModelo(identFicheroEscenario);
+          this.escenarioActual = itfUsoRecursoPersistenciaSIDEMA.getEscenario();
 //          this.informaraMiAutomata("escenarioDefinidoValido", null);
             
         } catch (Exception ex) {
@@ -161,6 +162,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
    
    public void mostrarEscenarioSimulacion(){
 	   try {
+		itfUsoRecursoVisualizacionSIDEMA.setMapa(escenarioActual);
 		itfUsoRecursoVisualizacionSIDEMA.mostrarEntornoSimulacion();
 	} catch (Exception e) {
 		// TODO Auto-generated catch block

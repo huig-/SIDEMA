@@ -20,9 +20,9 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		try {
             trazas.aceptaNuevaTraza(new InfoTraza(idRecurso, "El constructor de la clase generadora del recurso " + idRecurso + " ha completado su ejecucion ....", InfoTraza.NivelTraza.debug));
             notifEvt = new NotificadorInfoUsuarioSimulador(super.id, identAgenteAReportar);
+            this.control = new ControladorVista();
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
             //controladorIUSimulador = new ControladorVisualizacionSimulRosace(notifEvt);
-            this.mostrarEntornoSimulacion();
             
         } catch (Exception e) {
             this.trazas.trazar(this.id, " Se ha producido un error en la creacion del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
@@ -60,7 +60,8 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 
 	@Override
 	public void mostrarEntornoSimulacion() throws Exception{
-		this.control = new ControladorVista();
+		this.pintado = true;
+		this.control.actualizarPantalla();
 		/*identFicheroEscenarioSimulacion = this.control.getVentanaEntorno().cargarEscenario();
 		//llamar al parser;
 		if(identFicheroEscenarioSimulacion != null){
@@ -85,8 +86,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	}
 	
 	public void setMapa(Mapa m) throws Exception {
-		this.control.setMapa(m);
-		this.pintado = true;
+		this.control.setModelo(m);
 	}
 	
 	public void termina(){
