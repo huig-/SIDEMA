@@ -16,7 +16,6 @@ import java.lang.String;
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
-global Mapa mapa;
 
 //Primera regla que se ejecutara. Solo se debe disparar una vez.
 rule "Acciones Iniciales Centro de Control"
@@ -27,21 +26,33 @@ rule "Acciones Iniciales Centro de Control"
 		TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
    		tarea1.ejecutar( );
    		//TODO mirar que hace tarea 2
-   		TareaSincrona tarea3 = gestorTareas.crearTareaSincrona(IntroducirMapa.class);
- 		tarea3.ejecutar();
    		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobotSIDEMA.class);
    		tarea2.ejecutar();
    		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
    		System.out.println( "\n"+agentId +" EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end
 
-rule "Distribuir Terreno"
+rule "Comenzar Simulacion"
 	when
 		focoActual : Focus(foco == null)
 		ordenCC : OrdenComenzarSimulacion()
+		robot: CentroControl(id == agentId)
 	then
+   		TareaSincrona tarea3 = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.IntroducirMapa.class);
+ 		tarea3.ejecutar();
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA COMENZAR SIMULACION\n\n");
+end
+
+rule "Distribuir Terreno"
+	when
+		focoActual : Focus(foco == null)
+		robot: CentroControl(id == agentId)
+		//mapa : Mapa()
+	then
+     	//robot.setMapa(mapa);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
-		tarea.ejecutar(mapa,ordenCC);
+		//tarea.ejecutar(mapa,ordenCC);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Distribuir Terreno\n\n");
 end

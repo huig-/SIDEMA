@@ -22,13 +22,17 @@ rule "Acciones Iniciales Neutralizador"
 	when
 		not (exists(Focus()))
 		not (exists(MisObjetivos()))
+		robot : Robot(id == agentId)
 		mapa : Mapa()
 	then
 		TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
    		tarea1.ejecutar( );
+   		
    		//TODO mirar que hace tarea 2
    		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobotSIDEMA.class);
-   		tarea2.ejecutar(mapa);
+   		tarea2.ejecutar();
+   		
+   		robot.setMapa(mapa);
    		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
    		System.out.println( "\n"+agentId +"EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end

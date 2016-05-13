@@ -31,8 +31,21 @@ public class CentroControl extends Robot {
 		this.minasPendientes = minasPendientes;
 	}
 
+	public void setMapa(Mapa mapa){
+		super.setMapa(mapa);
+	}
 	public CentroControl(String id, Celda currentPos, int energy, String leader) {
 		super(id, currentPos, energy, leader);
+		this.exploradores = new ArrayList<String>();
+		this.neutralizadores = new ArrayList<String>();
+		this.msgNeutralizador = new ArrayList<Celda>();
+		this.minasPendientes = new ArrayList<Celda>();
+		this.emisorNeutralizador = new ArrayList<String>();
+		this.neutralizadores.add("agenteNeutralizador0");
+		this.neutralizadores.add("agenteNeutralizador1");
+	}
+	public CentroControl(String id, int i, int j, int energy, String leader) {
+		super(id, i,j, energy, leader);
 		this.exploradores = new ArrayList<String>();
 		this.neutralizadores = new ArrayList<String>();
 		this.msgNeutralizador = new ArrayList<Celda>();

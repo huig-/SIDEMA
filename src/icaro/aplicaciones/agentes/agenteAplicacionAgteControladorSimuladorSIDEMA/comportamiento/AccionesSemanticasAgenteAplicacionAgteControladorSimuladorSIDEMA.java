@@ -151,8 +151,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
    public void  validarEscenarioRecibido (){
         try {
           itfUsoRecursoPersistenciaSIDEMA.parserCSVModelo(identFicheroEscenario);
-          this.escenarioActual = itfUsoRecursoPersistenciaSIDEMA.getEscenario();
-    //      this.itfetEnvioHechos().insertarHecho(robot);
 //          this.informaraMiAutomata("escenarioDefinidoValido", null);
             
         } catch (Exception ex) {
@@ -163,7 +161,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
    
    public void mostrarEscenarioSimulacion(){
 	   try {
-		itfUsoRecursoVisualizacionSIDEMA.setMapa(escenarioActual);
 		itfUsoRecursoVisualizacionSIDEMA.mostrarEntornoSimulacion();
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
@@ -186,7 +183,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
                    try {
                 	   
                        comunicator.enviarInfoAotroAgente(ccOrder, VocabularioSIDEMA.IdentAgteDistribuidorTareas);
-                       stop = true;
                    }
                catch (Exception e) {
                    e.printStackTrace();
@@ -433,7 +429,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
             ArrayList<InfoAsignacionVictima> infoAsignVictms = new ArrayList();
           //  infoAsignVictms = itfUsoRecursoPersistenciaSIDEMA.obtenerInfoAsignacionVictimas();
             contadorRobotsQueContestanFinsimulacion++;
-            if (contadorRobotsQueContestanFinsimulacion == identsAgtesEquipo.size())
+            //if (contadorRobotsQueContestanFinsimulacion == identsAgtesEquipo.size())
                 //this.itfUsoRecursoVisualizacionSIDEMA.mostrarResultadosFinSimulacion();
         } catch (Exception e) {
             e.printStackTrace();

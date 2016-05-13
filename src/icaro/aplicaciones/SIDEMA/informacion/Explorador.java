@@ -29,6 +29,15 @@ public class Explorador extends Robot {
 		this.energiaMovimiento = enMov;
 		this.energiaExploracion = enExp;
 		
+	}	
+	public Explorador(String id,int i, int j, int energy,
+			String leader,int timeMov,int enMov, int timeExp, int enExp) {
+		super(id,i,j, energy, leader);
+		this.tiempoExploracion = timeExp;
+		this.tiempoMovimiento = timeMov;
+		this.energiaMovimiento = enMov;
+		this.energiaExploracion = enExp;
+		
 	}
 	
 	public int getTiempoMovimiento() {

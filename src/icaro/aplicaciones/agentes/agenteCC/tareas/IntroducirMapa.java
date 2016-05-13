@@ -11,6 +11,7 @@ public class IntroducirMapa extends TareaSincrona {
 	public void ejecutar(Object... params) {
 		try {
 	     ItfUsoRecursoPersistenciaSIDEMA itfUsoRecursoPersistenciaSIDEMA = (ItfUsoRecursoPersistenciaSIDEMA) this.repoInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaSIDEMA1");
+	     	this.itfProcObjetivos.eliminarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 			this.itfProcObjetivos.insertarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

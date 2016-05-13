@@ -23,6 +23,15 @@ public class Neutralizador extends Robot {
 		this.tiempoDesactivacion = tiempoDesactivacion;
 		this.energiaDesactivacion = energiaDesactivacion;
 	}
+	public Neutralizador(String id, int i, int j, int energy,
+			String leader, int tiempoMovimiento, int energiaMovimiento,
+			int tiempoDesactivacion, int energiaDesactivacion) {
+		super(id,i,j, energy, leader);
+		this.tiempoMovimiento = tiempoMovimiento;
+		this.energiaMovimiento = energiaMovimiento;
+		this.tiempoDesactivacion = tiempoDesactivacion;
+		this.energiaDesactivacion = energiaDesactivacion;
+	}
 
 	public int getTiempoMovimiento() {
 		return tiempoMovimiento;

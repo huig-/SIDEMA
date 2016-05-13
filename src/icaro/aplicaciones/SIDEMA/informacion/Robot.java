@@ -6,9 +6,12 @@ public abstract class Robot {
 	
 	private String id;
 	private Celda currentPos;
+	private int i;
+	private int j;
 	private int energy;
 	private InfoCompMovimiento infoCompMovt;
 	private String nameCC;
+	private Mapa m;
 	
 	public Robot(String id, Celda currentPos, int energy, String leader) {
 		this.id = id;
@@ -16,7 +19,18 @@ public abstract class Robot {
 		this.energy = energy;
 		this.nameCC = leader;
 	}
+	public Robot(String id, int i, int j, int energy, String leader) {
+		this.id = id;
+		this.i = i;
+		this.j = j;
+		this.energy = energy;
+		this.nameCC = leader;
+	}
 	
+	public void setMapa(Mapa m){
+		this.m = m;
+		this.currentPos = this.m.getCelda(i, j);
+	}
 	public String getCC(){
 		return this.nameCC;
 	}

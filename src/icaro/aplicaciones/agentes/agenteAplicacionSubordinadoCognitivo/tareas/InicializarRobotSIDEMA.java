@@ -57,7 +57,7 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 	            			int enerMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementEnergy").item(0)).getTextContent());
 	            			int timeExp = Integer.parseInt(((Node)eElement.getElementsByTagName("explorationTime").item(0)).getTextContent());
 	            			int enerExp = Integer.parseInt(((Node)eElement.getElementsByTagName("explorationEnergy").item(0)).getTextContent());
-	            			robot = new Explorador(id,m.getCelda(x, y), energy,leader,timeMov,enerMov,timeExp,enerExp);
+	            			robot = new Explorador(id,x,y, energy,leader,timeMov,enerMov,timeExp,enerExp);
 	            	  		this.getEnvioHechos().insertarHecho(robot);
 		            		System.out.println(robot.toString()); //cambiar por trazas?
 	            
@@ -67,13 +67,13 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 	            			int enerMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementEnergy").item(0)).getTextContent());
 	            			int timeExp = Integer.parseInt(((Node)eElement.getElementsByTagName("desactivationTime").item(0)).getTextContent());
 	            			int enerExp = Integer.parseInt(((Node)eElement.getElementsByTagName("desactivationEnergy").item(0)).getTextContent());
-	            			robot = new Neutralizador(id,m.getCelda(x, y), energy,leader,timeMov,enerMov,timeExp,enerExp);
+	            			robot = new Neutralizador(id,x,y, energy,leader,timeMov,enerMov,timeExp,enerExp);
 	            	  		this.getEnvioHechos().insertarHecho(robot);
 		            		System.out.println(robot.toString()); //cambiar por trazas?
 	            
 	            		}
 	            		else if(type.equalsIgnoreCase("CentroControl")){
-	            			robot = new CentroControl(id,null, energy,leader);
+	            			robot = new CentroControl(id,x,y, energy,leader);
 	            	  		this.getEnvioHechos().insertarHecho(robot);
 		            		System.out.println(robot.toString()); //cambiar por trazas?
 	            		}
