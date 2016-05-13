@@ -17,7 +17,7 @@
 
 <estado idIntermedio="esperandoDefinicionEscenario">
 
-     <transicion input="escenarioSeleccionadoUsuario" accion="ValidarEscenarioRecibido" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/>
+     <transicion input="escenarioSeleccionadoUsuario" accion="validarEscenarioRecibido" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/>
       <transicion input="escenarioDefinidoValido" accion="mostrarEscenarioSimulacion" estadoSiguiente="esperandoIniciarSimulacion" modoDeTransicion="bloqueante"/>
      <!--transicion input="timeoutEsperaDefinicionEscenario" accion="solicitarDefinicionEscenario" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/>
       <transicion input="EscenarioEnfaseDeCreacion" accion="crearTempSolicitarDefinicionEscenario" estadoSiguiente="esperandoDefinicionEscenario" modoDeTransicion="bloqueante"/-->

@@ -111,6 +111,5 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	//private String directorioPersistencia .. ;
 	private File identFicheroEscenarioSimulacion;
 	private NotificadorInfoUsuarioSimulador notifEvt;
-	private String identAgenteAReportar;
 
 }
