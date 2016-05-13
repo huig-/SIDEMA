@@ -16,17 +16,19 @@ import java.lang.String;
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
+global Mapa mapa;
 
 //Primera regla que se ejecutara. Solo se debe disparar una vez.
 rule "Acciones Iniciales Centro de Control"
 	when
 		not (exists(Focus()))
 		not (exists(MisObjetivos()))
-		//mapa : Mapa()
 	then
 		TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
    		tarea1.ejecutar( );
    		//TODO mirar que hace tarea 2
+   		TareaSincrona tarea3 = gestorTareas.crearTareaSincrona(IntroducirMapa.class);
+ 		tarea3.ejecutar();
    		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobotSIDEMA.class);
    		tarea2.ejecutar();
    		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
@@ -36,7 +38,6 @@ end
 rule "Distribuir Terreno"
 	when
 		focoActual : Focus(foco == null)
-		mapa: Mapa()
 		ordenCC : OrdenComenzarSimulacion()
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
@@ -97,6 +98,7 @@ rule "Enviar Neutralizador"
 	when
 		focoActual : Focus(foco == null)
 		robot : CentroControl(id == agentId)
+		ordenCC: InformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
 		eval(robot.recibidosNeutralizadores())
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);

@@ -47,6 +47,7 @@ public abstract class TareaSincrona {
     public TareaSincrona(ItfProcesadorObjetivos envioHechos, AgenteCognitivo agente) {
     
     	this.itfProcObjetivos = envioHechos;
+    	this.agente = agente;
         this.trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
         this.identAgente = agente.getIdentAgente();
         this.repoInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;

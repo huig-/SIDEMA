@@ -22,13 +22,9 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
 
 public class InicializarRobotSIDEMA extends TareaSincrona {
 
-	public InicializarRobotSIDEMA(){
-		super();
-	}
 	@Override
 	public void ejecutar(Object... params) {
 		String miIdentAgte = this.getIdentAgente();
-        
         //Lectura del fichero de robots. Aprovechamos para tener en memoria la configuracion de robots.
              
         String rutaFicheroRobotsTest = AccesoPropiedadesGlobalesRosace.getRutaFicheroRobotsTest();
@@ -40,7 +36,6 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("robot");
             boolean found = false;
-            Mapa m = Mapa.instance;
             for (int i = 0; i < nList.getLength() && !found; i++) {
             	Node nNode = nList.item(i);
             	if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -57,6 +52,7 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 	            		String leader = ((Node)eElement.getElementsByTagName("nameCC").item(0)).getTextContent();
 	            		Robot robot;
 	            		if(type.equalsIgnoreCase("Explorador")){
+	            	        Mapa m = (Mapa)params[0];
 	            			int timeMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementTime").item(0)).getTextContent());
 	            			int enerMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementEnergy").item(0)).getTextContent());
 	            			int timeExp = Integer.parseInt(((Node)eElement.getElementsByTagName("explorationTime").item(0)).getTextContent());
@@ -66,6 +62,7 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 		            		System.out.println(robot.toString()); //cambiar por trazas?
 	            
 	            		}else if(type.equalsIgnoreCase("Neutralizador")){
+	            	        Mapa m = (Mapa)params[0];
 	            			int timeMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementTime").item(0)).getTextContent());
 	            			int enerMov = Integer.parseInt(((Node)eElement.getElementsByTagName("movementEnergy").item(0)).getTextContent());
 	            			int timeExp = Integer.parseInt(((Node)eElement.getElementsByTagName("desactivationTime").item(0)).getTextContent());
@@ -76,10 +73,9 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 	            
 	            		}
 	            		else if(type.equalsIgnoreCase("CentroControl")){
-	            			robot = new CentroControl(id,m.getCelda(x, y), energy,leader);
+	            			robot = new CentroControl(id,null, energy,leader);
 	            	  		this.getEnvioHechos().insertarHecho(robot);
 		            		System.out.println(robot.toString()); //cambiar por trazas?
-		            		this.getEnvioHechos().insertarHecho(m);
 	            		}
 	            		else{
 	                    	this.trazas.trazar(miIdentAgte, "No se ha reconocido el tipo del agente", InfoTraza.NivelTraza.error);
