@@ -19,7 +19,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		super(idRecurso);
 		try {
             trazas.aceptaNuevaTraza(new InfoTraza(idRecurso, "El constructor de la clase generadora del recurso " + idRecurso + " ha completado su ejecucion ....", InfoTraza.NivelTraza.debug));
-            notifEvt = new NotificadorInfoUsuarioSimulador(super.id, identAgenteaReportar);
+            notifEvt = new NotificadorInfoUsuarioSimulador(super.id, identAgenteAReportar);
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
             //controladorIUSimulador = new ControladorVisualizacionSimulRosace(notifEvt);
             this.mostrarEntornoSimulacion();
@@ -76,7 +76,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	public void cargarEscenario() throws Exception{
 		identFicheroEscenarioSimulacion = this.control.getVentanaEntorno().cargarEscenario();
 		if(this.identFicheroEscenarioSimulacion!=null){
-			notifEvt.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo(VocabularioSIDEMA.informarEscenarioSeleccionado), identAgenteaReportar);
+			notifEvt.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo(VocabularioSIDEMA.informarEscenarioSeleccionado), identAgenteAReportar);
 		}
 	}
 	
@@ -111,6 +111,6 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	//private String directorioPersistencia .. ;
 	private File identFicheroEscenarioSimulacion;
 	private NotificadorInfoUsuarioSimulador notifEvt;
-	private String identAgenteaReportar;
+	private String identAgenteAReportar;
 
 }

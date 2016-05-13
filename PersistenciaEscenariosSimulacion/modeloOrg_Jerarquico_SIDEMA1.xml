@@ -1,5 +1,5 @@
 <escenarioSimulacion>
-   <identEscenario>modeloOrg_Jerarquico_Prototipo1</identEscenario>
+   <identEscenario>modeloOrg_Jerarquico_SIDEMA1</identEscenario>
    <modeloOrganizativo>Jerarquico</modeloOrganizativo>
    <numExploradores>1</numExploradores>
    <numNeutralizadores>2</numNeutralizadores>

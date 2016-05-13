@@ -2,7 +2,9 @@ package icaro.aplicaciones.SIDEMA.informacion;
 
 public class VocabularioSIDEMA {
 	
-	//Mensajes de Input de la m��quina de estados del agente reactivo	
+	//En nuestro caso es el agente Centro de control
+	static public final String IdentAgteDistribuidorTareas = "agenteCC";
+	//Mensajes de Input de la maquina de estados del agente reactivo	
 	//static public  final String peticionSimulacionVictima = "peticionSimulacionVictima";
     //static public  final String peticionPararSimulacion = "peticionPararSimulacion";
    // static public  final String peticionSimulacionSecuenciaVictimas = "sendSequenceOfSimulatedVictimsToRobotTeam";
