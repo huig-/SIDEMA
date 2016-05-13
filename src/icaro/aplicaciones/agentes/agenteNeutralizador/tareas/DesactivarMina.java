@@ -54,12 +54,12 @@ public class DesactivarMina extends TareaSincrona {
 				}while(it.hasNext());
 			}
 			try {
+				visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY());
 			    Thread.sleep(r.getTiempoDesactivacion());
 			    r.setEnergy(r.getEnergy()-r.getEnergiaDesactivacion());             
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
-			visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY());
 			c.desactivarMina();
 			InformarNeutralizadorLibre orden = new InformarNeutralizadorLibre(r.getId());
 			this.getComunicator().enviarInfoAotroAgente(orden,r.getCC());

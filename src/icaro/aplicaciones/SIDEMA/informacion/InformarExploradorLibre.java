@@ -2,20 +2,20 @@ package icaro.aplicaciones.SIDEMA.informacion;
 
 import java.io.Serializable;
 
-public class InformarMinaEncontrada extends InformacionAgente implements Serializable {
+public class InformarExploradorLibre extends InformacionAgente implements Serializable{
 
-	public InformarMinaEncontrada( ) {
-        super.setMensajeOrden(VocabularioSIDEMA.MsgPeticionMinaEncontrada);
+	public InformarExploradorLibre( ) {
+        super.setMensajeOrden(VocabularioSIDEMA.MsgInformarNeutralizadorLibre);
  }
-    public InformarMinaEncontrada(String identAgteEmisor) {
+    public InformarExploradorLibre(String identAgteEmisor) {
         identEmisor= identAgteEmisor;
-        mensajeOrden = VocabularioSIDEMA.MsgPeticionMinaEncontrada;
+        mensajeOrden = VocabularioSIDEMA.MsgInformarNeutralizadorLibre;
         justificacion = null;
 
  }
-    public InformarMinaEncontrada(String identAgteEmisor, Object justificat) {
+    public InformarExploradorLibre(String identAgteEmisor, Object justificat) {
         identEmisor= identAgteEmisor;
-        mensajeOrden = VocabularioSIDEMA.MsgPeticionMinaEncontrada;
+        mensajeOrden = VocabularioSIDEMA.MsgInformarNeutralizadorLibre;
         justificacion = justificat;
 
  }

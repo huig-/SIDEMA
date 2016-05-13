@@ -4,6 +4,7 @@ import org.jgrapht.GraphPath;
 import org.jgrapht.graph.WeightedMultigraph;
 import org.jgrapht.alg.BellmanFordShortestPath;
 import org.jgrapht.alg.DijkstraShortestPath;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,39 @@ public class Mapa {
 	private WeightedMultigraph<Celda, Integer> ExploredGraph;
 	private WeightedMultigraph<Celda, Integer> completeGraph;
 	public static Mapa instance;
+	
+	@SuppressWarnings("unchecked")
+	public Mapa(Mapa other) { //deep clone
+		this.rows = other.getRows();
+		this.columns = other.getColumns();
+		this.numExploradas = other.getNumExploradas();
+		this.numCompletas = other.getNumCompletas();
+		this.mapa = new Celda[this.rows][this.columns];
+		for (int i = 0; i < this.rows; i++) {
+			for (int j = 0; j < this.columns; j++) {
+				Celda aux = other.getMapa()[i][j];
+				this.mapa[i][j] = new Celda(aux.getX(), aux.getY(), aux.getAccesible(), aux.getMina());
+			}
+		}
+		this.ExploredGraph = (WeightedMultigraph<Celda, Integer>) other.getExploredGraph().clone();
+		this.completeGraph = (WeightedMultigraph<Celda, Integer>) other.getCompleteGraph().clone();
+	}
+
+	public WeightedMultigraph<Celda, Integer> getExploredGraph() {
+		return ExploredGraph;
+	}
+
+	public void setExploredGraph(WeightedMultigraph<Celda, Integer> exploredGraph) {
+		ExploredGraph = exploredGraph;
+	}
+
+	public WeightedMultigraph<Celda, Integer> getCompleteGraph() {
+		return completeGraph;
+	}
+
+	public void setCompleteGraph(WeightedMultigraph<Celda, Integer> completeGraph) {
+		this.completeGraph = completeGraph;
+	}
 
 	public Mapa(int rows, int column) {
 		this.mapa = new Celda[rows][column];
@@ -57,6 +91,22 @@ public class Mapa {
 
 	public Mapa getInstance() {
 		return this.instance;
+	}
+	
+	public synchronized int getNumExploradas() {
+		return numExploradas;
+	}
+
+	public synchronized void setNumExploradas(int numExploradas) {
+		this.numExploradas = numExploradas;
+	}
+
+	public synchronized int getNumCompletas() {
+		return numCompletas;
+	}
+
+	public synchronized void setNumCompletas(int numCompletas) {
+		this.numCompletas = numCompletas;
 	}
 
 	public synchronized boolean tieneMina(int row, int column) {
