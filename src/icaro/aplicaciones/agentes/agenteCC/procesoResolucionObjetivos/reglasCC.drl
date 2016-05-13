@@ -22,6 +22,7 @@ rule "Acciones Iniciales Centro de Control"
 	when
 		not (exists(Focus()))
 		not (exists(MisObjetivos()))
+		mapa : Mapa()
 	then
 		TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
    		tarea1.ejecutar( );
