@@ -22,6 +22,9 @@ public class Mapa {
 		this.mapa = new Celda[rows][column];
 		this.rows = rows;
 		this.columns = column;
+		for(int i =0;i<this.rows;i++)
+			for(int j = 0;j<this.columns;j++)
+				this.mapa[i][j] = new Celda(i, j, true, false);
 		this.ExploredGraph = new WeightedMultigraph<Celda, Integer>(Integer.class);
 	}
 

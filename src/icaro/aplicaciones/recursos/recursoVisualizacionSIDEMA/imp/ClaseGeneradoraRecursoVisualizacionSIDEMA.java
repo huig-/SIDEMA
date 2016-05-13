@@ -20,7 +20,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		try {
             trazas.aceptaNuevaTraza(new InfoTraza(idRecurso, "El constructor de la clase generadora del recurso " + idRecurso + " ha completado su ejecucion ....", InfoTraza.NivelTraza.debug));
             notifEvt = new NotificadorInfoUsuarioSimulador(super.id, identAgenteAReportar);
-            this.control = new ControladorVista();
+            this.control = new ControladorVista(notifEvt);
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
             //controladorIUSimulador = new ControladorVisualizacionSimulRosace(notifEvt);
             
@@ -30,6 +30,11 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
             throw e;
         }
 		
+	}
+	
+	public void setIdentAgenteAReportar(String identAgenteAReportar) {
+		this.identAgenteAReportar =identAgenteAReportar;
+		this.notifEvt.setIdentAgenteAReportar(identAgenteAReportar);
 	}
 
 	@Override

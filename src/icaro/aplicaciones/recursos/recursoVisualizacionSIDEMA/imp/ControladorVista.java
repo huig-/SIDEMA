@@ -22,6 +22,8 @@ public class ControladorVista implements ActionListener{
 	
 	public ControladorVista(NotificadorInfoUsuarioSimulador notifEvt){
 		this.notifEvt = notifEvt;
+		this.v = new Ventana();
+		this.v.setControlador(this);
 	}
 	
 	public ControladorVista(Mapa escenario){
@@ -33,8 +35,6 @@ public class ControladorVista implements ActionListener{
 	
 	public ControladorVista(){
 		this.v = new Ventana();
-		//this.escLog = new Mapa();
-		//this.escLog= Mapa.instance;
 		this.v.setControlador(this);
 	}
 	

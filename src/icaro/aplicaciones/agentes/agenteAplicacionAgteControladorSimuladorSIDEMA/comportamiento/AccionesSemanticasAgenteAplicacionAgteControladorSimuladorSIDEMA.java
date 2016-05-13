@@ -152,6 +152,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
         try {
           itfUsoRecursoPersistenciaSIDEMA.parserCSVModelo(identFicheroEscenario);
           this.escenarioActual = itfUsoRecursoPersistenciaSIDEMA.getEscenario();
+    //      this.itfetEnvioHechos().insertarHecho(robot);
 //          this.informaraMiAutomata("escenarioDefinidoValido", null);
             
         } catch (Exception ex) {
@@ -185,6 +186,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
                    try {
                 	   
                        comunicator.enviarInfoAotroAgente(ccOrder, VocabularioSIDEMA.IdentAgteDistribuidorTareas);
+                       stop = true;
                    }
                catch (Exception e) {
                    e.printStackTrace();

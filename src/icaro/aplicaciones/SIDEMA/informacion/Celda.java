@@ -27,6 +27,11 @@ public class Celda implements Serializable {
 		  this.mina = false;
 		  this.accesible = true;
 	  }
+	  
+	  public Celda(){
+		  this.mina = false;
+		  this.accesible=true;
+	  }
 	  public synchronized void setX (double XCoord){
 	      this.x=XCoord;
 	  }

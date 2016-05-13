@@ -22,6 +22,9 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
 
 public class InicializarRobotSIDEMA extends TareaSincrona {
 
+	public InicializarRobotSIDEMA(){
+		super();
+	}
 	@Override
 	public void ejecutar(Object... params) {
 		String miIdentAgte = this.getIdentAgente();
