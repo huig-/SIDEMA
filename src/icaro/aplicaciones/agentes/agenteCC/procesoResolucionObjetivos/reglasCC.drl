@@ -39,7 +39,7 @@ rule "Comenzar Simulacion"
 		robot: CentroControl(id == agentId)
 	then
    		TareaSincrona tarea3 = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.IntroducirMapa.class);
- 		tarea3.ejecutar();
+ 		tarea3.ejecutar(ordenCC);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA COMENZAR SIMULACION\n\n");
 end
@@ -47,12 +47,12 @@ end
 rule "Distribuir Terreno"
 	when
 		focoActual : Focus(foco == null)
-		robot: CentroControl(id == agentId)
-		//mapa : Mapa()
+		robot: Robot(id == agentId)
+		mapa : Mapa()
 	then
-     	//robot.setMapa(mapa);
+     	robot.setMapa(mapa);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
-		//tarea.ejecutar(mapa,ordenCC);
+		tarea.ejecutar(mapa);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Distribuir Terreno\n\n");
 end
@@ -109,6 +109,7 @@ rule "Enviar Neutralizador"
 	when
 		focoActual : Focus(foco == null)
 		robot : CentroControl(id == agentId)
+		mapa : Mapa()
 		ordenCC: InformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
 		eval(robot.recibidosNeutralizadores())
 	then

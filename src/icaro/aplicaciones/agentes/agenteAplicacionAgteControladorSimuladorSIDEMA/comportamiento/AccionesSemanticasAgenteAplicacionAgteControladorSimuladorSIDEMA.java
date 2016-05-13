@@ -183,6 +183,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
                    try {
                 	   
                        comunicator.enviarInfoAotroAgente(ccOrder, VocabularioSIDEMA.IdentAgteDistribuidorTareas);
+                       stop = true;
                    }
                catch (Exception e) {
                    e.printStackTrace();
