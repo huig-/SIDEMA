@@ -53,7 +53,7 @@ public class ExplorarTerreno extends TareaSincrona {
 							NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
 									NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
 					if (visualizador != null) {
-						visualizador.mover("explorador",i, j);
+						visualizador.mover("explorador",i, j,exp.getCurrentPos().getX(),exp.getCurrentPos().getY());
 						
 					}
 					else {

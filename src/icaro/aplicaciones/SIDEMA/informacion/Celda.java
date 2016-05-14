@@ -4,24 +4,24 @@ import java.io.Serializable;
 
 public class Celda implements Serializable {
 	
-	private double x, y;
+	private int x, y;
 	private boolean accesible;
 	private boolean mina;
 	  
-	  public Celda(double x, double y,boolean accesible, boolean mina) {
+	  public Celda(int x, int y,boolean accesible, boolean mina) {
 	    this.x = x;
 	    this.y = y;
 	    this.accesible = accesible;
 	    this.mina = mina;
 	  }
 	  
-	  public Celda(double x, double y,boolean mina){
+	  public Celda(int x, int y,boolean mina){
 		  this.x = x;
 		  this.y = y;
 		  this.mina = mina;
 	  }
 	  
-	  public Celda(double x, double y){
+	  public Celda(int x, int y){
 		  this.x = x;
 		  this.y = y;
 		  this.mina = false;
@@ -32,16 +32,16 @@ public class Celda implements Serializable {
 		  this.mina = false;
 		  this.accesible=true;
 	  }
-	  public synchronized void setX (double XCoord){
+	  public synchronized void setX (int XCoord){
 	      this.x=XCoord;
 	  }
-	  public synchronized double getX (){
+	  public synchronized int getX (){
 	      return this.x;
 	  }
-	  public synchronized void setY (double YCoord){
+	  public synchronized void setY (int YCoord){
 	      this.y=YCoord;
 	  }
-	  public synchronized double getY (){
+	  public synchronized int getY (){
 	      return this.y;
 	  }
 	  

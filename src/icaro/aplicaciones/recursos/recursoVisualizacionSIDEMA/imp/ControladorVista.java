@@ -3,8 +3,12 @@ package icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+
+import org.jgrapht.alg.util.Pair;
 
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+import icaro.aplicaciones.SIDEMA.informacion.Robot;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.NotificadorInfoUsuarioSimulador;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 
@@ -13,6 +17,7 @@ public class ControladorVista implements ActionListener{
 	private Ventana v;
 	private Mapa escLog;
 	private NotificadorInfoUsuarioSimulador notifEvt;
+	
 	
 	public ControladorVista(Ventana ventana, Mapa escenario){
 		this.v = ventana;
@@ -67,6 +72,14 @@ public class ControladorVista implements ActionListener{
 		this.v.actualizarPantalla();
 	}
 	
+	public void movimientoExplorador(int xT,int yT,int xS, int yS){
+		this.v.movimientoExplorador(xT,yT,xS,yS);
+	}
+	
+	public void movimientoNeutralizador(int xT,int yT,int xS, int yS){
+		this.v.movimientoNeutralizador(xT,yT,xS,yS);
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent evento) {
@@ -86,5 +99,6 @@ public class ControladorVista implements ActionListener{
 			}
 		
 	}
+	
 
 }

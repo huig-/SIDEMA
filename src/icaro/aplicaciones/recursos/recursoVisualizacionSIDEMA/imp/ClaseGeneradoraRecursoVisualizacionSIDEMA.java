@@ -4,6 +4,7 @@ import java.io.File;
 import java.rmi.RemoteException;
 
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+import icaro.aplicaciones.SIDEMA.informacion.Robot;
 import icaro.aplicaciones.SIDEMA.informacion.VocabularioSIDEMA;
 import icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.ItfUsoRecursoVisualizacionSIDEMA;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
@@ -38,12 +39,12 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	}
 
 	@Override
-	public void mover(String identAgente, int x, int y) throws Exception {
+	public void mover(String identAgente, int xT, int yT,int xS,int yS) throws Exception {
 		if(identAgente.equals("explorador")){
-			this.control.getVentanaEntorno().getEscenario().movimientoExplorador(x, y);
+			this.control.movimientoExplorador(xT, yT,xS, yS);
 		}else{
-			this.control.getVentanaEntorno().getEscenario().movimientoNeutralizador(x, y);
-		}		
+			this.control.movimientoNeutralizador(xT, yT,xS,yS);
+		}
 	}
 
 	@Override
@@ -110,6 +111,8 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 	public void pintarEscenario()throws Exception{
 		this.control.pintar();
 	}
+	
+	
 	
 	private boolean pintado;
 	private ControladorVista control;

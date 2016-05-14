@@ -47,12 +47,12 @@ public class ExplorarCelda extends TareaSincrona {
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
 						}
-						visualizador.mover("explorador",(int)pos.getX(),(int)pos.getY());
+						visualizador.mover("explorador",(int)pos.getX(),(int)pos.getY(),explorador.getCurrentPos().getX(),explorador.getCurrentPos().getY());
 						explorador.setCurrentPos(pos);	
 					}
 				} while(it.hasNext());
 			}
-			visualizador.mover("explorador",(int)celdaAExplorar.getX(),(int)celdaAExplorar.getY());
+			visualizador.mover("explorador",(int)celdaAExplorar.getX(),(int)celdaAExplorar.getY(),explorador.getCurrentPos().getX(),explorador.getCurrentPos().getY());
 			try {
 				Thread.sleep(explorador.getTiempoExploracion());
 			} catch (InterruptedException ie) {
