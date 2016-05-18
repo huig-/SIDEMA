@@ -14,8 +14,8 @@ public class IntroducirMapa extends TareaSincrona {
 		try {
 
 			OrdenComenzarSimulacion ordenI = (OrdenComenzarSimulacion)params[0];
-			this.getEnvioHechos().eliminarHechoWithoutFireRules(ordenI);
-			 ItfUsoRecursoPersistenciaSIDEMA itfUsoRecursoPersistenciaSIDEMA = (ItfUsoRecursoPersistenciaSIDEMA) this.repoInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaSIDEMA1");
+			//this.getEnvioHechos().eliminarHechoWithoutFireRules(ordenI);
+			ItfUsoRecursoPersistenciaSIDEMA itfUsoRecursoPersistenciaSIDEMA = (ItfUsoRecursoPersistenciaSIDEMA) this.repoInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaSIDEMA1");
 			this.itfProcObjetivos.eliminarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 			this.itfProcObjetivos.insertarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 		

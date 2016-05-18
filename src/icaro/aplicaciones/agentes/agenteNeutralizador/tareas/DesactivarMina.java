@@ -25,6 +25,7 @@ public class DesactivarMina extends TareaSincrona {
 	@Override
 	public void ejecutar(Object... params) {
 		try {
+			
 			Celda c = (Celda)params[0];
 			Neutralizador r = (Neutralizador)params[1];
 			Mapa m = r.getMapa();
@@ -48,20 +49,20 @@ public class DesactivarMina extends TareaSincrona {
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
 						}
-						visualizador.mover("neutralizador",(int)pos.getX(),(int)pos.getY(),r.getCurrentPos().getX(),r.getCurrentPos().getY());
+						visualizador.mover("neutralizador",(int)pos.getX(),(int)pos.getY(),(int)r.getCurrentPos().getX(),(int)r.getCurrentPos().getY());
 						r.setCurrentPos(pos);	
 					}
 				}while(it.hasNext());
 			}
 			try {
-				visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY(),r.getCurrentPos().getX(),r.getCurrentPos().getY());
+				visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY(),(int)r.getCurrentPos().getX(),(int)r.getCurrentPos().getY());
 			    Thread.sleep(r.getTiempoDesactivacion());
 			    r.setEnergy(r.getEnergy()-r.getEnergiaDesactivacion());             
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
 			c.desactivarMina();
-			InformarNeutralizadorLibre orden = new InformarNeutralizadorLibre(r.getId());
+			InformarNeutralizadorLibre orden = new InformarNeutralizadorLibre(r.getId(),r);
 			this.getComunicator().enviarInfoAotroAgente(orden,r.getCC());
 		}
 		catch (Exception e) {

@@ -26,6 +26,9 @@ public class ExplorarTerreno extends TareaSincrona {
 			//celdasAExplorar = (ArrayList<Celda>)params[0]; v1.0
 			celdasAExplorar = (Mapa)params[0];
 			Explorador exp = (Explorador)params[1];
+			OrdenExplorar o = (OrdenExplorar)params[2];
+			this.getEnvioHechos().eliminarHechoWithoutFireRules(o);
+			exp.setMapa(celdasAExplorar);
 			int num_columns = celdasAExplorar.getColumns();
 			int num_rows = celdasAExplorar.getRows();
 			int ini;
@@ -53,12 +56,13 @@ public class ExplorarTerreno extends TareaSincrona {
 							NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
 									NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
 					if (visualizador != null) {
-						visualizador.mover("explorador",i, j,exp.getCurrentPos().getX(),exp.getCurrentPos().getY());
+						visualizador.mover("explorador",i, j,(int)exp.getCurrentPos().getX(),(int)exp.getCurrentPos().getY());
 						
 					}
 					else {
 						//this.generarInformeConCausaTerminacion(identTarea, , idAgenteOrdenante, contenido, causaTerminacion);\
 					}
+					exp.setCurrentPos(celdasAExplorar.getCelda(i, j));
 					if (celdasAExplorar.tieneMina(i, j)) {
 						//Si encontramos una mina, se produce un retraso mayor.
 						Celda c = celdasAExplorar.getCelda(i,j);

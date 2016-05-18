@@ -32,7 +32,7 @@ public abstract class Robot {
 	}
 	public void setMapa(Mapa m){
 		this.m = m;
-		this.currentPos = this.m.getCelda(i, j);
+		if(this.currentPos == null) this.currentPos = this.m.getCelda(i, j);
 	}
 	public String getCC(){
 		return this.nameCC;

@@ -24,7 +24,7 @@ rule "Acciones Iniciales Centro de Control"
 		not (exists(MisObjetivos()))
 	then
 		TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
-   		tarea1.ejecutar( );
+   		tarea1.ejecutar();
    		//TODO mirar que hace tarea 2
    		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(InicializarRobotSIDEMA.class);
    		tarea2.ejecutar();
@@ -48,11 +48,12 @@ rule "Distribuir Terreno"
 	when
 		focoActual : Focus(foco == null)
 		robot: Robot(id == agentId)
+		ordenCC : OrdenComenzarSimulacion()
 		mapa : Mapa()
 	then
      	robot.setMapa(mapa);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
-		tarea.ejecutar(mapa);
+		tarea.ejecutar(mapa,ordenCC);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Distribuir Terreno\n\n");
 end
@@ -64,7 +65,7 @@ rule "Solicitar Ubicacion Actual"
 		robot: CentroControl(id == agentId)
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.SolicitarInformacionNeutralizador.class);
-		tarea.ejecutar(robot,minaCelda);
+		tarea.ejecutar(robot,minaCelda,ordenCC);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Solicitar Ubicacion Actual\n\n");
 end
@@ -75,33 +76,34 @@ rule "Recibir Ubicacion Actual"
 		ordenCC: InformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
 		robot: CentroControl(id == agentId)
 	then
-		robot.actualizarMsg((Celda)celdaActual,emisor);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.ActualizarMensajesNeutralizadores.class);
+		tarea.ejecutar(robot,(Celda)celdaActual,ordenCC);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Recibir Ubicacion Actual\n\n");
-		if(robot.recibidosNeutralizadores()){
-			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
-			tarea.ejecutar(robot);
-			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-			System.out.println("\n"+agentId +" EJECUTO LA REGLA Recibir Ubicación Actual\n\n");
-		}
+		//if(robot.recibidosNeutralizadores()){
+		//	TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
+		//	tarea.ejecutar(robot);
+		//	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		//	System.out.println("\n"+agentId +" EJECUTO LA REGLA Recibir Ubicación Actual\n\n");
+		//}
 end
 
 rule "Encontrado Neutralizador Libre"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC: InformarNeutralizadorLibre( mensajeOrden == VocabularioSIDEMA.MsgInformarNeutralizadorLibre, emisor : identEmisor)
+		ordenCC: InformarNeutralizadorLibre( mensajeOrden == VocabularioSIDEMA.MsgInformarNeutralizadorLibre, just : justificacion)
 		robot: CentroControl(id == agentId)
 	then
-		if(!robot.getNeutralizadores().contains(emisor))
-			robot.getNeutralizadores().add(emisor);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.GuardarNeutralizadorLibre.class);
+		tarea.ejecutar(robot,just,ordenCC);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Encontrado Neutralizador Libre \n\n");
-		if(robot.recibidosNeutralizadores()){
-			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
-			tarea.ejecutar(robot);
-			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-			System.out.println("\n"+agentId +" EJECUTO LA REGLA Encontrado Neutralizador Libre\n\n");
-		}
+		//if(robot.recibidosNeutralizadores() && robot.getMinasPendientes().size()>0){
+		//	TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
+		//	tarea.ejecutar(robot);
+		//	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		//	System.out.println("\n"+agentId +" EJECUTO LA REGLA Encontrado Neutralizador Libre\n\n");
+		//}
 end
 
 

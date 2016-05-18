@@ -2,7 +2,9 @@ package icaro.aplicaciones.agentes.agenteCC.tareas;
 
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
 import icaro.aplicaciones.SIDEMA.informacion.CentroControl;
+import icaro.aplicaciones.SIDEMA.informacion.InformarMinaEncontrada;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
+import icaro.aplicaciones.SIDEMA.informacion.OrdenComenzarSimulacion;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenExplorar;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenSolicitarPosicion;
@@ -16,6 +18,8 @@ public class SolicitarInformacionNeutralizador extends TareaSincrona {
 		try {
 			CentroControl r = (CentroControl)params[0];
 			Celda c = (Celda)params[1];
+			InformarMinaEncontrada ordenI = (InformarMinaEncontrada)params[2];
+			this.getEnvioHechos().eliminarHechoWithoutFireRules(ordenI);
 			r.getMinasPendientes().add(c);
 			for(int i = 0; i < r.getNeutralizadores().size(); i++){
 				OrdenSolicitarPosicion orden = new OrdenSolicitarPosicion(r.getId(),r.getMapa());

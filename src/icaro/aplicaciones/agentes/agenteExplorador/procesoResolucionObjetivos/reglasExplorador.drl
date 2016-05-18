@@ -38,7 +38,7 @@ rule "Explorar Terreno"
 		ordenCC: OrdenExplorar( mensajeOrden == VocabularioSIDEMA.MsgPeticionExplorar, celdasAExplorar:justificacion)
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.ExplorarTerreno.class);
-		tarea.ejecutar(celdasAExplorar,robot);
+		tarea.ejecutar(celdasAExplorar,robot,ordenCC);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Explorar Terreno\n\n");
 end
