@@ -36,9 +36,14 @@ public class VisualEscenario extends JPanel{
 		this.mapaVisual[i][j].minaEncontrada();
 	}
 	
-	public void abandonarCelda(int i, int j){
-		this.mapaVisual[i][j].abandonarCelda();
+	public void abandonarCeldaExplorador(int i, int j){
+		this.mapaVisual[i][j].abandonarCeldaExplorador();
 	}
+	
+	public void abandonarCeldaNeutralizador(int i, int j){
+		this.mapaVisual[i][j].abandonarCeldaNeutralizador();
+	}
+	
 	public void movimientoExplorador(int i, int j){
 		this.mapaVisual[i][j].movimientoExplorador();
 	}

@@ -149,12 +149,12 @@ public class Ventana extends JFrame {
 	
 	public void movimientoExplorador(int xT, int yT, int xS, int yS){
 		this.escenario.movimientoExplorador(xT, yT);
-		this.escenario.abandonarCelda(xS, yS);
+		this.escenario.abandonarCeldaExplorador(xS, yS);
 	}
 	
 	public void movimientoNeutralizador(int xT, int yT, int xS, int yS){
 		this.escenario.movimientoNeutralizador(xT, yT);
-		this.escenario.abandonarCelda(xS, yS);
+		this.escenario.abandonarCeldaNeutralizador(xS, yS);
 	}
 
 	/*

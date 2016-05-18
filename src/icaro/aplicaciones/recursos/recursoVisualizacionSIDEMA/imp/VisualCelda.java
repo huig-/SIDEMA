@@ -1,19 +1,25 @@
 package icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.imp;
 
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class VisualCelda extends JButton {
 
 	private boolean mina;
 	final private String path = "/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/";
+	private CombineIcon ci;
 
 	public VisualCelda(boolean mina, boolean accesible) {
-		this.setBorder(null);
+		super();
 		this.mina = mina;
 		if (accesible) {
 			/*
@@ -23,7 +29,8 @@ public class VisualCelda extends JButton {
 			 * this.setIcon(arena); //this.setBackground(Color.RED); } else {
 			 */
 			ImageIcon arena = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
-			//ImageIcon icono = this.resizeImage(arena);
+			// ImageIcon icono = this.resizeImage(arena);
+			this.ci = new CombineIcon("background", arena);
 			this.setIcon(arena);
 			// this.setBackground(Color.GREEN);
 
@@ -32,7 +39,18 @@ public class VisualCelda extends JButton {
 			this.setIcon(arena);
 			// this.setBackground(Color.GRAY);
 		}
+		this.setMargin(new Insets(0, 0, 0, 0));
+		this.setBorder(new EmptyBorder(0, 0, 0, 0));
 
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				VisualCelda btn = (VisualCelda) e.getComponent();
+				Dimension size = btn.getSize();
+				btn.rescale(size.width, size.height);
+			}
+
+		});
 	}
 
 	public VisualCelda() {
@@ -46,14 +64,22 @@ public class VisualCelda extends JButton {
 	public void setMina() {
 		ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
-		this.setIcon(new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight()));
+		ci = new CombineIcon("background", icono1);
+		this.setIcon(ci);
+		ci.rescale(this.getSize().width, this.getSize().height);
+		ci.addIcon("mina", icono2);
+		ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 		this.repaint();
 	}
 
 	public void minaEncontrada() {
 		ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "explorador.jpg"));
 		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
-		this.setIcon(new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight()));
+		ci = new CombineIcon("background", icono1);
+		this.setIcon(ci);
+		ci.rescale(this.getSize().width, this.getSize().height);
+		ci.addIcon("mina", icono2);
+		ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 		this.repaint();
 	}
 
@@ -65,55 +91,70 @@ public class VisualCelda extends JButton {
 	}
 
 	public synchronized void movimientoExplorador() {
-		ImageIcon arena;
-		CombinedIcon arenaC;
 		if (this.mina) {
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
 			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotExplorador.png"));
-			arenaC = new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight());
-			arenaC.add(icono3);
-			this.setIcon(arenaC);
-			
+			ci = new CombineIcon("background", icono1);
+			this.setIcon(ci);
+			ci.rescale(this.getSize().width, this.getSize().height);
+			ci.addIcon("mina", icono2);
+			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+			ci.addIcon("explorador", icono3);
+			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+			this.repaint();
+
 		} else {
-			
+
 			ImageIcon icono = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotExplorador.png"));
-			arenaC = new CombinedIcon(icono3, icono, this.getWidth(),this.getHeight());
-			this.setIcon(arenaC);
-
+			ci = new CombineIcon("background", icono);
+			this.setIcon(ci);
+			ci.rescale(this.getSize().width, this.getSize().height);
+			ci.addIcon("explorador", icono3);
+			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+			this.repaint();
 		}
-		
+
 		this.repaint();
 	}
 
 	public synchronized void movimientoNeutralizador() {
-		CombinedIcon arenaC;
-		ImageIcon arena;
+
 		if (mina) {
-			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "neutralizador.jpg"));
+			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
-			arenaC = new CombinedIcon(icono2, icono1, this.getWidth(), this.getHeight());
-			this.setIcon(arenaC);
-			
+			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotNeutralizador.png"));
+			ci = new CombineIcon("background", icono1);
+			this.setIcon(ci);
+			ci.rescale(this.getSize().width, this.getSize().height);
+			ci.addIcon("mina", icono2);
+			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+			ci.addIcon("neutralizador", icono3);
+			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+			this.repaint();
+
 		} else {
-			ImageIcon icono = new ImageIcon(this.getClass().getResource(path + "neutralizador.jpg"));
-			arena = this.resizeImage(icono);
-			this.setIcon(arena);
+			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
+			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotNeutralizador.png"));
+			ci = new CombineIcon("background", icono1);
+			this.setIcon(ci);
+			ci.rescale(this.getSize().width, this.getSize().height);
+			ci.addIcon("neutralizador", icono3);
+			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+			this.repaint();
 
 		}
 
-		this.repaint();
 	}
 
-	public void abandonarCelda() {
-		Icon arena;
-		if (mina) {
-			arena = new ImageIcon(this.getClass().getResource(path + "arena_marron_mina.jpg"));
-		} else {
-			arena = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
-		}
-		this.setIcon(arena);
+	public void abandonarCeldaExplorador() {
+		ci.removeIcon("explorador");
+		this.repaint();
+	}
+	
+	public void abandonarCeldaNeutralizador() {
+		ci.removeIcon("neutralizador");
 		this.repaint();
 	}
 
@@ -121,5 +162,10 @@ public class VisualCelda extends JButton {
 		ImageIcon newImg;
 		newImg = new ImageIcon(img.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH));
 		return newImg;
+	}
+
+	public void rescale(int w, int h) {
+		ci.rescale(w, h);
+		repaint();
 	}
 }
