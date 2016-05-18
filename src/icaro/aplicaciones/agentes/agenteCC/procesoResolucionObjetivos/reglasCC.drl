@@ -63,6 +63,7 @@ rule "Solicitar Ubicacion Actual"
 		focoActual : Focus(foco == null)
 		ordenCC: InformarMinaEncontrada( mensajeOrden == VocabularioSIDEMA.MsgPeticionMinaEncontrada, minaCelda : justificacion)
 		robot: CentroControl(id == agentId)
+		eval(robot.getNeutralizadores().size() > 0)
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.SolicitarInformacionNeutralizador.class);
 		tarea.ejecutar(robot,minaCelda,ordenCC);

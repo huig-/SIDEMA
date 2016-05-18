@@ -26,7 +26,7 @@ public class GuardarNeutralizadorLibre extends TareaSincrona {
 			cc.getNeutralizadores().add(n.getId());
 			this.getEnvioHechos().actualizarHecho(n);
 			this.getEnvioHechos().eliminarHechoWithoutFireRules(o);
-			this.getEnvioHechos().actualizarHechoWithoutFireRules(cc);
+			this.getEnvioHechos().actualizarHecho(cc);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

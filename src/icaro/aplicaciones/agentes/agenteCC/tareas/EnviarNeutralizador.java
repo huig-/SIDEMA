@@ -20,7 +20,6 @@ public class EnviarNeutralizador extends TareaSincrona {
 		try {
 			CentroControl r = (CentroControl)params[0];
 			int distancia = Integer.MAX_VALUE;
-			int i = 0;
 			int j = 0;
 			int elegido = -1;
 			Celda mina;  
@@ -43,7 +42,6 @@ public class EnviarNeutralizador extends TareaSincrona {
 			r.getNeutralizadores().remove(r.getEmisorNeutralizador().get(elegido));
 			r.getMsgNeutralizador().remove(elegido);
 			r.getEmisorNeutralizador().remove(elegido);
-			i++;
 			
 			
 		}

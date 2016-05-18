@@ -112,7 +112,7 @@ public class Mapa {
 	}
 
 	public synchronized boolean tieneMina(int row, int column) {
-		this.updateGrafo(row, column);
+		if(!mapa[row][column].getMina()) this.updateGrafo(row, column);
 		return mapa[row][column].getMina();
 
 	}
@@ -121,8 +121,50 @@ public class Mapa {
 		return this.ExploredGraph.containsVertex(c);
 	}
 
-	public synchronized GraphPath<Celda, Integer> findPath(Celda ini, Celda fin) {
-		DijkstraShortestPath<Celda, Integer> path = new DijkstraShortestPath<Celda, Integer>(this.ExploredGraph, ini, fin);
+	public synchronized boolean existeCamino(Celda fin, Celda ini){
+		try{
+			this.findPath(fin, ini);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
+	public synchronized GraphPath<Celda, Integer> findPath(Celda fin, Celda ini) {
+		WeightedMultigraph<Celda, Integer> aux = new WeightedMultigraph<Celda, Integer>(Integer.class);
+		for(Celda c : this.ExploredGraph.vertexSet())
+			aux.addVertex(c);
+		for(Integer p : this.ExploredGraph.edgeSet())
+			aux.addEdge(this.ExploredGraph.getEdgeSource(p), this.ExploredGraph.getEdgeTarget(p), p);
+		if(!aux.containsVertex(fin)){
+			aux.addVertex(fin);
+			int r = (int) fin.getX(); int c = (int) fin.getY();
+			int n = this.numExploradas;
+			if (r > 0 && this.mapa[r-1][c].getAccesible()){
+				if(aux.containsVertex(this.mapa[r - 1][c])) {
+					aux.addEdge(fin, this.mapa[r - 1][c], n);
+					n++;
+				}
+			}
+			if (r < this.rows - 1 && this.mapa[r + 1][c].getAccesible()){
+				if(aux.containsVertex(this.mapa[r + 1][c])) {
+					aux.addEdge(fin, this.mapa[r + 1][c], n);
+					n++;
+				}
+			}
+			if (c > 0 && this.mapa[r][c-1].getAccesible()){
+				if(aux.containsVertex(this.mapa[r][c - 1])) {
+					aux.addEdge(fin, this.mapa[r][c - 1], n);
+					n++;
+				}
+			}
+			if (c < this.columns - 1 && this.mapa[r][c+1].getAccesible()){
+				if(aux.containsVertex(this.mapa[r][c + 1])) {
+					aux.addEdge(fin, this.mapa[r][c + 1], n);
+					n++;
+				}
+			}
+		}
+		DijkstraShortestPath<Celda, Integer> path = new DijkstraShortestPath<Celda, Integer>(aux, ini, fin);
 		return path.getPath();
 	}
 
@@ -257,5 +299,10 @@ public class Mapa {
 			lista.add(cell);
 		}
 		return lista;
+	}
+
+	public void desactivarMina(int x, int y) {
+		this.mapa[x][y].desactivarMina();
+		this.updateGrafo(x, y);
 	}
 }

@@ -33,7 +33,7 @@ public class DesactivarMina extends TareaSincrona {
 			ItfUsoRecursoVisualizacionSIDEMA visualizador = (ItfUsoRecursoVisualizacionSIDEMA)
 					NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
 							NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
-			GraphPath<Celda,Integer> p = m.findPath(r.getCurrentPos(), c);
+			GraphPath<Celda,Integer> p = m.findPath(c,r.getCurrentPos());
 			List<Integer> path = p.getEdgeList();
 			ListIterator<Integer> it = path.listIterator();
 			Celda pos;
@@ -61,7 +61,7 @@ public class DesactivarMina extends TareaSincrona {
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
-			c.desactivarMina();
+			m.desactivarMina((int)c.getX(),(int)c.getY());
 			InformarNeutralizadorLibre orden = new InformarNeutralizadorLibre(r.getId(),r);
 			this.getComunicator().enviarInfoAotroAgente(orden,r.getCC());
 		}

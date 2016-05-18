@@ -28,6 +28,9 @@ public class ActualizarMensajesNeutralizadores extends TareaSincrona {
 			cc.actualizarMsg((Celda)celda,n.getIdentEmisor());
 			this.getEnvioHechos().eliminarHechoWithoutFireRules(n);
 			this.getEnvioHechos().actualizarHecho(cc);
+			if(cc.getMinasPendientes().size() > 0){
+				
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
