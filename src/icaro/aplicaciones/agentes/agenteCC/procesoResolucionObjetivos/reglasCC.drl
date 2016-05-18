@@ -112,7 +112,6 @@ rule "Enviar Neutralizador"
 		focoActual : Focus(foco == null)
 		robot : CentroControl(id == agentId)
 		mapa : Mapa()
-		ordenCC: InformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
 		eval(robot.recibidosNeutralizadores())
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
