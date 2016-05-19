@@ -31,6 +31,18 @@ rule "Acciones Iniciales Explorador"
    		System.out.println( "\n"+agentId +"EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end
 
+rule "Conocer Centro Control"
+	when
+		focoActual : Focus(foco == null)
+		ordenCC : OrdenComenzarSimulacion(id2 : identEmisor)
+		robot: Explorador(id == agentId)
+	then
+   	robot.setCC(id2);
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA CONOCER CENTRO CONTROL\n\n");
+end
+
+
 rule "Explorar Terreno"
 	when
 		focoActual : Focus(foco == null)

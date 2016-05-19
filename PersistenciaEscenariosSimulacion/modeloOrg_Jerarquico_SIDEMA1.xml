@@ -15,8 +15,7 @@
      <movementEnergy>20</movementEnergy>
      <explorationTime>500</explorationTime>
      <explorationEnergy>20</explorationEnergy>
-     <nameCC>agenteCC</nameCC>
-   </robot>
+       </robot>
    <robot type="Neutralizador">
      <id>agenteNeutralizador0</id>
      <energy>100000</energy>
@@ -28,8 +27,7 @@
      <movementEnergy>20</movementEnergy>
      <desactivationTime>500</desactivationTime>
      <desactivationEnergy>20</desactivationEnergy>
-     <nameCC>agenteCC</nameCC>
-   </robot>
+    </robot>
  <robot type="Neutralizador">
      <id>agenteNeutralizador1</id>
      <energy>100000</energy>
@@ -41,8 +39,20 @@
      <movementEnergy>20</movementEnergy>
      <desactivationTime>500</desactivationTime>
      <desactivationEnergy>20</desactivationEnergy>
-     <nameCC>agenteCC</nameCC>
-   </robot>
+      </robot>
+   <robot type="Neutralizador">
+     <id>agenteNeutralizador2</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+     <movementTime>500</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <desactivationTime>500</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+    </robot>
+   
    <robot type="CentroControl">
      <id>agenteCC</id>
      <energy>100000</energy>
@@ -50,8 +60,7 @@
         <x>0</x>
         <y>0</y>
      </celdaActual>
-     <nameCC>agenteCC</nameCC>
-   </robot>
+    </robot>
    <mina key="mina">
      <celda>
         <x>1</x>

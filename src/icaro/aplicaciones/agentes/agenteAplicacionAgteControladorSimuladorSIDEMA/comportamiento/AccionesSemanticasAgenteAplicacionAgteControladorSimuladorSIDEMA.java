@@ -13,12 +13,17 @@ import icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.ItfUsoRecursoVisua
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
+import icaro.infraestructura.entidadesBasicas.descEntidadesOrganizacion.DescInstancia;
+import icaro.infraestructura.entidadesBasicas.excepciones.ExcepcionEnComponente;
 import icaro.infraestructura.patronAgenteReactivo.control.acciones.AccionesSemanticasAgenteReactivo;
+import icaro.infraestructura.patronAgenteReactivo.factoriaEInterfaces.imp.AgenteReactivoImp2;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza.NivelTraza;
+import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.imp.ClaseGeneradoraRepositorioInterfaces;
 
 import java.io.File;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -174,36 +179,37 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
    }
    
    
+   private String centroControl;
   
    public void comenzarSimulacion(){
-	   Thread t = new Thread() {
 
-           @Override
-           public void run() {
-               while ((stop == false)) {
-                   //      victima = createNewVictim(rXMLTSeq, nodeLst, i);
-                   OrdenComenzarSimulacion ccOrder = new OrdenComenzarSimulacion("ControlCenter");
-                   // Escribir nueva linea de estadistica en el fichero de llegada de victimas					
-                   try {
-                	   
-                       comunicator.enviarInfoAotroAgente(ccOrder, VocabularioSIDEMA.IdentAgteDistribuidorTareas);
-                       stop = true;
-                   }
-               catch (Exception e) {
-                   e.printStackTrace();
-               }
-                   try {
-                       this.sleep(interv);
-                   } catch (InterruptedException ex) {
-                       ex.printStackTrace();
-                   }
-               }// fin del while
-
-               // Se han enviado todas las victimas
-               // Cerrar el fichero de estadistica en el fichero de llegada de victimas
-
-           }
-       };
+   	String centroControl = "";
+   	ArrayList<String> exploradores = new ArrayList<String>();
+   	ArrayList<String> neutralizadores = new ArrayList<String>();
+	  ArrayList<DescInstancia> descripcionesAgtes;
+	try {
+		descripcionesAgtes = (ArrayList<DescInstancia>)itfconfig.getDescInstanciaGestor(NombresPredefinidos.NOMBRE_GESTOR_AGENTES).getComponentesGestionados();
+		  for(DescInstancia descripcionAgente : descripcionesAgtes){
+			    String desc = descripcionAgente.getId();
+			    if(desc.startsWith("agenteCC")){
+	            	centroControl = desc;
+	            }
+	            else if(desc.startsWith("agenteNeutralizador")){
+	            	neutralizadores.add(desc);
+	            }
+	            else if(desc.startsWith("agenteExplorador")){
+	            	exploradores.add(desc);
+	            }
+		   }
+	} catch (RemoteException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	} catch (ExcepcionEnComponente e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+          
+	   Thread t = new myThread(nMM,this.interv,centroControl,exploradores,neutralizadores,this.getComunicator());
        t.start();
    }  
    

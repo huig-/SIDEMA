@@ -917,7 +917,8 @@ public void addDescripcionGN (String identNodoGN, InterfazUsoAgente itfUsoGestor
 //				nombre = agente.getId();
 				DescInstanciaAgenteAplicacion instanciaActual = (DescInstanciaAgenteAplicacion)agente;
                 String identAgenteAcrear = instanciaActual.getId();
-
+            
+                
                 logger.debug("GestorAgentes: Creando agente " + identAgenteAcrear +
                         ".");
                 // Si el agente es remoto damos la orden al gestor de nodo para que lo cree

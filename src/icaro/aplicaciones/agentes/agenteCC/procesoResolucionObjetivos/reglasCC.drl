@@ -38,8 +38,8 @@ rule "Comenzar Simulacion"
 		ordenCC : OrdenComenzarSimulacion()
 		robot: CentroControl(id == agentId)
 	then
-   		TareaSincrona tarea3 = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.IntroducirMapa.class);
- 		tarea3.ejecutar(ordenCC);
+   		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.IntroducirMapa.class);
+ 		tarea.ejecutar(ordenCC,robot);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA COMENZAR SIMULACION\n\n");
 end
@@ -114,9 +114,21 @@ rule "Enviar Neutralizador"
 		robot : CentroControl(id == agentId)
 		mapa : Mapa()
 		eval(robot.recibidosNeutralizadores())
+		eval(robot.getMinasPendientes().size() > 0)
+		eval(robot.getMapa().existeCamino(robot.getMinasPendientes().get(0),robot.getCurrentPos()))
 	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
-		tarea.ejecutar(robot);
-		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-		System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
+			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
+			tarea.ejecutar(robot);
+			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+			System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
+		//}else{
+		//	try {
+		//		Celda c = robot.getMinasPendientes().remove(0);
+		//		Thread.sleep(5000);
+	 	//		InformarMinaEncontrada orden = new InformarMinaEncontrada("agenteCC", c);
+	 	//		insert(orden);
+		//	} catch(InterruptedException ex) {
+		//		Thread.currentThread().interrupt();
+		//	}
+		// }
 end

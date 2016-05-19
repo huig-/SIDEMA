@@ -93,6 +93,7 @@
                             <icaro:componenteGestionado refId="agenteCC" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="agenteNeutralizador0" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="agenteNeutralizador1" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="agenteNeutralizador2" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="agenteExplorador0" tipoComponente="AgenteAplicacion"/>
                     </icaro:componentesGestionados>
                 </icaro:InstanciaGestor>
@@ -127,6 +128,8 @@
                 <icaro:Instancia id="agenteNeutralizador0" refDescripcion="AgenteAplicacion1">
                 </icaro:Instancia>
                  <icaro:Instancia id="agenteNeutralizador1" refDescripcion="AgenteAplicacion1">
+                </icaro:Instancia>
+                <icaro:Instancia id="agenteNeutralizador2" refDescripcion="AgenteAplicacion1">
                 </icaro:Instancia>
         </icaro:AgentesAplicacion>
 	<!--******************************************************************************************************

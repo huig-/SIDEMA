@@ -56,7 +56,6 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 						Element celda = (Element) eElement.getElementsByTagName("celdaActual").item(0);
 						int x = Integer.parseInt(((Node) celda.getElementsByTagName("x").item(0)).getTextContent());
 						int y = Integer.parseInt(((Node) celda.getElementsByTagName("y").item(0)).getTextContent());
-						String leader = ((Node) eElement.getElementsByTagName("nameCC").item(0)).getTextContent();
 						Robot robot;
 						if (type.equalsIgnoreCase("Explorador")) {
 							int timeMov = Integer.parseInt(
@@ -68,7 +67,7 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 							int enerExp = Integer
 									.parseInt(((Node) eElement.getElementsByTagName("explorationEnergy").item(0))
 											.getTextContent());
-							robot = new Explorador(id, x, y, energy, leader, timeMov, enerMov, timeExp, enerExp);
+							robot = new Explorador(id, x, y, energy, "", timeMov, enerMov, timeExp, enerExp);
 							this.getEnvioHechos().insertarHecho(robot);
 							System.out.println(robot.toString()); // cambiar por
 																	// trazas?
@@ -84,13 +83,13 @@ public class InicializarRobotSIDEMA extends TareaSincrona {
 							int enerExp = Integer
 									.parseInt(((Node) eElement.getElementsByTagName("desactivationEnergy").item(0))
 											.getTextContent());
-							robot = new Neutralizador(id, x, y, energy, leader, timeMov, enerMov, timeExp, enerExp);
+							robot = new Neutralizador(id, x, y, energy, "", timeMov, enerMov, timeExp, enerExp);
 							this.getEnvioHechos().insertarHecho(robot);
 							System.out.println(robot.toString()); // cambiar por
 																	// trazas?
 
 						} else if (type.equalsIgnoreCase("CentroControl")) {
-							robot = new CentroControl(id, x, y, energy, leader);
+							robot = new CentroControl(id, x, y, energy, id);
 							this.getEnvioHechos().insertarHecho(robot);
 							System.out.println(robot.toString()); // cambiar por
 																	// trazas?

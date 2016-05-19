@@ -123,8 +123,7 @@ public class Mapa {
 
 	public synchronized boolean existeCamino(Celda fin, Celda ini){
 		try{
-			this.findPath(fin, ini);
-			return true;
+			return this.findPath(fin, ini) != null;
 		}catch(Exception e){
 			return false;
 		}

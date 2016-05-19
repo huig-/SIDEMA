@@ -38,6 +38,10 @@ public abstract class Robot {
 		return this.nameCC;
 	}
 	
+	public String setCC(String cc){
+		return this.nameCC = cc;
+	}
+	
 	public String getId() {
 		return id;
 	}
