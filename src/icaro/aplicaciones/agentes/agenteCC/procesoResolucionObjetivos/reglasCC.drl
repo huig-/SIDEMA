@@ -47,13 +47,13 @@ end
 rule "Distribuir Terreno"
 	when
 		focoActual : Focus(foco == null)
-		robot: Robot(id == agentId)
-		ordenCC : OrdenComenzarSimulacion()
+		robot: CentroControl(id == agentId)
 		mapa : Mapa()
+		eval(robot.getExploradores().size() > 0)
 	then
      	robot.setMapa(mapa);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
-		tarea.ejecutar(mapa,ordenCC);
+		tarea.ejecutar(mapa,robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Distribuir Terreno\n\n");
 end
@@ -71,22 +71,43 @@ rule "Solicitar Ubicacion Actual"
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Solicitar Ubicacion Actual\n\n");
 end
 
+rule "Recibir Mejor Estimacion"
+	when
+		focoActual : Focus(foco == null)
+		ordenCC: InformarCandidatosAExplorar( emisor : identEmisor, candidatos : justificacion)
+		robot: CentroControl(id == agentId)
+	then
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.ActualizarMensajes.class);
+		tarea.ejecutar(robot,ordenCC,candidatos);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Recibir Mejor Estimacion\n\n");
+		
+end
+
+rule "Enviar Explorador"
+	when
+		focoActual : Focus(foco == null)
+		robot : CentroControl(id == agentId)
+		mapa : Mapa()
+		eval(robot.recibidosExploradores())
+	then
+			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.AsignarCasillasAExplorar.class);
+			tarea.ejecutar(robot,mapa);
+			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+			System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Explorador\n\n");
+end
+
 rule "Recibir Ubicacion Actual"
 	when
 		focoActual : Focus(foco == null)
 		ordenCC: InformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
 		robot: CentroControl(id == agentId)
 	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.ActualizarMensajesNeutralizadores.class);
-		tarea.ejecutar(robot,(Celda)celdaActual,ordenCC);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.ActualizarMensajes.class);
+		tarea.ejecutar(robot,ordenCC,celdaActual);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Recibir Ubicacion Actual\n\n");
-		//if(robot.recibidosNeutralizadores()){
-		//	TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
-		//	tarea.ejecutar(robot);
-		//	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-		//	System.out.println("\n"+agentId +" EJECUTO LA REGLA Recibir Ubicación Actual\n\n");
-		//}
+		
 end
 
 rule "Encontrado Neutralizador Libre"
@@ -121,14 +142,4 @@ rule "Enviar Neutralizador"
 			tarea.ejecutar(robot);
 			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 			System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
-		//}else{
-		//	try {
-		//		Celda c = robot.getMinasPendientes().remove(0);
-		//		Thread.sleep(5000);
-	 	//		InformarMinaEncontrada orden = new InformarMinaEncontrada("agenteCC", c);
-	 	//		insert(orden);
-		//	} catch(InterruptedException ex) {
-		//		Thread.currentThread().interrupt();
-		//	}
-		// }
 end

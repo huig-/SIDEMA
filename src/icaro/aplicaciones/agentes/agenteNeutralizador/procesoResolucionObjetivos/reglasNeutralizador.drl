@@ -41,6 +41,7 @@ rule "Conocer Centro Control"
 		robot: Neutralizador(id == agentId)
 	then
    	robot.setCC(id2);
+   	retract(ordenCC);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA CONOCER CENTRO CONTROL\n\n");
 end

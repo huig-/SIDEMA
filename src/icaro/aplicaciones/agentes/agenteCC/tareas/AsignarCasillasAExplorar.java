@@ -22,14 +22,15 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 		try {
 			CentroControl r = (CentroControl)params[0];
 			mapa = (Mapa)params[1]; 
-			Candidatos []c = new Candidatos[params.length-2]; //celdas candidatas de cada explorador
-			double []ganancias = new double[params.length-2]; //mejor ganancia de cada explorador
+			Candidatos []c = new Candidatos[r.getMsgExplorador().size()]; //celdas candidatas de cada explorador
+			double []ganancias = new double[r.getMsgExplorador().size()]; //mejor ganancia de cada explorador
 			Set<Celda> celdasYaConsideradas = new HashSet<Celda>(); //para el descuento: IGR en el articulo
-			boolean []exploradoresAsignados = new boolean[params.length-2];
-			for (int i = 2; i < params.length; i++) c[i] = (Candidatos)params[i];
+			boolean []exploradoresAsignados = new boolean[r.getMsgExplorador().size()];
+			for (int i = 0; i < r.getMsgExplorador().size(); i++) 
+				c[i] = r.getMsgExplorador().get(i);
 			
 			for (int i = 0; i < c.length; i++) {
-				TreeMap<Double, Integer> map  = new TreeMap<Double, Integer>();; //para ordenar con indices
+				TreeMap<Double, Integer> map  = new TreeMap<Double, Integer>(); //para ordenar con indices
 				for (int index = 0; index < c.length && !exploradoresAsignados[index]; index++) {
 					c[index].sort();
 					ganancias[index] = c[index].max().getExpectedValue();

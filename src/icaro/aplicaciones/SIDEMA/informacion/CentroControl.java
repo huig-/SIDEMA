@@ -21,6 +21,8 @@ public class CentroControl extends Robot {
 	private ArrayList<String> neutralizadores;
 	private ArrayList<Celda> msgNeutralizador;
 	private ArrayList<String> emisorNeutralizador;
+	private ArrayList<Candidatos> msgExplorador;
+	private ArrayList<String> emisorExplorador;
 	private ArrayList<Celda> minasPendientes;
 	
 	public ArrayList<Celda> getMinasPendientes() {
@@ -41,6 +43,8 @@ public class CentroControl extends Robot {
 		this.msgNeutralizador = new ArrayList<Celda>();
 		this.minasPendientes = new ArrayList<Celda>();
 		this.emisorNeutralizador = new ArrayList<String>();
+		this.msgExplorador = new ArrayList<Candidatos>();
+		this.emisorExplorador = new ArrayList<String>();
 	}
 	public CentroControl(String id, int i, int j, int energy, String leader) {
 		super(id, i,j, energy, leader);
@@ -49,16 +53,22 @@ public class CentroControl extends Robot {
 		this.msgNeutralizador = new ArrayList<Celda>();
 		this.minasPendientes = new ArrayList<Celda>();
 		this.emisorNeutralizador = new ArrayList<String>();
+		this.msgExplorador = new ArrayList<Candidatos>();
+		this.emisorExplorador = new ArrayList<String>();
 	}
 	
 	public ArrayList<Celda> getMsgNeutralizador() {
 		return msgNeutralizador;
 	}
 	
-	public void actualizarMsg(Celda msg, String neut){
-		if(!this.emisorNeutralizador.contains(neut)){
-			this.msgNeutralizador.add(msg);
+	public void actualizarMsg(Object msg, String neut){
+		if(!this.emisorNeutralizador.contains(neut) && this.neutralizadores.contains(neut)){
+			this.msgNeutralizador.add((Celda)msg);
 			this.emisorNeutralizador.add(neut);
+		}
+		if(!this.emisorExplorador.contains(neut) && this.exploradores.contains(neut)){
+			this.msgExplorador.add((Candidatos)msg);
+			this.emisorExplorador.add(neut);
 		}
 	}
 
@@ -90,5 +100,13 @@ public class CentroControl extends Robot {
 	public boolean recibidosNeutralizadores(){
 		boolean e = this.getMsgNeutralizador().size() == this.getNeutralizadores().size() && this.getNeutralizadores().size() > 0;
 		return e; 
+	}
+	public boolean recibidosExploradores(){
+		boolean e = this.getMsgExplorador().size() == this.getExploradores().size() && this.getExploradores().size() > 0;
+		return e; 
+	}
+
+	public ArrayList<Candidatos> getMsgExplorador() {
+		return this.msgExplorador;
 	}
 }

@@ -38,8 +38,21 @@ rule "Conocer Centro Control"
 		robot: Explorador(id == agentId)
 	then
    	robot.setCC(id2);
+   	retract(ordenCC);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA CONOCER CENTRO CONTROL\n\n");
+end
+
+rule "Devolver Estimacion Actual"
+	when
+		focoActual : Focus(foco == null)
+		robot : Robot(id == agentId)
+		ordenCC: OrdenSolicitarEstimacion( mensajeOrden == VocabularioSIDEMA.MsgPeticionEstimacionActual, mapa : justificacion)
+	then
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.EstimarMejorDestino.class);
+		tarea.ejecutar(mapa,robot);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +"EJECUTO LA REGLA Devolver Estimacion Actual\n\n");
 end
 
 
@@ -47,10 +60,10 @@ rule "Explorar Terreno"
 	when
 		focoActual : Focus(foco == null)
 		robot : Robot(id == agentId)
-		ordenCC: OrdenExplorar( mensajeOrden == VocabularioSIDEMA.MsgPeticionExplorar, celdasAExplorar:justificacion)
+		ordenCC: OrdenExplorar( mensajeOrden == VocabularioSIDEMA.MsgPeticionExplorar, celdas:justificacion)
 	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.ExplorarTerreno.class);
-		tarea.ejecutar(celdasAExplorar,robot,ordenCC);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.ExplorarCelda.class);
+		tarea.ejecutar(robot,celdas);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Explorar Terreno\n\n");
 end

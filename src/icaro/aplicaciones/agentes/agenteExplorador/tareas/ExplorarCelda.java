@@ -26,7 +26,7 @@ public class ExplorarCelda extends TareaSincrona {
 			//Cogemos datos
 			Explorador explorador = (Explorador)params[0];
 			Celda celdaAExplorar = (Celda)params[1]; 
-			Mapa mapa = (Mapa)params[2];
+			Mapa mapa = explorador.getMapa();//(Mapa)params[2];
 			Mapa copia_mapa = new Mapa(mapa);
 			copia_mapa.updateGrafo((int)celdaAExplorar.getX(), (int)celdaAExplorar.getY());
 			//Calculamos la ruta
@@ -59,7 +59,7 @@ public class ExplorarCelda extends TareaSincrona {
 				Thread.currentThread().interrupt();
 			}
 		    explorador.setEnergy(explorador.getEnergy()-explorador.getEnergiaExploracion()); 
-		    boolean hayMina = celdaAExplorar.getMina();
+		    boolean hayMina = mapa.tieneMina(celdaAExplorar.getX(), celdaAExplorar.getY());
 		    if (hayMina) {
 		    	InformarMinaEncontrada informarMina = new InformarMinaEncontrada(explorador.getId(), celdaAExplorar);
 		    	this.getComunicator().enviarInfoAotroAgente(informarMina, explorador.getCC());

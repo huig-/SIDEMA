@@ -17,12 +17,12 @@ public class IntroducirMapa extends TareaSincrona {
 		try {
 
 			OrdenComenzarSimulacion ordenI = (OrdenComenzarSimulacion)params[0];
-			//this.getEnvioHechos().eliminarHechoWithoutFireRules(ordenI);
 			CentroControl cc = (CentroControl)params[1];
 			ArrayList<ArrayList<String>> robots = (ArrayList<ArrayList<String>>)ordenI.getJustificacion();
 			cc.getExploradores().addAll(robots.get(0));
 			cc.getNeutralizadores().addAll(robots.get(1));
 			ItfUsoRecursoPersistenciaSIDEMA itfUsoRecursoPersistenciaSIDEMA = (ItfUsoRecursoPersistenciaSIDEMA) this.repoInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaSIDEMA1");
+			this.itfProcObjetivos.eliminarHecho(ordenI);
 			this.itfProcObjetivos.eliminarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 			this.itfProcObjetivos.insertarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 			for(String neut : cc.getNeutralizadores()){

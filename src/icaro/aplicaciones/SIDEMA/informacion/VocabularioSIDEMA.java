@@ -39,4 +39,5 @@ public class VocabularioSIDEMA {
 	public static final String CSV_SplitBy = " ";
 	public static final String MsgPeticionComenzarSimulacion = "comienza la simulacion";
 	public static final String MsgInformarCandidatos = "informar candidatos";
+	public static final String MsgPeticionEstimacionActual = "dame estimacion actual";
 }
