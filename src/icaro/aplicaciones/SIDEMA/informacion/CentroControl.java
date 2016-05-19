@@ -79,7 +79,11 @@ public class CentroControl extends Robot {
 	public ArrayList<String> getEmisorNeutralizador() {
 		return emisorNeutralizador;
 	}
+	public ArrayList<String> getEmisorExplorador() {
+		return emisorExplorador;
+	}
 
+	
 	public void setEmisorNeutralizador(ArrayList<String> emisorNeutralizador) {
 		this.emisorNeutralizador = emisorNeutralizador;
 	}

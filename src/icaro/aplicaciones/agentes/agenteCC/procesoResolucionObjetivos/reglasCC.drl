@@ -49,7 +49,7 @@ rule "Distribuir Terreno"
 		focoActual : Focus(foco == null)
 		robot: CentroControl(id == agentId)
 		mapa : Mapa()
-		eval(robot.getExploradores().size() > 0)
+		eval(robot.getExploradores().size() > 0 && mapa.inexploradas() > 0)
 	then
      	robot.setMapa(mapa);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);

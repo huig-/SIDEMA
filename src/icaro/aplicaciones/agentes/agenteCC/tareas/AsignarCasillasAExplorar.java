@@ -43,7 +43,8 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 				//Avisamos al explorador
 				OrdenExplorar orden = new OrdenExplorar(r.getId(), c[best_index].max().getCelda());
 				this.getComunicator().enviarInfoAotroAgente(orden, c[best_index].getIdentAgte());
-				
+				r.getEmisorExplorador().remove(best_index);
+				r.getMsgExplorador().remove(best_index);
 				//Actualizamos celdas consideradas
 				for (Celda celda : this.mapa.getAdyacentes(c[best_index].max().getCelda())) 
 					celdasYaConsideradas.add(celda);

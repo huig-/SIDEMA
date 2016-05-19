@@ -11,9 +11,21 @@
         <x>0</x>
         <y>0</y>
      </celdaActual>	            			
-     <movementTime>500</movementTime>
+     <movementTime>100</movementTime>
      <movementEnergy>20</movementEnergy>
-     <explorationTime>500</explorationTime>
+     <explorationTime>100</explorationTime>
+     <explorationEnergy>20</explorationEnergy>
+       </robot>
+       <robot type="Explorador">
+     <id>agenteExplorador1</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>	            			
+     <movementTime>100</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <explorationTime>100</explorationTime>
      <explorationEnergy>20</explorationEnergy>
        </robot>
    <robot type="Neutralizador">
@@ -23,9 +35,9 @@
         <x>0</x>
         <y>0</y>
      </celdaActual>
-     <movementTime>500</movementTime>
+     <movementTime>200</movementTime>
      <movementEnergy>20</movementEnergy>
-     <desactivationTime>500</desactivationTime>
+     <desactivationTime>200</desactivationTime>
      <desactivationEnergy>20</desactivationEnergy>
     </robot>
  <robot type="Neutralizador">
@@ -35,9 +47,9 @@
         <x>0</x>
         <y>0</y>
      </celdaActual>
-     <movementTime>500</movementTime>
+     <movementTime>200</movementTime>
      <movementEnergy>20</movementEnergy>
-     <desactivationTime>500</desactivationTime>
+     <desactivationTime>200</desactivationTime>
      <desactivationEnergy>20</desactivationEnergy>
       </robot>
    <robot type="Neutralizador">
@@ -47,9 +59,9 @@
         <x>0</x>
         <y>0</y>
      </celdaActual>
-     <movementTime>500</movementTime>
+     <movementTime>200</movementTime>
      <movementEnergy>20</movementEnergy>
-     <desactivationTime>500</desactivationTime>
+     <desactivationTime>200</desactivationTime>
      <desactivationEnergy>20</desactivationEnergy>
     </robot>
    

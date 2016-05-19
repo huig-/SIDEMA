@@ -29,12 +29,18 @@ public class Mapa {
 		for (int i = 0; i < this.rows; i++) {
 			for (int j = 0; j < this.columns; j++) {
 				Celda aux = other.getMapa()[i][j];
-				this.mapa[i][j] = new Celda(aux.getX(), aux.getY(),
-						aux.getAccesible(), aux.getMina());
+				this.mapa[i][j] = other.getCelda(i, j);//new Celda(aux.getX(), aux.getY(),
+						//aux.getAccesible(), aux.getMina());
 			}
 		}
-		this.ExploredGraph = (WeightedMultigraph<Celda, Integer>) other
-				.getExploredGraph().clone();
+		WeightedMultigraph<Celda, Integer> aux = new WeightedMultigraph<Celda, Integer>(
+				Integer.class);
+		for (Celda c : other.getExploredGraph().vertexSet())
+			aux.addVertex(c);
+		for (Integer p : other.getExploredGraph().edgeSet())
+			aux.addEdge(other.getExploredGraph().getEdgeSource(p),
+					other.getExploredGraph().getEdgeTarget(p), p);
+		this.ExploredGraph = aux;
 		this.completeGraph = (WeightedMultigraph<Celda, Integer>) other
 				.getCompleteGraph().clone();
 	}
@@ -105,7 +111,10 @@ public class Mapa {
 	public Mapa getInstance() {
 		return this.instance;
 	}
-
+	
+	public int inexploradas(){
+		return this.rows*this.columns - this.ExploredGraph.vertexSet().size();
+	}
 	public synchronized int getNumExploradas() {
 		return numExploradas;
 	}
@@ -335,7 +344,11 @@ public class Mapa {
 			for (Celda c : this.getAdyacentes()) {
 				CeldaCandidata cell = new CeldaCandidata();
 				cell.setCelda(c);
-				cell.setCoste(path.getCost(c));
+				if(posicionActual != c){
+					cell.setCoste(path.getCost(c));
+				}
+				else
+					cell.setCoste(0);
 				lista.add(cell);
 			}
 		}

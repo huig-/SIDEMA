@@ -30,7 +30,7 @@ public class ExplorarCelda extends TareaSincrona {
 			Mapa copia_mapa = new Mapa(mapa);
 			copia_mapa.updateGrafo((int)celdaAExplorar.getX(), (int)celdaAExplorar.getY());
 			//Calculamos la ruta
-			GraphPath<Celda, Integer> path = copia_mapa.findPath(explorador.getCurrentPos(), celdaAExplorar);
+			GraphPath<Celda, Integer> path = copia_mapa.findPath(celdaAExplorar,explorador.getCurrentPos());
 			List<Integer> edge_path = path.getEdgeList();
 			ListIterator<Integer> it = edge_path.listIterator();
 			Celda pos;
@@ -52,7 +52,8 @@ public class ExplorarCelda extends TareaSincrona {
 					}
 				} while(it.hasNext());
 			}
-			visualizador.mover("explorador",(int)celdaAExplorar.getX(),(int)celdaAExplorar.getY(),explorador.getCurrentPos().getX(),explorador.getCurrentPos().getY());
+			if(!celdaAExplorar.equals(explorador.getCurrentPos()))
+				visualizador.mover("explorador",(int)celdaAExplorar.getX(),(int)celdaAExplorar.getY(),explorador.getCurrentPos().getX(),explorador.getCurrentPos().getY());
 			try {
 				Thread.sleep(explorador.getTiempoExploracion());
 			} catch (InterruptedException ie) {
