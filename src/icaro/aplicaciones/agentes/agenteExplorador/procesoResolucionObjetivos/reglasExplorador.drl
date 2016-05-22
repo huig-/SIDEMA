@@ -50,6 +50,7 @@ rule "Devolver Estimacion Actual"
 		robot : Robot(id == agentId)
 		ordenCC: OrdenSolicitarEstimacion( mensajeOrden == VocabularioSIDEMA.MsgPeticionEstimacionActual)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.EstimarMejorDestino.class);
 		tarea.ejecutar(robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
@@ -63,6 +64,7 @@ rule "Explorar Terreno"
 		robot : Robot(id == agentId)
 		ordenCC: OrdenExplorar( mensajeOrden == VocabularioSIDEMA.MsgPeticionExplorar, celdas:justificacion)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.ExplorarCelda.class);
 		tarea.ejecutar(robot,celdas);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());

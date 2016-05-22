@@ -35,6 +35,7 @@ public class IntroducirMapa extends TareaSincrona {
 				this.getComunicator().enviarInfoAotroAgente(orden, neut);
 			}
 		    cc.setMapa(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
+		    this.getEnvioHechos().actualizarHecho(cc);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

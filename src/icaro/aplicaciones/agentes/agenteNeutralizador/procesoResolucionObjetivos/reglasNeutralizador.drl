@@ -40,10 +40,10 @@ rule "Conocer Centro Control"
 		ordenCC : OrdenComenzarSimulacion(id2 : identEmisor, just:justificacion)
 		robot: Neutralizador(id == agentId)
 	then
-	robot.setMapa((Mapa)just);
-   	robot.setCC(id2);
-   	retract(ordenCC);
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		robot.setMapa((Mapa)just);
+	   	robot.setCC(id2);
+	   	retract(ordenCC);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA CONOCER CENTRO CONTROL\n\n");
 end
 
@@ -53,6 +53,7 @@ rule "Devolver Ubicacion Actual"
 		ordenCC: OrdenSolicitarPosicion( mensajeOrden == VocabularioSIDEMA.MsgPeticionPosicionActual, mapa:justificacion)
 		robot : Robot(id == agentId)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteNeutralizador.tareas.InformarPosicion.class);
 		tarea.ejecutar(robot,mapa);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
@@ -66,6 +67,7 @@ rule "Desactivar Mina"
 		ordenCC: OrdenDesactivar( mensajeOrden == VocabularioSIDEMA.MsgPeticionDesactivar, celdaMina:justificacion)
 		robot : Robot(id == agentId)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteNeutralizador.tareas.DesactivarMina.class);
 		tarea.ejecutar(celdaMina,robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());

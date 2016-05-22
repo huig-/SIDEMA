@@ -28,29 +28,29 @@ public class EstimarMejorDestino extends TareaSincrona {
 				Celda c = celdaCandidata.getCelda();
 				double x = c.getX(); double y = c.getY();
 				if (x > 0) { //casillas inferiores
-					if (this.mapa.haSidoExplorada(this.mapa.getCelda((int)x-1, (int)y))) //inferior
+					if (!this.mapa.haSidoExplorada(this.mapa.getCelda((int)x-1, (int)y))) //inferior
 						cont++;
 					if (y > 0 
-							&& this.mapa.haSidoExplorada(this.mapa.getCelda((int)x-1, (int)y-1))) //inferior izquierda
+							&& !this.mapa.haSidoExplorada(this.mapa.getCelda((int)x-1, (int)y-1))) //inferior izquierda
 						cont++;
 					if (y < this.mapa.getColumns() - 1 && 
-							this.mapa.haSidoExplorada(this.mapa.getCelda((int)x-1, (int)y+1))) //inferior derecha
+							!this.mapa.haSidoExplorada(this.mapa.getCelda((int)x-1, (int)y+1))) //inferior derecha
 						cont++;
 				}
 				if (x < this.mapa.getRows() - 1) { //casillas superiores
-					if (this.mapa.haSidoExplorada(this.mapa.getCelda((int)x+1, (int)y))) //inferior
+					if (!this.mapa.haSidoExplorada(this.mapa.getCelda((int)x+1, (int)y))) //inferior
 						cont++;
 					if (y > 0 
-							&& this.mapa.haSidoExplorada(this.mapa.getCelda((int)x+1, (int)y-1))) //inferior izquierda
+							&& !this.mapa.haSidoExplorada(this.mapa.getCelda((int)x+1, (int)y-1))) //inferior izquierda
 						cont++;
 					if (y < this.mapa.getColumns() - 1 && 
-							this.mapa.haSidoExplorada(this.mapa.getCelda((int)x+1, (int)y+1))) //inferior derecha
+							!this.mapa.haSidoExplorada(this.mapa.getCelda((int)x+1, (int)y+1))) //inferior derecha
 						cont++;
 				}
-				if (y > 0 && this.mapa.haSidoExplorada(this.mapa.getCelda((int)x, (int)y-1))) { //casilla izquierda
+				if (y > 0 && !this.mapa.haSidoExplorada(this.mapa.getCelda((int)x, (int)y-1))) { //casilla izquierda
 					cont++;
 				}
-				if (y < this.mapa.getColumns() - 1 && this.mapa.haSidoExplorada(this.mapa.getCelda((int)x, (int)y+1))) { //casilla derecha
+				if (y < this.mapa.getColumns() - 1 && !this.mapa.haSidoExplorada(this.mapa.getCelda((int)x, (int)y+1))) { //casilla derecha
 					cont++;
 				}
 				celdaCandidata.setGanancia(cont);

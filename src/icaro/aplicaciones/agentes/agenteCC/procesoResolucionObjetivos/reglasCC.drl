@@ -13,6 +13,7 @@ import icaro.aplicaciones.Rosace.objetivosComunes.*;
 import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas.*;
 import java.lang.String;
 import java.util.ArrayList;
+import java.util.List;
 
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
@@ -39,7 +40,7 @@ rule "Comenzar Simulacion"
 		ordenCC : OrdenComenzarSimulacion()
 		robot: CentroControl(id == agentId)
 	then
-		
+		retract(ordenCC);
    		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.IntroducirMapa.class);
  		tarea.ejecutar(ordenCC,robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
@@ -50,15 +51,16 @@ rule "Solicitar Estimacion"
 	when
 		focoActual : Focus(foco == null)
 		robot: CentroControl(id == agentId)
-		mapa : Mapa()
-		eval(robot.getExploradoresLibres().size() > 0 && mapa.inexploradas() > 0)
+		eval(robot.getExploradoresLibres().size() > 0 && robot.getMapa().inexploradas() > 0)
 	then
+		List<String> exploradoresAAsignar = new ArrayList<String>();
 		for (String e : robot.getExploradoresLibres()) {
 			robot.getExploradoresAsignados().add(e);
-			robot.getExploradoresLibres().remove(e);
+			exploradoresAAsignar.add(e);
 		}
+		robot.setExploradoresLibres(new ArrayList<String>());
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
-		tarea.ejecutar(mapa,robot);
+		tarea.ejecutar(robot, exploradoresAAsignar);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Distribuir Terreno\n\n");
 end
@@ -98,11 +100,11 @@ rule "Enviar Explorador"
 		mapa : Mapa()
 		eval(robot.recibidosExploradores())
 	then
-			robot.setExploradoresAsignados(new ArrayList<String>());
-			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.AsignarCasillasAExplorar.class);
-			tarea.ejecutar(robot,mapa);
-			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-			System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Explorador\n\n");
+		robot.setExploradoresAsignados(new ArrayList<String>());
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.AsignarCasillasAExplorar.class);
+		tarea.ejecutar(robot,mapa);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Explorador\n\n");
 end
 
 rule "Recibir Ubicacion Actual"
@@ -125,8 +127,9 @@ rule "Encontrado Neutralizador Libre"
 		ordenCC: InformarNeutralizadorLibre( mensajeOrden == VocabularioSIDEMA.MsgInformarNeutralizadorLibre, just : justificacion)
 		robot: CentroControl(id == agentId)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.GuardarRobotLibre.class);
-		tarea.ejecutar("neutralizador",robot,just,ordenCC);
+		tarea.ejecutar("neutralizador",robot,just);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Encontrado Neutralizador Libre \n\n");
 		//if(robot.recibidosNeutralizadores() && robot.getMinasPendientes().size()>0){
@@ -143,8 +146,9 @@ rule "Encontrado Explorador Libre"
 		ordenCC: InformarExploradorLibre( mensajeOrden == VocabularioSIDEMA.MsgInformarExploradorLibre, just : justificacion)
 		robot: CentroControl(id == agentId)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.GuardarRobotLibre.class);
-		tarea.ejecutar("explorador",robot,just,ordenCC);
+		tarea.ejecutar("explorador",robot,just);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Encontrado Neutralizador Libre \n\n");
 		//if(robot.recibidosNeutralizadores() && robot.getMinasPendientes().size()>0){
@@ -165,8 +169,8 @@ rule "Enviar Neutralizador"
 		eval(robot.getMinasPendientes().size() > 0)
 		eval(robot.getMapa().existeCamino(robot.getMinasPendientes().get(0),robot.getCurrentPos()))
 	then
-			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
-			tarea.ejecutar(robot, robot.getMinasPendientes().remove(0));
-			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-			System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
+		tarea.ejecutar(robot, robot.getMinasPendientes().remove(0));
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
 end
