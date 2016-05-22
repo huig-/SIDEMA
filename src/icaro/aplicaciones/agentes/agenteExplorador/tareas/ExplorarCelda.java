@@ -65,7 +65,7 @@ public class ExplorarCelda extends TareaSincrona {
 		    	InformarMinaEncontrada informarMina = new InformarMinaEncontrada(explorador.getId(), celdaAExplorar);
 		    	this.getComunicator().enviarInfoAotroAgente(informarMina, explorador.getCC());
 		    }
-		    InformarExploradorLibre informarLibre = new InformarExploradorLibre(explorador.getId(), null);
+		    InformarExploradorLibre informarLibre = new InformarExploradorLibre(explorador.getId(), explorador);
 		    this.getComunicator().enviarInfoAotroAgente(informarLibre, explorador.getCC());
 		} catch (Exception e) {
 			e.printStackTrace();

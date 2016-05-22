@@ -6,6 +6,7 @@ import org.jgrapht.GraphPath;
 
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
 import icaro.aplicaciones.SIDEMA.informacion.CentroControl;
+import icaro.aplicaciones.SIDEMA.informacion.InformacionAgente;
 import icaro.aplicaciones.SIDEMA.informacion.InformarNeutralizadorLibre;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.Neutralizador;
@@ -15,15 +16,19 @@ import icaro.aplicaciones.SIDEMA.informacion.InformarMinaEncontrada;
 import icaro.aplicaciones.SIDEMA.informacion.Robot;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
-public class GuardarNeutralizadorLibre extends TareaSincrona {
+public class GuardarRobotLibre extends TareaSincrona {
 
 	@Override
 	public void ejecutar(Object... params) {
 		try {
-			CentroControl cc = (CentroControl)params[0];
-			Neutralizador n = (Neutralizador)params[1];
-			InformarNeutralizadorLibre o = (InformarNeutralizadorLibre)params[2];
-			cc.getNeutralizadores().add(n.getId());
+			String tipo = (String)params[0];
+			CentroControl cc = (CentroControl)params[1];
+			Robot n = (Robot)params[2];
+			InformacionAgente o = (InformacionAgente)params[3];
+			if(tipo.equalsIgnoreCase("neutralizador"))
+				cc.getNeutralizadores().add(n.getId());
+			else
+				cc.getExploradores().add(n.getId());
 			this.getEnvioHechos().actualizarHecho(n);
 			this.getEnvioHechos().eliminarHechoWithoutFireRules(o);
 			this.getEnvioHechos().actualizarHecho(cc);

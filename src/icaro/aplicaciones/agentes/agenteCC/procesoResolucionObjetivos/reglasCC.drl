@@ -116,8 +116,26 @@ rule "Encontrado Neutralizador Libre"
 		ordenCC: InformarNeutralizadorLibre( mensajeOrden == VocabularioSIDEMA.MsgInformarNeutralizadorLibre, just : justificacion)
 		robot: CentroControl(id == agentId)
 	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.GuardarNeutralizadorLibre.class);
-		tarea.ejecutar(robot,just,ordenCC);
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.GuardarRobotLibre.class);
+		tarea.ejecutar("neutralizador",robot,just,ordenCC);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Encontrado Neutralizador Libre \n\n");
+		//if(robot.recibidosNeutralizadores() && robot.getMinasPendientes().size()>0){
+		//	TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
+		//	tarea.ejecutar(robot);
+		//	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		//	System.out.println("\n"+agentId +" EJECUTO LA REGLA Encontrado Neutralizador Libre\n\n");
+		//}
+end
+
+rule "Encontrado Explorador Libre"
+	when
+		focoActual : Focus(foco == null)
+		ordenCC: InformarExploradorLibre( mensajeOrden == VocabularioSIDEMA.MsgInformarExploradorLibre, just : justificacion)
+		robot: CentroControl(id == agentId)
+	then
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.GuardarRobotLibre.class);
+		tarea.ejecutar("explorador",robot,just,ordenCC);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Encontrado Neutralizador Libre \n\n");
 		//if(robot.recibidosNeutralizadores() && robot.getMinasPendientes().size()>0){

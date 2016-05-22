@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class InformarExploradorLibre extends InformacionAgente implements Serializable{
 
 	public InformarExploradorLibre( ) {
-        super.setMensajeOrden(VocabularioSIDEMA.MsgInformarNeutralizadorLibre);
+        super.setMensajeOrden(VocabularioSIDEMA.MsgInformarExploradorLibre);
  }
     public InformarExploradorLibre(String identAgteEmisor) {
         identEmisor= identAgteEmisor;
-        mensajeOrden = VocabularioSIDEMA.MsgInformarNeutralizadorLibre;
+        mensajeOrden = VocabularioSIDEMA.MsgInformarExploradorLibre;
         justificacion = null;
 
  }
     public InformarExploradorLibre(String identAgteEmisor, Object justificat) {
         identEmisor= identAgteEmisor;
-        mensajeOrden = VocabularioSIDEMA.MsgInformarNeutralizadorLibre;
+        mensajeOrden = VocabularioSIDEMA.MsgInformarExploradorLibre;
         justificacion = justificat;
 
  }
