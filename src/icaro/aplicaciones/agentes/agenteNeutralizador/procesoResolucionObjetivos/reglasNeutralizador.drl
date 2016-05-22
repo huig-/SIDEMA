@@ -55,7 +55,7 @@ rule "Devolver Ubicacion Actual"
 	then
 		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteNeutralizador.tareas.InformarPosicion.class);
-		tarea.ejecutar(robot,mapa);
+		tarea.ejecutar(robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Devolver Ubicacion Actual\n\n");
 end

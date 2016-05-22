@@ -51,7 +51,7 @@ rule "Solicitar Estimacion"
 	when
 		focoActual : Focus(foco == null)
 		robot: CentroControl(id == agentId)
-		eval(robot.getExploradoresLibres().size() > 0 && robot.getMapa().inexploradas() > 0)
+		eval(robot.getExploradoresLibres().size() == 2 && robot.getMapa().inexploradas() > 0)
 	then
 		List<String> exploradoresAAsignar = new ArrayList<String>();
 		for (String e : robot.getExploradoresLibres()) {

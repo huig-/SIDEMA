@@ -11,7 +11,6 @@ public class InformarPosicion extends TareaSincrona {
 	public void ejecutar(Object... params) {
 		try {
 			Neutralizador r = (Neutralizador)params[0];
-			r.setMapa((Mapa)params[1]);
 			InformarPosicionActual orden = new InformarPosicionActual(r.getId(),r.getCurrentPos());
 			this.getComunicator().enviarInfoAotroAgente(orden,r.getCC()); 
 		}
