@@ -12,6 +12,7 @@ import icaro.aplicaciones.Rosace.tareasComunes.*;
 import icaro.aplicaciones.Rosace.objetivosComunes.*;
 import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas.*;
 import java.lang.String;
+import java.util.ArrayList;
 
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
@@ -38,20 +39,24 @@ rule "Comenzar Simulacion"
 		ordenCC : OrdenComenzarSimulacion()
 		robot: CentroControl(id == agentId)
 	then
+		
    		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.IntroducirMapa.class);
  		tarea.ejecutar(ordenCC,robot);
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA COMENZAR SIMULACION\n\n");
 end
 
-rule "Distribuir Terreno"
+rule "Solicitar Estimacion"
 	when
 		focoActual : Focus(foco == null)
 		robot: CentroControl(id == agentId)
 		mapa : Mapa()
-		eval(robot.getExploradores().size() > 0 && mapa.inexploradas() > 0)
+		eval(robot.getExploradoresLibres().size() > 0 && mapa.inexploradas() > 0)
 	then
-     	robot.setMapa(mapa);
+		for (String e : robot.getExploradoresLibres()) {
+			robot.getExploradoresAsignados().add(e);
+			robot.getExploradoresLibres().remove(e);
+		}
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.DistribuirTerreno.class);
 		tarea.ejecutar(mapa,robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
@@ -78,8 +83,9 @@ rule "Recibir Mejor Estimacion"
 		ordenCC: InformarCandidatosAExplorar( emisor : identEmisor, candidatos : justificacion)
 		robot: CentroControl(id == agentId)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.ActualizarMensajes.class);
-		tarea.ejecutar(robot,ordenCC,candidatos);
+		tarea.ejecutar(robot,candidatos, emisor);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Recibir Mejor Estimacion\n\n");
 		
@@ -92,6 +98,7 @@ rule "Enviar Explorador"
 		mapa : Mapa()
 		eval(robot.recibidosExploradores())
 	then
+			robot.setExploradoresAsignados(new ArrayList<String>());
 			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.AsignarCasillasAExplorar.class);
 			tarea.ejecutar(robot,mapa);
 			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
@@ -104,8 +111,9 @@ rule "Recibir Ubicacion Actual"
 		ordenCC: InformarPosicionActual( mensajeOrden == VocabularioSIDEMA.MsgInformarPosicionActual, emisor : identEmisor, celdaActual : justificacion)
 		robot: CentroControl(id == agentId)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.ActualizarMensajes.class);
-		tarea.ejecutar(robot,ordenCC,celdaActual);
+		tarea.ejecutar(robot,celdaActual,emisor);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Recibir Ubicacion Actual\n\n");
 		

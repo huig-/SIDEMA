@@ -40,7 +40,7 @@ rule "Conocer Centro Control"
 		ordenCC : OrdenComenzarSimulacion(id2 : identEmisor, just:justificacion)
 		robot: Neutralizador(id == agentId)
 	then
-	robot.setMapa(just);
+	robot.setMapa((Mapa)just);
    	robot.setCC(id2);
    	retract(ordenCC);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());

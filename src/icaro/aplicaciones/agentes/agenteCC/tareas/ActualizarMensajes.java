@@ -25,9 +25,7 @@ public class ActualizarMensajes extends TareaSincrona {
 	public void ejecutar(Object... params) {
 		try {
 			CentroControl cc = (CentroControl)params[0];
-			InformacionAgente n = (InformacionAgente)params[1];	
-			cc.actualizarMsg(params[2], n.getIdentEmisor());
-			this.getEnvioHechos().eliminarHechoWithoutFireRules(n);
+			cc.actualizarMsg(params[1], (String)params[2]);
 			this.getEnvioHechos().actualizarHecho(cc);
 		}
 		catch (Exception e) {

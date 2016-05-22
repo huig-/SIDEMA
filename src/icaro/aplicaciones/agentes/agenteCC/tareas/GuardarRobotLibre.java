@@ -28,7 +28,7 @@ public class GuardarRobotLibre extends TareaSincrona {
 			if(tipo.equalsIgnoreCase("neutralizador"))
 				cc.getNeutralizadores().add(n.getId());
 			else
-				cc.getExploradores().add(n.getId());
+				cc.getExploradoresLibres().add(n.getId());
 			this.getEnvioHechos().actualizarHecho(n);
 			this.getEnvioHechos().eliminarHechoWithoutFireRules(o);
 			this.getEnvioHechos().actualizarHecho(cc);

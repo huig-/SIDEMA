@@ -40,8 +40,6 @@ public class EnviarNeutralizador extends TareaSincrona {
 			r.getNeutralizadores().remove(r.getEmisorNeutralizador().get(elegido));
 			r.getMsgNeutralizador().remove(elegido);
 			r.getEmisorNeutralizador().remove(elegido);
-			
-			
 		}
 		catch (Exception e) {
 			e.printStackTrace();

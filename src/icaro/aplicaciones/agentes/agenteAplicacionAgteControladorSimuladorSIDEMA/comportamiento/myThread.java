@@ -31,16 +31,6 @@ public class myThread extends Thread{
         	   OrdenComenzarSimulacion ccOrder = new OrdenComenzarSimulacion("ReactivoRosace",v);
                 comunicator.enviarInfoAotroAgente(ccOrder, centroControl);
                 stop = true;
-                
-                for(String neut : this.neutralizadores){
-                	ccOrder = new OrdenComenzarSimulacion("ReactivoRosace");
-                	comunicator.enviarInfoAotroAgente(ccOrder, neut);
-                }
-                
-                for(String expl : this.exploradores){
-                	ccOrder = new OrdenComenzarSimulacion("ReactivoRosace");
-                	comunicator.enviarInfoAotroAgente(ccOrder, expl);
-                }
             }
         catch (Exception e) {
             e.printStackTrace();

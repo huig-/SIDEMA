@@ -18,7 +18,7 @@ public class DistribuirTerreno extends TareaSincrona {
 			CentroControl cc = (CentroControl)params[1];
 			//OrdenComenzarSimulacion ordenI = (OrdenComenzarSimulacion)params[1];
 			//this.getEnvioHechos().eliminarHechoWithoutFireRules(ordenI);
-			for(String exp : cc.getExploradores()){
+			for(String exp : cc.getExploradoresLibres()){
 				OrdenSolicitarEstimacion orden = new OrdenSolicitarEstimacion("agenteCC", m);
 				this.getComunicator().enviarInfoAotroAgente(orden,exp); 
 			}

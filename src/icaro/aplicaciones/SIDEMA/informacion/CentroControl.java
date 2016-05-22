@@ -17,7 +17,8 @@ public class CentroControl extends Robot {
 	 * @param energy
 	 * @param leader
 	 */
-	private ArrayList<String> exploradores;
+	private ArrayList<String> exploradoresLibres;
+	private ArrayList<String> exploradoresAsignados;
 	private ArrayList<String> neutralizadores;
 	private ArrayList<Celda> msgNeutralizador;
 	private ArrayList<String> emisorNeutralizador;
@@ -38,7 +39,8 @@ public class CentroControl extends Robot {
 	}
 	public CentroControl(String id, Celda currentPos, int energy, String leader) {
 		super(id, currentPos, energy, leader);
-		this.exploradores = new ArrayList<String>();
+		this.exploradoresAsignados = new ArrayList<String>();
+		this.exploradoresLibres = new ArrayList<String>();
 		this.neutralizadores = new ArrayList<String>();
 		this.msgNeutralizador = new ArrayList<Celda>();
 		this.minasPendientes = new ArrayList<Celda>();
@@ -48,7 +50,8 @@ public class CentroControl extends Robot {
 	}
 	public CentroControl(String id, int i, int j, int energy, String leader) {
 		super(id, i,j, energy, leader);
-		this.exploradores = new ArrayList<String>();
+		this.exploradoresAsignados = new ArrayList<String>();
+		this.exploradoresLibres = new ArrayList<String>();
 		this.neutralizadores = new ArrayList<String>();
 		this.msgNeutralizador = new ArrayList<Celda>();
 		this.minasPendientes = new ArrayList<Celda>();
@@ -66,7 +69,7 @@ public class CentroControl extends Robot {
 			this.msgNeutralizador.add((Celda)msg);
 			this.emisorNeutralizador.add(neut);
 		}
-		if(!this.emisorExplorador.contains(neut) && this.exploradores.contains(neut)){
+		if(!this.emisorExplorador.contains(neut) && this.exploradoresAsignados.contains(neut)){
 			this.msgExplorador.add((Candidatos)msg);
 			this.emisorExplorador.add(neut);
 		}
@@ -88,12 +91,20 @@ public class CentroControl extends Robot {
 		this.emisorNeutralizador = emisorNeutralizador;
 	}
 
-	public ArrayList<String> getExploradores() {
-		return exploradores;
+	public ArrayList<String> getExploradoresLibres() {
+		return exploradoresLibres;
 	}
-	public void setExploradores(ArrayList<String> exploradores) {
-		this.exploradores = exploradores;
+	public void setExploradoresAsignados(ArrayList<String> exploradores) {
+		this.exploradoresAsignados = exploradores;
 	}
+	
+	public ArrayList<String> getExploradoresAsignados() {
+		return exploradoresAsignados;
+	}
+	public void setExploradoresLibres(ArrayList<String> exploradores) {
+		this.exploradoresLibres = exploradores;
+	}
+	
 	public ArrayList<String> getNeutralizadores() {
 		return neutralizadores;
 	}
@@ -106,7 +117,7 @@ public class CentroControl extends Robot {
 		return e; 
 	}
 	public boolean recibidosExploradores(){
-		boolean e = this.getMsgExplorador().size() == this.getExploradores().size() && this.getExploradores().size() > 0;
+		boolean e = this.getMsgExplorador().size() == this.getExploradoresAsignados().size() && this.getExploradoresAsignados().size() > 0;
 		return e; 
 	}
 

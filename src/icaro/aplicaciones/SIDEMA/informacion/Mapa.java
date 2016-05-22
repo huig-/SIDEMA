@@ -112,7 +112,8 @@ public class Mapa {
 		return this.instance;
 	}
 	
-	public int inexploradas(){
+	public synchronized int inexploradas(){
+		System.out.println("Inexploradas: " + (this.rows*this.columns - this.ExploredGraph.vertexSet().size()));
 		return this.rows*this.columns - this.ExploredGraph.vertexSet().size();
 	}
 	public synchronized int getNumExploradas() {

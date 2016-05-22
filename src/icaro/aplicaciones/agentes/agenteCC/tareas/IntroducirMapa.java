@@ -19,17 +19,18 @@ public class IntroducirMapa extends TareaSincrona {
 			OrdenComenzarSimulacion ordenI = (OrdenComenzarSimulacion)params[0];
 			CentroControl cc = (CentroControl)params[1];
 			ArrayList<ArrayList<String>> robots = (ArrayList<ArrayList<String>>)ordenI.getJustificacion();
-			cc.getExploradores().addAll(robots.get(0));
+			cc.getExploradoresLibres().addAll(robots.get(0));
 			cc.getNeutralizadores().addAll(robots.get(1));
 			ItfUsoRecursoPersistenciaSIDEMA itfUsoRecursoPersistenciaSIDEMA = (ItfUsoRecursoPersistenciaSIDEMA) this.repoInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaSIDEMA1");
 			this.itfProcObjetivos.eliminarHecho(ordenI);
 			this.itfProcObjetivos.eliminarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 			this.itfProcObjetivos.insertarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
+			Mapa m = itfUsoRecursoPersistenciaSIDEMA.getEscenario();
 			for(String neut : cc.getNeutralizadores()){
-				OrdenComenzarSimulacion orden = new OrdenComenzarSimulacion(cc.getId(),itfUsoRecursoPersistenciaSIDEMA.getEscenario());
+				OrdenComenzarSimulacion orden = new OrdenComenzarSimulacion(cc.getId(),m);
 				this.getComunicator().enviarInfoAotroAgente(orden, neut);
 			}
-			for(String neut : cc.getExploradores()){
+			for(String neut : cc.getExploradoresLibres()){
 				OrdenComenzarSimulacion orden = new OrdenComenzarSimulacion(cc.getId(),itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 				this.getComunicator().enviarInfoAotroAgente(orden, neut);
 			}
