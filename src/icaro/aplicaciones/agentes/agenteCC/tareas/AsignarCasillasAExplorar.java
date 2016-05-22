@@ -30,6 +30,7 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 				c[i] = r.getMsgExplorador().get(i);
 			
 			for (int i = 0; i < c.length; i++) {
+				if (c[i].getCeldas().size() == 0) break;
 				TreeMap<Double, Integer> map  = new TreeMap<Double, Integer>(); //para ordenar con indices
 				for (int index = 0; index < c.length; index++) {
 					if (!exploradoresAsignados[index]) {

@@ -228,13 +228,6 @@ public class Mapa {
 			}
 		}
 		
-		if (!aux.containsVertex(ini)) {
-			System.err.println("_________________________________");
-			System.err.println(ini);
-			System.err.println(fin);
-			System.err.println("_________________________________");
-			for (Celda c: aux.vertexSet()) System.err.println(c);
-		}
 		DijkstraShortestPath<Celda, Integer> path = new DijkstraShortestPath<Celda, Integer>(
 				aux, ini, fin);
 		return path.getPath();
