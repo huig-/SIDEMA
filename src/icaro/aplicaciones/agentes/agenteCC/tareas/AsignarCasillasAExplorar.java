@@ -31,10 +31,12 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 			
 			for (int i = 0; i < c.length; i++) {
 				TreeMap<Double, Integer> map  = new TreeMap<Double, Integer>(); //para ordenar con indices
-				for (int index = 0; index < c.length && !exploradoresAsignados[index]; index++) {
-					c[index].sort();
-					ganancias[index] = c[index].max().getExpectedValue();
-					map.put(ganancias[index], index); 
+				for (int index = 0; index < c.length; index++) {
+					if (!exploradoresAsignados[index]) {
+						c[index].sort();
+						ganancias[index] = c[index].max().getExpectedValue();
+						map.put(ganancias[index], index); 
+					}
 				}
 				
 				//1 paso, elegimos al mejor
@@ -42,24 +44,27 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 				exploradoresAsignados[best_index] = true;
 				//Avisamos al explorador
 				OrdenExplorar orden = new OrdenExplorar(r.getId(), c[best_index].max().getCelda());
+				Celda ccc = c[best_index].max().getCelda();
 				this.getComunicator().enviarInfoAotroAgente(orden, c[best_index].getIdentAgte());
 				//r.getExploradoresAsignados().remove(c[best_index].getIdentAgte());
-				r.getEmisorExplorador().remove(best_index);
-				r.getMsgExplorador().remove(best_index);
+				r.getEmisorExplorador().remove(c[best_index].getIdentAgte());
+				r.getMsgExplorador().remove(c[best_index]);
 				//Actualizamos celdas consideradas
 				for (Celda celda : this.mapa.getAdyacentes(c[best_index].max().getCelda())) 
 					celdasYaConsideradas.add(celda);
 				//2 paso, realizamos el descuento
-				for (int j = 0; j < c.length && !exploradoresAsignados[j]; j++) {
-					List<CeldaCandidata> candidatas = c[j].getCeldas();
-					for (CeldaCandidata cc : candidatas) {
-						Set<Celda> adyacentes = new HashSet<Celda>(this.mapa.getAdyacentes(cc.getCelda()));
-						Set<Celda> yaConsideradas = getIntersection(adyacentes, celdasYaConsideradas);
-						double dj;
-						if(adyacentes.size() > 0)dj = yaConsideradas.size() / adyacentes.size(); 
-						else dj = 0;
-						double ganancia = (1 - dj) * cc.getGanancia();
-						cc.setGanancia(ganancia);
+				for (int j = 0; j < c.length; j++) {
+					if (!exploradoresAsignados[j]) {
+						List<CeldaCandidata> candidatas = c[j].getCeldas();
+						for (CeldaCandidata cc : candidatas) {
+							Set<Celda> adyacentes = new HashSet<Celda>(this.mapa.getAdyacentes(cc.getCelda()));
+							Set<Celda> yaConsideradas = getIntersection(adyacentes, celdasYaConsideradas);
+							double dj;
+							if(adyacentes.size() > 0)dj = yaConsideradas.size() / adyacentes.size(); 
+							else dj = 0;
+							double ganancia = (1 - dj) * cc.getGanancia();
+							cc.setGanancia(ganancia);
+						}
 					}
 				}
 			}

@@ -17,6 +17,7 @@ public class Mapa {
 	private int numCompletas = 0;
 	private WeightedMultigraph<Celda, Integer> ExploredGraph;
 	private WeightedMultigraph<Celda, Integer> completeGraph;
+	private List<Celda> minasSinDesactivar;
 	public static Mapa instance;
 
 	@SuppressWarnings("unchecked")
@@ -43,6 +44,10 @@ public class Mapa {
 		this.ExploredGraph = aux;
 		this.completeGraph = (WeightedMultigraph<Celda, Integer>) other
 				.getCompleteGraph().clone();
+		this.minasSinDesactivar = new ArrayList<Celda>();
+		for (int i = 0; i < other.getMinasSinDesactivar().size(); i++) { //no estoy seguro de si hace el clone
+			this.minasSinDesactivar.add(other.getMinasSinDesactivar().get(i));
+		}
 	}
 
 	public WeightedMultigraph<Celda, Integer> getExploredGraph() {
@@ -74,6 +79,7 @@ public class Mapa {
 				Integer.class);
 		this.completeGraph = new WeightedMultigraph<Celda, Integer>(
 				Integer.class);
+		this.minasSinDesactivar = new ArrayList<Celda>();
 	}
 
 	public Mapa(Celda[][] mapa) {
@@ -84,6 +90,7 @@ public class Mapa {
 				Integer.class);
 		this.completeGraph = new WeightedMultigraph<Celda, Integer>(
 				Integer.class);
+		this.minasSinDesactivar = new ArrayList<Celda>();
 	}
 
 	// Constructor por defecto cableado con el mapa
@@ -135,12 +142,14 @@ public class Mapa {
 	public synchronized boolean tieneMina(int row, int column) {
 		if (!mapa[row][column].getMina())
 			this.updateGrafo(row, column);
+		else
+			this.minasSinDesactivar.add(mapa[row][column]);
 		return mapa[row][column].getMina();
 
 	}
 
 	public synchronized boolean haSidoExplorada(Celda c) {
-		return this.ExploredGraph.containsVertex(c);
+		return this.ExploredGraph.containsVertex(c) || this.minasSinDesactivar.contains(c);
 	}
 
 	public synchronized boolean existeCamino(Celda fin, Celda ini) {
@@ -159,11 +168,11 @@ public class Mapa {
 		for (Integer p : this.ExploredGraph.edgeSet())
 			aux.addEdge(this.ExploredGraph.getEdgeSource(p),
 					this.ExploredGraph.getEdgeTarget(p), p);
+		int n = this.numExploradas;
 		if (!aux.containsVertex(fin)) {
 			aux.addVertex(fin);
 			int r = (int) fin.getX();
 			int c = (int) fin.getY();
-			int n = this.numExploradas;
 			if (r > 0 && this.mapa[r - 1][c].getAccesible()) {
 				if (aux.containsVertex(this.mapa[r - 1][c])) {
 					aux.addEdge(fin, this.mapa[r - 1][c], n);
@@ -188,6 +197,43 @@ public class Mapa {
 					n++;
 				}
 			}
+		}
+		if (!aux.containsVertex(ini)) {
+			aux.addVertex(ini);
+			int r = (int) ini.getX();
+			int c = (int) ini.getY();
+			if (r > 0 && this.mapa[r - 1][c].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r - 1][c])) {
+					aux.addEdge(ini, this.mapa[r - 1][c], n);
+					n++;
+				}
+			}
+			if (r < this.rows - 1 && this.mapa[r + 1][c].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r + 1][c])) {
+					aux.addEdge(ini, this.mapa[r + 1][c], n);
+					n++;
+				}
+			}
+			if (c > 0 && this.mapa[r][c - 1].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r][c - 1])) {
+					aux.addEdge(ini, this.mapa[r][c - 1], n);
+					n++;
+				}
+			}
+			if (c < this.columns - 1 && this.mapa[r][c + 1].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r][c + 1])) {
+					aux.addEdge(ini, this.mapa[r][c + 1], n);
+					n++;
+				}
+			}
+		}
+		
+		if (!aux.containsVertex(ini)) {
+			System.err.println("_________________________________");
+			System.err.println(ini);
+			System.err.println(fin);
+			System.err.println("_________________________________");
+			for (Celda c: aux.vertexSet()) System.err.println(c);
 		}
 		DijkstraShortestPath<Celda, Integer> path = new DijkstraShortestPath<Celda, Integer>(
 				aux, ini, fin);
@@ -288,15 +334,15 @@ public class Mapa {
 		return this.columns;
 	}
 
-	public List<Celda> getAdyacentes() {
+	public synchronized List<Celda> getAdyacentes() {
 		ArrayList<Celda> adys = new ArrayList<Celda>();
 		for (Celda c : this.completeGraph.vertexSet())
-			if (!this.ExploredGraph.containsVertex(c))
+			if (!this.ExploredGraph.containsVertex(c) && !this.getMinasSinDesactivar().contains(c))
 				adys.add(c);
 		return adys;
 	}
 
-	public List<Celda> getAdyacentes(Celda c) {
+	public synchronized List<Celda> getAdyacentes(Celda c) {
 		ArrayList<Celda> adys = new ArrayList<Celda>();
 		double x = c.getX();
 		double y = c.getY();
@@ -334,10 +380,12 @@ public class Mapa {
 				&& !this.ExploredGraph.containsVertex(this.getCelda((int) x,
 						(int) y + 1)))
 			adys.add(this.getCelda((int) x, (int) y + 1));
+		for (Celda ccc : this.getMinasSinDesactivar()) 
+			if (adys.contains(ccc)) adys.remove(ccc);
 		return adys;
 	}
 
-	public List<CeldaCandidata> getCosteAdyacentes(Celda posicionActual) {
+	public synchronized List<CeldaCandidata> getCosteAdyacentes(Celda posicionActual) {
 		List<CeldaCandidata> lista = new ArrayList<CeldaCandidata>();
 		if (this.completeGraph.containsVertex(posicionActual)) {
 			BellmanFordShortestPath<Celda, Integer> path = new BellmanFordShortestPath<Celda, Integer>(
@@ -364,6 +412,15 @@ public class Mapa {
 
 	public synchronized void desactivarMina(int x, int y) {
 		this.mapa[x][y].desactivarMina();
+		this.getMinasSinDesactivar().remove(this.mapa[x][y]);
 		this.updateGrafo(x, y);
+	}
+	
+	public synchronized List<Celda> getMinasSinDesactivar() {
+		return minasSinDesactivar;
+	}
+
+	public synchronized void setMinasSinDesactivar(List<Celda> minasSinDesactivar) {
+		this.minasSinDesactivar = minasSinDesactivar;
 	}
 }
