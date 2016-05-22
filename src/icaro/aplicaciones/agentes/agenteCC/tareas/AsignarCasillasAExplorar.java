@@ -62,7 +62,7 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 							Set<Celda> yaConsideradas = getIntersection(adyacentes, celdasYaConsideradas);
 							double dj;
 							if(adyacentes.size() > 0)dj = yaConsideradas.size() / adyacentes.size(); 
-							else dj = 0;
+							else dj = 1;
 							double ganancia = (1 - dj) * cc.getGanancia();
 							cc.setGanancia(ganancia);
 						}

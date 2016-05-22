@@ -142,8 +142,11 @@ public class Mapa {
 	public synchronized boolean tieneMina(int row, int column) {
 		if (!mapa[row][column].getMina())
 			this.updateGrafo(row, column);
-		else
+		else {
 			this.minasSinDesactivar.add(mapa[row][column]);
+			this.updateGrafoCompleto(row, column);
+			
+		}
 		return mapa[row][column].getMina();
 
 	}
@@ -288,6 +291,44 @@ public class Mapa {
 			}
 		}
 	}
+	
+	public synchronized void updateGrafoCompleto(int r, int c) {
+		Celda celda = this.mapa[r][c];
+		if (!this.completeGraph.containsVertex(celda))
+			this.completeGraph.addVertex(celda);
+		if (r > 0 && this.mapa[r - 1][c].getAccesible()) {
+			if (!this.completeGraph.containsVertex(this.mapa[r - 1][c])) {
+				this.completeGraph.addVertex(this.mapa[r-1][c]);
+				this.completeGraph.addEdge(celda, this.mapa[r - 1][c],
+						this.numCompletas);
+				this.numCompletas++;
+			}
+		}
+		if (r < this.rows - 1 && this.mapa[r + 1][c].getAccesible()) {
+			if (!this.completeGraph.containsVertex(this.mapa[r + 1][c])) {
+				this.completeGraph.addVertex(this.mapa[r+1][c]);
+				this.completeGraph.addEdge(celda, this.mapa[r + 1][c],
+						this.numCompletas);
+				this.numCompletas++;
+			} 
+		}
+		if (c > 0 && this.mapa[r][c - 1].getAccesible()) {
+			if (!this.completeGraph.containsVertex(this.mapa[r][c - 1])) {
+				this.completeGraph.addVertex(this.mapa[r][c - 1]);
+				this.completeGraph.addEdge(celda, this.mapa[r][c - 1],
+						this.numCompletas);
+				this.numCompletas++;
+			}
+		}
+		if (c < this.columns - 1 && this.mapa[r][c + 1].getAccesible()) {
+			if (!this.completeGraph.containsVertex(this.mapa[r][c + 1])) {
+				this.completeGraph.addVertex(this.mapa[r][c + 1]);
+				this.completeGraph.addEdge(celda, this.mapa[r][c + 1],
+						this.numCompletas);
+				this.numCompletas++;
+			}
+		}
+	}
 
 	public synchronized boolean esAccesible(int row, int column) {
 		return mapa[row][column].getAccesible();
@@ -348,7 +389,7 @@ public class Mapa {
 							(int) x - 1, (int) y - 1)))
 				adys.add(this.getCelda((int) x - 1, (int) y - 1));
 			if (y < this.getColumns() - 1
-					&& this.ExploredGraph.containsVertex(this.getCelda(
+					&& !this.ExploredGraph.containsVertex(this.getCelda(
 							(int) x - 1, (int) y + 1)))
 				adys.add(this.getCelda((int) x - 1, (int) y + 1));
 		}
@@ -361,7 +402,7 @@ public class Mapa {
 							(int) x + 1, (int) y - 1)))
 				adys.add(this.getCelda((int) x + 1, (int) y - 1));
 			if (y < this.getColumns() - 1
-					&& this.ExploredGraph.containsVertex(this.getCelda(
+					&& !this.ExploredGraph.containsVertex(this.getCelda(
 							(int) x + 1, (int) y + 1)))
 				adys.add(this.getCelda((int) x + 1, (int) y + 1));
 		}
