@@ -22,11 +22,10 @@ public class EnviarNeutralizador extends TareaSincrona {
 			int distancia = Integer.MAX_VALUE;
 			int j = 0;
 			int elegido = -1;
-			Celda mina;  
+			Celda mina = (Celda)params[1];  
 			GraphPath<Celda,Integer> p;
 			j = 0;
 			distancia = Integer.MAX_VALUE;
-			mina = r.getMinasPendientes().get(0);
 			while(j < r.getEmisorNeutralizador().size()){
 				p = r.getMapa().findPath(mina, r.getMsgNeutralizador().get(j));
 				List<Integer> path = p.getEdgeList();
@@ -37,7 +36,6 @@ public class EnviarNeutralizador extends TareaSincrona {
 					j++;
 			}
 			OrdenDesactivar orden = new OrdenDesactivar(r.getId(), mina);
-			r.getMinasPendientes().remove(0);
 			this.getComunicator().enviarInfoAotroAgente(orden,r.getEmisorNeutralizador().get(elegido));
 			r.getNeutralizadores().remove(r.getEmisorNeutralizador().get(elegido));
 			r.getMsgNeutralizador().remove(elegido);
