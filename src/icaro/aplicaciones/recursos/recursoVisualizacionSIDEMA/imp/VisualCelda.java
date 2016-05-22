@@ -14,6 +14,10 @@ import javax.swing.border.EmptyBorder;
 
 public class VisualCelda extends JButton {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean mina;
 	final private String path = "/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/";
 	private CombineIcon ci;
@@ -100,6 +104,7 @@ public class VisualCelda extends JButton {
 			ci.rescale(this.getSize().width, this.getSize().height);
 			ci.addIcon("mina", icono2);
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+			repaint();
 			ci.addIcon("explorador", icono3);
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 			this.repaint();
@@ -116,7 +121,7 @@ public class VisualCelda extends JButton {
 			this.repaint();
 		}
 
-		this.repaint();
+		//this.repaint();
 	}
 
 	public synchronized void movimientoNeutralizador() {
