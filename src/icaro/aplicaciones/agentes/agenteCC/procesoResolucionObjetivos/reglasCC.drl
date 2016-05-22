@@ -157,7 +157,7 @@ rule "Enviar Neutralizador"
 		eval(robot.getMapa().existeCamino(robot.getMinasPendientes().get(0),robot.getCurrentPos()))
 	then
 			TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
-			tarea.ejecutar(robot);
+			tarea.ejecutar(robot, robot.getMinasPendientes().remove(0));
 			recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 			System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
 end
