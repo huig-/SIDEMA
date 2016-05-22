@@ -45,6 +45,7 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		}else{
 			this.control.movimientoNeutralizador(xT, yT,xS,yS);
 		}
+		Thread.sleep(1500);
 	}
 
 	@Override
