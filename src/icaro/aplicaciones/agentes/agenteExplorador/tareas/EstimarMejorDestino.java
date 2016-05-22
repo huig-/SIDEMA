@@ -17,6 +17,7 @@ public class EstimarMejorDestino extends TareaSincrona {
 	public void ejecutar(Object... params) {
 		try {
 			this.robot = (Explorador)params[0];
+			this.mapa = robot.getMapa();
 			//Elaboramos una lista con los adyacentes a los exploradores y el coste del camino
 			Candidatos candidatos = new Candidatos(robot.getId());
 			candidatos.setCeldas(this.mapa.getCosteAdyacentes(this.robot.getCurrentPos()));
