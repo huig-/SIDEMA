@@ -105,7 +105,7 @@ public class Ventana extends JFrame {
 	}
 
 	public File cargarEscenario() {
-		File archivo = new File("/Users/Mike/git/SIDEMA/PersistenciaEscenariosSimulacion/mapa2.xml");
+		File archivo = new File("/Users/Gago/git/SIDEMA/PersistenciaEscenariosSimulacion/mapa2.xml");
 		FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.XML", "xml");
 		this.elegirArchivo.setFileFilter(filtro);
 		//int seleccion = this.elegirArchivo.showOpenDialog(this.item3);
@@ -131,7 +131,6 @@ public class Ventana extends JFrame {
 		this.item3.addActionListener(c);
 		this.simular.addActionListener(c);
 		this.terminar.addActionListener(c);
-		this.simular.addActionListener(c);
 	}
 
 	public void setModelo(Mapa m) {
