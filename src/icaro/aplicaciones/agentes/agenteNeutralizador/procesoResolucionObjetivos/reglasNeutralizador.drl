@@ -37,9 +37,10 @@ end
 rule "Conocer Centro Control"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC : OrdenComenzarSimulacion(id2 : identEmisor)
+		ordenCC : OrdenComenzarSimulacion(id2 : identEmisor, just:justificacion)
 		robot: Neutralizador(id == agentId)
 	then
+	robot.setMapa(just);
    	robot.setCC(id2);
    	retract(ordenCC);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());

@@ -34,10 +34,11 @@ end
 rule "Conocer Centro Control"
 	when
 		focoActual : Focus(foco == null)
-		ordenCC : OrdenComenzarSimulacion(id2 : identEmisor)
+		ordenCC : OrdenComenzarSimulacion(id2 : identEmisor, just : justificacion)
 		robot: Explorador(id == agentId)
 	then
    	robot.setCC(id2);
+   	robot.setMapa((Mapa)just);
    	retract(ordenCC);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA CONOCER CENTRO CONTROL\n\n");
@@ -47,10 +48,10 @@ rule "Devolver Estimacion Actual"
 	when
 		focoActual : Focus(foco == null)
 		robot : Robot(id == agentId)
-		ordenCC: OrdenSolicitarEstimacion( mensajeOrden == VocabularioSIDEMA.MsgPeticionEstimacionActual, mapa : justificacion)
+		ordenCC: OrdenSolicitarEstimacion( mensajeOrden == VocabularioSIDEMA.MsgPeticionEstimacionActual)
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.EstimarMejorDestino.class);
-		tarea.ejecutar(mapa,robot);
+		tarea.ejecutar(robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +"EJECUTO LA REGLA Devolver Estimacion Actual\n\n");
 end

@@ -26,14 +26,14 @@ public class IntroducirMapa extends TareaSincrona {
 			this.itfProcObjetivos.eliminarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 			this.itfProcObjetivos.insertarHecho(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 			for(String neut : cc.getNeutralizadores()){
-				OrdenComenzarSimulacion orden = new OrdenComenzarSimulacion(cc.getId());
+				OrdenComenzarSimulacion orden = new OrdenComenzarSimulacion(cc.getId(),itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 				this.getComunicator().enviarInfoAotroAgente(orden, neut);
 			}
 			for(String neut : cc.getExploradores()){
-				OrdenComenzarSimulacion orden = new OrdenComenzarSimulacion(cc.getId());
+				OrdenComenzarSimulacion orden = new OrdenComenzarSimulacion(cc.getId(),itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 				this.getComunicator().enviarInfoAotroAgente(orden, neut);
 			}
-		     
+		    cc.setMapa(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
