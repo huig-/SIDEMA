@@ -361,7 +361,7 @@ public class Mapa {
 		return lista;
 	}
 
-	public void desactivarMina(int x, int y) {
+	public synchronized void desactivarMina(int x, int y) {
 		this.mapa[x][y].desactivarMina();
 		this.updateGrafo(x, y);
 	}
