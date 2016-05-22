@@ -21,7 +21,7 @@ public class Mapa {
 	public static Mapa instance;
 
 	@SuppressWarnings("unchecked")
-	public Mapa(Mapa other) { // deep clone
+	public synchronized void copiar(Mapa other) { // deep clone
 		this.rows = other.getRows();
 		this.columns = other.getColumns();
 		this.numExploradas = other.getNumExploradas();

@@ -27,7 +27,8 @@ public class ExplorarCelda extends TareaSincrona {
 			Explorador explorador = (Explorador)params[0];
 			Celda celdaAExplorar = (Celda)params[1]; 
 			Mapa mapa = explorador.getMapa();//(Mapa)params[2];
-			Mapa copia_mapa = new Mapa(mapa);
+			Mapa copia_mapa = new Mapa();
+			copia_mapa.copiar(mapa);
 			copia_mapa.updateGrafo((int)celdaAExplorar.getX(), (int)celdaAExplorar.getY());
 			//Calculamos la ruta
 			GraphPath<Celda, Integer> path = copia_mapa.findPath(celdaAExplorar,explorador.getCurrentPos());
