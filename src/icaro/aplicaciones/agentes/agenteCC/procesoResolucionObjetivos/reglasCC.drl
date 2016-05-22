@@ -65,8 +65,9 @@ rule "Solicitar Ubicacion Actual"
 		robot: CentroControl(id == agentId)
 		eval(robot.getNeutralizadores().size() > 0)
 	then
+		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.SolicitarInformacionNeutralizador.class);
-		tarea.ejecutar(robot,minaCelda,ordenCC);
+		tarea.ejecutar(robot,minaCelda);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Solicitar Ubicacion Actual\n\n");
 end
