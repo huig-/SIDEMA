@@ -54,7 +54,9 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 					for (CeldaCandidata cc : candidatas) {
 						Set<Celda> adyacentes = new HashSet<Celda>(this.mapa.getAdyacentes(cc.getCelda()));
 						Set<Celda> yaConsideradas = getIntersection(adyacentes, celdasYaConsideradas);
-						double dj = yaConsideradas.size() / adyacentes.size(); 
+						double dj;
+						if(adyacentes.size() > 0)dj = yaConsideradas.size() / adyacentes.size(); 
+						else dj = 0;
 						double ganancia = (1 - dj) * cc.getGanancia();
 						cc.setGanancia(ganancia);
 					}
