@@ -21,10 +21,14 @@ public class VisualCelda extends JButton {
 	private boolean mina;
 	final private String path = "/icaro/aplicaciones/recursos/recursoVisualizacionSIDEMA/dibujos/";
 	private CombineIcon ci;
+	private boolean exp = false;
+	private boolean neut = false;
 
 	public VisualCelda(boolean mina, boolean accesible) {
 		super();
 		this.mina = mina;
+		this.exp = false;
+		this.neut = false;
 		if (accesible) {
 			/*
 			 * if (mina) { ImageIcon arena = new
@@ -98,30 +102,40 @@ public class VisualCelda extends JButton {
 		if (this.mina) {
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
-			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotExplorador.png"));
+			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "wall-e.png"));
+			ImageIcon icono4 = new ImageIcon(this.getClass().getResource(path + "ambos.png"));
 			ci = new CombineIcon("background", icono1);
 			this.setIcon(ci);
 			ci.rescale(this.getSize().width, this.getSize().height);
 			ci.addIcon("mina", icono2);
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
-			repaint();
-			ci.addIcon("explorador", icono3);
+			this.repaint();
+			if (this.neut) {
+				ci.addIcon("ambos", icono4);
+			} else {
+				ci.addIcon("explorador", icono3);
+			}
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 			this.repaint();
 
 		} else {
 
 			ImageIcon icono = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
-			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotExplorador.png"));
+			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "wall-e.png"));
+			ImageIcon icono4 = new ImageIcon(this.getClass().getResource(path + "ambos.png"));
 			ci = new CombineIcon("background", icono);
 			this.setIcon(ci);
 			ci.rescale(this.getSize().width, this.getSize().height);
-			ci.addIcon("explorador", icono3);
+			if (this.neut) {
+				ci.addIcon("ambos", icono4);
+			} else {
+				ci.addIcon("explorador", icono3);
+			}
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 			this.repaint();
 		}
-
-		//this.repaint();
+		this.exp = true;
+		
 	}
 
 	public synchronized void movimientoNeutralizador() {
@@ -129,37 +143,67 @@ public class VisualCelda extends JButton {
 		if (mina) {
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
-			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotNeutralizador.png"));
+			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "marvin.png"));
+			ImageIcon icono4 = new ImageIcon(this.getClass().getResource(path + "ambos.png"));
 			ci = new CombineIcon("background", icono1);
 			this.setIcon(ci);
 			ci.rescale(this.getSize().width, this.getSize().height);
 			ci.addIcon("mina", icono2);
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
-			ci.addIcon("neutralizador", icono3);
+			this.repaint();
+			if (this.exp) {
+				ci.addIcon("ambos", icono4);
+			} else {
+				ci.addIcon("neutralizador", icono3);
+			}
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 			this.repaint();
 
 		} else {
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
-			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "robotNeutralizador.png"));
-			ci = new CombineIcon("background", icono1);
-			this.setIcon(ci);
+			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "marvin.png"));
+			ImageIcon icono4 = new ImageIcon(this.getClass().getResource(path + "ambos.png"));
+			
+			ci = new CombineIcon("background", icono1); this.setIcon(ci);
 			ci.rescale(this.getSize().width, this.getSize().height);
-			ci.addIcon("neutralizador", icono3);
+			if(this.exp){ 
+			ci.addIcon("ambos", icono4);}
+			else{
+				ci.addIcon("neutralizador", icono3);
+			}
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 			this.repaint();
 
 		}
+		this.neut = true;
 
 	}
 
-	public void abandonarCeldaExplorador() {
-		ci.removeIcon("explorador");
+	public synchronized void abandonarCeldaExplorador() {
+		ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "marvin.png"));
+		if (this.neut) {
+			ci.removeIcon("ambos");
+			ci.addIcon("neutralizador", icono3);
+			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+		} else {
+			ci.removeIcon("explorador");
+
+		}
+		this.exp = false;
 		this.repaint();
 	}
-	
+
 	public void abandonarCeldaNeutralizador() {
-		ci.removeIcon("neutralizador");
+		ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "wall-e.png"));
+		if (this.exp) {
+			ci.removeIcon("ambos");
+			ci.addIcon("explorador", icono3);
+			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+		} else {
+			ci.removeIcon("neutralizador");
+		}
+
+		this.neut = false;
 		this.repaint();
 	}
 
