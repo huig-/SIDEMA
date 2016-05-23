@@ -53,7 +53,7 @@ public class ExplorarCelda extends TareaSincrona {
 						if (explorador.getEnergy() <= 0) {
 							InformarFaltaBateria informarBat = new InformarFaltaBateria(explorador.getId());
 							this.getComunicator().enviarInfoAotroAgente(informarBat, explorador.getCC());
-							break;
+							return;
 						}
 						visualizador.mover("explorador",(int)pos.getX(),(int)pos.getY(),explorador.getCurrentPos().getX(),explorador.getCurrentPos().getY());
 						explorador.setCurrentPos(pos);	

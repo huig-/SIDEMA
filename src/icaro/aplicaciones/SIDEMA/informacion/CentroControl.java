@@ -20,7 +20,7 @@ public class CentroControl extends Robot {
 	private ArrayList<String> exploradoresLibres;
 	private ArrayList<String> exploradoresAsignados;
 	private ArrayList<String> neutralizadores;
-	private ArrayList<Celda> msgNeutralizador;
+	private ArrayList<CeldaEnergia> msgNeutralizador;
 	private ArrayList<String> emisorNeutralizador;
 	private ArrayList<Candidatos> msgExplorador;
 	private ArrayList<String> emisorExplorador;
@@ -52,7 +52,7 @@ public class CentroControl extends Robot {
 		this.exploradoresAsignados = new ArrayList<String>();
 		this.exploradoresLibres = new ArrayList<String>();
 		this.neutralizadores = new ArrayList<String>();
-		this.msgNeutralizador = new ArrayList<Celda>();
+		this.msgNeutralizador = new ArrayList<CeldaEnergia>();
 		this.minasPendientes = new ArrayList<Celda>();
 		this.emisorNeutralizador = new ArrayList<String>();
 		this.msgExplorador = new ArrayList<Candidatos>();
@@ -64,7 +64,7 @@ public class CentroControl extends Robot {
 		this.exploradoresAsignados = new ArrayList<String>();
 		this.exploradoresLibres = new ArrayList<String>();
 		this.neutralizadores = new ArrayList<String>();
-		this.msgNeutralizador = new ArrayList<Celda>();
+		this.msgNeutralizador = new ArrayList<CeldaEnergia>();
 		this.minasPendientes = new ArrayList<Celda>();
 		this.emisorNeutralizador = new ArrayList<String>();
 		this.msgExplorador = new ArrayList<Candidatos>();
@@ -72,13 +72,13 @@ public class CentroControl extends Robot {
 		this.numExploradoresActivos = Integer.MIN_VALUE;
 	}
 	
-	public ArrayList<Celda> getMsgNeutralizador() {
+	public ArrayList<CeldaEnergia> getMsgNeutralizador() {
 		return msgNeutralizador;
 	}
 	
 	public void actualizarMsg(Object msg, String neut){
 		if(!this.emisorNeutralizador.contains(neut) && this.neutralizadores.contains(neut)){
-			this.msgNeutralizador.add((Celda)msg);
+			this.msgNeutralizador.add((CeldaEnergia)msg);
 			this.emisorNeutralizador.add(neut);
 		}
 		if(!this.emisorExplorador.contains(neut) && this.exploradoresAsignados.contains(neut)){
@@ -87,7 +87,7 @@ public class CentroControl extends Robot {
 		}
 	}
 
-	public void setMsgNeutralizador(ArrayList<Celda> msgNeutralizador) {
+	public void setMsgNeutralizador(ArrayList<CeldaEnergia> msgNeutralizador) {
 		this.msgNeutralizador = msgNeutralizador;
 	}
 

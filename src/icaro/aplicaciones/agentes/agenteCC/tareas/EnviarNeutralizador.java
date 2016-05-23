@@ -5,6 +5,7 @@ import java.util.List;
 import org.jgrapht.GraphPath;
 
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
+import icaro.aplicaciones.SIDEMA.informacion.CeldaEnergia;
 import icaro.aplicaciones.SIDEMA.informacion.CentroControl;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.SIDEMA.informacion.OrdenDesactivar;
@@ -27,19 +28,22 @@ public class EnviarNeutralizador extends TareaSincrona {
 			j = 0;
 			distancia = Integer.MAX_VALUE;
 			while(j < r.getEmisorNeutralizador().size()){
-				p = r.getMapa().findPath(mina, r.getMsgNeutralizador().get(j));
+				CeldaEnergia cell = r.getMsgNeutralizador().get(j);
+				p = r.getMapa().findPath(mina, cell.getCelda());
 				List<Integer> path = p.getEdgeList();
-				if(path.size() < distancia){
+				if(path.size() < distancia && (path.size()*cell.getMovimiento() + cell.getDesactivacion() < cell.getEnergia())){
 				elegido = j;
 				distancia = path.size();
 				}
 					j++;
 			}
-			OrdenDesactivar orden = new OrdenDesactivar(r.getId(), mina);
-			this.getComunicator().enviarInfoAotroAgente(orden,r.getEmisorNeutralizador().get(elegido));
-			r.getNeutralizadores().remove(r.getEmisorNeutralizador().get(elegido));
-			r.getMsgNeutralizador().remove(elegido);
-			r.getEmisorNeutralizador().remove(elegido);
+			if(elegido >= 0){
+				OrdenDesactivar orden = new OrdenDesactivar(r.getId(), mina);
+				this.getComunicator().enviarInfoAotroAgente(orden,r.getEmisorNeutralizador().get(elegido));
+				r.getNeutralizadores().remove(r.getEmisorNeutralizador().get(elegido));
+				r.getMsgNeutralizador().remove(elegido);
+				r.getEmisorNeutralizador().remove(elegido);
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
