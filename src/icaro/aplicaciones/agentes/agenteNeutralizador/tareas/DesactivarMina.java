@@ -55,8 +55,8 @@ public class DesactivarMina extends TareaSincrona {
 				}while(it.hasNext());
 			}
 			try {
-				if(!c.equals(r.getCurrentPos()))
-					visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY(),(int)r.getCurrentPos().getX(),(int)r.getCurrentPos().getY());
+				//if(!c.equals(r.getCurrentPos()))
+				visualizador.mover("neutralizador",(int)c.getX(),(int)c.getY(),(int)r.getCurrentPos().getX(),(int)r.getCurrentPos().getY());
 			    Thread.sleep(r.getTiempoDesactivacion());
 			    r.setEnergy(r.getEnergy()-r.getEnergiaDesactivacion());             
 			} catch(InterruptedException ex) {
