@@ -205,7 +205,8 @@ public class Mapa {
 		if (!mapa[row][column].getMina())
 			this.updateGrafo(row, column);
 		else {
-			this.minasSinDesactivar.add(mapa[row][column]);	
+			this.minasSinDesactivar.add(mapa[row][column]);
+			this.updateGrafo(row, column);
 		}
 		this.updateGrafoCompleto(row, column);
 		return mapa[row][column].getMina();

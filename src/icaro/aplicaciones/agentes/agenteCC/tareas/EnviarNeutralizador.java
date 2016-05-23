@@ -27,7 +27,7 @@ public class EnviarNeutralizador extends TareaSincrona {
 			j = 0;
 			distancia = Integer.MAX_VALUE;
 			while(j < r.getEmisorNeutralizador().size()){
-				p = r.getMapa().findCompletePath(mina, r.getMsgNeutralizador().get(j));
+				p = r.getMapa().findPath(mina, r.getMsgNeutralizador().get(j));
 				List<Integer> path = p.getEdgeList();
 				if(path.size() < distancia){
 				elegido = j;

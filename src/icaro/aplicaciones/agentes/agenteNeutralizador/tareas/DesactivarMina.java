@@ -34,7 +34,7 @@ public class DesactivarMina extends TareaSincrona {
 					NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(
 							NombresPredefinidos.ITF_USO + "RecursoVisualizacionSIDEMA1");
 			//GraphPath<Celda,Integer> p = m.findPath(c,r.getCurrentPos());
-			GraphPath<Celda,Integer> p = m.findCompletePath(c,r.getCurrentPos());
+			GraphPath<Celda,Integer> p = m.findPath(c,r.getCurrentPos());
 			List<Integer> path = p.getEdgeList();
 			ListIterator<Integer> it = path.listIterator();
 			Celda pos;
