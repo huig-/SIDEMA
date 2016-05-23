@@ -162,6 +162,79 @@ public class Mapa {
 			return false;
 		}
 	}
+	
+	public synchronized GraphPath<Celda, Integer> findCompletePath(Celda fin, Celda ini) {
+		WeightedMultigraph<Celda, Integer> aux = new WeightedMultigraph<Celda, Integer>(
+				Integer.class);
+		for (Celda c : this.completeGraph.vertexSet())
+			aux.addVertex(c);
+		for (Integer p : this.completeGraph.edgeSet())
+			aux.addEdge(this.completeGraph.getEdgeSource(p),
+					this.completeGraph.getEdgeTarget(p), p);
+		int n = this.numCompletas;
+		if (!aux.containsVertex(fin)) {
+			aux.addVertex(fin);
+			int r = (int) fin.getX();
+			int c = (int) fin.getY();
+			if (r > 0 && this.mapa[r - 1][c].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r - 1][c])) {
+					aux.addEdge(fin, this.mapa[r - 1][c], n);
+					n++;
+				}
+			}
+			if (r < this.rows - 1 && this.mapa[r + 1][c].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r + 1][c])) {
+					aux.addEdge(fin, this.mapa[r + 1][c], n);
+					n++;
+				}
+			}
+			if (c > 0 && this.mapa[r][c - 1].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r][c - 1])) {
+					aux.addEdge(fin, this.mapa[r][c - 1], n);
+					n++;
+				}
+			}
+			if (c < this.columns - 1 && this.mapa[r][c + 1].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r][c + 1])) {
+					aux.addEdge(fin, this.mapa[r][c + 1], n);
+					n++;
+				}
+			}
+		}
+		if (!aux.containsVertex(ini)) {
+			aux.addVertex(ini);
+			int r = (int) ini.getX();
+			int c = (int) ini.getY();
+			if (r > 0 && this.mapa[r - 1][c].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r - 1][c])) {
+					aux.addEdge(ini, this.mapa[r - 1][c], n);
+					n++;
+				}
+			}
+			if (r < this.rows - 1 && this.mapa[r + 1][c].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r + 1][c])) {
+					aux.addEdge(ini, this.mapa[r + 1][c], n);
+					n++;
+				}
+			}
+			if (c > 0 && this.mapa[r][c - 1].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r][c - 1])) {
+					aux.addEdge(ini, this.mapa[r][c - 1], n);
+					n++;
+				}
+			}
+			if (c < this.columns - 1 && this.mapa[r][c + 1].getAccesible()) {
+				if (aux.containsVertex(this.mapa[r][c + 1])) {
+					aux.addEdge(ini, this.mapa[r][c + 1], n);
+					n++;
+				}
+			}
+		}
+		
+		DijkstraShortestPath<Celda, Integer> path = new DijkstraShortestPath<Celda, Integer>(
+				aux, ini, fin);
+		return path.getPath();
+	}
 
 	public synchronized GraphPath<Celda, Integer> findPath(Celda fin, Celda ini) {
 		WeightedMultigraph<Celda, Integer> aux = new WeightedMultigraph<Celda, Integer>(
