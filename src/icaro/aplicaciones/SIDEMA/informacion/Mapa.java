@@ -160,6 +160,11 @@ public class Mapa {
 			this.minasSinDesactivar.add(mapa[row][column]);	
 		}
 		this.updateGrafoCompleto(row, column);
+		System.out.println("GRAFO");
+		System.out.println("(" + row + "," + column + ")");
+		System.out.println("_____________________________________");
+		System.out.println(this.completeGraph.toString());
+		System.out.println("_____________________________________");
 		return mapa[row][column].getMina();
 
 	}
@@ -333,48 +338,28 @@ public class Mapa {
 				this.ExploredGraph.addEdge(celda, this.mapa[r - 1][c],
 						this.numExploradas);
 				this.numExploradas++;
-			} else {
-				this.completeGraph.addVertex(this.mapa[r - 1][c]);
-				this.completeGraph.addEdge(celda, this.mapa[r - 1][c],
-						this.numCompletas);
-				this.numCompletas++;
-			}
+			} 
 		}
 		if (r < this.rows - 1 && this.mapa[r + 1][c].getAccesible()) {
 			if (this.ExploredGraph.containsVertex(this.mapa[r + 1][c])) {
 				this.ExploredGraph.addEdge(celda, this.mapa[r + 1][c],
 						this.numExploradas);
 				this.numExploradas++;
-			} else {
-				this.completeGraph.addVertex(this.mapa[r + 1][c]);
-				this.completeGraph.addEdge(celda, this.mapa[r + 1][c],
-						this.numCompletas);
-				this.numCompletas++;
-			}
+			} 
 		}
 		if (c > 0 && this.mapa[r][c - 1].getAccesible()) {
 			if (this.ExploredGraph.containsVertex(this.mapa[r][c - 1])) {
 				this.ExploredGraph.addEdge(celda, this.mapa[r][c - 1],
 						this.numExploradas);
 				this.numExploradas++;
-			} else {
-				this.completeGraph.addVertex(this.mapa[r][c - 1]);
-				this.completeGraph.addEdge(celda, this.mapa[r][c - 1],
-						this.numCompletas);
-				this.numCompletas++;
-			}
+			} 
 		}
 		if (c < this.columns - 1 && this.mapa[r][c + 1].getAccesible()) {
 			if (this.ExploredGraph.containsVertex(this.mapa[r][c + 1])) {
 				this.ExploredGraph.addEdge(celda, this.mapa[r][c + 1],
 						this.numExploradas);
 				this.numExploradas++;
-			} else {
-				this.completeGraph.addVertex(this.mapa[r][c + 1]);
-				this.completeGraph.addEdge(celda, this.mapa[r][c + 1],
-						this.numCompletas);
-				this.numCompletas++;
-			}
+			} 
 		}
 	}
 	
@@ -389,6 +374,10 @@ public class Mapa {
 						this.numCompletas);
 				this.numCompletas++;
 			}
+			else if (!this.completeGraph.containsEdge(celda, this.mapa[r-1][c]) && 
+					!this.completeGraph.containsEdge(this.mapa[r-1][c], celda)) {
+				this.completeGraph.addEdge(celda, this.mapa[r-1][c], this.numCompletas++);
+			}
 		}
 		if (r < this.rows - 1 && this.mapa[r + 1][c].getAccesible()) {
 			if (!this.completeGraph.containsVertex(this.mapa[r + 1][c])) {
@@ -397,6 +386,10 @@ public class Mapa {
 						this.numCompletas);
 				this.numCompletas++;
 			} 
+			else if (!this.completeGraph.containsEdge(celda, this.mapa[r+1][c]) && 
+					!this.completeGraph.containsEdge(this.mapa[r+1][c], celda)) {
+				this.completeGraph.addEdge(celda, this.mapa[r+1][c], this.numCompletas++);
+			}
 		}
 		if (c > 0 && this.mapa[r][c - 1].getAccesible()) {
 			if (!this.completeGraph.containsVertex(this.mapa[r][c - 1])) {
@@ -405,6 +398,10 @@ public class Mapa {
 						this.numCompletas);
 				this.numCompletas++;
 			}
+			else if (!this.completeGraph.containsEdge(celda, this.mapa[r][c-1]) && 
+					!this.completeGraph.containsEdge(this.mapa[r][c-1], celda)) {
+				this.completeGraph.addEdge(celda, this.mapa[r][c-1], this.numCompletas++);
+			}
 		}
 		if (c < this.columns - 1 && this.mapa[r][c + 1].getAccesible()) {
 			if (!this.completeGraph.containsVertex(this.mapa[r][c + 1])) {
@@ -412,6 +409,10 @@ public class Mapa {
 				this.completeGraph.addEdge(celda, this.mapa[r][c + 1],
 						this.numCompletas);
 				this.numCompletas++;
+			}
+			else if (!this.completeGraph.containsEdge(celda, this.mapa[r][c+1]) && 
+					!this.completeGraph.containsEdge(this.mapa[r][c+1], celda)) {
+				this.completeGraph.addEdge(celda, this.mapa[r][c+1], this.numCompletas++);
 			}
 		}
 	}

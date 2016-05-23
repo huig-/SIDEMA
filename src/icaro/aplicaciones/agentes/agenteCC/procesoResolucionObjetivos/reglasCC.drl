@@ -167,7 +167,7 @@ rule "Enviar Neutralizador"
 		mapa : Mapa()
 		eval(robot.recibidosNeutralizadores())
 		eval(robot.getMinasPendientes().size() > 0)
-		eval(robot.getMapa().existeCamino(robot.getMinasPendientes().get(0),robot.getCurrentPos()))
+		//eval(robot.getMapa().existeCamino(robot.getMinasPendientes().get(0),robot.getCurrentPos()))
 	then
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.EnviarNeutralizador.class);
 		tarea.ejecutar(robot, robot.getMinasPendientes().remove(0));
