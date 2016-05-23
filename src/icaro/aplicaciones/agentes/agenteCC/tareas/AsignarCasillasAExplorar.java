@@ -1,5 +1,6 @@
 package icaro.aplicaciones.agentes.agenteCC.tareas;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,14 +29,17 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 			boolean []exploradoresAsignados = new boolean[r.getMsgExplorador().size()];
 			for (int i = 0; i < r.getMsgExplorador().size(); i++) 
 				c[i] = r.getMsgExplorador().get(i);
-			
+			ArrayList<Celda> celdasYaAsignadas = new ArrayList<Celda>();
 			for (int i = 0; i < c.length; i++) {
 				if (c[i].getCeldas().size() == 0) break;
 				TreeMap<Double, Integer> map  = new TreeMap<Double, Integer>(); //para ordenar con indices
 				for (int index = 0; index < c.length; index++) {
 					if (!exploradoresAsignados[index]) {
 						c[index].sort();
-						ganancias[index] = c[index].max().getExpectedValue();
+						while(c[index].getCeldas().size() > 1 && celdasYaAsignadas.contains(c[index].max().getCelda())){
+							c[index].getCeldas().remove(0);
+						}
+							ganancias[index] = c[index].max().getExpectedValue();
 						map.put(ganancias[index], index); 
 					}
 				}
@@ -43,6 +47,7 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 				//1 paso, elegimos al mejor
 				int best_index = map.lastEntry().getValue();
 				exploradoresAsignados[best_index] = true;
+				celdasYaAsignadas.add(c[best_index].max().getCelda());
 				//Avisamos al explorador
 				OrdenExplorar orden = new OrdenExplorar(r.getId(), c[best_index].max().getCelda());
 				Celda ccc = c[best_index].max().getCelda();
