@@ -63,7 +63,7 @@ rule "Explorar Terreno"
 		focoActual : Focus(foco == null)
 		robot : Robot(id == agentId)
 		ordenCC: OrdenExplorar( mensajeOrden == VocabularioSIDEMA.MsgPeticionExplorar, celdas:justificacion)
-		eval(robot.getMapa().existeCamino((Celda)celdas,robot.getCurrentPos()))
+		//eval(robot.getMapa().existeCamino((Celda)celdas,robot.getCurrentPos()))
 	then
 		retract(ordenCC);
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteExplorador.tareas.ExplorarCelda.class);
