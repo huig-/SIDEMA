@@ -36,11 +36,25 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 				for (int index = 0; index < c.length; index++) {
 					if (!exploradoresAsignados[index]) {
 						c[index].sort();
-						while(c[index].getCeldas().size() > 1 && celdasYaAsignadas.contains(c[index].max().getCelda())){
+						while(c[index].getCeldas().size() > 0 && celdasYaAsignadas.contains(c[index].max().getCelda())){
 							c[index].getCeldas().remove(0);
 						}
-							ganancias[index] = c[index].max().getExpectedValue();
-						map.put(ganancias[index], index); 
+						if(c[index].getCeldas().size() == 0){
+							for(int j = 0; j < c.length; j++){
+								if(!exploradoresAsignados[j]){
+									r.getExploradoresLibres().add(c[j].getIdentAgte());
+									r.getExploradoresAsignados().remove(c[j].getIdentAgte());
+									r.getEmisorExplorador().remove(c[index].getIdentAgte());
+									r.getMsgExplorador().remove(c[index]);
+									
+								}
+							}
+							return;
+						}
+						else{
+								ganancias[index] = c[index].max().getExpectedValue();
+								map.put(ganancias[index], index);
+						}
 					}
 				}
 				
