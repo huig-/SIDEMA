@@ -176,6 +176,16 @@ rule "Enviar Neutralizador"
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
 end
 
+rule "Explorador sin bateria"
+	when
+		focoActual : Focus(foco == null)
+		robot : CentroControl(id == agentId)
+		informarCC : InformarFaltaBateria();
+	then
+		retract(informarCC);
+		robot.setNumExploradoresActivos(robot.getNumExploradoresActivos() - 1);	
+end		
+
 rule "Finalizar Simulacion"
 	when
 		focoActual : Focus(foco == null)

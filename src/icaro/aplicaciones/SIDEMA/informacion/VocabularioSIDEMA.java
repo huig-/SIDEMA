@@ -34,6 +34,7 @@ public class VocabularioSIDEMA {
 	public static final String MsgInformarPosicionActual = "te envio mi posicion";
 	public static final String MsgInformarNeutralizadorLibre = "ya he desactivado la mina";
 	public static final String MsgInformarExploradorLibre = "ya he explorado la celda";
+	public static final String MsgInformarFaltaBateria = "no tengo bateria";
 	public static final String CSV_EmptyCell = "E";
 	public static final String CSV_BombCell = "O";
 	public static final String CSV_ObstacleCell = "X";

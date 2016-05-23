@@ -8,6 +8,7 @@ import org.jgrapht.GraphPath;
 import icaro.aplicaciones.SIDEMA.informacion.Celda;
 import icaro.aplicaciones.SIDEMA.informacion.Explorador;
 import icaro.aplicaciones.SIDEMA.informacion.InformarExploradorLibre;
+import icaro.aplicaciones.SIDEMA.informacion.InformarFaltaBateria;
 import icaro.aplicaciones.SIDEMA.informacion.InformarMinaEncontrada;
 import icaro.aplicaciones.SIDEMA.informacion.Mapa;
 import icaro.aplicaciones.recursos.recursoVisualizacionSIDEMA.ItfUsoRecursoVisualizacionSIDEMA;
@@ -48,6 +49,11 @@ public class ExplorarCelda extends TareaSincrona {
 						    explorador.setEnergy(explorador.getEnergy()-explorador.getEnergiaMovimiento());
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
+						}
+						if (explorador.getEnergy() <= 0) {
+							InformarFaltaBateria informarBat = new InformarFaltaBateria(explorador.getId());
+							this.getComunicator().enviarInfoAotroAgente(informarBat, explorador.getCC());
+							break;
 						}
 						visualizador.mover("explorador",(int)pos.getX(),(int)pos.getY(),explorador.getCurrentPos().getX(),explorador.getCurrentPos().getY());
 						explorador.setCurrentPos(pos);	
