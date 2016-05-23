@@ -38,6 +38,7 @@ public class IntroducirMapa extends TareaSincrona {
 			}
 		    cc.setMapa(itfUsoRecursoPersistenciaSIDEMA.getEscenario());
 		    this.getEnvioHechos().actualizarHecho(cc);
+		    cc.getMapa().accesibilidad(cc.getCurrentPos());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

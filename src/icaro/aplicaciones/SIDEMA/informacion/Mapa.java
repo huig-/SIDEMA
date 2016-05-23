@@ -24,6 +24,46 @@ public class Mapa {
 	public int getNumInaccesibles() {
 		return numInaccesibles;
 	}
+	
+	public synchronized boolean accesibilidad(Celda posicionActual){
+		 WeightedMultigraph<Celda, Integer> grafoMapa = new WeightedMultigraph<Celda, Integer>(
+				Integer.class);
+		int exploradas = 0;
+		for(int r = 0; r < this.rows; r++){
+			for(int c = 0; c < this.columns; c++){
+				Celda celda = this.mapa[r][c];
+				if (!grafoMapa.containsVertex(celda))
+					grafoMapa.addVertex(celda);
+				if (r > 0 && this.mapa[r - 1][c].getAccesible() && celda.getAccesible()) {
+					if (grafoMapa.containsVertex(this.mapa[r - 1][c])) {
+						grafoMapa.addEdge(celda, this.mapa[r - 1][c],
+								exploradas);
+						exploradas++;
+					} 
+				}
+				if (c > 0 && this.mapa[r][c - 1].getAccesible() && celda.getAccesible()) {
+					if (grafoMapa.containsVertex(this.mapa[r][c - 1])) {
+						grafoMapa.addEdge(celda, this.mapa[r][c - 1],
+								exploradas);
+						exploradas++;
+					} 
+				}
+			}
+		}
+		BellmanFordShortestPath<Celda, Integer> path = new BellmanFordShortestPath<Celda, Integer>(
+				grafoMapa, posicionActual);
+		int inaccesiblesReales = 0;
+		List<Integer> path2 = new ArrayList<Integer>();
+		for(int i = 0; i < this.rows; i++)
+			for(int j = 0; j < this.columns; j++)
+				if(this.mapa[i][j] != posicionActual){
+					path2 = path.getPathEdgeList(this.mapa[i][j]);
+					if(path2 == null) inaccesiblesReales++;
+				}
+		boolean explorable = inaccesiblesReales == this.numInaccesibles;
+		this.numInaccesibles = inaccesiblesReales;
+		return explorable;
+	}
 
 	public void setNumInaccesibles(int numInaccesibles) {
 		this.numInaccesibles = numInaccesibles;
