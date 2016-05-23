@@ -147,14 +147,23 @@ public class Ventana extends JFrame {
 	}
 	
 	public void movimientoExplorador(int xT, int yT, int xS, int yS){
+		if((xS==xT)&&(yS == yT)){
+			this.escenario.movimientoExplorador(xT, yT);
+		}else{
 		this.escenario.abandonarCeldaExplorador(xS, yS);
 		this.escenario.movimientoExplorador(xT, yT);
-		
+		}
 	}
 	
 	public void movimientoNeutralizador(int xT, int yT, int xS, int yS){
-		this.escenario.abandonarCeldaNeutralizador(xS, yS);
-		this.escenario.movimientoNeutralizador(xT, yT);
+		
+		if((xS==xT)&&(yS==yT)){
+			this.escenario.movimientoNeutralizador(xT, yT);
+		}else{
+			this.escenario.abandonarCeldaNeutralizador(xS, yS);
+			this.escenario.movimientoNeutralizador(xT, yT);
+		}
+		
 
 	}
 
