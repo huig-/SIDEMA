@@ -25,7 +25,7 @@ public class CentroControl extends Robot {
 	private ArrayList<Candidatos> msgExplorador;
 	private ArrayList<String> emisorExplorador;
 	private ArrayList<Celda> minasPendientes;
-	private int numExploradoresActivos;
+	private int numExploradoresActivos = Integer.MIN_VALUE;
 	
 	public int getNumExploradoresActivos() {
 		return numExploradoresActivos;
@@ -56,7 +56,7 @@ public class CentroControl extends Robot {
 		this.emisorNeutralizador = new ArrayList<String>();
 		this.msgExplorador = new ArrayList<Candidatos>();
 		this.emisorExplorador = new ArrayList<String>();
-		this.numExploradoresActivos = 0;
+		this.numExploradoresActivos = Integer.MIN_VALUE;
 	}
 	public CentroControl(String id, int i, int j, int energy, String leader) {
 		super(id, i,j, energy, leader);
@@ -68,7 +68,7 @@ public class CentroControl extends Robot {
 		this.emisorNeutralizador = new ArrayList<String>();
 		this.msgExplorador = new ArrayList<Candidatos>();
 		this.emisorExplorador = new ArrayList<String>();
-		this.numExploradoresActivos = 0;
+		this.numExploradoresActivos = Integer.MIN_VALUE;
 	}
 	
 	public ArrayList<Celda> getMsgNeutralizador() {
