@@ -45,11 +45,15 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 		int i = 0;
 		String []cell = lines.get(0).split(VocabularioSIDEMA.CSV_SplitBy);
 		m = new Mapa(lines.size(), cell.length);
+		int cont_inaccesibles = 0;
 		for (String line2 : lines){
 			String []cells = line2.split(VocabularioSIDEMA.CSV_SplitBy);
 			int j = 0;
 			for (String c : cells) {
-				if (c.equals(VocabularioSIDEMA.CSV_ObstacleCell)) m.setInaccesible(i, j);
+				if (c.equals(VocabularioSIDEMA.CSV_ObstacleCell)) {
+					m.setInaccesible(i, j);
+					cont_inaccesibles++;
+				}
 				else if (c.equals(VocabularioSIDEMA.CSV_EmptyCell));
 				else if (c.equals(VocabularioSIDEMA.CSV_BombCell)) m.setMina(i, j);
 				else throw new Exception("Type of cell not valid");
@@ -57,6 +61,7 @@ public class ClaseGeneradoraRecursoPersistenciaSIDEMA extends ImplRecursoSimple 
 			}
 			i++;
 		}
+		m.setNumInaccesibles(cont_inaccesibles);
 		br.close();
 		this.notifEvt.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo(VocabularioSIDEMA.informarEscenarioValido), identAgenteAReportar);
 		

@@ -19,6 +19,15 @@ public class Mapa {
 	private WeightedMultigraph<Celda, Integer> completeGraph;
 	private List<Celda> minasSinDesactivar;
 	public static Mapa instance;
+	private int numInaccesibles = 0;
+
+	public int getNumInaccesibles() {
+		return numInaccesibles;
+	}
+
+	public void setNumInaccesibles(int numInaccesibles) {
+		this.numInaccesibles = numInaccesibles;
+	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized void copiar(Mapa other) { // deep clone
@@ -134,8 +143,7 @@ public class Mapa {
 	}
 	
 	public synchronized int inexploradas(){
-		System.out.println("Inexploradas: " + (this.rows*this.columns - this.ExploredGraph.vertexSet().size()));
-		return this.rows*this.columns - this.ExploredGraph.vertexSet().size();
+		return this.rows*this.columns - this.ExploredGraph.vertexSet().size() - this.numInaccesibles;
 	}
 	public synchronized int getNumExploradas() {
 		return numExploradas;
