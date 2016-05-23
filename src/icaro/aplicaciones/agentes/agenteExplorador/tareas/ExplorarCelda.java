@@ -54,7 +54,8 @@ public class ExplorarCelda extends TareaSincrona {
 					}
 				} while(it.hasNext());
 			}
-			visualizador.mover("explorador",(int)celdaAExplorar.getX(),(int)celdaAExplorar.getY(),explorador.getCurrentPos().getX(),explorador.getCurrentPos().getY());
+			else 
+				visualizador.mover("explorador",(int)celdaAExplorar.getX(),(int)celdaAExplorar.getY(),explorador.getCurrentPos().getX(),explorador.getCurrentPos().getY());
 			try {
 				Thread.sleep(explorador.getTiempoExploracion());
 			} catch (InterruptedException ie) {

@@ -34,6 +34,7 @@ public class Mapa {
 						//aux.getAccesible(), aux.getMina());
 			}
 		}
+		/*
 		WeightedMultigraph<Celda, Integer> aux = new WeightedMultigraph<Celda, Integer>(
 				Integer.class);
 		for (Celda c : other.getExploredGraph().vertexSet())
@@ -42,6 +43,19 @@ public class Mapa {
 			aux.addEdge(other.getExploredGraph().getEdgeSource(p),
 					other.getExploredGraph().getEdgeTarget(p), p);
 		this.ExploredGraph = aux;
+		WeightedMultigraph<Celda, Integer> aux2 = new WeightedMultigraph<Celda, Integer>(
+				Integer.class);
+		for (Celda c : other.getCompleteGraph().vertexSet())
+			aux2.addVertex(c);
+		for (Integer p : other.getCompleteGraph().edgeSet())
+			aux2.addEdge(other.getCompleteGraph().getEdgeSource(p),
+					other.getCompleteGraph().getEdgeTarget(p), p);
+		//this.completeGraph = (WeightedMultigraph<Celda, Integer>) other
+				//.getCompleteGraph().clone();
+		this.completeGraph = aux2;
+		*/
+		this.ExploredGraph = (WeightedMultigraph<Celda, Integer>) other
+				.getExploredGraph().clone();
 		this.completeGraph = (WeightedMultigraph<Celda, Integer>) other
 				.getCompleteGraph().clone();
 		this.minasSinDesactivar = new ArrayList<Celda>();
@@ -143,10 +157,9 @@ public class Mapa {
 		if (!mapa[row][column].getMina())
 			this.updateGrafo(row, column);
 		else {
-			this.minasSinDesactivar.add(mapa[row][column]);
-			this.updateGrafoCompleto(row, column);
-			
+			this.minasSinDesactivar.add(mapa[row][column]);	
 		}
+		this.updateGrafoCompleto(row, column);
 		return mapa[row][column].getMina();
 
 	}
