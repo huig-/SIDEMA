@@ -51,7 +51,9 @@ rule "Solicitar Estimacion"
 	when
 		focoActual : Focus(foco == null)
 		robot: CentroControl(id == agentId)
-		eval(robot.getExploradoresLibres().size() == 2 && robot.getMapa().inexploradas() > 0)
+		//eval(robot.getExploradoresLibres().size() == robot.getNumExploradoresActivos() && robot.getMapa().inexploradas() > 0)
+		//eval(robot.getExploradoresLibres().size() == 2 && robot.getMapa().inexploradas() > 0)
+		eval(robot.recibidasTodasLasEstimaciones() && robot.getMapa().inexploradas() > 0)
 	then
 		List<String> exploradoresAAsignar = new ArrayList<String>();
 		for (String e : robot.getExploradoresLibres()) {
@@ -97,12 +99,11 @@ rule "Enviar Explorador"
 	when
 		focoActual : Focus(foco == null)
 		robot : CentroControl(id == agentId)
-		mapa : Mapa()
 		eval(robot.recibidosExploradores())
 	then
 		robot.setExploradoresAsignados(new ArrayList<String>());
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.AsignarCasillasAExplorar.class);
-		tarea.ejecutar(robot,mapa);
+		tarea.ejecutar(robot);
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Explorador\n\n");
 end

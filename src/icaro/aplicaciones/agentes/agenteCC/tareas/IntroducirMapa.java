@@ -20,6 +20,7 @@ public class IntroducirMapa extends TareaSincrona {
 			CentroControl cc = (CentroControl)params[1];
 			ArrayList<ArrayList<String>> robots = (ArrayList<ArrayList<String>>)ordenI.getJustificacion();
 			cc.getExploradoresLibres().addAll(robots.get(0));
+			cc.setNumExploradoresActivos(robots.get(0).size());
 			cc.getNeutralizadores().addAll(robots.get(1));
 			ItfUsoRecursoPersistenciaSIDEMA itfUsoRecursoPersistenciaSIDEMA = (ItfUsoRecursoPersistenciaSIDEMA) this.repoInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoPersistenciaSIDEMA1");
 			this.itfProcObjetivos.eliminarHecho(ordenI);

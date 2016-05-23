@@ -22,7 +22,7 @@ public class AsignarCasillasAExplorar extends TareaSincrona {
 	public void ejecutar(Object... params) {
 		try {
 			CentroControl r = (CentroControl)params[0];
-			mapa = (Mapa)params[1]; 
+			mapa = r.getMapa();
 			Candidatos []c = new Candidatos[r.getMsgExplorador().size()]; //celdas candidatas de cada explorador
 			double []ganancias = new double[r.getMsgExplorador().size()]; //mejor ganancia de cada explorador
 			Set<Celda> celdasYaConsideradas = new HashSet<Celda>(); //para el descuento: IGR en el articulo

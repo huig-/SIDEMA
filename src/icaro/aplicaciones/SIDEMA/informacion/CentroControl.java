@@ -25,7 +25,16 @@ public class CentroControl extends Robot {
 	private ArrayList<Candidatos> msgExplorador;
 	private ArrayList<String> emisorExplorador;
 	private ArrayList<Celda> minasPendientes;
+	private int numExploradoresActivos;
 	
+	public int getNumExploradoresActivos() {
+		return numExploradoresActivos;
+	}
+
+	public void setNumExploradoresActivos(int numExploradoresActivos) {
+		this.numExploradoresActivos = numExploradoresActivos;
+	}
+
 	public ArrayList<Celda> getMinasPendientes() {
 		return minasPendientes;
 	}
@@ -47,6 +56,7 @@ public class CentroControl extends Robot {
 		this.emisorNeutralizador = new ArrayList<String>();
 		this.msgExplorador = new ArrayList<Candidatos>();
 		this.emisorExplorador = new ArrayList<String>();
+		this.numExploradoresActivos = 0;
 	}
 	public CentroControl(String id, int i, int j, int energy, String leader) {
 		super(id, i,j, energy, leader);
@@ -58,6 +68,7 @@ public class CentroControl extends Robot {
 		this.emisorNeutralizador = new ArrayList<String>();
 		this.msgExplorador = new ArrayList<Candidatos>();
 		this.emisorExplorador = new ArrayList<String>();
+		this.numExploradoresActivos = 0;
 	}
 	
 	public ArrayList<Celda> getMsgNeutralizador() {
@@ -116,12 +127,17 @@ public class CentroControl extends Robot {
 		boolean e = this.getMsgNeutralizador().size() == this.getNeutralizadores().size() && this.getNeutralizadores().size() > 0;
 		return e; 
 	}
-	public boolean recibidosExploradores(){
+	public synchronized boolean recibidosExploradores(){
 		boolean e = this.getMsgExplorador().size() == this.getExploradoresAsignados().size() && this.getExploradoresAsignados().size() > 0;
 		return e; 
 	}
 
 	public ArrayList<Candidatos> getMsgExplorador() {
 		return this.msgExplorador;
+	}
+	
+	public synchronized boolean recibidasTodasLasEstimaciones() {
+		return this.exploradoresLibres.size() == this.numExploradoresActivos;
+		//return this.getExploradoresLibres().size() == 2;
 	}
 }
