@@ -160,13 +160,7 @@ public class Mapa {
 			this.minasSinDesactivar.add(mapa[row][column]);	
 		}
 		this.updateGrafoCompleto(row, column);
-		System.out.println("GRAFO");
-		System.out.println("(" + row + "," + column + ")");
-		System.out.println("_____________________________________");
-		System.out.println(this.completeGraph.toString());
-		System.out.println("_____________________________________");
 		return mapa[row][column].getMina();
-
 	}
 
 	public synchronized boolean haSidoExplorada(Celda c) {
