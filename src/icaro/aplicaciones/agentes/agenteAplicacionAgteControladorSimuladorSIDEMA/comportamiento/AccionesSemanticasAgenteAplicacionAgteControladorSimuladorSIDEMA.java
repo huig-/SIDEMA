@@ -431,8 +431,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
     //tarea sincrona FinalizarSimulacion del agente Subordinado y el igualitario
     //Nos permite generar un fichero EstadisticaFinalSimulacionAsignacionMisionV2.xml que resume que victimas han sido asignadas a cada robot.
 */
-    public void FinSimulacion(String robot, ArrayList idsVictimasFinalesAsignadas, Double tiempoTotalCompletarMisionAtenderVictimasFinalesAsignadas) {
-
+    public void FinSimulacion() {
+    	/*
         trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, "Accion FinSimulacion  .... "
                 + "robot->" + robot + " ; idsVictimasFinalesAsignadas->" + idsVictimasFinalesAsignadas
                 + " ; tiempoTotalCompletarMisionAtenderVictimasFinalesAsignadas->" + tiempoTotalCompletarMisionAtenderVictimasFinalesAsignadas, InfoTraza.NivelTraza.debug));
@@ -444,7 +444,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
                 //this.itfUsoRecursoVisualizacionSIDEMA.mostrarResultadosFinSimulacion();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
   /*  public void crearTempSolicitarDefinicionEscenario(){
         int  tiempoEsperaDefinicionEscenario = 10000;

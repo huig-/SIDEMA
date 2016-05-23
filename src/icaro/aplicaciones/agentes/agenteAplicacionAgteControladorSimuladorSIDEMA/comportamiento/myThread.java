@@ -28,7 +28,7 @@ public class myThread extends Thread{
         	   ArrayList<ArrayList<String>> v = new ArrayList<ArrayList<String>>();
         	   v.add(this.exploradores);
         	   v.add(this.neutralizadores);
-        	   OrdenComenzarSimulacion ccOrder = new OrdenComenzarSimulacion("ReactivoRosace",v);
+        	   OrdenComenzarSimulacion ccOrder = new OrdenComenzarSimulacion("AgenteControladorSimuladorSIDEMA1",v);
                 comunicator.enviarInfoAotroAgente(ccOrder, centroControl);
                 stop = true;
             }

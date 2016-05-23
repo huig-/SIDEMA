@@ -175,3 +175,15 @@ rule "Enviar Neutralizador"
 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
 		System.out.println("\n"+agentId +" EJECUTO LA REGLA Enviar Neutralizador\n\n");
 end
+
+rule "Finalizar Simulacion"
+	when
+		focoActual : Focus(foco == null)
+		robot : CentroControl(id == agentId)
+		eval(robot.getMapa().inexploradas() == 0)
+	then
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(icaro.aplicaciones.agentes.agenteCC.tareas.FinalizarSimulacion.class);
+		tarea.ejecutar(robot);
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
+		System.out.println("\n"+agentId +" EJECUTO LA REGLA Finalizar Simulacion\n\n");
+end

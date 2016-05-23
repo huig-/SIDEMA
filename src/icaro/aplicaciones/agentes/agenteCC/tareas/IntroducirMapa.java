@@ -18,6 +18,7 @@ public class IntroducirMapa extends TareaSincrona {
 
 			OrdenComenzarSimulacion ordenI = (OrdenComenzarSimulacion)params[0];
 			CentroControl cc = (CentroControl)params[1];
+			cc.setIdAgenteReactivo(ordenI.getIdentEmisor());
 			ArrayList<ArrayList<String>> robots = (ArrayList<ArrayList<String>>)ordenI.getJustificacion();
 			cc.getExploradoresLibres().addAll(robots.get(0));
 			cc.setNumExploradoresActivos(robots.get(0).size());

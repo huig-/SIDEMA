@@ -26,6 +26,7 @@ public class CentroControl extends Robot {
 	private ArrayList<String> emisorExplorador;
 	private ArrayList<Celda> minasPendientes;
 	private int numExploradoresActivos = Integer.MIN_VALUE;
+	private String idAgenteReactivo;
 	
 	public int getNumExploradoresActivos() {
 		return numExploradoresActivos;
@@ -139,5 +140,13 @@ public class CentroControl extends Robot {
 	public synchronized boolean recibidasTodasLasEstimaciones() {
 		return this.exploradoresLibres.size() == this.numExploradoresActivos;
 		//return this.getExploradoresLibres().size() == 2;
+	}
+
+	public String getIdAgenteReactivo() {
+		return idAgenteReactivo;
+	}
+
+	public void setIdAgenteReactivo(String idAgenteReactivo) {
+		this.idAgenteReactivo = idAgenteReactivo;
 	}
 }

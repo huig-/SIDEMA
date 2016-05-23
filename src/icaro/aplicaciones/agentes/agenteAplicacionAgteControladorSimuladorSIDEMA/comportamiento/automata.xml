@@ -35,8 +35,8 @@
 
   <estado idIntermedio="simulando">
     <!--transicion input="peticionSimulacionVictima" accion="sendSimulatedVictimToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-     <transicion input="victimaAsignadaARobot" accion="VictimaAsignadaARobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-     <transicion input="finSimulacion" accion="FinSimulacion" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/-->
+     <transicion input="victimaAsignadaARobot" accion="VictimaAsignadaARobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/-->
+     <transicion input="finSimulacion" accion="FinSimulacion" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>
      <transicion input="mostrarEscenarioActualSimulado" accion="mostrarEscenarioActualSimulado" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
     <transicion input="enviarIdentsEquipo" accion="mostrarRobotsActivos" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
     <!--transicion input="pararRobot" accion="PararRobot"
