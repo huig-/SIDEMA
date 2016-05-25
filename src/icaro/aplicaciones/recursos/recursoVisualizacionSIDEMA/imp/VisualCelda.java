@@ -71,7 +71,7 @@ public class VisualCelda extends JButton {
 
 	public void setMina() {
 		ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
-		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
+		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "bomba1.png"));
 		ci = new CombineIcon("background", icono1);
 		this.setIcon(ci);
 		ci.rescale(this.getSize().width, this.getSize().height);
@@ -82,7 +82,7 @@ public class VisualCelda extends JButton {
 
 	public void minaEncontrada() {
 		ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "explorador.jpg"));
-		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
+		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "bomba1.png"));
 		ci = new CombineIcon("background", icono1);
 		this.setIcon(ci);
 		ci.rescale(this.getSize().width, this.getSize().height);
@@ -101,7 +101,7 @@ public class VisualCelda extends JButton {
 	public synchronized void movimientoExplorador() {
 		if (this.mina) {
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
-			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
+			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "bomba1.png"));
 			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "wall-e.png"));
 			ImageIcon icono4 = new ImageIcon(this.getClass().getResource(path + "ambos.png"));
 			ci = new CombineIcon("background", icono1);
@@ -142,7 +142,7 @@ public class VisualCelda extends JButton {
 
 		if (mina) {
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
-			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "mina1.png"));
+			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "bomba1.png"));
 			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "marvin.png"));
 			ImageIcon icono4 = new ImageIcon(this.getClass().getResource(path + "ambos.png"));
 			ci = new CombineIcon("background", icono1);
