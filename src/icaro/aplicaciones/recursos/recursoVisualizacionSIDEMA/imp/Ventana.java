@@ -105,13 +105,14 @@ public class Ventana extends JFrame {
 	}
 
 	public File cargarEscenario() {
-		File archivo = new File("/Users/Gago/git/SIDEMA/PersistenciaEscenariosSimulacion/mapa2.xml");
+		//File archivo = new File("/Users/Gago/git/SIDEMA/PersistenciaEscenariosSimulacion/mapa3.xml");
+		File archivo = null;
 		FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.XML", "xml");
 		this.elegirArchivo.setFileFilter(filtro);
-		//int seleccion = this.elegirArchivo.showOpenDialog(this.item3);
-		//if (seleccion == JFileChooser.APPROVE_OPTION) {
-		//	archivo = this.elegirArchivo.getSelectedFile();
-		//}
+		int seleccion = this.elegirArchivo.showOpenDialog(this.item3);
+		if (seleccion == JFileChooser.APPROVE_OPTION) {
+			archivo = this.elegirArchivo.getSelectedFile();
+		}
 
 		return archivo;
 	}
