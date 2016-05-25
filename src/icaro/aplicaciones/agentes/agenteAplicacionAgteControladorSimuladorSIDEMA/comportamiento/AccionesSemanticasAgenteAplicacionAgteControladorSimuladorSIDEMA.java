@@ -432,19 +432,13 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
     //Nos permite generar un fichero EstadisticaFinalSimulacionAsignacionMisionV2.xml que resume que victimas han sido asignadas a cada robot.
 */
     public void FinSimulacion() {
-    	/*
-        trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, "Accion FinSimulacion  .... "
-                + "robot->" + robot + " ; idsVictimasFinalesAsignadas->" + idsVictimasFinalesAsignadas
-                + " ; tiempoTotalCompletarMisionAtenderVictimasFinalesAsignadas->" + tiempoTotalCompletarMisionAtenderVictimasFinalesAsignadas, InfoTraza.NivelTraza.debug));
+    	
+        trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, "Accion FinSimulacion  .... ", InfoTraza.NivelTraza.debug));
         try {
-            ArrayList<InfoAsignacionVictima> infoAsignVictms = new ArrayList();
-          //  infoAsignVictms = itfUsoRecursoPersistenciaSIDEMA.obtenerInfoAsignacionVictimas();
-            contadorRobotsQueContestanFinsimulacion++;
-            //if (contadorRobotsQueContestanFinsimulacion == identsAgtesEquipo.size())
-                //this.itfUsoRecursoVisualizacionSIDEMA.mostrarResultadosFinSimulacion();
-        } catch (Exception e) {
+        	this.mostrarVentanaAlertaFinSimulacion();
+          } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
   /*  public void crearTempSolicitarDefinicionEscenario(){
         int  tiempoEsperaDefinicionEscenario = 10000;
@@ -526,15 +520,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorSIDEMA  e
         String directorioTrabajo = System.getProperty("user.dir");  //Obtener directorio de trabajo      		
 
         String msg = "FIN DE LA SIMULACION !!!.\n";
-        msg = msg + "Se ha completado la captura de todas las estadisticas para la simulacion actual.\n";
-        msg = msg + "Los ficheros de estadisticas se encuentran en el directorio " + directorioTrabajo + "/" + ConstantesRutasEstadisticas.rutaDirectorioEstadisticas + "\n";
-        msg = msg + "Los ficheros de estadisticas son los siguientes:\n";
-        msg = msg + directorioTrabajo + "/" + ConstantesRutasEstadisticas.rutaficheroXMLEstadisticasLlegadaVictimas + "\n";
-        msg = msg + directorioTrabajo + "/" + ConstantesRutasEstadisticas.rutaficheroXMLEstadisticasAsignacionVictimas + "\n";
-        msg = msg + directorioTrabajo + "/" + ConstantesRutasEstadisticas.rutaficheroXMLRepartoTareasRobotsYTiempoCompletarlasV2 + "\n";
-        msg = msg + directorioTrabajo + "/" + ConstantesRutasEstadisticas.rutaficheroXMLEstadisticasLlegadaYAsignacionVictimas + "\n";
-        msg = msg + directorioTrabajo + "/estadisticas/" + "EstIntLlegadaYAsignacionVictims" + "FECHA.xml" + "\n";
-
+        msg = msg + "Se ha completado la exploración de todo el mapa accesible.\n";
+     
         JOptionPane.showMessageDialog(null, msg);
     }
 /*
