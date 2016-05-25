@@ -1,0 +1,142 @@
+<escenarioSimulacion>
+   <identEscenario>modeloOrg_Jerarquico_SIDEMA_DEMO</identEscenario>
+   <modeloOrganizativo>Jerarquico</modeloOrganizativo>
+   <numExploradores>4</numExploradores>
+   <numNeutralizadores>6</numNeutralizadores>
+   <numMinas>1</numMinas>
+   <robot type="Explorador">
+     <id>agenteExplorador0</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>	            			
+     <movementTime>250</movementTime>
+     <movementEnergy>60</movementEnergy>
+     <explorationTime>100</explorationTime>
+     <explorationEnergy>20</explorationEnergy>
+       </robot>
+      <robot type="Explorador">
+     <id>agenteExplorador1</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>	            			
+     <movementTime>250</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <explorationTime>100</explorationTime>
+     <explorationEnergy>20</explorationEnergy>
+       </robot>
+       <robot type="Explorador">
+     <id>agenteExplorador2</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>	            			
+     <movementTime>250</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <explorationTime>100</explorationTime>
+     <explorationEnergy>20</explorationEnergy>
+       </robot>
+       <robot type="Explorador">
+     <id>agenteExplorador3</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>	            			
+     <movementTime>250</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <explorationTime>100</explorationTime>
+     <explorationEnergy>20</explorationEnergy>
+       </robot>
+   <robot type="Neutralizador">
+     <id>agenteNeutralizador0</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+     <movementTime>200</movementTime>
+     <movementEnergy>100</movementEnergy>
+     <desactivationTime>200</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+    </robot>
+ <robot type="Neutralizador">
+     <id>agenteNeutralizador1</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+     <movementTime>200</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <desactivationTime>200</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+      </robot>
+   <robot type="Neutralizador">
+     <id>agenteNeutralizador2</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+     <movementTime>200</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <desactivationTime>200</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+    </robot>
+    <robot type="Neutralizador">
+     <id>agenteNeutralizador3</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+     <movementTime>200</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <desactivationTime>200</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+    </robot>
+    <robot type="Neutralizador">
+     <id>agenteNeutralizador4</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+     <movementTime>200</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <desactivationTime>200</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+    </robot>
+    <robot type="Neutralizador">
+     <id>agenteNeutralizador5</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+     <movementTime>200</movementTime>
+     <movementEnergy>20</movementEnergy>
+     <desactivationTime>200</desactivationTime>
+     <desactivationEnergy>20</desactivationEnergy>
+    </robot>
+   
+   <robot type="CentroControl">
+     <id>agenteCC</id>
+     <energy>100000</energy>
+     <celdaActual>
+        <x>0</x>
+        <y>0</y>
+     </celdaActual>
+    </robot>
+   <mina key="mina">
+     <celda>
+        <x>1</x>
+        <y>0</y>
+     </celda>
+   </mina>
+</escenarioSimulacion>
