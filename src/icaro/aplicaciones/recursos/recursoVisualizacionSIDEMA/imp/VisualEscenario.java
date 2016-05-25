@@ -52,6 +52,10 @@ public class VisualEscenario extends JPanel{
 		this.mapaVisual[i][j].movimientoNeutralizador();
 	}
 	
+	public void desactivarMina(int x, int y){
+		this.mapaVisual[x][y].desactivarMina();
+	}
+	
 	
 	private VisualCelda[][] mapaVisual;
 	//private ArrayList<Type> agentes;

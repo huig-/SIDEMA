@@ -167,6 +167,10 @@ public class Ventana extends JFrame {
 		
 
 	}
+	
+	public void desactivarMina(int x, int y){
+		this.escenario.desactivarMina(x, y);
+	}
 
 	/*
 	 * public void cargarEscenario(Escenario esc){ escenario = new

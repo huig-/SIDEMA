@@ -23,7 +23,8 @@ public class VisualCelda extends JButton {
 	private CombineIcon ci;
 	private boolean exp = false;
 	private boolean neut = false;
-
+	private boolean desactivada = false;
+	
 	public VisualCelda(boolean mina, boolean accesible) {
 		super();
 		this.mina = mina;
@@ -92,22 +93,43 @@ public class VisualCelda extends JButton {
 	}
 
 	public void desactivarMina() {
-		// CAMBIAR EL DIBUJO
-		ImageIcon arena = new ImageIcon(this.getClass().getResource(path + "arena_marron_mina.jpg"));
-		this.setIcon(arena);
+		
+		ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
+		ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "bombaDesactivada.png"));
+		ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "marvin.png"));
+		//ImageIcon icono4 = new ImageIcon(this.getClass().getResource(path + "ambos.png"));
+		/*ci.removeIcon("mina");
+		ci.addIcon("desactivada", icono2);
+		ci.rescale(this.getSize().width, this.getSize().height);
 		this.repaint();
+		*/ci = new CombineIcon("background", icono1);
+		this.setIcon(ci);
+		ci.rescale(this.getSize().width, this.getSize().height);
+		ci.addIcon("desactivada", icono2);
+		ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+		this.repaint();
+		ci.addIcon("explorador", icono3);
+		ci.rescale(ci.getIconWidth(), ci.getIconHeight());
+		this.repaint();
+		this.desactivada = true;
 	}
 
 	public synchronized void movimientoExplorador() {
 		if (this.mina) {
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "bomba1.png"));
+			ImageIcon icono5 = new ImageIcon(this.getClass().getResource(path + "bombaDesactivada.png"));
 			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "wall-e.png"));
 			ImageIcon icono4 = new ImageIcon(this.getClass().getResource(path + "ambos.png"));
 			ci = new CombineIcon("background", icono1);
 			this.setIcon(ci);
 			ci.rescale(this.getSize().width, this.getSize().height);
-			ci.addIcon("mina", icono2);
+			if(!desactivada){
+				ci.addIcon("mina", icono2);	
+			}else{
+				ci.addIcon("desactivada", icono5);
+			}
+			
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 			this.repaint();
 			if (this.neut) {
@@ -141,6 +163,7 @@ public class VisualCelda extends JButton {
 	public synchronized void movimientoNeutralizador() {
 
 		if (mina) {
+			ImageIcon icono5 = new ImageIcon(this.getClass().getResource(path + "bombaDesactivada.png"));
 			ImageIcon icono1 = new ImageIcon(this.getClass().getResource(path + "arena_marron.jpg"));
 			ImageIcon icono2 = new ImageIcon(this.getClass().getResource(path + "bomba1.png"));
 			ImageIcon icono3 = new ImageIcon(this.getClass().getResource(path + "marvin.png"));
@@ -148,7 +171,11 @@ public class VisualCelda extends JButton {
 			ci = new CombineIcon("background", icono1);
 			this.setIcon(ci);
 			ci.rescale(this.getSize().width, this.getSize().height);
-			ci.addIcon("mina", icono2);
+			if(!desactivada){
+				ci.addIcon("mina", icono2);	
+			}else{
+				ci.addIcon("desactivada", icono5);
+			}
 			ci.rescale(ci.getIconWidth(), ci.getIconHeight());
 			this.repaint();
 			if (this.exp) {

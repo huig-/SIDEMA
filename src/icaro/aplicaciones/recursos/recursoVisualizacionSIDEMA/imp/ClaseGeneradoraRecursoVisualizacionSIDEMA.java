@@ -54,6 +54,10 @@ public class ClaseGeneradoraRecursoVisualizacionSIDEMA extends ImplRecursoSimple
 		
 		
 	}
+	
+	public void desactivarMina(int x, int y) throws Exception{
+		this.control.desactivarMina(x, y);
+	}
 
 	@Override
 	public void mostrarMensaje(String msg) throws Exception{

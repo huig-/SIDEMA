@@ -86,6 +86,11 @@ public class CombineIcon implements Icon {
 	    	listId.addElement(id);
 	    }
 	    
+	    public void addIcon(String id,ImageIcon ic, int index){
+	    	Image im = ic.getImage().getScaledInstance(lastSize.width,lastSize.height,Image.SCALE_FAST);
+	    	list.add(index, new ImageIcon(im));
+	    	listId.addElement(id);
+	    }
 	    /**
 	     * Elimina un icono segun su posicion
 	     * @param idx posicion del icono a eliminar

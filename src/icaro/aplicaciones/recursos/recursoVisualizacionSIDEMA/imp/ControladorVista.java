@@ -68,6 +68,10 @@ public class ControladorVista implements ActionListener{
 		this.v.setModelo(escLog);
 	}
 	
+	public void desactivarMina(int x, int y){
+		this.v.desactivarMina(x, y);
+	}
+	
 	public void actualizarPantalla(){
 		this.v.actualizarPantalla();
 	}

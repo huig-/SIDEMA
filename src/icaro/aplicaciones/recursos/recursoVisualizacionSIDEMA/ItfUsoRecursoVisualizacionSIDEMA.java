@@ -10,6 +10,7 @@ public interface ItfUsoRecursoVisualizacionSIDEMA extends ItfUsoRecursoSimple{
 
 	public void mover(String identAgente, int xT, int yT, int xS,int yS)throws Exception;
 	public void minaEncontrada(int x,int y)throws Exception;
+	public void desactivarMina(int x,int y) throws Exception;
 	public void mostrarMensaje(String msg)throws Exception;
 	public void mostrarEntornoSimulacion()throws Exception;
 	public void termina()throws Exception;
