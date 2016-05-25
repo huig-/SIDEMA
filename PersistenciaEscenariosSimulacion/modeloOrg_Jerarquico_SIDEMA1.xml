@@ -6,12 +6,12 @@
    <numMinas>1</numMinas>
    <robot type="Explorador">
      <id>agenteExplorador0</id>
-     <energy>100</energy>
+     <energy>100000</energy>
      <celdaActual>
         <x>0</x>
         <y>0</y>
      </celdaActual>	            			
-     <movementTime>100</movementTime>
+     <movementTime>300</movementTime>
      <movementEnergy>60</movementEnergy>
      <explorationTime>100</explorationTime>
      <explorationEnergy>20</explorationEnergy>
@@ -23,14 +23,14 @@
         <x>0</x>
         <y>0</y>
      </celdaActual>	            			
-     <movementTime>100</movementTime>
+     <movementTime>300</movementTime>
      <movementEnergy>20</movementEnergy>
      <explorationTime>100</explorationTime>
      <explorationEnergy>20</explorationEnergy>
        </robot>
    <robot type="Neutralizador">
      <id>agenteNeutralizador0</id>
-     <energy>100</energy>
+     <energy>100000</energy>
      <celdaActual>
         <x>0</x>
         <y>0</y>
