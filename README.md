@@ -1,4 +1,5 @@
 SIDEMA PROJECT
+
 1.  THE MAIN METHOD IS IMPLEMENTED IN icaro.infraestructura.clasesGeneradorasOrganizacion.ArranqueSistemaConCrtlGestorO
 
 2.  THE ONLY ARGUMENT REQUIRED IS THE CONFIGURATION FILE WHICH CAN BE FOUND IN config.icaro.aplicaciones.descripcionOrganizacion.SIDEMA
